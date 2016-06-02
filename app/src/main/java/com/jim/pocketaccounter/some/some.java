@@ -5,4 +5,5 @@ package com.jim.pocketaccounter.some;
  */
 
 public class some {
+    public int A;
 }
