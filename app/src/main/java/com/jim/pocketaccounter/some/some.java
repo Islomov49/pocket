@@ -9,4 +9,5 @@ public class some {
     public int z;
     public int xz;
     public int AAA;
+    public int privetPacany;
 }
