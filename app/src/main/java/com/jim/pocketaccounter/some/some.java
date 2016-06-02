@@ -8,4 +8,5 @@ public class some {
     public int A;
     public int z;
     public int xz;
+    public int AAA;
 }
