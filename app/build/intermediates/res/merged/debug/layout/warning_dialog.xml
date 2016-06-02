@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/sixteen_sp"
         android:text="@string/warning"
-        android:textColor="@color/currency_chooser"
+        android:textColor="@color/toolbar_text_color"
         android:textSize="@dimen/eighteen_sp" />
 
     <ImageView

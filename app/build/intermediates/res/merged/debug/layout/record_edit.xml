@@ -88,7 +88,7 @@
                 android:id="@+id/rlCancelSign"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" >
+                android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/ImageView09"
@@ -205,7 +205,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_weight="1" >
+                android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/ImageView03"
@@ -310,7 +310,7 @@
                 android:id="@+id/rlMultipleSign"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" >
+                android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/ivvvv"
@@ -409,7 +409,7 @@
                 android:id="@+id/rlMinusSign"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" >
+                android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/iv1"
@@ -485,7 +485,7 @@
                 android:id="@+id/rlEqualSign"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" >
+                android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/kkhl"
@@ -508,7 +508,7 @@
                 android:id="@+id/rlPlusSign"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" >
+                android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/rhlk"

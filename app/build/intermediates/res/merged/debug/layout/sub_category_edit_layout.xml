@@ -19,7 +19,7 @@
             android:layout_marginRight="@dimen/ten_dp"
             android:layout_weight="1"
             android:text="@string/sub_cat"
-            android:textColor="@color/toolbar_color"
+            android:textColor="@color/toolbar_text_color"
             android:textSize="@dimen/sixteen_dp" />
 
         <ImageView
