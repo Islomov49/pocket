@@ -18,21 +18,9 @@
 	            android:layout_height="@dimen/drawer_header_height"
 	            android:src="@drawable/drawer_header" />
 
-	        <com.jim.pocketaccounter.helper.CircleImageView
-	            android:id="@+id/civGoogle"
-	            android:layout_width="@dimen/sixty_dp"
-	            android:layout_height="@dimen/sixty_dp"
-	            android:layout_alignParentLeft="true"
-	            android:layout_alignParentTop="true"
-	            android:layout_marginLeft="@dimen/sixteen_dp"
-	            android:layout_marginTop="@dimen/thirtytwo_dp"
-	            android:src="@drawable/no_photo" />
-
-	        <LinearLayout
+	            <LinearLayout
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@+id/civGoogle"
-	            android:layout_below="@+id/civGoogle"
 	            android:layout_marginTop="@dimen/sixteen_dp"
 	            android:orientation="vertical" >
 	
@@ -41,7 +29,7 @@
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
 	                android:text="Johnatan Taylor"
-	                android:textColor="@color/white"
+	                android:textColor="#FFFFFF"
 	                android:textSize="@dimen/fourteen_sp"
 	                android:textStyle="bold" />
 	
@@ -51,7 +39,7 @@
 	                android:layout_height="wrap_content"
 	                android:layout_marginTop="@dimen/four_dp"
 	                android:text="jonathantaylor@gmail.com"
-	                android:textColor="@color/white"
+	                android:textColor="#FFFFFF"
 	                android:textSize="@dimen/fourteen_sp" />
 	
 	        </LinearLayout>
@@ -81,7 +69,6 @@
 	    android:layout_width="@dimen/six_dp"
 	    android:layout_height="match_parent"
 	    android:layout_alignParentRight="true"
-	    android:background="@drawable/drawer_shadow"
 	    android:orientation="vertical"
 	    android:visibility="gone" >
 
