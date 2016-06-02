@@ -1,0 +1,7 @@
+#Wed Jun 01 16:26:45 UZT 2016
+base.0=D\:\\DEV\\MoneyHolder1\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_3dae8ed47d355870ac9e21b63aa11354d84c121d
+renamed.1=classes2.dex
+renamed.0=classes.dex
+file.1=D\:\\DEV\\MoneyHolder1\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_4f1e83f854700ec1140220cefba8760418711900\\classes.dex
+base.1=D\:\\DEV\\MoneyHolder1\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run-bootstrap_4f1e83f854700ec1140220cefba8760418711900
+file.0=D\:\\DEV\\MoneyHolder1\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\instant-run_3dae8ed47d355870ac9e21b63aa11354d84c121d\\classes.dex

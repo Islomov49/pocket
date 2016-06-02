@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MoneyHolder</string>
+    <string-array name="drawer_cats">
+        <item>Home</item>
+        <item>Finance</item>
+        <item>Planning</item>
+        <item>Accounting debt</item>
+        <item>Settings</item>
+        <item>Rate app</item>
+        <item>Share app</item>
+        <item>Write to us</item>
+    </string-array>
+    <string-array name="cat_ids">
+        <item>0</item>
+        <item>100</item>
+        <item>5</item>
+        <item>100</item>
+        <item>8</item>
+        <item>10</item>
+        <item>9</item>
+        <item>11</item>
+    </string-array>
+    <string-array name="finance_subitems">
+        <item>Currency management</item>
+        <item>Category management</item>
+        <item>Account management</item>
+        <item>Statistics</item>
+    </string-array>
+    <string-array name="finance_subitem_icons">
+        <item>drawer_currency</item>
+        <item>drawer_category</item>
+        <item>drawer_account</item>
+        <item>drawer_statistics</item>
+    </string-array>
+    <string-array name="debts_subitems">
+        <item>Credit</item>
+        <item>Debts</item>
+    </string-array>
+    <string-array name="debts_subitem_icons">
+        <item>drawer_credit</item>
+        <item>drawer_debts_debt</item>
+    </string-array>
+    <string-array name="base_currencies">
+        <item>United States</item>
+        <item>Russia</item>
+        <item>United Kingdom</item>
+        <item>EU</item>
+        <item>Ukraine</item>
+        <item>Afghanistan</item>
+        <item>Albania</item>
+        <item>Algeria</item>
+        <item>Angola</item>
+        <item>Armenia</item>
+        <item>Australia</item>
+        <item>Azerbaijan</item>
+        <item>Bahrain</item>
+        <item>Bangladesh</item>
+        <item>Belarus</item>
+        <item>Bosnia and Herzegovina</item>
+        <item>Brazil</item>
+        <item>Bulgaria</item>
+        <item>China</item>
+        <item>Czech Republic</item>
+        <item>Denmark</item>
+        <item>Egypt</item>
+        <item>Ghana</item>
+        <item>Hungary</item>
+        <item>India</item>
+        <item>Indonesia</item>
+        <item>Iran</item>
+        <item>Iraq</item>
+        <item>Israel</item>
+        <item>Japan</item>
+        <item>Jordan</item>
+        <item>Kazakhstan</item>
+        <item>Korea</item>
+        <item>Kuwait</item>
+        <item>Philippines</item>
+        <item>Poland</item>
+        <item>Qatar</item>
+        <item>Romania</item>
+        <item>Saudi Arabia</item>
+        <item>Switzerland</item>
+        <item>Serbia</item>
+        <item>South Africa</item>
+        <item>Thailand</item>
+        <item>Turkey</item>
+    </string-array>
+    <string-array name="base_abbrs">
+        <item>$</item>
+        <item>₽</item>
+        <item>£</item>
+        <item>€</item>
+        <item>₴</item>
+        <item>؋</item>
+        <item>L</item>
+        <item>DZD</item>
+        <item>Kz</item>
+        <item>֏</item>
+        <item>$</item>
+        <item>₼</item>
+        <item>BD</item>
+        <item>Tk</item>
+        <item>BYR</item>
+        <item>KM</item>
+        <item>R$</item>
+        <item>лв</item>
+        <item>¥</item>
+        <item>Kč</item>
+        <item>kr</item>
+        <item>Pt</item>
+        <item>GH₵</item>
+        <item>Ft</item>
+        <item>₹</item>
+        <item>Rp</item>
+        <item>﷼</item>
+        <item>ع.د</item>
+        <item>₪</item>
+        <item>¥</item>
+        <item>د.ا</item>
+        <item>₸</item>
+        <item>₩</item>
+        <item>د.ك</item>
+        <item>₱</item>
+        <item>zł</item>
+        <item>ر.ق</item>
+        <item>lei</item>
+        <item>ر.س</item>
+        <item>Fr</item>
+        <item>din</item>
+        <item>R</item>
+        <item>฿</item>
+        <item>₺</item>
+    </string-array>
+    <string-array name="currency_ids">
+        <item>us</item>
+        <item>rus</item>
+        <item>uk</item>
+        <item>eu</item>
+        <item>ukr</item>
+        <item>afg</item>
+        <item>alb</item>
+        <item>alg</item>
+        <item>ang</item>
+        <item>arm</item>
+        <item>aus</item>
+        <item>aze</item>
+        <item>bah</item>
+        <item>bng</item>
+        <item>bel</item>
+        <item>bnh</item>
+        <item>bra</item>
+        <item>bul</item>
+        <item>cn</item>
+        <item>cz</item>
+        <item>den</item>
+        <item>egy</item>
+        <item>gha</item>
+        <item>hun</item>
+        <item>ind</item>
+        <item>ino</item>
+        <item>irn</item>
+        <item>irq</item>
+        <item>isr</item>
+        <item>jap</item>
+        <item>jor</item>
+        <item>kaz</item>
+        <item>kor</item>
+        <item>kuw</item>
+        <item>phi</item>
+        <item>pol</item>
+        <item>qat</item>
+        <item>rom</item>
+        <item>sar</item>
+        <item>swz</item>
+        <item>ser</item>
+        <item>saf</item>
+        <item>tha</item>
+        <item>tur</item>
+    </string-array>
+    <string-array name="currency_costs">
+        <item>1.0</item>
+        <item>65.0</item>
+        <item>100.0</item>
+        <item>1.1</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+        <item>1.0</item>
+    </string-array>
+    <string-array name="icons">
+        <item>ic_category_1</item>
+        <item>ic_category_2</item>
+        <item>ic_category_3</item>
+        <item>ic_category_4</item>
+        <item>ic_category_5</item>
+        <item>ic_category_6</item>
+        <item>ic_category_7</item>
+        <item>ic_category_8</item>
+        <item>ic_category_9</item>
+        <item>ic_category_10</item>
+        <item>ic_category_11</item>
+        <item>ic_category_12</item>
+        <item>ic_category_13</item>
+        <item>ic_category_14</item>
+        <item>ic_category_15</item>
+        <item>ic_category_16</item>
+        <item>ic_category_17</item>
+        <item>ic_category_18</item>
+        <item>ic_category_19</item>
+        <item>ic_category_20</item>
+        <item>ic_category_21</item>
+        <item>ic_category_22</item>
+        <item>ic_category_23</item>
+        <item>ic_category_24</item>
+        <item>ic_category_25</item>
+        <item>ic_category_26</item>
+        <item>ic_category_27</item>
+        <item>ic_category_28</item>
+        <item>ic_category_29</item>
+        <item>ic_category_30</item>
+        <item>ic_category_31</item>
+        <item>ic_category_32</item>
+        <item>ic_category_33</item>
+        <item>ic_category_34</item>
+        <item>ic_category_35</item>
+        <item>ic_category_36</item>
+        <item>ic_category_37</item>
+        <item>ic_category_38</item>
+        <item>ic_category_39</item>
+        <item>ic_category_40</item>
+        <item>ic_category_41</item>
+        <item>ic_category_43</item>
+        <item>ic_category_44</item>
+        <item>ic_category_45</item>
+        <item>ic_category_46</item>
+        <item>ic_category_47</item>
+        <item>ic_category_48</item>
+        <item>ic_category_49</item>
+        <item>ic_category_50</item>
+        <item>ic_category_51</item>
+        <item>ic_category_52</item>
+        <item>ic_category_53</item>
+        <item>ic_category_54</item>
+        <item>ic_category_55</item>
+        <item>ic_category_56</item>
+        <item>ic_category_57</item>
+        <item>ic_category_58</item>
+        <item>ic_category_59</item>
+        <item>ic_category_60</item>
+        <item>ic_category_61</item>
+        <item>ic_category_62</item>
+        <item>ic_category_63</item>
+        <item>ic_category_64</item>
+        <item>ic_category_65</item>
+        <item>ic_category_66</item>
+        <item>ic_category_67</item>
+        <item>ic_category_68</item>
+        <item>ic_category_69</item>
+        <item>ic_category_70</item>
+        <item>ic_category_71</item>
+        <item>ic_category_72</item>
+        <item>ic_category_73</item>
+        <item>ic_category_74</item>
+        <item>ic_category_75</item>
+        <item>ic_category_76</item>
+        <item>ic_category_77</item>
+        <item>ic_category_78</item>
+        <item>ic_category_79</item>
+        <item>ic_category_80</item>
+        <item>ic_category_81</item>
+        <item>ic_category_82</item>
+        <item>ic_category_83</item>
+        <item>ic_category_84</item>
+        <item>ic_category_85</item>
+        <item>ic_category_86</item>
+        <item>ic_category_87</item>
+        <item>ic_category_88</item>
+        <item>ic_category_89</item>
+        <item>ic_category_90</item>
+        <item>ic_category_91</item>
+        <item>ic_category_92</item>
+        <item>ic_category_93</item>
+        <item>ic_category_94</item>
+        <item>ic_category_95</item>
+        <item>ic_category_96</item>
+        <item>ic_category_97</item>
+        <item>ic_category_98</item>
+        <item>ic_category_99</item>
+        <item>ic_category_100</item>
+    </string-array>
+    <string name="currencies">Валюты</string>
+    <string name="main_currency">Основная валюта: </string>
+    <string name="choose_currencies">Выберите из списка нужные вам валюты:</string>
+    <string name="curr_not_choosen">Выберите хотя бы одну валюту</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="currency_exchange_warning">Данные по курсам валют и записи будут утеряны, так как вы не выбрали ранее вами выбранную валюту!</string>
+    <string name="currency_delete_warning">Записи по выбранным валютам будут удалены!!!</string>
+    <string name="currency_empty_warning">Список валют не должен быть пустым!!!</string>
+    <string name="warning">Предупреждение!!!</string>
+    <string name="add">Добавить</string>
+    <string name="expanse">Расход</string>
+    <string name="income">Доход</string>
+    <string name="sub_cat">Подкатегория</string>
+    <string name="cat_name">Наименование</string>
+    <string name="sub_cats">Подкатегории</string>
+    <string name="both">Оба</string>
+    <string name="subcat_name">Название подкатегории</string>
+    <string name="warning_subcat">Существует подкатегория с таким названием.</string>
+    <string name="select_icon">Выберите иконку</string>
+    <string name="cat_type_not_choosen">Выберите тип категории</string>
+    <string name="enter_cat_name">Введите название категории</string>
+    <string name="initial_amount">Начальная сумма: </string>
+    <string name="account_history">История переводов: </string>
+    <string name="account">Счет</string>
+    <string name="currency_exchange">Курс валюты</string>
+    <string name="choose_date">Выберите дату</string>
+    <string name="enter_exchange">Введите курс</string>
+    <string name="main_currency_edit">Основная валюта</string>
+    <string name="costs_selected_all_warning">В списке должно остаться хотябы один элемент</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

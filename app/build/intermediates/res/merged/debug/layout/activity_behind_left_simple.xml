@@ -1,0 +1,90 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/left_drawer_width"
+    android:layout_height="match_parent" >
+
+	<ScrollView 
+	    style="@style/leftBehindMenuScroll"
+	    android:layout_height="match_parent"
+	    android:fillViewport="true" >
+	
+	    <RelativeLayout
+	        style="@style/behindMenuScrollContent"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent" >
+	
+	        <ImageView
+	            android:id="@+id/ivDrawerHead"
+	            android:layout_width="@dimen/left_drawer_width"
+	            android:layout_height="@dimen/drawer_header_height"
+	            android:src="@drawable/drawer_header" />
+
+	        <com.jim.pocketaccounter.helper.CircleImageView
+	            android:id="@+id/civGoogle"
+	            android:layout_width="@dimen/sixty_dp"
+	            android:layout_height="@dimen/sixty_dp"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignParentTop="true"
+	            android:layout_marginLeft="@dimen/sixteen_dp"
+	            android:layout_marginTop="@dimen/thirtytwo_dp"
+	            android:src="@drawable/no_photo" />
+
+	        <LinearLayout
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/civGoogle"
+	            android:layout_below="@+id/civGoogle"
+	            android:layout_marginTop="@dimen/sixteen_dp"
+	            android:orientation="vertical" >
+	
+	            <TextView
+	                android:id="@+id/tvToolbarName"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="Johnatan Taylor"
+	                android:textColor="@color/white"
+	                android:textSize="@dimen/fourteen_sp"
+	                android:textStyle="bold" />
+	
+	            <TextView
+	                android:id="@+id/tvGoogleMail"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_marginTop="@dimen/four_dp"
+	                android:text="jonathantaylor@gmail.com"
+	                android:textColor="@color/white"
+	                android:textSize="@dimen/fourteen_sp" />
+	
+	        </LinearLayout>
+	
+	        <LinearLayout
+	            android:id="@+id/llDrawerContent"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            android:layout_below="@+id/ivDrawerHead"
+	            android:layout_marginBottom="@dimen/sixteen_dp"
+	            android:orientation="vertical" >
+
+	            <ListView
+	                android:id="@+id/lvLeftMenu"
+	                android:layout_width="match_parent"
+	                android:layout_height="match_parent"
+	                android:divider="@color/drawer_color" >
+
+	            </ListView>
+	
+	        </LinearLayout>
+	
+	    </RelativeLayout>
+	</ScrollView>
+
+	<LinearLayout
+	    android:layout_width="@dimen/six_dp"
+	    android:layout_height="match_parent"
+	    android:layout_alignParentRight="true"
+	    android:background="@drawable/drawer_shadow"
+	    android:orientation="vertical"
+	    android:visibility="gone" >
+
+	</LinearLayout>
+	 
+</RelativeLayout>	
