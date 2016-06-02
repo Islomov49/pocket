@@ -1,8 +1,4 @@
 package com.jim.pocketaccounter.finance;
-import java.util.ArrayList;
-
-import com.jim.pocketaccounter.R;
-import com.jim.pocketaccounter.RootCategoryEditFragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -14,6 +10,12 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
+
+import com.jim.pocketaccounter.R;
+import com.jim.pocketaccounter.RootCategoryEditFragment;
+
+import java.util.ArrayList;
+
 public class SubCategoryAdapter extends BaseAdapter {
 	private ArrayList<SubCategory> result;
 	private LayoutInflater inflater;

@@ -1,14 +1,8 @@
 package com.jim.pocketaccounter;
-import java.util.ArrayList;
-import java.util.Calendar;
-
-import com.jim.pocketaccounter.finance.Currency;
-import com.jim.pocketaccounter.finance.CurrencyChooseAdapter;
-import com.jim.pocketaccounter.finance.CurrencyCost;
 
 import android.app.Dialog;
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,18 +17,29 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.jim.pocketaccounter.finance.Currency;
+import com.jim.pocketaccounter.finance.CurrencyChooseAdapter;
+import com.jim.pocketaccounter.finance.CurrencyCost;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+
 public class CurrencyChooseFragment extends Fragment {
 	private GridView gvCurrencyChoose;
 	private ArrayList<Currency> currencies;
-	private boolean[] chbs;// = new boolean[baseCurrencies.length];
+	private boolean[] chbs;
+    private ImageView ivToolbarMostRight;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.currency_choose_fragment, container, false);
-		((TextView)PocketAccounter.toolbar.findViewById(R.id.tvToolbarTitle)).setText(getResources().getString(R.string.choose_currencies));
-		gvCurrencyChoose = (GridView) view.findViewById(R.id.gvCurrencyChoose);
-		((ImageView)PocketAccounter.toolbar.findViewById(R.id.ivToolbar)).setImageDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.check_sign));
-		((ImageView)PocketAccounter.toolbar.findViewById(R.id.ivDrawer)).setVisibility(View.GONE);
-		((TextView)PocketAccounter.toolbar.findViewById(R.id.tvToolbarSubTitle)).setVisibility(View.GONE);
+		PocketAccounter.toolbar.setTitle(getResources().getString(R.string.choose_currencies));
+        PocketAccounter.toolbar.setSubtitle("");
+        ((PocketAccounter)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(!PocketAccounter.financeManager.getCurrencies().isEmpty());
+        ivToolbarMostRight = ((ImageView)PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight));
+        ivToolbarMostRight.setVisibility(View.VISIBLE);
+        ivToolbarMostRight.setImageResource(R.drawable.check_sign);
+        gvCurrencyChoose = (GridView) view.findViewById(R.id.gvCurrencyChoose);
 		final String[] baseCurrencies = getResources().getStringArray(R.array.base_currencies);
 		final String[] baseAbbrs = getResources().getStringArray(R.array.base_abbrs);
 		final String[] currIds = getResources().getStringArray(R.array.currency_ids);
@@ -42,7 +47,7 @@ public class CurrencyChooseFragment extends Fragment {
 		chbs = new boolean[baseCurrencies.length];
 		for (int i=0; i<currIds.length; i++) {
 			boolean found=false;
-			for (int j=0; j<PocketAccounter.financeManager.getCurrencies().size(); j++) {
+			for (int j = 0; j< PocketAccounter.financeManager.getCurrencies().size(); j++) {
 				if (currIds[i].matches(PocketAccounter.financeManager.getCurrencies().get(j).getId())) {
 					found = true;
 					break;
@@ -76,7 +81,7 @@ public class CurrencyChooseFragment extends Fragment {
 				}
 			}
 		});
-		((ImageView)PocketAccounter.toolbar.findViewById(R.id.ivToolbar)).setOnClickListener(new OnClickListener() {
+        ivToolbarMostRight.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				boolean checked = false;
@@ -91,7 +96,7 @@ public class CurrencyChooseFragment extends Fragment {
 						Toast.makeText(getActivity(), getResources().getString(R.string.curr_not_choosen), Toast.LENGTH_SHORT).show();
 						return;
 					} else {
-						((PocketAccounter)getActivity()).openFragment(new CurrencyFragment());
+						((PocketAccounter)getActivity()).replaceFragment(new CurrencyFragment());
 						return;
 					}
 				}
@@ -101,11 +106,11 @@ public class CurrencyChooseFragment extends Fragment {
 							PocketAccounter.financeManager.getCurrencies().add(currencies.get(i));
 					}
 					PocketAccounter.financeManager.getCurrencies().get(0).setMain(true);
-					((PocketAccounter)getActivity()).openFragment(new CurrencyFragment());
+					((PocketAccounter)getActivity()).replaceFragment(new CurrencyFragment());
 				}
 				else {
 					boolean isCurrencyListChanged = false;
-					for (int i=0; i<PocketAccounter.financeManager.getCurrencies().size(); i++) {
+					for (int i = 0; i< PocketAccounter.financeManager.getCurrencies().size(); i++) {
 						if (isCurrencyListChanged) break;
 						for (int j=0; j<currIds.length; j++) {
 							if (PocketAccounter.financeManager.getCurrencies().get(i).getId().matches(currIds[j]) && !chbs[j]) {
@@ -133,7 +138,7 @@ public class CurrencyChooseFragment extends Fragment {
 										temp.add(currencies.get(i));
 								}
 								for (int i=0; i<temp.size(); i++) {
-									for (int j=0; j<PocketAccounter.financeManager.getCurrencies().size(); j++) {
+									for (int j = 0; j< PocketAccounter.financeManager.getCurrencies().size(); j++) {
 										if (temp.get(i).getId().matches(PocketAccounter.financeManager.getCurrencies().get(j).getId())) {
 											temp.get(i).setCosts(PocketAccounter.financeManager.getCurrencies().get(j).getCosts());
 										}
@@ -142,9 +147,9 @@ public class CurrencyChooseFragment extends Fragment {
 								boolean foundMainCurrency = false;
 								int pos = 0;
 								for (int i=0; i<temp.size(); i++) {
-									for (int j=0; j<PocketAccounter.financeManager.getCurrencies().size(); j++) {
+									for (int j = 0; j< PocketAccounter.financeManager.getCurrencies().size(); j++) {
 										if (foundMainCurrency) break;
-										if (temp.get(i).getId().matches(PocketAccounter.financeManager.getCurrencies().get(j).getId()) && 
+										if (temp.get(i).getId().matches(PocketAccounter.financeManager.getCurrencies().get(j).getId()) &&
 												PocketAccounter.financeManager.getCurrencies().get(j).getMain()) {
 											pos = i;
 											foundMainCurrency = true;
@@ -157,7 +162,7 @@ public class CurrencyChooseFragment extends Fragment {
 								else
 									temp.get(0).setMain(true);
 								for (int i=0; i<temp.size(); i++) {
-									for (int j=0; j<PocketAccounter.financeManager.getCurrencies().size(); j++) {
+									for (int j = 0; j< PocketAccounter.financeManager.getCurrencies().size(); j++) {
 										if (temp.get(i).getId().matches(PocketAccounter.financeManager.getCurrencies().get(j).getId())) {
 											temp.get(i).setCosts(PocketAccounter.financeManager.getCurrencies().get(j).getCosts());
 											break;
@@ -165,7 +170,7 @@ public class CurrencyChooseFragment extends Fragment {
 									}
 								}
 								PocketAccounter.financeManager.setCurrencies(temp);
-								((PocketAccounter)getActivity()).openFragment(new CurrencyFragment());
+								((PocketAccounter)getActivity()).replaceFragment(new CurrencyFragment());
 								dialog.dismiss();
 							}
 						});
@@ -186,7 +191,7 @@ public class CurrencyChooseFragment extends Fragment {
 						boolean foundMainCurrency = false;
 						int pos = 0;
 						for (int i=0; i<temp.size(); i++) {
-							for (int j=0; j<PocketAccounter.financeManager.getCurrencies().size(); j++) {
+							for (int j = 0; j< PocketAccounter.financeManager.getCurrencies().size(); j++) {
 								if (foundMainCurrency) break;
 								if (temp.get(i).getId().matches(PocketAccounter.financeManager.getCurrencies().get(j).getId())) {
 									pos = i;
@@ -200,7 +205,7 @@ public class CurrencyChooseFragment extends Fragment {
 						else
 							temp.get(0).setMain(true);
 						for (int i=0; i<temp.size(); i++) {
-							for (int j=0; j<PocketAccounter.financeManager.getCurrencies().size(); j++) {
+							for (int j = 0; j< PocketAccounter.financeManager.getCurrencies().size(); j++) {
 								if (temp.get(i).getId().matches(PocketAccounter.financeManager.getCurrencies().get(j).getId())) {
 									temp.get(i).setCosts(PocketAccounter.financeManager.getCurrencies().get(j).getCosts());
 									break;
@@ -208,7 +213,7 @@ public class CurrencyChooseFragment extends Fragment {
 							}
 						}
 						PocketAccounter.financeManager.setCurrencies(temp);
-						((PocketAccounter)getActivity()).openFragment(new CurrencyFragment());
+						((PocketAccounter)getActivity()).replaceFragment(new CurrencyFragment());
 					}
 				}
 			}

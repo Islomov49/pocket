@@ -1,20 +1,14 @@
 package com.jim.pocketaccounter;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
-import com.jim.pocketaccounter.finance.Currency;
-import com.jim.pocketaccounter.finance.CurrencyCost;
-import com.jim.pocketaccounter.finance.CurrencyExchangeAdapter;
-
+import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.SlidingPaneLayout.LayoutParams;
+import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -28,8 +22,19 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.jim.pocketaccounter.finance.Currency;
+import com.jim.pocketaccounter.finance.CurrencyCost;
+import com.jim.pocketaccounter.finance.CurrencyExchangeAdapter;
+
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
+@SuppressLint("ValidFragment")
 public class CurrencyEditFragment extends Fragment implements OnClickListener, OnItemClickListener {
-	private ImageView ivExCurrencyAdd, ivExCurrencyDelete;
+	private ImageView ivExCurrencyAdd, ivExCurrencyDelete, ivToolbarBack;
 	private ListView lvCurrencyEditExchange;
 	private Currency currency;
 	private CheckBox chbCurrencyEditMainCurrency;
@@ -50,14 +55,17 @@ public class CurrencyEditFragment extends Fragment implements OnClickListener, O
 		lvCurrencyEditExchange.setOnItemClickListener(this);
 		chbCurrencyEditMainCurrency = (CheckBox) rootView.findViewById(R.id.chbCurrencyEditMainCurrency);
 		chbCurrencyEditMainCurrency.setChecked(currency.getMain());
-		((TextView)PocketAccounter.toolbar.findViewById(R.id.tvToolbarTitle)).setText(currency.getName()+", "+currency.getAbbr());
-		((ImageView)PocketAccounter.toolbar.findViewById(R.id.ivToolbar)).setImageResource(R.drawable.check_sign);
-		((ImageView)PocketAccounter.toolbar.findViewById(R.id.ivToolbar)).setOnClickListener(this);
-		((ImageView)PocketAccounter.toolbar.findViewById(R.id.ivDrawer)).setImageResource(R.drawable.ic_back_button);
-		((ImageView)PocketAccounter.toolbar.findViewById(R.id.ivDrawer)).setOnClickListener(this);
+		((PocketAccounter)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+		ivToolbarBack = (ImageView)PocketAccounter.toolbar.findViewById(R.id.ivToolbarBack);
+		ivToolbarBack.setVisibility(View.VISIBLE);
+		ivToolbarBack.setOnClickListener(this);
+		PocketAccounter.toolbar.setTitle(currency.getName()+", "+currency.getAbbr());
+		((ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight)).setImageResource(R.drawable.check_sign);
+		((ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight)).setOnClickListener(this);
 		refreshExchangeList();
 		return rootView;
 	}
+
 	private void refreshExchangeList() {
 		CurrencyExchangeAdapter adapter = new CurrencyExchangeAdapter(getActivity(), currency.getCosts(), selected, mode);
 		lvCurrencyEditExchange.setAdapter(adapter);
@@ -95,7 +103,7 @@ public class CurrencyEditFragment extends Fragment implements OnClickListener, O
 			}
 			refreshExchangeList();
 			break;
-		case R.id.ivToolbar:
+		case R.id.ivToolbarMostRight:
 			if (chbCurrencyEditMainCurrency.isChecked()) {
 				if (!currency.getMain()) {
 					double cost = 0.0;
@@ -108,9 +116,9 @@ public class CurrencyEditFragment extends Fragment implements OnClickListener, O
 							cost = currency.getCosts().get(i).getCost();
 						}
 					}
-					for (int i=0; i<PocketAccounter.financeManager.getCurrencies().size(); i++) {
+					for (int i = 0; i< PocketAccounter.financeManager.getCurrencies().size(); i++) {
 						PocketAccounter.financeManager.getCurrencies().get(i).setMain(false);
-						for (int j=0; j<PocketAccounter.financeManager.getCurrencies().get(i).getCosts().size(); j++) 
+						for (int j = 0; j< PocketAccounter.financeManager.getCurrencies().get(i).getCosts().size(); j++)
 							PocketAccounter.financeManager.getCurrencies().get(i).getCosts().get(j).setCost(PocketAccounter.financeManager.getCurrencies().get(i).getCosts().get(j).getCost()/cost);
 					}
 					for (int i=0; i <currency.getCosts().size(); i++) 
@@ -118,11 +126,11 @@ public class CurrencyEditFragment extends Fragment implements OnClickListener, O
 					currency.setMain(true);
 				}
 			}
-			((PocketAccounter)getActivity()).openFragment(new CurrencyFragment());
+			((PocketAccounter)getActivity()).replaceFragment(new CurrencyFragment());
 			break;
-		case R.id.ivDrawer:
-			((PocketAccounter)getActivity()).openFragment(new CurrencyFragment());
-			break;
+			case R.id.ivToolbarBack:
+				((PocketAccounter)getContext()).replaceFragment(new CurrencyFragment());
+				break;
 		}
 	}
 	private void exchangeEditDialog(final CurrencyCost currCost) {
@@ -173,7 +181,7 @@ public class CurrencyEditFragment extends Fragment implements OnClickListener, O
 		tvExchangeEditDate.setText(dateFormat.format(day.getTime()));
 		etExchange.setText(decFormat.format(cost));
 		ImageView ivCurrencyEditDialogOk = (ImageView) dialogView.findViewById(R.id.ivCurrencyEditDialogOk);
-		ImageView ivCurrencyEditDialogCancel = (ImageView) dialogView.findViewById(R.id.ivCurrencyEditDialogCancel);	
+		ImageView ivCurrencyEditDialogCancel = (ImageView) dialogView.findViewById(R.id.ivCurrencyEditDialogCancel);
 		ivCurrencyEditDialogOk.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {

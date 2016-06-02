@@ -2,7 +2,7 @@ package com.jim.pocketaccounter.finance;
 
 import java.util.ArrayList;
 
-public class RootCategory extends Category{
+public class RootCategory extends Category {
 	private int icon, type;
 	private ArrayList<SubCategory> subCategories;
 	public int getType() {

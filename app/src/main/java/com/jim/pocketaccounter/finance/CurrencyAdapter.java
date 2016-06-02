@@ -1,13 +1,5 @@
 package com.jim.pocketaccounter.finance;
 
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-
-import com.jim.pocketaccounter.CurrencyFragment;
-import com.jim.pocketaccounter.PocketAccounter;
-import com.jim.pocketaccounter.R;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +10,14 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.jim.pocketaccounter.CurrencyFragment;
+import com.jim.pocketaccounter.PocketAccounter;
+import com.jim.pocketaccounter.R;
+
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 public class CurrencyAdapter extends BaseAdapter {
 	private ArrayList<Currency> result;

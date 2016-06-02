@@ -1,13 +1,5 @@
 package com.jim.pocketaccounter.finance;
 
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-
-import com.jim.pocketaccounter.CurrencyEditFragment;
-import com.jim.pocketaccounter.PocketAccounter;
-import com.jim.pocketaccounter.R;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -18,6 +10,14 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
+
+import com.jim.pocketaccounter.CurrencyEditFragment;
+import com.jim.pocketaccounter.PocketAccounter;
+import com.jim.pocketaccounter.R;
+
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 
 @SuppressLint("ViewHolder")
 public class CurrencyExchangeAdapter extends BaseAdapter {
@@ -50,7 +50,7 @@ public class CurrencyExchangeAdapter extends BaseAdapter {
 		TextView tvCurrencyExchangeListItem = (TextView) view.findViewById(R.id.tvCurrencyExchangeListItem);
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 		String text = dateFormat.format(result.get(position).getDay().getTime()) 
-					  + "    1"+PocketAccounter.financeManager.getMainCurrency().getAbbr() 
+					  + "    1"+ PocketAccounter.financeManager.getMainCurrency().getAbbr()
 					  + "=" + decFormat.format(result.get(position).getCost());
 		tvCurrencyExchangeListItem.setText(text);
 		CheckBox chbCurrencyExchangeListItem = (CheckBox) view.findViewById(R.id.chbCurrencyExchangeListItem);

@@ -193,10 +193,10 @@ public class LeftSideDrawer extends FrameLayout {
         
         //above
         mAboveView = new FrameLayout(context);
-        mAboveView.setLayoutParams(new FrameLayout.LayoutParams(fp, fp));
+        mAboveView.setLayoutParams(new LayoutParams(fp, fp));
         //overlay is used for controlling drag action, slid to close/open.
         mOverlay = new OverlayView(getContext());
-        mOverlay.setLayoutParams(new FrameLayout.LayoutParams(fp, fp, Gravity.BOTTOM));
+        mOverlay.setLayoutParams(new LayoutParams(fp, fp, Gravity.BOTTOM));
         mOverlay.setEnabled(true);
         mOverlay.setVisibility(View.GONE);
         mOverlay.setOnClickListener(new OnClickListener() {

@@ -1,10 +1,5 @@
 package com.jim.pocketaccounter.finance;
 
-import java.util.ArrayList;
-
-import com.jim.pocketaccounter.PocketAccounter;
-import com.jim.pocketaccounter.R;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +9,12 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
+
+import com.jim.pocketaccounter.PocketAccounter;
+import com.jim.pocketaccounter.R;
+
+import java.util.ArrayList;
+
 public class CurrencyChooseAdapter extends BaseAdapter {
 	private ArrayList<Currency> result;
 	private LayoutInflater inflater;

@@ -1,15 +1,7 @@
 package com.jim.pocketaccounter;
 
-import java.util.ArrayList;
-
-import com.jim.pocketaccounter.finance.Category;
-import com.jim.pocketaccounter.finance.CategoryAdapter;
-import com.jim.pocketaccounter.finance.RootCategory;
-import com.jim.pocketaccounter.helper.FloatingActionButton;
-import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
-
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,22 +14,31 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.jim.pocketaccounter.finance.Category;
+import com.jim.pocketaccounter.finance.CategoryAdapter;
+import com.jim.pocketaccounter.finance.RootCategory;
+import com.jim.pocketaccounter.helper.FloatingActionButton;
+import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
+
+import java.util.ArrayList;
+
 public class CategoryFragment extends Fragment implements OnClickListener, OnItemClickListener, OnCheckedChangeListener {
 	private FloatingActionButton fabCategoryAdd;
 	private ListView lvCategories;
 	private CheckBox chbCatIncomes, chbCatExpanses, chbCatBoth;
-	private ImageView ivDrawer, ivToolbar;
+	private ImageView ivToolbarMostRight;
 	public static final int NORMAL_MODE=0, DELETE_MODE=1;
 	private int mode;
 	private boolean[] selected;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.category_layout, container, false);
-		ivDrawer = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivDrawer);
-		ivDrawer.setImageResource(R.drawable.ic_drawer);
-		ivDrawer.setOnClickListener(this);
-		ivToolbar = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbar);
-		ivToolbar.setImageResource(R.drawable.pencil);
-		ivToolbar.setOnClickListener(this);
+		PocketAccounter.toolbar.setTitle(getResources().getString(R.string.category));
+		PocketAccounter.toolbar.setSubtitle("");
+		((PocketAccounter)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		((PocketAccounter)getContext()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_drawer);
+		ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
+		ivToolbarMostRight.setImageResource(R.drawable.pencil);
+		ivToolbarMostRight.setOnClickListener(this);
 		fabCategoryAdd = (FloatingActionButton) rootView.findViewById(R.id.fabAccountAdd);
 		fabCategoryAdd.setOnClickListener(this);
 		lvCategories = (ListView) rootView.findViewById(R.id.lvAccounts);
@@ -55,7 +56,7 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 	}
 	private void refreshList(int mode) {
 		ArrayList<RootCategory> categories = new ArrayList<RootCategory>();
-		for (int i=0; i<PocketAccounter.financeManager.getCategories().size(); i++) {
+		for (int i = 0; i< PocketAccounter.financeManager.getCategories().size(); i++) {
 			if (chbCatIncomes.isChecked()) {
 				if (PocketAccounter.financeManager.getCategories().get(i).getType() == Category.INCOME)
 					categories.add(PocketAccounter.financeManager.getCategories().get(i));
@@ -76,15 +77,11 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 	public void onClick(View v) {
 		switch(v.getId()) {
 		case R.id.fabAccountAdd:
-			((PocketAccounter)getActivity()).openFragment(new RootCategoryEditFragment(null));
+			((PocketAccounter)getActivity()).replaceFragment(new RootCategoryEditFragment(null));
 			break;
-		case R.id.ivDrawer:
-			PocketAccounterGeneral.buttonClick(ivDrawer, getActivity());
-			PocketAccounter.drawer.openLeftSide();
-			break;
-		case R.id.ivToolbar:
-			PocketAccounterGeneral.buttonClick(ivToolbar, getActivity());
-			if (mode == NORMAL_MODE) 
+		case R.id.ivToolbarMostRight:
+			PocketAccounterGeneral.buttonClick(ivToolbarMostRight, getActivity());
+			if (mode == NORMAL_MODE)
 				mode = DELETE_MODE;
 			else {
 				mode = NORMAL_MODE;
@@ -97,7 +94,7 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		if (mode == NORMAL_MODE)
-			((PocketAccounter)getActivity()).openFragment(new RootCategoryEditFragment(PocketAccounter.financeManager.getCategories().get(position)));
+			((PocketAccounter)getActivity()).replaceFragment(new RootCategoryEditFragment(PocketAccounter.financeManager.getCategories().get(position)));
 		else {
 			CheckBox chbCatListItem = (CheckBox) view.findViewById(R.id.chbAccountListItem);
 			chbCatListItem.setChecked(!chbCatListItem.isChecked());
@@ -111,20 +108,20 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 	private void setMode(int mode) {
 		if (mode == NORMAL_MODE) {
 			selected = null;
-			ivToolbar.setImageResource(R.drawable.pencil);
+			ivToolbarMostRight.setImageResource(R.drawable.pencil);
 		}
 		else {
 			selected = new boolean[PocketAccounter.financeManager.getCategories().size()];
-			ivToolbar.setImageResource(R.drawable.ic_trash);
+			ivToolbarMostRight.setImageResource(R.drawable.ic_trash);
 		}
 		refreshList(mode);
 	}
 	private void deleteCategories() {
 		for (int i=0; i<selected.length; i++) {
-			if (selected[i]) 
+			if (selected[i])
 				PocketAccounter.financeManager.getCategories().set(i, null);
 		}
-		for (int i=0; i<PocketAccounter.financeManager.getCategories().size(); i++) {
+		for (int i = 0; i< PocketAccounter.financeManager.getCategories().size(); i++) {
 			if (PocketAccounter.financeManager.getCategories().get(i) == null) {
 				PocketAccounter.financeManager.getCategories().remove(i);
 				i--;

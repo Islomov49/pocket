@@ -1,14 +1,14 @@
 package com.jim.pocketaccounter.finance;
 
-import com.jim.pocketaccounter.R;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+
+import com.jim.pocketaccounter.R;
 
 public class IconAdapter extends BaseAdapter {
 	private int[] result;

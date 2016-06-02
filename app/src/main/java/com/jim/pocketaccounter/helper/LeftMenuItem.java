@@ -4,7 +4,7 @@ public class LeftMenuItem {
 	private String titleName="";
 	private int iconId=0, fragment=0;
 	private boolean isGroup=true;
-	public LeftMenuItem(String titleName, int icon, int fragment) {
+	public LeftMenuItem(String titleName, int icon) {
 		this.titleName = titleName;
 		this.setIconId(icon);
 		this.setFragment(fragment);

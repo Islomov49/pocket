@@ -1,20 +1,11 @@
 package com.jim.pocketaccounter;
 
-import java.util.UUID;
-
-import com.jim.pocketaccounter.finance.Account;
-import com.jim.pocketaccounter.finance.AccountAdapter;
-import com.jim.pocketaccounter.finance.IconAdapter;
-import com.jim.pocketaccounter.helper.FABIcon;
-import com.jim.pocketaccounter.helper.FloatingActionButton;
-import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +23,15 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout.LayoutParams;
 
+import com.jim.pocketaccounter.finance.Account;
+import com.jim.pocketaccounter.finance.AccountAdapter;
+import com.jim.pocketaccounter.finance.IconAdapter;
+import com.jim.pocketaccounter.helper.FABIcon;
+import com.jim.pocketaccounter.helper.FloatingActionButton;
+import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
+
+import java.util.UUID;
+
 @SuppressLint("InflateParams")
 public class AccountFragment extends Fragment implements OnClickListener, OnItemClickListener {
 	private FloatingActionButton fabAccountAdd;
@@ -39,19 +39,17 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 	private boolean[] selected;
 	private int mode, selectedIcon;
 	private ListView lvAccounts;
-	private ImageView ivToolbar, ivDrawer;
+	private ImageView ivToolbarMostRight;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.account_layout, container, false);
 		fabAccountAdd = (FloatingActionButton) rootView.findViewById(R.id.fabAccountAdd);
 		fabAccountAdd.setOnClickListener(this);
-		lvAccounts = (ListView) rootView.findViewById(R.id.lvAccounts);	
+		lvAccounts = (ListView) rootView.findViewById(R.id.lvAccounts);
 		lvAccounts.setOnItemClickListener(this);
-		ivDrawer = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivDrawer);
-		ivDrawer.setImageResource(R.drawable.ic_drawer);
-		ivDrawer.setOnClickListener(this);
-		ivToolbar = (ImageView)PocketAccounter.toolbar.findViewById(R.id.ivToolbar);
-		ivToolbar.setImageResource(R.drawable.pencil);
-		ivToolbar.setOnClickListener(this);
+		((PocketAccounter)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
+		ivToolbarMostRight.setImageResource(R.drawable.pencil);
+		ivToolbarMostRight.setOnClickListener(this);
 		mode = NORMAL_MODE;
 		refreshList(mode);
 		return rootView;
@@ -62,7 +60,7 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 	}
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		if (mode == NORMAL_MODE) 
+		if (mode == NORMAL_MODE)
 			openAccountsAddDialog(PocketAccounter.financeManager.getAccounts().get(position));
 		else {
 			CheckBox chbAccountListItem = (CheckBox) view.findViewById(R.id.chbAccountListItem);
@@ -73,18 +71,18 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()) {
-		case R.id.ivToolbar:
+		case R.id.ivToolbarMostRight:
 			if (mode == NORMAL_MODE) {
 				mode = EDIT_MODE;
-				ivToolbar.setImageDrawable(null);
-				ivToolbar.setImageResource(R.drawable.ic_trash);
+				ivToolbarMostRight.setImageDrawable(null);
+				ivToolbarMostRight.setImageResource(R.drawable.ic_trash);
 				selected = new boolean[PocketAccounter.financeManager.getAccounts().size()];
 				refreshList(mode);
 			}
 			else {
 				mode = NORMAL_MODE;
-				ivToolbar.setImageDrawable(null);
-				ivToolbar.setImageResource(R.drawable.pencil);
+				ivToolbarMostRight.setImageDrawable(null);
+				ivToolbarMostRight.setImageResource(R.drawable.pencil);
 				deleteAccounts();
 				refreshList(mode);
 				selected = null;
@@ -92,14 +90,10 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 			break;
 		case R.id.fabAccountAdd:
 			mode = NORMAL_MODE;
-			ivToolbar.setImageDrawable(null);
-			ivToolbar.setImageResource(R.drawable.pencil);
+			ivToolbarMostRight.setImageDrawable(null);
+			ivToolbarMostRight.setImageResource(R.drawable.pencil);
 			refreshList(mode);
 			openAccountsAddDialog(null);
-			break;
-		case R.id.ivDrawer:
-			PocketAccounterGeneral.buttonClick(ivDrawer, getActivity());
-			PocketAccounter.drawer.openLeftSide();
 			break;
 		}
 	}
@@ -112,8 +106,8 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 		final FABIcon fabAccountIcon = (FABIcon) dialogView.findViewById(R.id.fabAccountIcon);
 		String[] tempIcons = getResources().getStringArray(R.array.icons);
 		final int[] icons = new int[tempIcons.length];
-		for (int i=0; i<tempIcons.length; i++) 
-			icons[i] = getResources().getIdentifier(tempIcons[i], "drawable", getActivity().getPackageName());	
+		for (int i=0; i<tempIcons.length; i++)
+			icons[i] = getResources().getIdentifier(tempIcons[i], "drawable", getActivity().getPackageName());
 		selectedIcon = icons[0];
 		if (account != null) {
 			etAccountEditName.setText(account.getName());
@@ -190,7 +184,7 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 			if (selected[i])
 				PocketAccounter.financeManager.getAccounts().set(i, null);
 		}
-		for (int i=0; i<PocketAccounter.financeManager.getAccounts().size(); i++) {
+		for (int i = 0; i< PocketAccounter.financeManager.getAccounts().size(); i++) {
 			if (PocketAccounter.financeManager.getAccounts().get(i) == null) {
 				PocketAccounter.financeManager.getAccounts().remove(i);
 				i--;

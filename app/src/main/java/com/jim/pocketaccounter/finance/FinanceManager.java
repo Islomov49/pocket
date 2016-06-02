@@ -1,18 +1,20 @@
 package com.jim.pocketaccounter.finance;
 
-import java.util.ArrayList;
-
 import android.content.Context;
+
+import java.util.ArrayList;
 
 public class FinanceManager {
 	private Context context;
 	private ArrayList<Currency> currencies;
 	private ArrayList<RootCategory> categories;
 	private ArrayList<Account> accounts;
+	private ArrayList<FinanceRecord> records;
 	public FinanceManager(Context context) {
 		this.context = context;
 		currencies = new ArrayList<Currency>();
 		categories = new ArrayList<RootCategory>();
+		records = new ArrayList<FinanceRecord>();
 		setAccounts(new ArrayList<Account>());
 	}
 	public ArrayList<Currency> getCurrencies() {
@@ -46,4 +48,6 @@ public class FinanceManager {
 	public void setAccounts(ArrayList<Account> accounts) {
 		this.accounts = accounts;
 	}
+	public ArrayList<FinanceRecord> getRecords() {return records; }
+	public void setRecords(ArrayList<FinanceRecord> records) {this.records = records;}
 }

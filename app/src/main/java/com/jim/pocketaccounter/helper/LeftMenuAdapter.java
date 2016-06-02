@@ -1,17 +1,17 @@
 package com.jim.pocketaccounter.helper;
 
-import java.util.ArrayList;
-
-import com.jim.pocketaccounter.R;
-
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.jim.pocketaccounter.R;
+
+import java.util.ArrayList;
+
 public class LeftMenuAdapter extends BaseAdapter {
 	private ArrayList<LeftMenuItem> result;
 	private LayoutInflater inflater;

@@ -1,10 +1,5 @@
 package com.jim.pocketaccounter.helper;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
-import com.jim.pocketaccounter.R;
-
 import android.animation.AnimatorInflater;
 import android.animation.StateListAnimator;
 import android.annotation.SuppressLint;
@@ -28,13 +23,17 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewOutlineProvider;
-import android.view.ViewPropertyAnimator;
 import android.view.ViewTreeObserver;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.AbsListView;
 import android.widget.ImageButton;
 import android.widget.ScrollView;
+
+import com.jim.pocketaccounter.R;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 public class FABIcon extends ImageButton {
     private static final int TRANSLATE_DURATION_MILLIS = 200;
@@ -180,7 +179,7 @@ public class FABIcon extends ImageButton {
     @SuppressLint("NewApi")
     private void setBackgroundCompat(Drawable drawable) {
         if (hasLollipopApi()) {
-            float elevation;
+            float elevation = 0.0f;
             if (mShadow) {
                 elevation = getElevation() > 0.0f ? getElevation()
                         : getDimension(R.dimen.fab_elevation_lollipop);

@@ -122,8 +122,8 @@ public class RecordIncomesView extends View {
 	public boolean onTouchEvent(MotionEvent event) {
 		switch(event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
-			firstX = event.getX();
-			firstY = event.getY();
+//			firstX = event.getX();
+//			firstY = event.getY();
 			for (int i=0; i<buttons.size(); i++) 
 				buttons.get(i).setPressed(buttons.get(i).getContainer().contains(event.getX(), event.getY()));
 			invalidate();

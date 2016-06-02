@@ -1,21 +1,11 @@
 package com.jim.pocketaccounter;
 
-import java.util.ArrayList;
-import java.util.UUID;
-
-import com.jim.pocketaccounter.finance.Category;
-import com.jim.pocketaccounter.finance.IconAdapter;
-import com.jim.pocketaccounter.finance.RootCategory;
-import com.jim.pocketaccounter.finance.SubCategory;
-import com.jim.pocketaccounter.finance.SubCategoryAdapter;
-import com.jim.pocketaccounter.helper.FABIcon;
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.app.Fragment;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.ActionBarOverlayLayout.LayoutParams;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -35,12 +25,22 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-@SuppressLint("InflateParams")
+import com.jim.pocketaccounter.finance.Category;
+import com.jim.pocketaccounter.finance.IconAdapter;
+import com.jim.pocketaccounter.finance.RootCategory;
+import com.jim.pocketaccounter.finance.SubCategory;
+import com.jim.pocketaccounter.finance.SubCategoryAdapter;
+import com.jim.pocketaccounter.helper.FABIcon;
+
+import java.util.ArrayList;
+import java.util.UUID;
+
+@SuppressLint({"InflateParams", "ValidFragment"})
 public class RootCategoryEditFragment extends Fragment implements OnClickListener, OnItemClickListener {
 	private EditText etCatEditName;
 	private CheckBox chbCatEditExpanse, chbCatEditIncome;
 	private FABIcon fabCatIcon;
-	private ImageView ivSubCatAdd, ivSubCatDelete, ivDrawer, ivToolbar;
+	private ImageView ivSubCatAdd, ivSubCatDelete, ivToolbarMostRight;
 	private ListView lvSubCats;
 	private RootCategory category;
 	public static final int DELETE_MODE=0, NORMAL_MODE=1;
@@ -53,14 +53,11 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 	}
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.cat_edit_layout, container, false);
-		ivDrawer = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivDrawer);
-		ivDrawer.setImageDrawable(null);
-		ivDrawer.setImageResource(R.drawable.ic_back_button);
-		ivDrawer.setOnClickListener(this);
-		ivToolbar = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbar);
-		ivToolbar.setImageDrawable(null);
-		ivToolbar.setImageResource(R.drawable.check_sign);
-		ivToolbar.setOnClickListener(this);
+		((PocketAccounter)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
+		ivToolbarMostRight.setImageDrawable(null);
+		ivToolbarMostRight.setImageResource(R.drawable.check_sign);
+		ivToolbarMostRight.setOnClickListener(this);
 		etCatEditName = (EditText) rootView.findViewById(R.id.etAccountEditName);
 		chbCatEditExpanse = (CheckBox) rootView.findViewById(R.id.chbCatEditExpanse);
 		chbCatEditIncome = (CheckBox) rootView.findViewById(R.id.chbCatEditIncome);
@@ -98,7 +95,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 				chbCatEditIncome.setChecked(true);
 				chbCatEditExpanse.setChecked(true);
 				break;
-			} 
+			}
 			type = category.getType();
 			selectedIcon = category.getIcon();
 			subCategories = category.getSubCategories();
@@ -144,10 +141,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 				refreshSubCatList(mode);
 			}
 			break;
-		case R.id.ivDrawer:
-			((PocketAccounter)getActivity()).openFragment(new CategoryFragment());
-			break;
-		case R.id.ivToolbar:
+		case R.id.ivToolbarMostRight:
 			if (etCatEditName.getText().toString().matches("")) {
 				Toast.makeText(getActivity(), getResources().getString(R.string.enter_cat_name), Toast.LENGTH_SHORT).show();
 				Animation wobble = AnimationUtils.loadAnimation(getActivity(), R.anim.wobble);
@@ -160,9 +154,9 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 				((LinearLayout)chbCatEditIncome.getParent()).startAnimation(wobble);
 				return;
 			}
-			if (chbCatEditIncome.isChecked()) 
+			if (chbCatEditIncome.isChecked())
 				type = Category.INCOME;
-			if (chbCatEditExpanse.isChecked()) 
+			if (chbCatEditExpanse.isChecked())
 				type = Category.EXPANCE;
 			if (chbCatEditIncome.isChecked() && chbCatEditExpanse.isChecked())
 				type = Category.BOTH;
@@ -180,7 +174,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 				newCategory.setSubCategories(subCategories);
 				PocketAccounter.financeManager.getCategories().add(newCategory);
 			}
-			((PocketAccounter)getActivity()).openFragment(new CategoryFragment());
+			((PocketAccounter)getActivity()).replaceFragment(new CategoryFragment());
 			break;
 		}
 	}
@@ -219,7 +213,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 		ImageView ivSubCatClose = (ImageView) dialogView.findViewById(R.id.ivSubCatClose);
 		ImageView ivSubCatSave = (ImageView) dialogView.findViewById(R.id.ivSubCatSave);
 		final EditText etSubCategoryName = (EditText) dialogView.findViewById(R.id.etSubCategoryName);
-		if (subCategory != null) 
+		if (subCategory != null)
 			etSubCategoryName.setText(subCategory.getName());
 		ivSubCatSave.setOnClickListener(new OnClickListener() {
 			@Override
@@ -229,7 +223,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 					etSubCategoryName.startAnimation(wobble);
 					return;
 				}
-				if (subCategory != null) 
+				if (subCategory != null)
 					subCategory.setName(etSubCategoryName.getText().toString());
 				else {
 					SubCategory newSubCategory = new SubCategory();
@@ -245,7 +239,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 		ivSubCatClose.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				dialog.dismiss();	
+				dialog.dismiss();
 			}
 		});
 		dialog.show();
@@ -254,7 +248,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 		if (mode == NORMAL_MODE) {
 			ivSubCatDelete.setImageResource(R.drawable.subcat_delete);
 			selected = null;
-		} 
+		}
 		else {
 			ivSubCatDelete.setImageResource(R.drawable.ic_cat_trash);
 			selected = new boolean[subCategories.size()];
@@ -263,7 +257,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 	}
 	private void deleteSubcats() {
 		for (int i=0; i<selected.length; i++) {
-			if (selected[i]) 
+			if (selected[i])
 				subCategories.set(i, null);
 		}
 		for (int i=0; i<subCategories.size(); i++) {

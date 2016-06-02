@@ -1,10 +1,5 @@
 package com.jim.pocketaccounter.finance;
 
-import java.util.ArrayList;
-
-import com.jim.pocketaccounter.AccountFragment;
-import com.jim.pocketaccounter.R;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -16,6 +11,11 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.jim.pocketaccounter.AccountFragment;
+import com.jim.pocketaccounter.R;
+
+import java.util.ArrayList;
 
 @SuppressLint("ViewHolder")
 public class AccountAdapter extends BaseAdapter {

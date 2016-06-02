@@ -151,12 +151,16 @@ public class RecordExpanseView extends View {
 		case MotionEvent.ACTION_DOWN:
 			firstX = event.getX();
 			firstY = event.getY();
-			for (int i=0; i<buttons.size(); i++) 
-				buttons.get(i).setPressed(buttons.get(i).getContainer().contains(event.getX(), event.getY()));
+			int size = buttons.size();
+			for (int i=0; i<size; i++) {
+				boolean isIn = buttons.get(i).getContainer().contains(firstX, firstY);
+				buttons.get(i).setPressed(isIn);
+			}
 			invalidate();
 			break;
 		case MotionEvent.ACTION_UP:
-			for (int i=0; i<buttons.size(); i++) 
+			size = buttons.size();
+			for (int i=0; i<size; i++) 
 				buttons.get(i).setPressed(false);
 //			if (event.getX()>firstX-30 && event.getX()<firstX+30 &&
 //					event.getY()>firstY-30 && event.getY()<firstY+30) {

@@ -1,15 +1,12 @@
 package com.jim.pocketaccounter;
 
-import com.jim.pocketaccounter.finance.CurrencyAdapter;
-import com.jim.pocketaccounter.helper.FloatingActionButton;
-import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
-import com.jim.pocketaccounter.helper.ScrollDirectionListener;
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -25,6 +22,11 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.jim.pocketaccounter.finance.CurrencyAdapter;
+import com.jim.pocketaccounter.helper.FloatingActionButton;
+import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
+import com.jim.pocketaccounter.helper.ScrollDirectionListener;
 
 @SuppressLint("InflateParams")
 public class CurrencyFragment extends Fragment implements OnClickListener, OnItemClickListener {
@@ -84,24 +86,29 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
             	}
 			}
 		});
-		((TextView)PocketAccounter.toolbar.findViewById(R.id.tvToolbarTitle)).setText(getResources().getString(R.string.currencies));
-		((TextView)PocketAccounter.toolbar.findViewById(R.id.tvToolbarSubTitle)).setVisibility(View.VISIBLE);
-		((TextView)PocketAccounter.toolbar.findViewById(R.id.tvToolbarSubTitle)).setText(getResources().getString(R.string.main_currency)+" "+PocketAccounter.financeManager.getMainCurrency().getAbbr());
-		((ImageView)PocketAccounter.toolbar.findViewById(R.id.ivToolbar)).setImageDrawable(null);
-		((ImageView)PocketAccounter.toolbar.findViewById(R.id.ivDrawer)).setImageResource(R.drawable.ic_drawer);
-		((ImageView)PocketAccounter.toolbar.findViewById(R.id.ivDrawer)).setVisibility(View.VISIBLE);
-		((ImageView)PocketAccounter.toolbar.findViewById(R.id.ivDrawer)).setOnClickListener(new OnClickListener() {
+		((PocketAccounter)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		((PocketAccounter)getContext()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_drawer);
+		PocketAccounter.toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
 			@Override
-			public void onClick(View v) {
-				PocketAccounter.drawer.openLeftSide();
+			public boolean onMenuItemClick(MenuItem item) {
+				switch (item.getItemId()) {
+					case android.R.id.home:
+						PocketAccounter.drawer.openLeftSide();
+						break;
+				}
+				return false;
 			}
 		});
-		ivToolbar = (ImageView)PocketAccounter.toolbar.findViewById(R.id.ivToolbar);
+		PocketAccounter.toolbar.setTitle(getResources().getString(R.string.currencies));
+		PocketAccounter.toolbar.setSubtitle(getResources().getString(R.string.main_currency)+" "+ PocketAccounter.financeManager.getMainCurrency().getAbbr());
+		((PocketAccounter)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		ivToolbar = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
 		ivToolbar.setImageResource(R.drawable.pencil);
 		ivToolbar.setOnClickListener(this);
 		refreshList();
 		return rootView;
 	}
+
 	private void setEditMode() {
 		mode = EDIT_MODE;
 		selected = new boolean[PocketAccounter.financeManager.getCurrencies().size()];
@@ -145,9 +152,9 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 	public void onClick(View v) {
 		switch(v.getId()) {
 		case R.id.fabCurrencyAdd:
-			((PocketAccounter)getActivity()).openFragment(new CurrencyChooseFragment());
+			((PocketAccounter)getActivity()).replaceFragment(new CurrencyChooseFragment());
 			break;
-		case R.id.ivToolbar:
+		case R.id.ivToolbarMostRight:
 			PocketAccounterGeneral.buttonClick(v, getActivity());
 			if (PocketAccounter.financeManager.getCurrencies().size() == 1) {
 				Toast.makeText(getActivity(), getResources().getString(R.string.currency_empty_warning), Toast.LENGTH_SHORT).show();
@@ -187,7 +194,7 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 							}
 						}
 						if (!foundNoneSelected) {
-							for (int i=0; i<PocketAccounter.financeManager.getCurrencies().size(); i++) {
+							for (int i = 0; i< PocketAccounter.financeManager.getCurrencies().size(); i++) {
 								if (!PocketAccounter.financeManager.getCurrencies().get(i).getMain()) {
 									PocketAccounter.financeManager.getCurrencies().remove(i);
 									i--;
@@ -198,7 +205,7 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 								if (selected[i]) {
 									if (PocketAccounter.financeManager.getCurrencies().get(i).getMain()) {
 										if (i==selected.length-1) {
-											for (int j=0; j<PocketAccounter.financeManager.getCurrencies().size(); j++) {
+											for (int j = 0; j< PocketAccounter.financeManager.getCurrencies().size(); j++) {
 												if (PocketAccounter.financeManager.getCurrencies().get(j) != null) {
 													PocketAccounter.financeManager.getCurrencies().get(j).setMain(true);
 													break;
@@ -211,7 +218,7 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 									PocketAccounter.financeManager.getCurrencies().set(i, null);
 								}
 							}
-							for (int i=0; i<PocketAccounter.financeManager.getCurrencies().size(); i++) {
+							for (int i = 0; i< PocketAccounter.financeManager.getCurrencies().size(); i++) {
 								if (PocketAccounter.financeManager.getCurrencies().get(i) == null) {
 									PocketAccounter.financeManager.getCurrencies().remove(i);
 									i--;
@@ -245,7 +252,7 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 					Toast.makeText(getActivity(), getResources().getString(R.string.main_currency_edit), Toast.LENGTH_SHORT).show();
 					return;
 				}
-				((PocketAccounter) getActivity()).openFragment(new CurrencyEditFragment(PocketAccounter.financeManager.getCurrencies().get(position)));
+				((PocketAccounter) getActivity()).replaceFragment(new CurrencyEditFragment(PocketAccounter.financeManager.getCurrencies().get(position)));
 			}
 		}
 	};
