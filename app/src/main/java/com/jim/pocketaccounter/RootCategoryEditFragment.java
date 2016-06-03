@@ -31,6 +31,7 @@ import com.jim.pocketaccounter.finance.RootCategory;
 import com.jim.pocketaccounter.finance.SubCategory;
 import com.jim.pocketaccounter.finance.SubCategoryAdapter;
 import com.jim.pocketaccounter.helper.FABIcon;
+import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -43,8 +44,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 	private ImageView ivSubCatAdd, ivSubCatDelete, ivToolbarMostRight;
 	private ListView lvSubCats;
 	private RootCategory category;
-	public static final int DELETE_MODE=0, NORMAL_MODE=1;
-	private int mode, selectedIcon = 0, type;
+	private int mode = PocketAccounterGeneral.NORMAL_MODE, selectedIcon = 0, type;
 	private boolean[] selected;
 	private int[] icons;
 	private ArrayList<SubCategory> subCategories;
@@ -54,6 +54,13 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.cat_edit_layout, container, false);
 		((PocketAccounter)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		((PocketAccounter)getContext()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_button);
+		PocketAccounter.toolbar.setNavigationOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				((PocketAccounter)getContext()).replaceFragment(new CategoryFragment());
+			}
+		});
 		ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
 		ivToolbarMostRight.setImageDrawable(null);
 		ivToolbarMostRight.setImageResource(R.drawable.check_sign);
@@ -78,7 +85,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 		type = Category.EXPANCE;
 		selectedIcon = icons[0];
 		subCategories = new ArrayList<SubCategory>();
-		mode = NORMAL_MODE;
+		mode = PocketAccounterGeneral.NORMAL_MODE;
 		setMode(mode);
 		if (category != null) {
 			etCatEditName.setText(category.getName());
@@ -112,7 +119,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 	}
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-		if (mode == NORMAL_MODE)
+		if (mode == PocketAccounterGeneral.NORMAL_MODE)
 			openSubCatEditDialog(subCategories.get(position));
 		else {
 			CheckBox chbSubCat = (CheckBox)view.findViewById(R.id.chbSubCat);
@@ -130,13 +137,13 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 			openSubCatEditDialog(null);
 			break;
 		case R.id.ivSubCatDelete:
-			if (mode == NORMAL_MODE) {
-				mode = DELETE_MODE;
+			if (mode == PocketAccounterGeneral.NORMAL_MODE) {
+				mode = PocketAccounterGeneral.EDIT_MODE;
 				setMode(mode);
 			}
 			else {
 				deleteSubcats();
-				mode = NORMAL_MODE;
+				mode = PocketAccounterGeneral.NORMAL_MODE;
 				setMode(mode);
 				refreshSubCatList(mode);
 			}
@@ -208,7 +215,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 		View dialogView = getActivity().getLayoutInflater().inflate(R.layout.sub_category_edit_layout, null);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(dialogView);
-		mode = NORMAL_MODE;
+		mode = PocketAccounterGeneral.NORMAL_MODE;
 		setMode(mode);
 		ImageView ivSubCatClose = (ImageView) dialogView.findViewById(R.id.ivSubCatClose);
 		ImageView ivSubCatSave = (ImageView) dialogView.findViewById(R.id.ivSubCatSave);
@@ -232,7 +239,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 					newSubCategory.setParent(category);
 					subCategories.add(newSubCategory);
 				}
-				refreshSubCatList(NORMAL_MODE);
+				refreshSubCatList(PocketAccounterGeneral.NORMAL_MODE);
 				dialog.dismiss();
 			}
 		});
@@ -245,7 +252,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 		dialog.show();
 	}
 	private void setMode(int mode) {
-		if (mode == NORMAL_MODE) {
+		if (mode == PocketAccounterGeneral.NORMAL_MODE) {
 			ivSubCatDelete.setImageResource(R.drawable.subcat_delete);
 			selected = null;
 		}

@@ -32,8 +32,7 @@ import com.jim.pocketaccounter.helper.ScrollDirectionListener;
 public class CurrencyFragment extends Fragment implements OnClickListener, OnItemClickListener {
 	private FloatingActionButton fabCurrencyAdd;
 	private ListView lvCurrency;
-	public static final int CURRENCY_LIST_MODE = 0, EDIT_MODE=1;
-	private int mode = CURRENCY_LIST_MODE;
+	private int mode = PocketAccounterGeneral.NORMAL_MODE;
 	private boolean[] selected;
 	private ImageView ivToolbar;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,7 +44,7 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 		fabCurrencyAdd.attachToListView(lvCurrency, new ScrollDirectionListener() {
 			@Override
 			public void onScrollUp() {
-				if (mode == EDIT_MODE) return;
+				if (mode == PocketAccounterGeneral.EDIT_MODE) return;
 				if (fabCurrencyAdd.getVisibility() == View.GONE) return;
             	Animation down = AnimationUtils.loadAnimation(getActivity(), R.anim.fab_down);
             	synchronized (down) {
@@ -66,7 +65,7 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 			}
 			@Override
 			public void onScrollDown() {
-				if (mode == EDIT_MODE) return;
+				if (mode == PocketAccounterGeneral.EDIT_MODE) return;
 				if (fabCurrencyAdd.getVisibility() == View.VISIBLE) return;
             	Animation up = AnimationUtils.loadAnimation(getActivity(), R.anim.fab_up);
             	synchronized (up) {
@@ -102,6 +101,12 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 		PocketAccounter.toolbar.setTitle(getResources().getString(R.string.currencies));
 		PocketAccounter.toolbar.setSubtitle(getResources().getString(R.string.main_currency)+" "+ PocketAccounter.financeManager.getMainCurrency().getAbbr());
 		((PocketAccounter)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		PocketAccounter.toolbar.setNavigationOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				PocketAccounter.drawer.openLeftSide();
+			}
+		});
 		ivToolbar = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
 		ivToolbar.setImageResource(R.drawable.pencil);
 		ivToolbar.setOnClickListener(this);
@@ -110,7 +115,7 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 	}
 
 	private void setEditMode() {
-		mode = EDIT_MODE;
+		mode = PocketAccounterGeneral.EDIT_MODE;
 		selected = new boolean[PocketAccounter.financeManager.getCurrencies().size()];
 		for (int i=0; i<selected.length; i++)
 			selected[i] = false;
@@ -133,7 +138,7 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 		refreshList();
 	}
 	private void setCurrencyListMode() {
-		mode = CURRENCY_LIST_MODE;
+		mode = PocketAccounterGeneral.NORMAL_MODE;
 		ivToolbar.setImageDrawable(null);
 		ivToolbar.setImageResource(R.drawable.pencil);
 		Animation fabUp = AnimationUtils.loadAnimation(getActivity(), R.anim.fab_up);
@@ -159,7 +164,7 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 				Toast.makeText(getActivity(), getResources().getString(R.string.currency_empty_warning), Toast.LENGTH_SHORT).show();
 				return;
 			}
-			if (mode == CURRENCY_LIST_MODE) {
+			if (mode == PocketAccounterGeneral.NORMAL_MODE) {
 				setEditMode();
 			}
 			else {
@@ -242,7 +247,7 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		if (view != null) {
-			if (mode == EDIT_MODE) {
+			if (mode == PocketAccounterGeneral.EDIT_MODE) {
 				CheckBox chbCurrencyEdit = (CheckBox) view.findViewById(R.id.chbCurrencyEdit);
 				chbCurrencyEdit.setChecked(!chbCurrencyEdit.isChecked());
 				selected[position] = chbCurrencyEdit.isChecked();

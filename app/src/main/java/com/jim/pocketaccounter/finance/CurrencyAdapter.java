@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.jim.pocketaccounter.CurrencyFragment;
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
+import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -66,7 +67,7 @@ public class CurrencyAdapter extends BaseAdapter {
 			TextView tvCurrencyCost = (TextView) view.findViewById(R.id.tvCurrencyCost);
 			tvCurrencyCost.setText(format.format(result.get(position).getCosts().get(result.get(position).getCosts().size()-1).getDay().getTime())+"  "+"1"+manager.getMainCurrency().getAbbr()+": "+decFormat.format(result.get(position).getCosts().get(result.get(position).getCosts().size()-1).getCost()));
 		}
-		if (mode == CurrencyFragment.EDIT_MODE) {
+		if (mode == PocketAccounterGeneral.EDIT_MODE) {
 			ivCurrencyMain.setVisibility(View.GONE);
 			CheckBox chbCurrencyEdit = (CheckBox)view.findViewById(R.id.chbCurrencyEdit);
 			chbCurrencyEdit.setVisibility(View.VISIBLE);

@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.jim.pocketaccounter.CurrencyEditFragment;
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
+import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -60,7 +61,7 @@ public class CurrencyExchangeAdapter extends BaseAdapter {
 				selected[position] = isChecked;
 			}
 		});
-		if (mode == CurrencyEditFragment.EDIT_MODE) {
+		if (mode == PocketAccounterGeneral.EDIT_MODE) {
 			chbCurrencyExchangeListItem.setVisibility(View.VISIBLE);
 			chbCurrencyExchangeListItem.setChecked(selected[position]);
 		}

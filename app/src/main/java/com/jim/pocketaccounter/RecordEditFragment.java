@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,7 +18,7 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
     private RelativeLayout rlZero, rlOne, rlTwo, rlThree, rlFour, rlFive, rlSix, rlSeven, rlEight, rlNine, rlDot, rlEqualSign,
             rlPlusSign, rlMinusSign, rlMultipleSign, rlDivideSign, rlClearSign, rlBackspaceSign, rlCategory, rlSubCategory;
     private TextView tvRecordEditDisplay, tvRecordEditCurrency;
-
+    private ImageView ivToolbarMostRight;
     private byte operation = -1;
     private String s = "";
     private String s2 = "";
@@ -25,11 +26,20 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
     private boolean tek = false,
             tek2 = false,
             calc = false,
-            sequence = false,
-            isOperation = false;
+            sequence = false;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.record_edit, container, false);
+        ((PocketAccounter)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((PocketAccounter)getContext()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_button);
+        PocketAccounter.toolbar.setNavigationOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((PocketAccounter)getContext()).replaceFragment(new RecordFragment());
+            }
+        });
+        ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
+        ivToolbarMostRight.setOnClickListener(this);
         rlZero = (RelativeLayout) rootView.findViewById(R.id.rlZero);
         rlZero.setOnClickListener(this);
         rlOne = (RelativeLayout) rootView.findViewById(R.id.rlOne);
@@ -79,6 +89,11 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
 
     @Override
     public void onClick(View view) {
+        switch(view.getId()) {
+            case R.id.ivToolbarMostRight:
+
+                break;
+        }
         if (!calc) {
             sequence = false;
             if (tek ? s2.length() < 18 : s.length() < 18) {

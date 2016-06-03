@@ -35,9 +35,8 @@ import java.util.UUID;
 @SuppressLint("InflateParams")
 public class AccountFragment extends Fragment implements OnClickListener, OnItemClickListener {
 	private FloatingActionButton fabAccountAdd;
-	public static final int NORMAL_MODE=0, EDIT_MODE=1;
 	private boolean[] selected;
-	private int mode, selectedIcon;
+	private int mode = PocketAccounterGeneral.NORMAL_MODE, selectedIcon;
 	private ListView lvAccounts;
 	private ImageView ivToolbarMostRight;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -50,7 +49,6 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 		ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
 		ivToolbarMostRight.setImageResource(R.drawable.pencil);
 		ivToolbarMostRight.setOnClickListener(this);
-		mode = NORMAL_MODE;
 		refreshList(mode);
 		return rootView;
 	}
@@ -60,7 +58,7 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 	}
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		if (mode == NORMAL_MODE)
+		if (mode == PocketAccounterGeneral.NORMAL_MODE)
 			openAccountsAddDialog(PocketAccounter.financeManager.getAccounts().get(position));
 		else {
 			CheckBox chbAccountListItem = (CheckBox) view.findViewById(R.id.chbAccountListItem);
@@ -72,15 +70,15 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 	public void onClick(View v) {
 		switch(v.getId()) {
 		case R.id.ivToolbarMostRight:
-			if (mode == NORMAL_MODE) {
-				mode = EDIT_MODE;
+			if (mode == PocketAccounterGeneral.NORMAL_MODE) {
+				mode = PocketAccounterGeneral.EDIT_MODE;
 				ivToolbarMostRight.setImageDrawable(null);
 				ivToolbarMostRight.setImageResource(R.drawable.ic_trash);
 				selected = new boolean[PocketAccounter.financeManager.getAccounts().size()];
 				refreshList(mode);
 			}
 			else {
-				mode = NORMAL_MODE;
+				mode = PocketAccounterGeneral.NORMAL_MODE;
 				ivToolbarMostRight.setImageDrawable(null);
 				ivToolbarMostRight.setImageResource(R.drawable.pencil);
 				deleteAccounts();
@@ -89,7 +87,7 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 			}
 			break;
 		case R.id.fabAccountAdd:
-			mode = NORMAL_MODE;
+			mode = PocketAccounterGeneral.NORMAL_MODE;
 			ivToolbarMostRight.setImageDrawable(null);
 			ivToolbarMostRight.setImageResource(R.drawable.pencil);
 			refreshList(mode);

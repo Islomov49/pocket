@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Fri Jun 03 14:50:08 UZT 2016
+#Fri Jun 03 16:48:34 UZT 2016
 20.base=C\:\\shinauz\\example\\app\\build\\intermediates\\res\\resources-debug.ap_
 143.base=C\:\\shinauz\\example\\app\\build\\intermediates\\res\\resources-debug.ap_
 340.file=C\:\\shinauz\\example\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\drawable-xxhdpi-v4\\abc_ic_go_search_api_mtrl_alpha.png

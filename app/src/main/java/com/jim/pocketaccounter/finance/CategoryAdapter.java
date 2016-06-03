@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.jim.pocketaccounter.CategoryFragment;
 import com.jim.pocketaccounter.R;
+import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
 import java.util.ArrayList;
 
@@ -58,7 +59,7 @@ public class CategoryAdapter extends BaseAdapter {
 				selected[position] = isChecked;
 			}
 		});
-		if (mode == CategoryFragment.DELETE_MODE) {
+		if (mode == PocketAccounterGeneral.EDIT_MODE) {
 			chbCatListItem.setVisibility(View.VISIBLE);
 			chbCatListItem.setChecked(selected[position]);
 		}

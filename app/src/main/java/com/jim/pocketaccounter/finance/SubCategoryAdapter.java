@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.jim.pocketaccounter.R;
 import com.jim.pocketaccounter.RootCategoryEditFragment;
+import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
 import java.util.ArrayList;
 
@@ -52,7 +53,7 @@ public class SubCategoryAdapter extends BaseAdapter {
 				selected[position] = isChecked;
 			}
 		});
-		if (mode == RootCategoryEditFragment.DELETE_MODE) {
+		if (mode == PocketAccounterGeneral.EDIT_MODE) {
 			chbSubCat.setVisibility(View.VISIBLE);
 			chbSubCat.setChecked(selected[position]);
 		} else 

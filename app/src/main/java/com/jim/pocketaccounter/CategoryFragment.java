@@ -27,8 +27,7 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 	private ListView lvCategories;
 	private CheckBox chbCatIncomes, chbCatExpanses, chbCatBoth;
 	private ImageView ivToolbarMostRight;
-	public static final int NORMAL_MODE=0, DELETE_MODE=1;
-	private int mode;
+	private int mode = PocketAccounterGeneral.NORMAL_MODE;
 	private boolean[] selected;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.category_layout, container, false);
@@ -36,6 +35,12 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 		PocketAccounter.toolbar.setSubtitle("");
 		((PocketAccounter)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		((PocketAccounter)getContext()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_drawer);
+		PocketAccounter.toolbar.setNavigationOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				PocketAccounter.drawer.openLeftSide();
+			}
+		});
 		ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
 		ivToolbarMostRight.setImageResource(R.drawable.pencil);
 		ivToolbarMostRight.setOnClickListener(this);
@@ -49,7 +54,6 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 		chbCatExpanses.setOnCheckedChangeListener(this);
 		chbCatBoth = (CheckBox) rootView.findViewById(R.id.chbCatBoth);
 		chbCatBoth.setOnCheckedChangeListener(this);
-		mode = NORMAL_MODE;
 		setMode(mode);
 		refreshList(mode);
 		return rootView;
@@ -80,10 +84,10 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 			((PocketAccounter)getActivity()).replaceFragment(new RootCategoryEditFragment(null));
 			break;
 		case R.id.ivToolbarMostRight:
-			if (mode == NORMAL_MODE)
-				mode = DELETE_MODE;
+			if (mode == PocketAccounterGeneral.NORMAL_MODE)
+				mode = PocketAccounterGeneral.EDIT_MODE;
 			else {
-				mode = NORMAL_MODE;
+				mode = PocketAccounterGeneral.NORMAL_MODE;
 				deleteCategories();
 			}
 			setMode(mode);
@@ -92,7 +96,7 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 	}
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		if (mode == NORMAL_MODE)
+		if (mode == PocketAccounterGeneral.NORMAL_MODE)
 			((PocketAccounter)getActivity()).replaceFragment(new RootCategoryEditFragment(PocketAccounter.financeManager.getCategories().get(position)));
 		else {
 			CheckBox chbCatListItem = (CheckBox) view.findViewById(R.id.chbAccountListItem);
@@ -105,7 +109,7 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 		refreshList(mode);
 	}
 	private void setMode(int mode) {
-		if (mode == NORMAL_MODE) {
+		if (mode == PocketAccounterGeneral.NORMAL_MODE) {
 			selected = null;
 			ivToolbarMostRight.setImageResource(R.drawable.pencil);
 		}

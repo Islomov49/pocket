@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.jim.pocketaccounter.finance.Currency;
 import com.jim.pocketaccounter.finance.CurrencyCost;
 import com.jim.pocketaccounter.finance.CurrencyExchangeAdapter;
+import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -34,13 +35,12 @@ import java.util.Calendar;
 
 @SuppressLint("ValidFragment")
 public class CurrencyEditFragment extends Fragment implements OnClickListener, OnItemClickListener {
-	private ImageView ivExCurrencyAdd, ivExCurrencyDelete, ivToolbarBack;
+	private ImageView ivExCurrencyAdd, ivExCurrencyDelete;
 	private ListView lvCurrencyEditExchange;
 	private Currency currency;
 	private CheckBox chbCurrencyEditMainCurrency;
 	private Calendar day = Calendar.getInstance();
-	public static final int EDIT_MODE = 0, NORMAL_MODE = 1;
-	private int mode = NORMAL_MODE;
+	private int mode = PocketAccounterGeneral.NORMAL_MODE;
 	private boolean[] selected;
 	public CurrencyEditFragment(Currency currency) {
 		this.currency = currency;
@@ -55,10 +55,14 @@ public class CurrencyEditFragment extends Fragment implements OnClickListener, O
 		lvCurrencyEditExchange.setOnItemClickListener(this);
 		chbCurrencyEditMainCurrency = (CheckBox) rootView.findViewById(R.id.chbCurrencyEditMainCurrency);
 		chbCurrencyEditMainCurrency.setChecked(currency.getMain());
-		((PocketAccounter)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-		ivToolbarBack = (ImageView)PocketAccounter.toolbar.findViewById(R.id.ivToolbarBack);
-		ivToolbarBack.setVisibility(View.VISIBLE);
-		ivToolbarBack.setOnClickListener(this);
+		((PocketAccounter)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		((PocketAccounter)getContext()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_button);
+		PocketAccounter.toolbar.setNavigationOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				((PocketAccounter)getContext()).replaceFragment(new CurrencyFragment());
+			}
+		});
 		PocketAccounter.toolbar.setTitle(currency.getName()+", "+currency.getAbbr());
 		((ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight)).setImageResource(R.drawable.check_sign);
 		((ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight)).setOnClickListener(this);
@@ -72,7 +76,7 @@ public class CurrencyEditFragment extends Fragment implements OnClickListener, O
 	}
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		if (mode == NORMAL_MODE)
+		if (mode == PocketAccounterGeneral.NORMAL_MODE)
 			exchangeEditDialog(currency.getCosts().get(position));
 		else {
 			if (view != null) {
@@ -88,14 +92,14 @@ public class CurrencyEditFragment extends Fragment implements OnClickListener, O
 			exchangeEditDialog(null);
 			break;
 		case R.id.ivExCurrencyDelete:
-			if (mode == NORMAL_MODE) {
+			if (mode == PocketAccounterGeneral.NORMAL_MODE) {
 				selected = new boolean[currency.getCosts().size()];
-				mode = EDIT_MODE;
+				mode = PocketAccounterGeneral.EDIT_MODE;
 				ivExCurrencyDelete.setImageDrawable(null);
 				ivExCurrencyDelete.setImageResource(R.drawable.ic_cat_trash);
 			}
 			else {
-				mode = NORMAL_MODE;
+				mode = PocketAccounterGeneral.NORMAL_MODE;
 				ivExCurrencyDelete.setImageDrawable(null);
 				ivExCurrencyDelete.setImageResource(R.drawable.subcat_delete);
 				deleteCosts();
@@ -128,9 +132,6 @@ public class CurrencyEditFragment extends Fragment implements OnClickListener, O
 			}
 			((PocketAccounter)getActivity()).replaceFragment(new CurrencyFragment());
 			break;
-			case R.id.ivToolbarBack:
-				((PocketAccounter)getContext()).replaceFragment(new CurrencyFragment());
-				break;
 		}
 	}
 	private void exchangeEditDialog(final CurrencyCost currCost) {

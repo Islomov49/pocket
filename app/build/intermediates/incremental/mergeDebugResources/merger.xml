@@ -1807,7 +1807,7 @@
         <item>1.0</item>
         <item>1.0</item>
         <item>1.0</item>
-    </string-array><string name="choose_currencies">Выберите из списка нужные вам валюты:</string><string-array name="debts_subitem_icons">
+    </string-array><string name="choose_currencies">Выберите валюту</string><string-array name="debts_subitem_icons">
         <item>drawer_credit</item>
         <item>drawer_debts_debt</item>
     </string-array><string-array name="drawer_cats">

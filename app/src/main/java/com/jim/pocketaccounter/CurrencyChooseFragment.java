@@ -36,6 +36,12 @@ public class CurrencyChooseFragment extends Fragment {
 		PocketAccounter.toolbar.setTitle(getResources().getString(R.string.choose_currencies));
         PocketAccounter.toolbar.setSubtitle("");
         ((PocketAccounter)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(!PocketAccounter.financeManager.getCurrencies().isEmpty());
+		PocketAccounter.toolbar.setNavigationOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				((PocketAccounter)getContext()).replaceFragment(new CurrencyFragment());
+			}
+		});
         ivToolbarMostRight = ((ImageView)PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight));
         ivToolbarMostRight.setVisibility(View.VISIBLE);
         ivToolbarMostRight.setImageResource(R.drawable.check_sign);

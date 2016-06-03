@@ -327,7 +327,7 @@
     </string-array>
     <string name="currencies">Валюты</string>
     <string name="main_currency">Основная валюта: </string>
-    <string name="choose_currencies">Выберите из списка нужные вам валюты:</string>
+    <string name="choose_currencies">Выберите валюту</string>
     <string name="curr_not_choosen">Выберите хотя бы одну валюту</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>

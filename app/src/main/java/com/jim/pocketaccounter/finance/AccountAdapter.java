@@ -13,7 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jim.pocketaccounter.AccountFragment;
+import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
+import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
 import java.util.ArrayList;
 
@@ -55,7 +57,7 @@ public class AccountAdapter extends BaseAdapter {
 				selected[position] = isChecked;
 			}
 		});
-		if (mode == AccountFragment.EDIT_MODE) {
+		if (mode == PocketAccounterGeneral.EDIT_MODE) {
 			chbAccountListItem.setVisibility(View.VISIBLE);
 			chbAccountListItem.setChecked(selected[position]);
 		}
