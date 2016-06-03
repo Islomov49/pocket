@@ -45,7 +45,7 @@ public class PocketAccounter extends AppCompatActivity {
         lvLeftMenu = (ListView) findViewById(R.id.lvLeftMenu);
         fillLeftMenu();
         if (financeManager.getCurrencies().isEmpty())
-            replaceFragment(new RecordEditFragment(), null);
+            replaceFragment(new CurrencyChooseFragment());
     }
     private void fillLeftMenu() {
         String[] cats = getResources().getStringArray(R.array.drawer_cats);
@@ -97,16 +97,16 @@ public class PocketAccounter extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-                        replaceFragment(new RecordFragment(), null);
+                        replaceFragment(new RecordFragment());
                         break;
                     case 2:
-                        replaceFragment(new CurrencyFragment(), null);
+                        replaceFragment(new CurrencyFragment());
                         break;
                     case 3:
-                        replaceFragment(new CategoryFragment(), null);
+                        replaceFragment(new CategoryFragment());
                         break;
                     case 4:
-                        replaceFragment(new AccountFragment(), null);
+                        replaceFragment(new AccountFragment());
                         break;
                     case 5:
                         //statistics
@@ -147,16 +147,15 @@ public class PocketAccounter extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case android.R.id.home:
-                getSupportFragmentManager().findFragmentByTag(PocketAccounterGeneral.EDIT_MODE).isVisible() {}
                 drawer.openLeftSide();
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
-    public void replaceFragment(Fragment fragment, String TAG) {
+    public void replaceFragment(Fragment fragment) {
         if (fragment != null) {
             final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.flMain, fragment, TAG);
+            ft.replace(R.id.flMain, fragment);
             ft.commit();
         }
     }

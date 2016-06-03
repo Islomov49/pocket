@@ -155,7 +155,6 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 			((PocketAccounter)getActivity()).replaceFragment(new CurrencyChooseFragment());
 			break;
 		case R.id.ivToolbarMostRight:
-			PocketAccounterGeneral.buttonClick(v, getActivity());
 			if (PocketAccounter.financeManager.getCurrencies().size() == 1) {
 				Toast.makeText(getActivity(), getResources().getString(R.string.currency_empty_warning), Toast.LENGTH_SHORT).show();
 				return;

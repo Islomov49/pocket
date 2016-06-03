@@ -146,7 +146,6 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 		ivAccountSave.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				PocketAccounterGeneral.buttonClick(v, getActivity());
 				if (etAccountEditName.getText().toString().matches("")) {
 					Animation wooble = AnimationUtils.loadAnimation(getActivity(), R.anim.wobble);
 					etAccountEditName.startAnimation(wooble);

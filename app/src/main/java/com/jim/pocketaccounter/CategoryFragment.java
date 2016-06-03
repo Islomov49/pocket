@@ -80,7 +80,6 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 			((PocketAccounter)getActivity()).replaceFragment(new RootCategoryEditFragment(null));
 			break;
 		case R.id.ivToolbarMostRight:
-			PocketAccounterGeneral.buttonClick(ivToolbarMostRight, getActivity());
 			if (mode == NORMAL_MODE)
 				mode = DELETE_MODE;
 			else {

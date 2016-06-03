@@ -32,12 +32,12 @@
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable-mdpi\\ic_category_92.png"
     },
     {
-        "merged": "D:\\DEV\\MoneyHolder1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\ic_category_65.png",
-        "source": "D:\\DEV\\MoneyHolder1\\app\\src\\main\\res\\drawable-mdpi\\ic_category_65.png"
-    },
-    {
         "merged": "D:\\DEV\\MoneyHolder1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\ic_category_20.png",
         "source": "D:\\DEV\\MoneyHolder1\\app\\src\\main\\res\\drawable-mdpi\\ic_category_20.png"
+    },
+    {
+        "merged": "D:\\DEV\\MoneyHolder1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\ic_category_65.png",
+        "source": "D:\\DEV\\MoneyHolder1\\app\\src\\main\\res\\drawable-mdpi\\ic_category_65.png"
     },
     {
         "merged": "D:\\DEV\\MoneyHolder1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_list_selector_disabled_holo_dark.9.png",
@@ -108,16 +108,16 @@
         "source": "D:\\DEV\\MoneyHolder1\\app\\src\\main\\res\\drawable-mdpi\\ic_category_53.png"
     },
     {
-        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\drawer_debts.png",
-        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable-mdpi\\drawer_debts.png"
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_textfield_default_mtrl_alpha.9.png",
+        "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-mdpi-v4\\abc_textfield_default_mtrl_alpha.9.png"
     },
     {
         "merged": "D:\\DEV\\MoneyHolder1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\ic_checked.png",
         "source": "D:\\DEV\\MoneyHolder1\\app\\src\\main\\res\\drawable-mdpi\\ic_checked.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_textfield_default_mtrl_alpha.9.png",
-        "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-mdpi-v4\\abc_textfield_default_mtrl_alpha.9.png"
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\drawer_debts.png",
+        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable-mdpi\\drawer_debts.png"
     },
     {
         "merged": "D:\\DEV\\MoneyHolder1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\ic_category_27.png",
@@ -260,12 +260,12 @@
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable-mdpi\\ic_category_3.png"
     },
     {
-        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_ic_star_half_black_16dp.png",
-        "source": "D:\\DEV\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-mdpi-v4\\abc_ic_star_half_black_16dp.png"
-    },
-    {
         "merged": "D:\\DEV\\MoneyHolder1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\record_edit_display_bg.png",
         "source": "D:\\DEV\\MoneyHolder1\\app\\src\\main\\res\\drawable-mdpi\\record_edit_display_bg.png"
+    },
+    {
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_ic_star_half_black_16dp.png",
+        "source": "D:\\DEV\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-mdpi-v4\\abc_ic_star_half_black_16dp.png"
     },
     {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\ic_category_37.png",
@@ -292,12 +292,12 @@
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-mdpi-v4\\abc_ic_menu_selectall_mtrl_alpha.png"
     },
     {
-        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\ic_category_96.png",
-        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable-mdpi\\ic_category_96.png"
-    },
-    {
         "merged": "D:\\DEV\\MoneyHolder1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\circle_unchecked.png",
         "source": "D:\\DEV\\MoneyHolder1\\app\\src\\main\\res\\drawable-mdpi\\circle_unchecked.png"
+    },
+    {
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\ic_category_96.png",
+        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable-mdpi\\ic_category_96.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_btn_switch_to_on_mtrl_00001.9.png",
@@ -324,12 +324,12 @@
         "source": "D:\\DEV\\MoneyHolder1\\app\\src\\main\\res\\drawable-mdpi\\bottom_shadow.png"
     },
     {
-        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\ic_category_42.png",
-        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable-mdpi\\ic_category_42.png"
-    },
-    {
         "merged": "D:\\DEV\\MoneyHolder1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\ic_category_36.png",
         "source": "D:\\DEV\\MoneyHolder1\\app\\src\\main\\res\\drawable-mdpi\\ic_category_36.png"
+    },
+    {
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\ic_category_42.png",
+        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable-mdpi\\ic_category_42.png"
     },
     {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\unchecked_sign.png",
@@ -524,12 +524,12 @@
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable-mdpi\\drawer_credit.png"
     },
     {
-        "merged": "D:\\DEV\\MoneyHolder1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\ic_category_100.png",
-        "source": "D:\\DEV\\MoneyHolder1\\app\\src\\main\\res\\drawable-mdpi\\ic_category_100.png"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_textfield_search_activated_mtrl_alpha.9.png",
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-mdpi-v4\\abc_textfield_search_activated_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\DEV\\MoneyHolder1\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\ic_category_100.png",
+        "source": "D:\\DEV\\MoneyHolder1\\app\\src\\main\\res\\drawable-mdpi\\ic_category_100.png"
     },
     {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\ic_category_5.png",
