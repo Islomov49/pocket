@@ -348,6 +348,7 @@
     <color name="background_material_dark">@color/material_grey_850</color>
     <color name="background_material_light">@color/material_grey_50</color>
     <color name="blue_color" type="color">#308eff</color>
+    <color name="blue_color_drakness" type="color">#2c7fe2</color>
     <color name="bright_foreground_disabled_material_dark">#80ffffff</color>
     <color name="bright_foreground_disabled_material_light">#80000000</color>
     <color name="bright_foreground_inverse_material_dark">@color/bright_foreground_material_light</color>
@@ -729,6 +730,7 @@
     <string name="choose_currencies">Выберите валюту</string>
     <string name="choose_date">Выберите дату</string>
     <string name="costs_selected_all_warning">В списке должно остаться хотябы один элемент</string>
+    <string name="credit_name">Credit name</string>
     <string name="curr_not_choosen">Выберите хотя бы одну валюту</string>
     <string name="currencies">Валюты</string>
     <string name="currency_delete_warning">Записи по выбранным валютам будут удалены!!!</string>
@@ -740,6 +742,9 @@
     <string name="enter_cat_name">Введите название категории</string>
     <string name="enter_exchange">Введите курс</string>
     <string name="expanse">Расход</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="in_this_month_should_pay">In this month should pay:</string>
+    <string name="in_this_period_paid">In this period paid:</string>
     <string name="income">Доход</string>
     <string name="initial_amount">Начальная сумма: </string>
     <string name="library_FloatingActionButton_author">Oleksandr Melnykov</string>
@@ -759,6 +764,9 @@
     <string name="sub_cat">Подкатегория</string>
     <string name="sub_cats">Подкатегории</string>
     <string name="subcat_name">Название подкатегории</string>
+    <string name="this_period_ends">This period ends:</string>
+    <string name="total_paid">Total paid:</string>
+    <string name="verall_debt">Оverall debt:</string>
     <string name="warning">Предупреждение!!!</string>
     <string name="warning_subcat">Существует подкатегория с таким названием.</string>
     <string name="yes">Да</string>

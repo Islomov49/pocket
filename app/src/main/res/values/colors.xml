@@ -25,4 +25,5 @@
     <color name="icon_select" type="color">#332196f3</color>
     <color name="record_borders" type="color">#889c9c9c</color>
     <color name="record_outline" type="color">#88acacac</color>
+    <color type="color" name="blue_color_drakness">#2c7fe2</color>
 </resources>
