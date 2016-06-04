@@ -1,13 +1,12 @@
-package com.jim.pocketaccounter.debts;
+package com.jim.pocketaccounter.credit;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jim.pocketaccounter.AddCreditFragment;
@@ -24,6 +23,8 @@ import java.util.List;
 
 public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHolder>{
    List<CreditComputeDate> cardDetials;
+   List<CreditComputeDate> ccardDetials;
+    int S = 0;
     Context This;
     public AdapterCridet(List<CreditComputeDate> cardDetials, Context This){
        this.cardDetials=cardDetials;
@@ -48,7 +49,7 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
         holder.glav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openFragment(new AddCreditFragment(),"SOme");
+                openFragment(new AddCreditFragment(),"Addcredit");
             }
         });
     }
@@ -91,8 +92,9 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
     }
     public void openFragment(Fragment fragment,String tag) {
         if (fragment != null) {
-            final FragmentTransaction ft = ((PocketAccounter)This).getFragmentManager().beginTransaction();
+            final FragmentTransaction ft = ((PocketAccounter)This).getSupportFragmentManager().beginTransaction().addToBackStack(tag);
             ft.add(R.id.flMain, fragment,tag);
+
             ft.commit();
         }
     }

@@ -1,6 +1,12 @@
 package com.jim.pocketaccounter.debt;
 public class Person {
     private String name, phoneNumber, photo;
+    public Person(String name, String phoneNumber, String photo) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.photo = photo;
+    }
+    public Person() {}
     public String getName() {return name;}
     public void setName(String name) {this.name = name;}
     public String getPhoneNumber() {return phoneNumber;}

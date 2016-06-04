@@ -3,22 +3,18 @@ package com.jim.pocketaccounter;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.os.SystemClock;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jim.pocketaccounter.debts.AdapterCridet;
-import com.jim.pocketaccounter.debts.CreditComputeDate;
-import com.jim.pocketaccounter.debts.CreditDetials;
+import com.jim.pocketaccounter.credit.AdapterCridet;
+import com.jim.pocketaccounter.credit.CreditComputeDate;
 import com.melnykov.fab.FloatingActionButton;
 
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

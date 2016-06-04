@@ -1,53 +1,32 @@
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.jim.pocketaccounter.AddCreditFragment"
-
+    android:orientation="vertical"
     android:background="#ffffff"
+
 
    >
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="120dp"
         android:orientation="vertical"
-        android:paddingTop="10dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/textinput"
+        android:background="@color/grey_light"
+        android:paddingLeft="27dp"
+        android:paddingRight="27dp"
+        >
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColorHint="#787878"
-            android:gravity="right"
-            >
-            <EditText
-                android:id="@+id/creditName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                />
+            android:text="Credit name"
+            android:textSize="24sp"
+            android:textColor="#212121"
+            />
 
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/textinputik"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColorHint="#787878"
-            android:gravity="right"
-            >
-            <EditText
-                android:id="@+id/creditNameik"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="right"
-                />
-
-        </android.support.design.widget.TextInputLayout>
     </LinearLayout>
 
 
 
-</RelativeLayout>
+</LinearLayout>

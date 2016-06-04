@@ -9,6 +9,20 @@ public class DebtBorrow {
     private Account account;
     private Currency currency;
     private double amount;
+
+    public DebtBorrow(Person person, Calendar takenDate, Calendar returnDate, boolean remind, Account account, Currency currency, double amount) {
+        this.person = person;
+        this.takenDate = takenDate;
+        this.returnDate = returnDate;
+        this.remind = remind;
+        this.account = account;
+        this.currency = currency;
+        this.amount = amount;
+    }
+
+    public DebtBorrow() {
+    }
+
     public Person getPerson() {return person;}
     public void setPerson(Person person) {this.person = person;}
     public Calendar getTakenDate() {return takenDate;}
