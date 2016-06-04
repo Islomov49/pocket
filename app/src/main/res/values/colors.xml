@@ -26,4 +26,14 @@
     <color name="record_borders" type="color">#889c9c9c</color>
     <color name="record_outline" type="color">#88acacac</color>
     <color type="color" name="blue_color_drakness">#2c7fe2</color>
+
+
+
+
+    <color type="color" name="grey_light">#f5f5f5</color>
+    <color type="color" name="green_light">#1c835d</color>
+    <color type="color" name="red">#d60810</color>
+    <color type="color" name="green_just">#29952e</color>
+
+
 </resources>
