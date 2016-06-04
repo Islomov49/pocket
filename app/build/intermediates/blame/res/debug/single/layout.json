@@ -84,24 +84,24 @@
         "source": "D:\\DEV\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\notification_media_cancel_action.xml"
     },
     {
-        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media.xml",
-        "source": "D:\\DEV\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\notification_template_big_media.xml"
-    },
-    {
         "merged": "D:\\DEV\\MoneyHolder1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\title_item.xml",
         "source": "D:\\DEV\\MoneyHolder1\\app\\src\\main\\res\\layout\\title_item.xml"
+    },
+    {
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_big_media.xml",
+        "source": "D:\\DEV\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\notification_template_big_media.xml"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_lines.xml",
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\notification_template_lines.xml"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_select_dialog_material.xml",
-        "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_select_dialog_material.xml"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_mode_bar.xml",
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_action_mode_bar.xml"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_select_dialog_material.xml",
+        "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_select_dialog_material.xml"
     },
     {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_bottom_sheet_dialog.xml",
@@ -112,12 +112,12 @@
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_screen_simple.xml"
     },
     {
-        "merged": "E:\\Android\\Rabota\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_layout.xml",
-        "source": "E:\\Android\\Rabota\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_action_menu_layout.xml"
-    },
-    {
         "merged": "D:\\DEV\\MoneyHolder1\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_expanded_menu_layout.xml",
         "source": "D:\\DEV\\MoneyHolder1\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_expanded_menu_layout.xml"
+    },
+    {
+        "merged": "E:\\Android\\Rabota\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_action_menu_layout.xml",
+        "source": "E:\\Android\\Rabota\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_action_menu_layout.xml"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_menu_item.xml",
@@ -128,16 +128,16 @@
         "source": "D:\\DEV\\MoneyHolder1\\app\\src\\main\\res\\layout\\cat_icon_select.xml"
     },
     {
-        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\currency_edit.xml",
-        "source": "D:\\DEV\\example\\app\\src\\main\\res\\layout\\currency_edit.xml"
+        "merged": "E:\\Android\\Rabota\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\record_edit_layout.xml",
+        "source": "E:\\Android\\Rabota\\example\\app\\src\\main\\res\\layout\\record_edit_layout.xml"
     },
     {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\subcat_item.xml",
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\layout\\subcat_item.xml"
     },
     {
-        "merged": "E:\\Android\\Rabota\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\record_edit_layout.xml",
-        "source": "E:\\Android\\Rabota\\example\\app\\src\\main\\res\\layout\\record_edit_layout.xml"
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\currency_edit.xml",
+        "source": "D:\\DEV\\example\\app\\src\\main\\res\\layout\\currency_edit.xml"
     },
     {
         "merged": "E:\\Android\\Rabota\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\currency_list_item.xml",
