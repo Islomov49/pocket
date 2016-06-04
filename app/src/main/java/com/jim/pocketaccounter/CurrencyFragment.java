@@ -46,7 +46,7 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 			public void onScrollUp() {
 				if (mode == PocketAccounterGeneral.EDIT_MODE) return;
 				if (fabCurrencyAdd.getVisibility() == View.GONE) return;
-            	Animation down = AnimationUtils.loadAnimation(getActivity(), R.anim.fab_down);
+            	Animation down = AnimationUtils.loadAnimation(getContext(), R.anim.fab_down);
             	synchronized (down) {
 	                down.setAnimationListener(new AnimationListener() {
 						@Override
