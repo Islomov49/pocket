@@ -131,4 +131,9 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 			}
 		}
 	}
+	@Override
+	public void onStop() {
+		super.onStop();
+		PocketAccounter.financeManager.saveCategories();
+	}
 }

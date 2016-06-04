@@ -10,6 +10,7 @@ public class Currency {
 		setMain(false);
 		setAbbr("");
 		setCosts(new ArrayList<CurrencyCost>());
+		setName(name);
 	}
 	public void setMain(boolean isMain) {
 		this.isMain = isMain;

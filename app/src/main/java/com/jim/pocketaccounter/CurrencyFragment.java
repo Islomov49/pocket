@@ -108,12 +108,12 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 			}
 		});
 		ivToolbar = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
+		ivToolbar.setVisibility(View.VISIBLE);
 		ivToolbar.setImageResource(R.drawable.pencil);
 		ivToolbar.setOnClickListener(this);
 		refreshList();
 		return rootView;
 	}
-
 	private void setEditMode() {
 		mode = PocketAccounterGeneral.EDIT_MODE;
 		selected = new boolean[PocketAccounter.financeManager.getCurrencies().size()];
@@ -263,5 +263,10 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 	private void refreshList() {
 		CurrencyAdapter adapter = new CurrencyAdapter(getActivity(), PocketAccounter.financeManager.getCurrencies(), selected, mode);
 		lvCurrency.setAdapter(adapter);
+	}
+	@Override
+	public void onStop() {
+		super.onStop();
+		PocketAccounter.financeManager.saveCurrencies();
 	}
 }

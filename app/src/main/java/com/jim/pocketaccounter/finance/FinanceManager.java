@@ -2,6 +2,8 @@ package com.jim.pocketaccounter.finance;
 
 import android.content.Context;
 
+import com.jim.pocketaccounter.helper.PocketAccounterDatabase;
+
 import java.util.ArrayList;
 
 public class FinanceManager {
@@ -10,12 +12,14 @@ public class FinanceManager {
 	private ArrayList<RootCategory> categories;
 	private ArrayList<Account> accounts;
 	private ArrayList<FinanceRecord> records;
+	private PocketAccounterDatabase db;
 	public FinanceManager(Context context) {
 		this.context = context;
-		currencies = new ArrayList<Currency>();
-		categories = new ArrayList<RootCategory>();
-		records = new ArrayList<FinanceRecord>();
-		setAccounts(new ArrayList<Account>());
+		db = new PocketAccounterDatabase(context);
+		currencies = loadCurrencies();
+		categories = loadCategories();
+		accounts = loadAccounts();
+		records = loadRecords();
 	}
 	public ArrayList<Currency> getCurrencies() {
 		return currencies;
@@ -24,7 +28,7 @@ public class FinanceManager {
 		this.currencies = currencies;
 	}
 	private ArrayList<Currency> loadCurrencies() {
-		return null;
+		return db.loadCurrencies();
 	}
 	public Currency getMainCurrency() {
 		for (int i=0; i<currencies.size(); i++) {
@@ -36,18 +40,15 @@ public class FinanceManager {
 	public ArrayList<RootCategory> getCategories() {
 		return categories;
 	}
-	public void setCategories(ArrayList<RootCategory> categories) {
-		this.categories = categories;
-	}
-	private ArrayList<Category> loadCategories() {
-		return null;
-	}
+	private ArrayList<RootCategory> loadCategories() {return db.loadCategories();}
 	public ArrayList<Account> getAccounts() {
 		return accounts;
 	}
-	public void setAccounts(ArrayList<Account> accounts) {
-		this.accounts = accounts;
-	}
+	private ArrayList<Account> loadAccounts() {return db.loadAccounts();}
 	public ArrayList<FinanceRecord> getRecords() {return records; }
-	public void setRecords(ArrayList<FinanceRecord> records) {this.records = records;}
+	private ArrayList<FinanceRecord> loadRecords() {return db.loadDailyRecords();}
+	public void saveCurrencies() {db.saveDatasToCurrencyTable(currencies);}
+	public void saveAccounts() {db.saveDatasToAccountTable(accounts);}
+	public void saveCategories() {db.saveDatasToCategoryTable(categories);}
+	public void saveRecords() {db.saveDatasToDailyRecordTable(records);}
 }

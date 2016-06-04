@@ -188,4 +188,9 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 			}
 		}
 	}
+	@Override
+	public void onStop() {
+		super.onStop();
+		PocketAccounter.financeManager.saveAccounts();
+	}
 }

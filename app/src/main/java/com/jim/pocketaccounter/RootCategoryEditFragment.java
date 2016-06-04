@@ -236,7 +236,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 					SubCategory newSubCategory = new SubCategory();
 					newSubCategory.setName(etSubCategoryName.getText().toString());
 					newSubCategory.setId("subcat_"+UUID.randomUUID().toString());
-					newSubCategory.setParent(category);
+					newSubCategory.setParent(category.getId());
 					subCategories.add(newSubCategory);
 				}
 				refreshSubCatList(PocketAccounterGeneral.NORMAL_MODE);

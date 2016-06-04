@@ -1,11 +1,15 @@
 package com.jim.pocketaccounter.finance;
 
 public class SubCategory extends Category {
-	private Category parent;
-	public Category getParent() {
-		return parent;
+	private String parentId;
+	public String getParentId() {
+		return parentId;
 	}
-	public void setParent(Category parent) {
-		this.parent = parent;
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
+
+	public void setParent(String parentId) {
+		this.parentId = parentId;
 	}
 }

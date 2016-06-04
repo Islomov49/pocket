@@ -47,4 +47,9 @@ public class RecordFragment extends Fragment {
 		rlRecordIncomes.addView(rIncomes);
 		return rootView;
 	}
+	@Override
+	public void onStop() {
+		super.onStop();
+		PocketAccounter.financeManager.saveRecords();
+	}
 }

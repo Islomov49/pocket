@@ -46,6 +46,8 @@ public class PocketAccounter extends AppCompatActivity {
         fillLeftMenu();
         if (financeManager.getCurrencies().isEmpty())
             replaceFragment(new CurrencyChooseFragment());
+        else
+            replaceFragment(new RecordFragment());
     }
     private void fillLeftMenu() {
         String[] cats = getResources().getStringArray(R.array.drawer_cats);

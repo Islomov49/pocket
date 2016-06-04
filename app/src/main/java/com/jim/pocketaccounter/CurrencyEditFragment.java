@@ -65,6 +65,7 @@ public class CurrencyEditFragment extends Fragment implements OnClickListener, O
 		});
 		PocketAccounter.toolbar.setTitle(currency.getName()+", "+currency.getAbbr());
 		((ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight)).setImageResource(R.drawable.check_sign);
+		((ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight)).setVisibility(View.VISIBLE);
 		((ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight)).setOnClickListener(this);
 		refreshExchangeList();
 		return rootView;
