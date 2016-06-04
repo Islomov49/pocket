@@ -1,23 +1,23 @@
 [
     {
-        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\blue_background_unchecked.png",
-        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable-xxhdpi\\blue_background_unchecked.png"
-    },
-    {
         "merged": "D:\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_ab_back_mtrl_am_alpha.png",
         "source": "D:\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-xxhdpi-v4\\abc_ic_ab_back_mtrl_am_alpha.png"
+    },
+    {
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\blue_background_unchecked.png",
+        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable-xxhdpi\\blue_background_unchecked.png"
     },
     {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_30.png",
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_30.png"
     },
     {
-        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_58.png",
-        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_58.png"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_73.png",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_73.png"
+    },
+    {
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_58.png",
+        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_58.png"
     },
     {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_13.png",
@@ -36,12 +36,12 @@
         "source": "D:\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_100.png"
     },
     {
-        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_menu_paste_mtrl_am_alpha.png",
-        "source": "D:\\DEV\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-xxhdpi-v4\\abc_ic_menu_paste_mtrl_am_alpha.png"
-    },
-    {
         "merged": "D:\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_cab_background_top_mtrl_alpha.9.png",
         "source": "D:\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-xxhdpi-v4\\abc_cab_background_top_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_menu_paste_mtrl_am_alpha.png",
+        "source": "D:\\DEV\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-xxhdpi-v4\\abc_ic_menu_paste_mtrl_am_alpha.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_star_half_black_36dp.png",
@@ -56,28 +56,28 @@
         "source": "D:\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_40.png"
     },
     {
-        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\drawer_currency.png",
-        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable-xxhdpi\\drawer_currency.png"
+        "merged": "D:\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_39.png",
+        "source": "D:\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_39.png"
     },
     {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_92.png",
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_92.png"
     },
     {
-        "merged": "D:\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_39.png",
-        "source": "D:\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_39.png"
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\drawer_currency.png",
+        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable-xxhdpi\\drawer_currency.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\selected_icon.xml",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\selected_icon.xml"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\workspace_shader.png",
-        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\workspace_shader.png"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\record_pressed_first.png",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\record_pressed_first.png"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\workspace_shader.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\workspace_shader.png"
     },
     {
         "merged": "D:\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_85.png",
@@ -116,12 +116,12 @@
         "source": "D:\\example\\app\\src\\main\\res\\drawable-xxhdpi\\drawer_header.jpg"
     },
     {
-        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_29.png",
-        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_29.png"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ab_share_pack_mtrl_alpha.9.png",
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-xxhdpi-v4\\abc_ab_share_pack_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_29.png",
+        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_29.png"
     },
     {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_drawer.png",
@@ -164,36 +164,36 @@
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_23.png"
     },
     {
-        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\circle_unchecked.png",
-        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable-xxhdpi\\circle_unchecked.png"
-    },
-    {
         "merged": "D:\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\currency_chooser_ok.png",
         "source": "D:\\example\\app\\src\\main\\res\\drawable-xxhdpi\\currency_chooser_ok.png"
+    },
+    {
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\circle_unchecked.png",
+        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable-xxhdpi\\circle_unchecked.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\checked_sign.png",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\checked_sign.png"
     },
     {
-        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\fab_check.png",
-        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable-xxhdpi\\fab_check.png"
-    },
-    {
         "merged": "D:\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_35.png",
         "source": "D:\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_35.png"
+    },
+    {
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\fab_check.png",
+        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable-xxhdpi\\fab_check.png"
     },
     {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_63.png",
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_63.png"
     },
     {
-        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_list_longpressed_holo.9.png",
-        "source": "D:\\DEV\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-xxhdpi-v4\\abc_list_longpressed_holo.9.png"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\arrow.png",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\arrow.png"
+    },
+    {
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_list_longpressed_holo.9.png",
+        "source": "D:\\DEV\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-xxhdpi-v4\\abc_list_longpressed_holo.9.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_100.png",
@@ -212,24 +212,24 @@
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_25.png"
     },
     {
-        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_42.png",
-        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_42.png"
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_77.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_77.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_40.png",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_40.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_77.png",
-        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_77.png"
-    },
-    {
-        "merged": "D:\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_44.png",
-        "source": "D:\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_44.png"
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_42.png",
+        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_42.png"
     },
     {
         "merged": "D:\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_89.png",
         "source": "D:\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_89.png"
+    },
+    {
+        "merged": "D:\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_44.png",
+        "source": "D:\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_44.png"
     },
     {
         "merged": "D:\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_voice_search_api_mtrl_alpha.png",
@@ -256,12 +256,12 @@
         "source": "D:\\example\\app\\src\\main\\res\\drawable-xxhdpi\\drawer_finance.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\drawer_statistics.png",
-        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\drawer_statistics.png"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_4.png",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_4.png"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\drawer_statistics.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\drawer_statistics.png"
     },
     {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_54.png",

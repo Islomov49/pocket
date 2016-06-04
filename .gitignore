@@ -1,22 +1,8 @@
-/build.gradle
-/.gitignore
-/.idea/libraries/*
-/.idea
-/local.properties
-/app/build
-# built application files
-*.apk
-*.ap_
-
-# files for the dex VM
-*.dex
-
-# generated files
-bin/
-gen/
-
 *.iml
-.idea
-#.idea/workspace.xml - remove # and delete .idea if it better suit your needs.
 .gradle
-build/
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
