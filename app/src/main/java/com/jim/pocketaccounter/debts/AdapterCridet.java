@@ -25,6 +25,7 @@ import java.util.List;
 public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHolder>{
    List<CreditComputeDate> cardDetials;
    List<CreditComputeDate> ccardDetials;
+    int S = 0;
     Context This;
     public AdapterCridet(List<CreditComputeDate> cardDetials, Context This){
        this.cardDetials=cardDetials;

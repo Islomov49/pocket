@@ -9,6 +9,7 @@ public class DebtBorrow {
     private Account account;
     private Currency currency;
     private double amount;
+
     public Person getPerson() {return person;}
     public void setPerson(Person person) {this.person = person;}
     public Calendar getTakenDate() {return takenDate;}
