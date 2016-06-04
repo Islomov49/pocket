@@ -1,4 +1,4 @@
-package com.jim.pocketaccounter.debts;
+package com.jim.pocketaccounter.credit;
 
 /**
  * Created by developer on 02.06.2016.
