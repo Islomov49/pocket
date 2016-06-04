@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.jim.pocketaccounter.debt.BorrowFragment;
+import com.jim.pocketaccounter.debt.DebtBorrowFragment;
 import com.jim.pocketaccounter.finance.FinanceManager;
 import com.jim.pocketaccounter.helper.LeftMenuAdapter;
 import com.jim.pocketaccounter.helper.LeftMenuItem;
@@ -124,6 +126,7 @@ public class PocketAccounter extends AppCompatActivity {
                     case 9:
 
                         //debts
+                        replaceFragment(new DebtBorrowFragment());
                         break;
                     case 10:
                         //settings
