@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="toolbar_color" type="color">#c9c8c8</color>
-    <color name="toolbar_text_color" type="color">#414242</color>
+    <color name="toolbar_text_color" type="color">#212121</color>
     <color name="drawer_color" type="color">#166982</color>
     <color name="blue_color" type="color">#308eff</color>
     <color name="toolbar_color_transparent" type="color">#BB2196f3</color>
