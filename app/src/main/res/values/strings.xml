@@ -357,18 +357,157 @@
     <string name="costs_selected_all_warning">В списке должно остаться хотябы один элемент</string>
     <string name="category">Категории</string>
     <string name="divide_null">На ноль делить нельзя!</string>
-
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
     <string name="total_paid">Total paid:</string>
-
     <string name="in_this_period_paid">In this period paid:</string>
-
     <string name="this_period_ends">This period ends:</string>
-
     <string name="verall_debt">Оverall debt:</string>
-
     <string name="in_this_month_should_pay">In this month should pay:</string>
-
     <string name="credit_name">Credit name</string>
+    <string name="home">Дом</string>
+    <string name="network">Связь</string>
+    <string name="clothes">Одежда</string>
+    <string name="health">Здоровье</string>
+    <string name="food">Еда</string>
+    <string name="car">Авто</string>
+    <string name="transport">Транспорт</string>
+    <string name="gaiety">Развлечения</string>
+    <string name="buy">Покупки</string>
+    <string name="sport">Спорт</string>
+    <string name="beauty">Красота</string>
+    <string name="equipment">Оргтехника</string>
+    <string-array name="cat_values">
+        <item>home</item>
+        <item>network</item>
+        <item>clothes</item>
+        <item>health</item>
+        <item>food</item>
+        <item>car</item>
+        <item>transport</item>
+        <item>gaiety</item>
+        <item>buy</item>
+        <item>sport</item>
+        <item>beauty</item>
+        <item>equipment</item>
+    </string-array>
+    <string-array name="cat_types">
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+    </string-array>
+    <string-array name="cat_icons">
+        <item>ic_category_1</item>
+        <item>ic_category_2</item>
+        <item>ic_category_3</item>
+        <item>ic_category_4</item>
+        <item>ic_category_5</item>
+        <item>ic_category_6</item>
+        <item>ic_category_7</item>
+        <item>ic_category_8</item>
+        <item>ic_category_9</item>
+        <item>ic_category_10</item>
+        <item>ic_category_11</item>
+        <item>ic_category_12</item>
+    </string-array>
+    <string-array name="home">
+        <item>Ремонт</item>
+        <item>Электроэнергия</item>
+        <item>ГАЗ</item>
+        <item>Налоги</item>
+        <item>Вода(хол.)</item>
+        <item>Вода(гор.)</item>
+        <item>Отопление</item>
+        <item>Кабельное ТВ</item>
+    </string-array>
+    <string-array name="network">
+        <item>Интернет</item>
+        <item>Телефон(дом.)</item>
+        <item>Телефон(моб.)</item>
+    </string-array>
+    <string-array name="clothes">
+        <item>Рубашка</item>
+        <item>Носки</item>
+        <item>Брюки</item>
+        <item>Футболка</item>
+        <item>Шорты</item>
+        <item>Туфли</item>
+    </string-array>
+    <string-array name="health">
+        <item>Лекарство</item>
+        <item>Доктор</item>
+        <item>Стоматолог</item>
+    </string-array>
+    <string-array name="food">
+        <item>Хлеб</item>
+        <item>Молоко</item>
+        <item>Мясо</item>
+        <item>Пиво</item>
+        <item>Кефир</item>
+        <item>Яйца</item>
+        <item>Вода</item>
+    </string-array>
+    <string-array name="car">
+        <item>Ремон</item>
+        <item>Топливо</item>
+        <item>Моторное масло</item>
+        <item>Вулканизация</item>
+        <item>Фильтры</item>
+        <item>Колодки</item>
+        <item>Аккумулятор</item>
+        <item>Шины</item>
+    </string-array>
+    <string-array name="transport">
+        <item>Такси</item>
+        <item>Автобус</item>
+        <item>Метро</item>
+        <item>Трамвай</item>
+        <item>Троллейбус</item>
+        <item>Самолет</item>
+    </string-array>
+    <string-array name="gaiety">
+        <item>Ресторан</item>
+        <item>Кафе</item>
+        <item>Ночной клуб</item>
+        <item>Боулинг</item>
+        <item>Кино</item>
+        <item>Театр</item>
+        <item>Аттракцион</item>
+    </string-array>
+    <string-array name="buy">
+        <item>Зубная паста</item>
+        <item>Шампунь</item>
+        <item>Масло</item>
+        <item>Сигареты</item>
+        <item>Напитки</item>
+    </string-array>
+    <string-array name="sport">
+        <item>Тренажерный зал</item>
+        <item>Фитнес</item>
+        <item>Футбол</item>
+        <item>Теннис</item>
+        <item>Плавание</item>
+    </string-array>
+    <string-array name="beauty">
+        <item>Парикмахер</item>
+        <item>Массаж</item>
+        <item>Маникюр</item>
+        <item>Педикюр</item>
+        <item>Макияж</item>
+    </string-array>
+    <string-array name="equipment">
+        <item>Смартфон</item>
+        <item>Компьютер</item>
+        <item>Холодильник</item>
+        <item>Кондиционер</item>
+        <item>Принтер</item>
+    </string-array>
 </resources>

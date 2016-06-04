@@ -10,9 +10,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
+import com.jim.pocketaccounter.R;
 import com.jim.pocketaccounter.debt.DebtBorrow;
 import com.jim.pocketaccounter.finance.Account;
+import com.jim.pocketaccounter.finance.Category;
 import com.jim.pocketaccounter.finance.Currency;
 import com.jim.pocketaccounter.finance.CurrencyCost;
 import com.jim.pocketaccounter.finance.FinanceRecord;
@@ -64,8 +67,7 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
 				+ "subcategory_name TEXT,"
 				+ "subcategory_id TEXT,"
-				+ "category_id TEXT,"
-				+ "parent_id TEXT"
+				+ "category_id TEXT"
 				+ ");");
 
 		//account table
@@ -100,6 +102,32 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 				+ "debt_id TEXT,"
 				+ "photo_id TEXT"
 				+ ");");
+		initDefault(db);
+	}
+
+	private void initDefault(SQLiteDatabase db) {
+		String[] catValues = context.getResources().getStringArray(R.array.cat_values);
+		String[] catTypes = context.getResources().getStringArray(R.array.cat_types);
+		String[] catIcons = context.getResources().getStringArray(R.array.cat_icons);
+		for (int i=0; i<catValues.length; i++) {
+			int resId = context.getResources().getIdentifier(catValues[i], "string", context.getPackageName());
+			int iconId = context.getResources().getIdentifier(catIcons[i], "drawable", context.getPackageName());
+			ContentValues values = new ContentValues();
+			values.put("category_name", context.getResources().getString(resId));
+			values.put("category_id", catValues[i]);
+			values.put("category_type", catTypes[i]);
+			values.put("icon", iconId);
+			db.insert("category_table", null, values);
+			int arrayId = context.getResources().getIdentifier(catValues[i], "array", context.getPackageName());
+			String[] subCats = context.getResources().getStringArray(arrayId);
+			for (int j=0; j<subCats.length; j++) {
+				values.clear();
+				values.put("subcategory_name", subCats[j]);
+				values.put("subcategory_id", subCats[j]);
+				values.put("category_id", catValues[i]);
+				db.insert("subcategory_table", null, values);
+			}
+		}
 	}
 
 	public void saveDatasToDebtBorrowTable(ArrayList<DebtBorrow> debtBorrows) {
@@ -199,7 +227,6 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 		Cursor subcatCursor = db.query("subcategory_table", null, null, null, null, null, null);
 		ArrayList<RootCategory> result = new ArrayList<RootCategory>();
 		catCursor.moveToFirst();
-		subcatCursor.moveToFirst();
 		while(!catCursor.isAfterLast()) {
 			RootCategory newCategory = new RootCategory();
 			newCategory.setName(catCursor.getString(catCursor.getColumnIndex("category_name")));
@@ -207,16 +234,19 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 			newCategory.setId(catId);
 			newCategory.setType(catCursor.getInt(catCursor.getColumnIndex("category_type")));
 			newCategory.setIcon(catCursor.getInt(catCursor.getColumnIndex("icon")));
+			subcatCursor.moveToFirst();
+			ArrayList<SubCategory> subCats = new ArrayList<SubCategory>();
 			while(!subcatCursor.isAfterLast()) {
 				if (subcatCursor.getString(subcatCursor.getColumnIndex("category_id")).matches(catId)) {
 					SubCategory newSubCategory = new SubCategory();
 					newSubCategory.setName(subcatCursor.getString(subcatCursor.getColumnIndex("subcategory_name")));
 					newSubCategory.setId(subcatCursor.getString(subcatCursor.getColumnIndex("subcategory_id")));
 					newSubCategory.setParentId(catId);
-					newCategory.getSubCategories().add(newSubCategory);
+					subCats.add(newSubCategory);
 				}
 				subcatCursor.moveToNext();
 			}
+			newCategory.setSubCategories(subCats);
 			result.add(newCategory);
 			catCursor.moveToNext();
 		}
