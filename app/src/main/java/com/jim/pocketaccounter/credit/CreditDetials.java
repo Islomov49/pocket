@@ -6,5 +6,7 @@ package com.jim.pocketaccounter.credit;
 
 public class CreditDetials {
    //all data from table
+   //all data from table
+   //all data from table
 
 }
