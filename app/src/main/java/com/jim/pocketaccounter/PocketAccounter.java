@@ -117,9 +117,12 @@ public class PocketAccounter extends AppCompatActivity {
                         //planning
                         break;
                     case 8:
+                        replaceFragment(new CreditFragment());
+
                         //credit
                         break;
                     case 9:
+
                         //debts
                         break;
                     case 10:

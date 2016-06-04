@@ -1,7 +1,7 @@
 package com.jim.pocketaccounter.credit;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -49,7 +49,7 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
         holder.glav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openFragment(new AddCreditFragment(),"SOme");
+                openFragment(new AddCreditFragment(),"Addcredit");
             }
         });
     }
@@ -92,8 +92,9 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
     }
     public void openFragment(Fragment fragment,String tag) {
         if (fragment != null) {
-            final FragmentTransaction ft = ((PocketAccounter)This).getFragmentManager().beginTransaction();
+            final FragmentTransaction ft = ((PocketAccounter)This).getSupportFragmentManager().beginTransaction().addToBackStack(tag);
             ft.add(R.id.flMain, fragment,tag);
+
             ft.commit();
         }
     }

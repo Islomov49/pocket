@@ -5,7 +5,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,11 +31,9 @@ public class AddCreditFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View V=inflater.inflate(R.layout.fragment_add_credit, container, false);
-        credNameinput=(TextInputLayout) V.findViewById(R.id.textinput);
-        credNameEdit=(EditText) credNameinput.findViewById(R.id.creditName);
-        credNameinput.setHint("Nimadir");
 
-        return  V;}
+        return  V;
+    }
 
     @Override
     public void onAttach(Context context) {
