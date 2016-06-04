@@ -34,6 +34,8 @@
     <color type="color" name="green_light">#1c835d</color>
     <color type="color" name="red">#d60810</color>
     <color type="color" name="green_just">#29952e</color>
+    <color type="color" name="black_for_glavniy_text">#212121</color>
+    <color type="color" name="black_for_secondary_text">#838383</color>
 
 
 </resources>

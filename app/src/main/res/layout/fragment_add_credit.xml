@@ -7,13 +7,23 @@
     android:orientation="vertical"
     android:background="#ffffff"
 
+
    >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:orientation="vertical"
-        android:background="@color/"
+        android:background="@color/grey_light"
+        android:paddingLeft="27dp"
+        android:paddingRight="27dp"
         >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Credit name"
+            android:textSize="24sp"
+            android:textColor="#212121"
+            />
 
     </LinearLayout>
 
