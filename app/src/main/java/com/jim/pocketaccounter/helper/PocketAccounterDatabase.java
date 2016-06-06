@@ -10,6 +10,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.jim.pocketaccounter.R;
 import com.jim.pocketaccounter.debt.DebtBorrow;
@@ -64,7 +65,8 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
 				+ "subcategory_name TEXT,"
 				+ "subcategory_id TEXT,"
-				+ "category_id TEXT"
+				+ "category_id TEXT,"
+				+ "icon INTEGER"
 				+ ");");
 
 		//account table
@@ -116,12 +118,18 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 			values.put("icon", iconId);
 			db.insert("category_table", null, values);
 			int arrayId = context.getResources().getIdentifier(catValues[i], "array", context.getPackageName());
+			int subcatIconArrayId = context.getResources().getIdentifier(catValues[i]+"_icons", "array", context.getPackageName());
 			String[] subCats = context.getResources().getStringArray(arrayId);
+			String[] tempIcons = context.getResources().getStringArray(subcatIconArrayId);
+			int[] subCatIcons = new int[tempIcons.length];
+			for (int j=0; j<tempIcons.length; j++)
+				subCatIcons[j] = context.getResources().getIdentifier(tempIcons[j], "drawable", context.getPackageName());
 			for (int j=0; j<subCats.length; j++) {
 				values.clear();
 				values.put("subcategory_name", subCats[j]);
 				values.put("subcategory_id", subCats[j]);
 				values.put("category_id", catValues[i]);
+				values.put("icon", subCatIcons[j]);
 				db.insert("subcategory_table", null, values);
 			}
 		}
@@ -213,6 +221,7 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 				values.put("subcategory_name", categories.get(i).getSubCategories().get(j).getName());
 				values.put("subcategory_id", categories.get(i).getSubCategories().get(j).getId());
 				values.put("category_id", categories.get(i).getId());
+				values.put("icon", categories.get(i).getIcon());
 				db.insert("subcategory_table", null, values);
 			}
 		}
@@ -240,6 +249,7 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 					newSubCategory.setName(subcatCursor.getString(subcatCursor.getColumnIndex("subcategory_name")));
 					newSubCategory.setId(subcatCursor.getString(subcatCursor.getColumnIndex("subcategory_id")));
 					newSubCategory.setParentId(catId);
+					newSubCategory.setIcon(subcatCursor.getInt(subcatCursor.getColumnIndex("icon")));
 					subCats.add(newSubCategory);
 				}
 				subcatCursor.moveToNext();

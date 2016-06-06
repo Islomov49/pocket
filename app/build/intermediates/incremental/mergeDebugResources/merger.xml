@@ -1505,7 +1505,15 @@
         <attr format="color" name="civ_border_color"/>
         <attr format="boolean" name="civ_border_overlay"/>
         <attr format="color" name="civ_fill_color"/>
-    </declare-styleable></file><file path="C:\shinauz\example\app\src\main\res\values\colors.xml" qualifiers=""><color name="currency_list_border" type="color">#ebebeb</color><color name="material_blue_500" type="color">#2196f3</color><color name="green_light_forline" type="color">#efefef</color><color name="black_for_glavniy_text" type="color">#212121</color><color name="warning_color" type="color">#ababab</color><color name="record_outline" type="color">#88acacac</color><color name="message_color" type="color">#ebebeb</color><color name="message_text_bg" type="color">#9cba63</color><color name="green_just" type="color">#29952e</color><color name="drawer_color" type="color">#166982</color><color name="grey_light" type="color">#f5f5f5</color><color name="drawer_title_bg_color" type="color">#36434c</color><color name="colorPrimary">#3F51B5</color><color name="colorAccent">#FF4081</color><color name="lv_border" type="color">#ebebeb</color><color name="blue_color_drakness" type="color">#2c7fe2</color><color name="toolbar_color_transparent" type="color">#BB2196f3</color><color name="fab_icon_bg" type="color">#ffffff</color><color name="icon_select" type="color">#332196f3</color><color name="red" type="color">#d60810</color><color name="empty" type="color">#00000000</color><color name="currency_chooser" type="color">#828282</color><color name="toolbar_color" type="color">#c9c8c8</color><color name="main_app_name_text" type="color">#636363</color><color name="blue_color" type="color">#308eff</color><color name="colorPrimaryDark">#494949</color><color name="drawer_settings_selected_color" type="color">#4a5761</color><color name="forlines" type="color">#494949</color><color name="green_light" type="color">#1c835d</color><color name="toolbar_text_color" type="color">#212121</color><color name="drawer_listview_border" type="color">#36434c</color><color name="black_for_secondary_text" type="color">#838383</color><color name="record_borders" type="color">#889c9c9c</color><color name="white" type="color">#ffffff</color></file><file path="C:\shinauz\example\app\src\main\res\values\dimens.xml" qualifiers=""><dimen name="fiftyfive_dp">55dp</dimen><dimen name="one_dp">1dp</dimen><dimen name="four_dp">4dp</dimen><dimen name="thirtyeight_dp">38dp</dimen><dimen name="twentynine_dp">29dp</dimen><dimen name="eighteen_sp">18sp</dimen><dimen name="eight_dp">8dp</dimen><dimen name="fourtyfive_dp">45dp</dimen><dimen name="drawer_head_height">60dp</dimen><dimen name="fab_size_mini">40dp</dimen><dimen name="twentytwo_sp">22sp</dimen><dimen name="fab_press_translation_z">6dp</dimen><dimen name="ninetytwo_dp">92dp</dimen><dimen name="drawer_header_height">170dp</dimen><dimen name="twentyfour_sp">24sp</dimen><dimen name="twenty_dp">20dp</dimen><dimen name="six_dp">6dp</dimen><dimen name="eighty_dp">80dp</dimen><dimen name="fab_size_normal">56dp</dimen><dimen name="nine_dp">9dp</dimen><dimen name="activity_vertical_margin">16dp</dimen><dimen name="fourtyone_dp">41dp</dimen><dimen name="twentyseven_dp">27dp</dimen><dimen name="fab_scroll_threshold">4dp</dimen><dimen name="eightteen_dp">18dp</dimen><dimen name="thirtyseven_dp">37dp</dimen><dimen name="sixteen_sp">16sp</dimen><dimen name="fourtyfour_dp">44dp</dimen><dimen name="fifteen_dp">15dp</dimen><dimen name="eleven_dp">11dp</dimen><dimen name="twenty_sp">20sp</dimen><dimen name="fifty_dp">50dp</dimen><dimen name="twentysix_dp">26dp</dimen><dimen name="thirtynine_dp">39dp</dimen><dimen name="twelve_sp">12sp</dimen><dimen name="hundred_and_twelve_dp">112dp</dimen><dimen name="twentyone_dp">21dp</dimen><dimen name="thirtyone_dp">31dp</dimen><dimen name="thirteen_dp">13dp</dimen><dimen name="fourteen_dp">14dp</dimen><dimen name="twentythree_dp">23dp</dimen><dimen name="fab_elevation_lollipop">8dp</dimen><dimen name="hundred_and_twenty_dp">120dp</dimen><dimen name="ten_dp">10dp</dimen><dimen name="twentyeight_dp">28dp</dimen><dimen name="hunder_and_fourty_dp">140dp</dimen><dimen name="twentytwo_dp">22dp</dimen><dimen name="seventeen_dp">17dp</dimen><dimen name="hundred_and_ten_dp">110dp</dimen><dimen name="fourtythree_dp">43dp</dimen><dimen name="twentyfive_dp">25dp</dimen><dimen name="two_dp">2dp</dimen><dimen name="thirtyfour_dp">34dp</dimen><dimen name="thirtysix_dp">36dp</dimen><dimen name="fourtytwo_dp">42dp</dimen><dimen name="fourtysix_dp">46dp</dimen><dimen name="fourtynine_dp">49dp</dimen><dimen name="sixty_dp">60dp</dimen><dimen name="fourty_dp">40dp</dimen><dimen name="nineteen_dp">19dp</dimen><dimen name="left_drawer_width">280dp</dimen><dimen name="thirtythree_dp">33dp</dimen><dimen name="twelve_dp">12dp</dimen><dimen name="three_dp">3dp</dimen><dimen name="twentysix_sp">26sp</dimen><dimen name="five_dp">5dp</dimen><dimen name="thirtytwo_dp">32dp</dimen><dimen name="eightyfive_dp">85dp</dimen><dimen name="fourtyseven_dp">47dp</dimen><dimen name="fourteen_sp">14sp</dimen><dimen name="fiftysix_dp">56dp</dimen><dimen name="ten_sp">10sp</dimen><dimen name="twentyfour_dp">24dp</dimen><dimen name="seventy_dp">70dp</dimen><dimen name="thirtyfive_dp">35dp</dimen><dimen name="drawer_listview_border">2dp</dimen><dimen name="activity_horizontal_margin">16dp</dimen><dimen name="thirty_dp">30dp</dimen><dimen name="sevent_dp">7dp</dimen><dimen name="fourtyeight_dp">48dp</dimen><dimen name="fifteen_sp">15sp</dimen><dimen name="sixteen_dp">16dp</dimen><dimen name="drawer_side">50dp</dimen><dimen name="fab_shadow_size">12dp</dimen></file><file path="C:\shinauz\example\app\src\main\res\values\strings.xml" qualifiers=""><string name="choose_date">Выберите дату</string><string name="main_currency">Основная валюта: </string><string name="account">Счет</string><string-array name="finance_subitem_icons">
+    </declare-styleable></file><file path="C:\shinauz\example\app\src\main\res\values\colors.xml" qualifiers=""><color name="currency_list_border" type="color">#ebebeb</color><color name="material_blue_500" type="color">#2196f3</color><color name="green_light_forline" type="color">#efefef</color><color name="black_for_glavniy_text" type="color">#212121</color><color name="warning_color" type="color">#ababab</color><color name="record_outline" type="color">#88acacac</color><color name="message_color" type="color">#ebebeb</color><color name="message_text_bg" type="color">#9cba63</color><color name="green_just" type="color">#29952e</color><color name="drawer_color" type="color">#166982</color><color name="grey_light" type="color">#f5f5f5</color><color name="drawer_title_bg_color" type="color">#36434c</color><color name="colorPrimary">#3F51B5</color><color name="colorAccent">#FF4081</color><color name="lv_border" type="color">#ebebeb</color><color name="blue_color_drakness" type="color">#2c7fe2</color><color name="toolbar_color_transparent" type="color">#BB2196f3</color><color name="fab_icon_bg" type="color">#ffffff</color><color name="icon_select" type="color">#332196f3</color><color name="red" type="color">#d60810</color><color name="empty" type="color">#00000000</color><color name="currency_chooser" type="color">#828282</color><color name="toolbar_color" type="color">#c9c8c8</color><color name="main_app_name_text" type="color">#636363</color><color name="blue_color" type="color">#308eff</color><color name="colorPrimaryDark">#494949</color><color name="drawer_settings_selected_color" type="color">#4a5761</color><color name="forlines" type="color">#494949</color><color name="green_light" type="color">#1c835d</color><color name="toolbar_text_color" type="color">#212121</color><color name="drawer_listview_border" type="color">#36434c</color><color name="black_for_secondary_text" type="color">#838383</color><color name="record_borders" type="color">#889c9c9c</color><color name="white" type="color">#ffffff</color></file><file path="C:\shinauz\example\app\src\main\res\values\dimens.xml" qualifiers=""><dimen name="fiftyfive_dp">55dp</dimen><dimen name="one_dp">1dp</dimen><dimen name="four_dp">4dp</dimen><dimen name="thirtyeight_dp">38dp</dimen><dimen name="twentynine_dp">29dp</dimen><dimen name="eighteen_sp">18sp</dimen><dimen name="eight_dp">8dp</dimen><dimen name="fourtyfive_dp">45dp</dimen><dimen name="drawer_head_height">60dp</dimen><dimen name="fab_size_mini">40dp</dimen><dimen name="twentytwo_sp">22sp</dimen><dimen name="fab_press_translation_z">6dp</dimen><dimen name="ninetytwo_dp">92dp</dimen><dimen name="drawer_header_height">170dp</dimen><dimen name="twentyfour_sp">24sp</dimen><dimen name="twenty_dp">20dp</dimen><dimen name="six_dp">6dp</dimen><dimen name="eighty_dp">80dp</dimen><dimen name="fab_size_normal">56dp</dimen><dimen name="nine_dp">9dp</dimen><dimen name="activity_vertical_margin">16dp</dimen><dimen name="fourtyone_dp">41dp</dimen><dimen name="twentyseven_dp">27dp</dimen><dimen name="fab_scroll_threshold">4dp</dimen><dimen name="eightteen_dp">18dp</dimen><dimen name="thirtyseven_dp">37dp</dimen><dimen name="sixteen_sp">16sp</dimen><dimen name="fourtyfour_dp">44dp</dimen><dimen name="fifteen_dp">15dp</dimen><dimen name="eleven_dp">11dp</dimen><dimen name="twenty_sp">20sp</dimen><dimen name="fifty_dp">50dp</dimen><dimen name="twentysix_dp">26dp</dimen><dimen name="thirtynine_dp">39dp</dimen><dimen name="twelve_sp">12sp</dimen><dimen name="hundred_and_twelve_dp">112dp</dimen><dimen name="twentyone_dp">21dp</dimen><dimen name="thirtyone_dp">31dp</dimen><dimen name="thirteen_dp">13dp</dimen><dimen name="fourteen_dp">14dp</dimen><dimen name="twentythree_dp">23dp</dimen><dimen name="fab_elevation_lollipop">8dp</dimen><dimen name="hundred_and_twenty_dp">120dp</dimen><dimen name="ten_dp">10dp</dimen><dimen name="twentyeight_dp">28dp</dimen><dimen name="hunder_and_fourty_dp">140dp</dimen><dimen name="twentytwo_dp">22dp</dimen><dimen name="seventeen_dp">17dp</dimen><dimen name="hundred_and_ten_dp">110dp</dimen><dimen name="fourtythree_dp">43dp</dimen><dimen name="twentyfive_dp">25dp</dimen><dimen name="two_dp">2dp</dimen><dimen name="thirtyfour_dp">34dp</dimen><dimen name="thirtysix_dp">36dp</dimen><dimen name="fourtytwo_dp">42dp</dimen><dimen name="fourtysix_dp">46dp</dimen><dimen name="fourtynine_dp">49dp</dimen><dimen name="sixty_dp">60dp</dimen><dimen name="fourty_dp">40dp</dimen><dimen name="nineteen_dp">19dp</dimen><dimen name="left_drawer_width">280dp</dimen><dimen name="thirtythree_dp">33dp</dimen><dimen name="twelve_dp">12dp</dimen><dimen name="three_dp">3dp</dimen><dimen name="twentysix_sp">26sp</dimen><dimen name="five_dp">5dp</dimen><dimen name="thirtytwo_dp">32dp</dimen><dimen name="eightyfive_dp">85dp</dimen><dimen name="fourtyseven_dp">47dp</dimen><dimen name="fourteen_sp">14sp</dimen><dimen name="fiftysix_dp">56dp</dimen><dimen name="ten_sp">10sp</dimen><dimen name="twentyfour_dp">24dp</dimen><dimen name="seventy_dp">70dp</dimen><dimen name="thirtyfive_dp">35dp</dimen><dimen name="drawer_listview_border">2dp</dimen><dimen name="activity_horizontal_margin">16dp</dimen><dimen name="thirty_dp">30dp</dimen><dimen name="sevent_dp">7dp</dimen><dimen name="fourtyeight_dp">48dp</dimen><dimen name="fifteen_sp">15sp</dimen><dimen name="sixteen_dp">16dp</dimen><dimen name="drawer_side">50dp</dimen><dimen name="fab_shadow_size">12dp</dimen></file><file path="C:\shinauz\example\app\src\main\res\values\strings.xml" qualifiers=""><string name="choose_date">Выберите дату</string><string name="main_currency">Основная валюта: </string><string name="account">Счет</string><string-array name="food_icons">
+        <item>ic_category_13</item>
+        <item>ic_category_14</item>
+        <item>ic_category_15</item>
+        <item>ic_category_16</item>
+        <item>ic_category_17</item>
+        <item>ic_category_18</item>
+        <item>ic_category_19</item>
+    </string-array><string-array name="finance_subitem_icons">
         <item>drawer_currency</item>
         <item>drawer_category</item>
         <item>drawer_account</item>
@@ -1526,7 +1534,22 @@
         <item>Футбол</item>
         <item>Теннис</item>
         <item>Плавание</item>
-    </string-array><string name="network">Связь</string><string name="in_this_month_should_pay">In this month should pay:</string><string name="verall_debt">Оverall debt:</string><string name="sub_cats">Подкатегории</string><string name="enter_cat_name">Введите название категории</string><string-array name="equipment">
+    </string-array><string-array name="sport_icons">
+        <item>ic_category_13</item>
+        <item>ic_category_14</item>
+        <item>ic_category_15</item>
+        <item>ic_category_16</item>
+        <item>ic_category_17</item>
+    </string-array><string name="network">Связь</string><string name="in_this_month_should_pay">In this month should pay:</string><string name="verall_debt">Оverall debt:</string><string name="sub_cats">Подкатегории</string><string name="enter_cat_name">Введите название категории</string><string-array name="home_icons">
+        <item>ic_category_13</item>
+        <item>ic_category_14</item>
+        <item>ic_category_15</item>
+        <item>ic_category_16</item>
+        <item>ic_category_17</item>
+        <item>ic_category_18</item>
+        <item>ic_category_19</item>
+        <item>ic_category_20</item>
+    </string-array><string-array name="equipment">
         <item>Смартфон</item>
         <item>Компьютер</item>
         <item>Холодильник</item>
@@ -1539,7 +1562,13 @@
         <item>Трамвай</item>
         <item>Троллейбус</item>
         <item>Самолет</item>
-    </string-array><string name="warning_subcat">Существует подкатегория с таким названием.</string><string name="category">Категории</string><string name="enter_exchange">Введите курс</string><string-array name="car">
+    </string-array><string name="warning_subcat">Существует подкатегория с таким названием.</string><string name="category">Категории</string><string name="enter_exchange">Введите курс</string><string-array name="equipment_icons">
+        <item>ic_category_13</item>
+        <item>ic_category_14</item>
+        <item>ic_category_15</item>
+        <item>ic_category_16</item>
+        <item>ic_category_17</item>
+    </string-array><string-array name="car">
         <item>Ремон</item>
         <item>Топливо</item>
         <item>Моторное масло</item>
@@ -1557,7 +1586,20 @@
         <item>10</item>
         <item>9</item>
         <item>11</item>
-    </string-array><string name="buy">Покупки</string><string name="sub_cat">Подкатегория</string><string name="divide_null">На ноль делить нельзя!</string><string-array name="debts_subitems">
+    </string-array><string name="buy">Покупки</string><string-array name="clothes_icons">
+        <item>ic_category_13</item>
+        <item>ic_category_14</item>
+        <item>ic_category_15</item>
+        <item>ic_category_16</item>
+        <item>ic_category_17</item>
+        <item>ic_category_18</item>
+    </string-array><string name="sub_cat">Подкатегория</string><string-array name="beauty_icons">
+        <item>ic_category_13</item>
+        <item>ic_category_14</item>
+        <item>ic_category_15</item>
+        <item>ic_category_16</item>
+        <item>ic_category_17</item>
+    </string-array><string name="divide_null">На ноль делить нельзя!</string><string-array name="debts_subitems">
         <item>Credit</item>
         <item>Debts</item>
     </string-array><string-array name="cat_values">
@@ -1593,6 +1635,15 @@
         <item>Кино</item>
         <item>Театр</item>
         <item>Аттракцион</item>
+    </string-array><string-array name="car_icons">
+        <item>ic_category_13</item>
+        <item>ic_category_14</item>
+        <item>ic_category_15</item>
+        <item>ic_category_16</item>
+        <item>ic_category_17</item>
+        <item>ic_category_18</item>
+        <item>ic_category_19</item>
+        <item>ic_category_20</item>
     </string-array><string name="main_currency_edit">Основная валюта</string><string-array name="base_currencies">
         <item>United States</item>
         <item>Russia</item>
@@ -1755,12 +1806,29 @@
         <item>ic_category_98</item>
         <item>ic_category_99</item>
         <item>ic_category_100</item>
-    </string-array><string name="no">Нет</string><string name="currencies">Валюты</string><string name="cat_name">Наименование</string><string name="home">Дом</string><string name="currency_empty_warning">Список валют не должен быть пустым!!!</string><string name="subcat_name">Название подкатегории</string><string-array name="buy">
+    </string-array><string name="no">Нет</string><string name="currencies">Валюты</string><string name="cat_name">Наименование</string><string-array name="health_icons">
+        <item>ic_category_13</item>
+        <item>ic_category_14</item>
+        <item>ic_category_15</item>
+    </string-array><string name="home">Дом</string><string name="currency_empty_warning">Список валют не должен быть пустым!!!</string><string-array name="buy_icons">
+        <item>ic_category_13</item>
+        <item>ic_category_14</item>
+        <item>ic_category_15</item>
+        <item>ic_category_16</item>
+        <item>ic_category_17</item>
+    </string-array><string name="subcat_name">Название подкатегории</string><string-array name="buy">
         <item>Зубная паста</item>
         <item>Шампунь</item>
         <item>Масло</item>
         <item>Сигареты</item>
         <item>Напитки</item>
+    </string-array><string-array name="transport_icons">
+        <item>ic_category_13</item>
+        <item>ic_category_14</item>
+        <item>ic_category_15</item>
+        <item>ic_category_16</item>
+        <item>ic_category_17</item>
+        <item>ic_category_18</item>
     </string-array><string-array name="clothes">
         <item>Рубашка</item>
         <item>Носки</item>
@@ -1813,7 +1881,19 @@
         <item>saf</item>
         <item>tha</item>
         <item>tur</item>
-    </string-array><string name="health">Здоровье</string><string name="in_this_period_paid">In this period paid:</string><string name="gaiety">Развлечения</string><string name="initial_amount">Начальная сумма: </string><string name="equipment">Оргтехника</string><string-array name="finance_subitems">
+    </string-array><string name="health">Здоровье</string><string-array name="network_icons">
+        <item>ic_category_13</item>
+        <item>ic_category_14</item>
+        <item>ic_category_15</item>
+    </string-array><string name="in_this_period_paid">In this period paid:</string><string name="gaiety">Развлечения</string><string name="initial_amount">Начальная сумма: </string><string-array name="gaiety_icons">
+        <item>ic_category_13</item>
+        <item>ic_category_14</item>
+        <item>ic_category_15</item>
+        <item>ic_category_16</item>
+        <item>ic_category_17</item>
+        <item>ic_category_18</item>
+        <item>ic_category_19</item>
+    </string-array><string name="equipment">Оргтехника</string><string-array name="finance_subitems">
         <item>Currency management</item>
         <item>Category management</item>
         <item>Account management</item>

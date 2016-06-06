@@ -31,4 +31,12 @@
         android:textColor="@color/blue_color"
         android:textSize="@dimen/sixteen_sp" />
 
+    <ImageView
+        android:src="@drawable/drawer_currency"
+        android:layout_width="@dimen/twenty_dp"
+        android:layout_height="@dimen/twenty_dp"
+        android:id="@+id/ivSubCategoryIcon"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="@dimen/sixteen_dp"/>
+
 </LinearLayout>

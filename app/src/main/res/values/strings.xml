@@ -428,10 +428,25 @@
         <item>Отопление</item>
         <item>Кабельное ТВ</item>
     </string-array>
+    <string-array name="home_icons">
+        <item>ic_category_13</item>
+        <item>ic_category_14</item>
+        <item>ic_category_15</item>
+        <item>ic_category_16</item>
+        <item>ic_category_17</item>
+        <item>ic_category_18</item>
+        <item>ic_category_19</item>
+        <item>ic_category_20</item>
+    </string-array>
     <string-array name="network">
         <item>Интернет</item>
         <item>Телефон(дом.)</item>
         <item>Телефон(моб.)</item>
+    </string-array>
+    <string-array name="network_icons">
+        <item>ic_category_13</item>
+        <item>ic_category_14</item>
+        <item>ic_category_15</item>
     </string-array>
     <string-array name="clothes">
         <item>Рубашка</item>
@@ -441,10 +456,23 @@
         <item>Шорты</item>
         <item>Туфли</item>
     </string-array>
+    <string-array name="clothes_icons">
+        <item>ic_category_13</item>
+        <item>ic_category_14</item>
+        <item>ic_category_15</item>
+        <item>ic_category_16</item>
+        <item>ic_category_17</item>
+        <item>ic_category_18</item>
+    </string-array>
     <string-array name="health">
         <item>Лекарство</item>
         <item>Доктор</item>
         <item>Стоматолог</item>
+    </string-array>
+    <string-array name="health_icons">
+        <item>ic_category_13</item>
+        <item>ic_category_14</item>
+        <item>ic_category_15</item>
     </string-array>
     <string-array name="food">
         <item>Хлеб</item>
@@ -454,6 +482,15 @@
         <item>Кефир</item>
         <item>Яйца</item>
         <item>Вода</item>
+    </string-array>
+    <string-array name="food_icons">
+        <item>ic_category_13</item>
+        <item>ic_category_14</item>
+        <item>ic_category_15</item>
+        <item>ic_category_16</item>
+        <item>ic_category_17</item>
+        <item>ic_category_18</item>
+        <item>ic_category_19</item>
     </string-array>
     <string-array name="car">
         <item>Ремон</item>
@@ -465,6 +502,16 @@
         <item>Аккумулятор</item>
         <item>Шины</item>
     </string-array>
+    <string-array name="car_icons">
+        <item>ic_category_13</item>
+        <item>ic_category_14</item>
+        <item>ic_category_15</item>
+        <item>ic_category_16</item>
+        <item>ic_category_17</item>
+        <item>ic_category_18</item>
+        <item>ic_category_19</item>
+        <item>ic_category_20</item>
+    </string-array>
     <string-array name="transport">
         <item>Такси</item>
         <item>Автобус</item>
@@ -472,6 +519,14 @@
         <item>Трамвай</item>
         <item>Троллейбус</item>
         <item>Самолет</item>
+    </string-array>
+    <string-array name="transport_icons">
+        <item>ic_category_13</item>
+        <item>ic_category_14</item>
+        <item>ic_category_15</item>
+        <item>ic_category_16</item>
+        <item>ic_category_17</item>
+        <item>ic_category_18</item>
     </string-array>
     <string-array name="gaiety">
         <item>Ресторан</item>
@@ -482,12 +537,28 @@
         <item>Театр</item>
         <item>Аттракцион</item>
     </string-array>
+    <string-array name="gaiety_icons">
+        <item>ic_category_13</item>
+        <item>ic_category_14</item>
+        <item>ic_category_15</item>
+        <item>ic_category_16</item>
+        <item>ic_category_17</item>
+        <item>ic_category_18</item>
+        <item>ic_category_19</item>
+    </string-array>
     <string-array name="buy">
         <item>Зубная паста</item>
         <item>Шампунь</item>
         <item>Масло</item>
         <item>Сигареты</item>
         <item>Напитки</item>
+    </string-array>
+    <string-array name="buy_icons">
+        <item>ic_category_13</item>
+        <item>ic_category_14</item>
+        <item>ic_category_15</item>
+        <item>ic_category_16</item>
+        <item>ic_category_17</item>
     </string-array>
     <string-array name="sport">
         <item>Тренажерный зал</item>
@@ -496,6 +567,13 @@
         <item>Теннис</item>
         <item>Плавание</item>
     </string-array>
+    <string-array name="sport_icons">
+        <item>ic_category_13</item>
+        <item>ic_category_14</item>
+        <item>ic_category_15</item>
+        <item>ic_category_16</item>
+        <item>ic_category_17</item>
+    </string-array>
     <string-array name="beauty">
         <item>Парикмахер</item>
         <item>Массаж</item>
@@ -503,11 +581,25 @@
         <item>Педикюр</item>
         <item>Макияж</item>
     </string-array>
+    <string-array name="beauty_icons">
+        <item>ic_category_13</item>
+        <item>ic_category_14</item>
+        <item>ic_category_15</item>
+        <item>ic_category_16</item>
+        <item>ic_category_17</item>
+    </string-array>
     <string-array name="equipment">
         <item>Смартфон</item>
         <item>Компьютер</item>
         <item>Холодильник</item>
         <item>Кондиционер</item>
         <item>Принтер</item>
+    </string-array>
+    <string-array name="equipment_icons">
+        <item>ic_category_13</item>
+        <item>ic_category_14</item>
+        <item>ic_category_15</item>
+        <item>ic_category_16</item>
+        <item>ic_category_17</item>
     </string-array>
 </resources>

@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jim.pocketaccounter.R;
@@ -46,6 +47,8 @@ public class SubCategoryAdapter extends BaseAdapter {
 		View view = inflater.inflate(R.layout.subcat_item, parent, false);
 		TextView tvSubCatName = (TextView) view.findViewById(R.id.tvSubCatName);
 		tvSubCatName.setText(result.get(position).getName());
+		ImageView ivSubCategoryIcon = (ImageView) view.findViewById(R.id.ivSubCategoryIcon);
+		ivSubCategoryIcon.setImageResource(result.get(position).getIcon());
 		CheckBox chbSubCat = (CheckBox)view.findViewById(R.id.chbSubCat);
 		chbSubCat.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
