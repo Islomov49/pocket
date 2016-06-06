@@ -23,7 +23,6 @@ import java.util.List;
 
 public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHolder>{
    List<CreditComputeDate> cardDetials;
-   List<CreditComputeDate> ccardDetials;
     int S = 0;
     Context This;
     public AdapterCridet(List<CreditComputeDate> cardDetials, Context This){
@@ -49,7 +48,11 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
         holder.glav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openFragment(new AddCreditFragment(),"Addcredit");
+           //     openFragment(new AddCreditFragment(),"Addcredit");
+                cardDetials.add(0,new CreditComputeDate(1,"Master Card Credit","$" ,78,480, 580,0,System.currentTimeMillis()));
+
+               notifyItemInserted(0);
+
             }
         });
     }

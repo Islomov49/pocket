@@ -1,5 +1,6 @@
 package com.jim.pocketaccounter;
 
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -69,15 +70,22 @@ public class CreditFragment extends Fragment {
         fb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                crList.add(0,new CreditComputeDate(1,"Master Card Credit","$" ,78,480, 580,0,System.currentTimeMillis()));
 
-                    crAdap.notifyItemInserted(0);
-                crRV.scrollToPosition(0);
+                openFragment(new AddCreditFragment(),"Addcredit");
+
+
             }
         });
         return V;
     }
+    public void openFragment(Fragment fragment,String tag) {
+        if (fragment != null) {
+            final android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(tag);
+            ft.add(R.id.flMain, fragment,tag);
 
+            ft.commit();
+        }
+    }
 
     @Override
     public void onAttach(Context context) {

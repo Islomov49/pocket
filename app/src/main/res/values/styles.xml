@@ -6,6 +6,10 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="colorControlNormal">@color/forlines</item>
+        <item name="colorControlActivated">@color/green_light</item>
+        <item name="colorControlHighlight">@color/colorAccent</item>
     </style>
     <style name="leftBehindMenuScroll">
         <item name="android:layout_width">@dimen/left_drawer_width</item>
