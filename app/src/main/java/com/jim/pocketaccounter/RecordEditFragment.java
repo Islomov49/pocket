@@ -1,5 +1,7 @@
 package com.jim.pocketaccounter;
 
+import android.annotation.SuppressLint;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,23 +13,33 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jim.pocketaccounter.finance.FinanceRecord;
+import com.jim.pocketaccounter.finance.RootCategory;
+
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.Calendar;
 
+@SuppressLint("ValidFragment")
 public class RecordEditFragment extends Fragment implements OnClickListener {
     private RelativeLayout rlZero, rlOne, rlTwo, rlThree, rlFour, rlFive, rlSix, rlSeven, rlEight, rlNine, rlDot, rlEqualSign,
             rlPlusSign, rlMinusSign, rlMultipleSign, rlDivideSign, rlClearSign, rlBackspaceSign, rlCategory, rlSubCategory;
     private TextView tvRecordEditDisplay, tvRecordEditCurrency;
-    private ImageView ivToolbarMostRight;
+    private ImageView ivToolbarMostRight, ivRecordEditCategory, ivRecordEditSubCategory;
     private byte operation = -1;
     private String s = "";
     private String s2 = "";
-
+    private RootCategory category;
+    private FinanceRecord record;
     private boolean tek = false,
             tek2 = false,
             calc = false,
             sequence = false;
-
+    @SuppressLint("ValidFragment")
+    public RecordEditFragment(RootCategory category, FinanceRecord record) {
+        this.category = category;
+        this.record = record;
+    }
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.record_edit, container, false);
         ((PocketAccounter)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -35,11 +47,23 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
         PocketAccounter.toolbar.setNavigationOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((PocketAccounter)getContext()).replaceFragment(new RecordFragment());
+                ((PocketAccounter)getContext()).replaceFragment(new RecordFragment(Calendar.getInstance()));
             }
         });
         ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
+        ivToolbarMostRight.setVisibility(View.VISIBLE);
+        ivToolbarMostRight.setImageResource(R.drawable.check_sign);
         ivToolbarMostRight.setOnClickListener(this);
+        ivRecordEditCategory = (ImageView) rootView.findViewById(R.id.ivRecordEditCategory);
+        ivRecordEditSubCategory = (ImageView) rootView.findViewById(R.id.ivRecordEditSubCategory);
+        if (category != null) {
+            ivRecordEditSubCategory.setImageResource(category.getIcon());
+            ivRecordEditCategory.setImageResource(category.getIcon());
+        }
+        if (record != null) {
+            ivRecordEditSubCategory.setImageResource(record.getCategory().getIcon());
+            ivRecordEditCategory.setImageResource(record.getCategory().getIcon());
+        }
         rlZero = (RelativeLayout) rootView.findViewById(R.id.rlZero);
         rlZero.setOnClickListener(this);
         rlOne = (RelativeLayout) rootView.findViewById(R.id.rlOne);
@@ -262,11 +286,27 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
                         }
                         break;
                     }
+                    case R.id.rlCategory:
+                        openCategoryDialog();
+                        break;
+                    case R.id.rlSubcategory:
+                        openSubCategoryDialog();
+                        break;
+                    case R.id.ivToolbarMostRight:
+                        createNewRecord();
+                        break;
                 }
             }
         }
     }
-
+    private void createNewRecord() {
+        if (record != null) {
+            
+        }
+        else {}
+    }
+    private void openCategoryDialog() {}
+    private void openSubCategoryDialog() {}
     private void calculate() {
         if (operation != -1) {
             if (!sequence) {

@@ -22,6 +22,7 @@ import com.jim.pocketaccounter.helper.LeftSideDrawer;
 import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import static com.jim.pocketaccounter.R.color.toolbar_text_color;
 
@@ -49,7 +50,7 @@ public class PocketAccounter extends AppCompatActivity {
         if (financeManager.getCurrencies().isEmpty())
             replaceFragment(new CurrencyChooseFragment());
         else
-            replaceFragment(new RecordFragment());
+            replaceFragment(new RecordFragment(Calendar.getInstance()));
     }
     private void fillLeftMenu() {
         String[] cats = getResources().getStringArray(R.array.drawer_cats);
@@ -101,7 +102,7 @@ public class PocketAccounter extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-                        replaceFragment(new RecordFragment());
+                        replaceFragment(new RecordFragment(Calendar.getInstance()));
                         break;
                     case 2:
                         replaceFragment(new CurrencyFragment());

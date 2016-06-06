@@ -82,7 +82,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 			int resId = getResources().getIdentifier(temps[i], "drawable", getActivity().getPackageName());
 			icons[i] = resId;
 		}
-		type = Category.EXPANCE;
+		type = PocketAccounterGeneral.EXPANCE;
 		selectedIcon = icons[0];
 		subCategories = new ArrayList<SubCategory>();
 		mode = PocketAccounterGeneral.NORMAL_MODE;
@@ -92,13 +92,13 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 			chbCatEditIncome.setChecked(false);
 			chbCatEditExpanse.setChecked(false);
 			switch(category.getType()) {
-			case Category.INCOME:
+			case PocketAccounterGeneral.INCOME:
 				chbCatEditIncome.setChecked(true);
 				break;
-			case Category.EXPANCE:
+			case PocketAccounterGeneral.EXPANCE:
 				chbCatEditExpanse.setChecked(true);
 				break;
-			case Category.BOTH:
+			case PocketAccounterGeneral.BOTH:
 				chbCatEditIncome.setChecked(true);
 				chbCatEditExpanse.setChecked(true);
 				break;
@@ -162,11 +162,11 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 				return;
 			}
 			if (chbCatEditIncome.isChecked())
-				type = Category.INCOME;
+				type = PocketAccounterGeneral.INCOME;
 			if (chbCatEditExpanse.isChecked())
-				type = Category.EXPANCE;
+				type = PocketAccounterGeneral.EXPANCE;
 			if (chbCatEditIncome.isChecked() && chbCatEditExpanse.isChecked())
-				type = Category.BOTH;
+				type = PocketAccounterGeneral.BOTH;
 			if (category != null) {
 				category.setName(etCatEditName.getText().toString());
 				category.setType(type);

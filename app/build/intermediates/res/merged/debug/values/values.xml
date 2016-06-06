@@ -481,6 +481,8 @@
     <color name="background_floating_material_light">@android:color/white</color>
     <color name="background_material_dark">@color/material_grey_850</color>
     <color name="background_material_light">@color/material_grey_50</color>
+    <color name="black_for_glavniy_text" type="color">#212121</color>
+    <color name="black_for_secondary_text" type="color">#838383</color>
     <color name="blue_color" type="color">#308eff</color>
     <color name="blue_color_drakness" type="color">#2c7fe2</color>
     <color name="bright_foreground_disabled_material_dark">#80ffffff</color>
@@ -497,7 +499,7 @@
     <color name="cardview_shadow_start_color">#37000000</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#7b7b7b</color>
+    <color name="colorPrimaryDark">#494949</color>
     <color name="currency_chooser" type="color">#828282</color>
     <color name="currency_list_border" type="color">#ebebeb</color>
     <color name="design_fab_shadow_end_color">@android:color/transparent</color>
@@ -522,6 +524,9 @@
     <color name="fab_icon_bg" type="color">#ffffff</color>
     <color name="foreground_material_dark">@android:color/white</color>
     <color name="foreground_material_light">@android:color/black</color>
+    <color name="green_just" type="color">#29952e</color>
+    <color name="green_light" type="color">#1c835d</color>
+    <color name="grey_light" type="color">#f5f5f5</color>
     <color name="highlighted_text_material_dark">#6680cbc4</color>
     <color name="highlighted_text_material_light">#66009688</color>
     <color name="hint_foreground_material_dark">@color/bright_foreground_disabled_material_dark</color>
@@ -554,6 +559,7 @@
     <color name="primary_text_disabled_material_light">#39000000</color>
     <color name="record_borders" type="color">#889c9c9c</color>
     <color name="record_outline" type="color">#88acacac</color>
+    <color name="red" type="color">#d60810</color>
     <color name="ripple_material_dark">#33ffffff</color>
     <color name="ripple_material_light">#1f000000</color>
     <color name="secondary_text_default_material_dark">#b3ffffff</color>

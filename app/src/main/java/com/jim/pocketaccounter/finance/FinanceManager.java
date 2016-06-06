@@ -1,15 +1,17 @@
 package com.jim.pocketaccounter.finance;
 
 import android.content.Context;
+import android.provider.DocumentsContract;
 
 import com.jim.pocketaccounter.helper.PocketAccounterDatabase;
+import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
 import java.util.ArrayList;
 
 public class FinanceManager {
 	private Context context;
 	private ArrayList<Currency> currencies;
-	private ArrayList<RootCategory> categories;
+	private ArrayList<RootCategory> categories, expanses, incomes;
 	private ArrayList<Account> accounts;
 	private ArrayList<FinanceRecord> records;
 	private PocketAccounterDatabase db;
@@ -51,4 +53,8 @@ public class FinanceManager {
 	public void saveAccounts() {db.saveDatasToAccountTable(accounts);}
 	public void saveCategories() {db.saveDatasToCategoryTable(categories);}
 	public void saveRecords() {db.saveDatasToDailyRecordTable(records);}
+	private ArrayList<RootCategory> loadExpanses() {return null;}
+	private ArrayList<RootCategory> loadIncomes() {return null;}
+	public void saveExpanses() {}
+	public void saveIncomes() {}
 }

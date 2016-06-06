@@ -1,6 +1,7 @@
 package com.jim.pocketaccounter.helper.record;
 
 import com.jim.pocketaccounter.R;
+import com.jim.pocketaccounter.finance.RootCategory;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -12,18 +13,19 @@ import android.graphics.Path;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.support.v4.content.ContextCompat;
 
 public class RecordButtonExpanse {
 	public static final int TOP_LEFT = 0, SIMPLE = 1, LEFT_SIMPLE = 2, LEFT_BOTTOM = 3, BOTTOM_SIMPLE = 4,
 							BOTTOM_RIGHT = 5, TOP_RIGHT = 6, TOP_SIMPLE = 7, RIGHT_SIMPLE = 8;
 	private boolean pressed = false;
 	private RectF container;
-	private int icon, type;
-	private String text;
+	private int type;
 	private Path shape;
 	private Bitmap shadow;
-	private float shadowWidth, radius, clearance;
+	private float radius, clearance;
 	private Context context;
+	private RootCategory category;
 	public RecordButtonExpanse(Context context, int type) {
 		this.context = context;
 		clearance = context.getResources().getDimension(R.dimen.one_dp);
@@ -298,15 +300,31 @@ public class RecordButtonExpanse {
 			}
 			break;
 		}
-		temp = BitmapFactory.decodeResource(context.getResources(), icon);
-		scaled = Bitmap.createScaledBitmap(temp, (int)context.getResources().getDimension(R.dimen.thirty_dp), (int)context.getResources().getDimension(R.dimen.thirty_dp), false);
-		canvas.drawBitmap(scaled, container.centerX()-scaled.getWidth()/2, container.centerY()-scaled.getHeight(), bitmapPaint);
-		Paint textPaint = new Paint();
-		textPaint.setColor(Color.BLACK);
-		textPaint.setTextSize(context.getResources().getDimension(R.dimen.ten_sp));
-		Rect bounds = new Rect();
-		textPaint.getTextBounds(text, 0, text.length(), bounds);
-		canvas.drawText(text, container.centerX()-bounds.width()/2, container.centerY()+2*bounds.height(), textPaint);
+		if (category != null) {
+			temp = BitmapFactory.decodeResource(context.getResources(), category.getIcon());
+			scaled = Bitmap.createScaledBitmap(temp, (int)context.getResources().getDimension(R.dimen.thirty_dp), (int)context.getResources().getDimension(R.dimen.thirty_dp), false);
+			canvas.drawBitmap(scaled, container.centerX()-scaled.getWidth()/2, container.centerY()-scaled.getHeight(), bitmapPaint);
+			Paint textPaint = new Paint();
+			textPaint.setColor(ContextCompat.getColor(context, R.color.toolbar_text_color));
+			textPaint.setTextSize(context.getResources().getDimension(R.dimen.ten_sp));
+			Rect bounds = new Rect();
+			textPaint.getTextBounds(category.getName(), 0, category.getName().length(), bounds);
+			canvas.drawText(category.getName(), container.centerX()-bounds.width()/2, container.centerY()+2*bounds.height(), textPaint);
+		} else {
+			temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.no_category);
+			scaled = Bitmap.createScaledBitmap(temp, (int)context.getResources().getDimension(R.dimen.thirty_dp), (int)context.getResources().getDimension(R.dimen.thirty_dp), false);
+			canvas.drawBitmap(scaled, container.centerX()-scaled.getWidth()/2, container.centerY()-scaled.getHeight(), bitmapPaint);
+			Paint textPaint = new Paint();
+			textPaint.setColor(ContextCompat.getColor(context, R.color.toolbar_text_color));
+			textPaint.setTextSize(context.getResources().getDimension(R.dimen.ten_sp));
+			Rect bounds = new Rect();
+			String text = context.getResources().getString(R.string.add);
+			textPaint.getTextBounds(text, 0, text.length(), bounds);
+			canvas.drawText(text, container.centerX()-bounds.width()/2, container.centerY()+2*bounds.height(), textPaint);
+		}
+
+
+
 	}
 	public void setPressed(boolean pressed) {
 		this.pressed = pressed;
@@ -314,25 +332,5 @@ public class RecordButtonExpanse {
 	public RectF getContainer() {
 		return container;
 	}
-	public Path getShape() {
-		return shape;
-	}
-	public Bitmap getShadow() {
-		return shadow;
-	}
-	public float getShadowWidth() {
-		return shadowWidth;
-	}
-	public int getIcon() {
-		return icon;
-	}
-	public void setIcon(int icon) {
-		this.icon = icon;
-	}
-	public String getText() {
-		return text;
-	}
-	public void setText(String text) {
-		this.text = text;
-	}
+	public void setCategory(RootCategory category) {this.category = category;}
 }

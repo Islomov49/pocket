@@ -2,7 +2,10 @@ package com.jim.pocketaccounter.helper.record;
 
 import java.util.ArrayList;
 
+import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
+import com.jim.pocketaccounter.finance.RootCategory;
+import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -26,22 +29,24 @@ public class RecordExpanseView extends View {
 	private Bitmap workspaceShader;
 	private RectF workspace;
 	private ArrayList<RecordButtonExpanse> buttons;
-	private int[] icons;
-	private String[] categories;
 	private float firstX, firstY;
+	private ArrayList<RootCategory> expanses;
 	public RecordExpanseView(Context context) {
 		super(context);
 		workspaceCornerRadius = getResources().getDimension(R.dimen.five_dp);
 		workspaceMargin = getResources().getDimension(R.dimen.twenty_dp);
+		expanses = new ArrayList<RootCategory>();
+		for (int i=0; i< PocketAccounter.financeManager.getCategories().size(); i++) {
+			if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.EXPANCE)
+				expanses.add(PocketAccounter.financeManager.getCategories().get(i));
+		}
+		while (expanses.size()<PocketAccounterGeneral.EXPANCE_BUTTONS_COUNT) {
+			expanses.add(null);
+		}
+
 		String[] tempIcons = getResources().getStringArray(R.array.icons);
-		icons = new int[tempIcons.length];
-		for (int i=0; i<tempIcons.length; i++) 
-			icons[i] = getResources().getIdentifier(tempIcons[i], "drawable", context.getPackageName());
-		categories = new String[16];
-		for (int i=0; i<categories.length; i++)
-			categories[i] = "Category "+i;
 		buttons = new ArrayList<RecordButtonExpanse>();
-		for (int i=0; i<16; i++) {
+		for (int i = 0; i< PocketAccounterGeneral.EXPANCE_BUTTONS_COUNT; i++) {
 			RecordButtonExpanse button = null;
 			int type = 0;
 			switch(i) {
@@ -81,8 +86,7 @@ public class RecordExpanseView extends View {
 				break;
 			}
 			button = new RecordButtonExpanse(getContext(), type);
-			button.setIcon(icons[i]);
-			button.setText(categories[i]);
+			button.setCategory(expanses.get(i));
 			buttons.add(button);
 		}
 		setClickable(true);
@@ -100,7 +104,7 @@ public class RecordExpanseView extends View {
 		float width, height;
 		width = workspace.width()/4;
 		height = workspace.height()/4;
-		for (int i=0; i<16; i++) {
+		for (int i=0; i<PocketAccounterGeneral.EXPANCE_BUTTONS_COUNT; i++) {
 			float left, top, right, bottom;
 			left = workspace.left+(i%4)*width;
 			top = workspace.top+((int)Math.floor(i/4)*height);

@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "D:\\example\\app\\build\\intermediates\\res\\merged\\debug\\values-port\\values-port.xml",
+        "outputFile": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\values-port\\values-port.xml",
         "map": [
             {
                 "to": {
@@ -11,11 +11,7 @@
                     "endOffset": 106
                 },
                 "from": {
-<<<<<<< HEAD
                     "file": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\values-port\\values-port.xml",
-=======
-                    "file": "D:\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\values-port\\values-port.xml",
->>>>>>> origin/master
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,

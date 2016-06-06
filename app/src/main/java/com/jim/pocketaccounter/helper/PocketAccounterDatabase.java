@@ -201,6 +201,7 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 	public void saveDatasToCategoryTable(ArrayList<RootCategory> categories) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		db.execSQL("DELETE FROM category_table");
+		db.execSQL("DELETE FROM subcategory_table");
 		for (int i=0; i<categories.size(); i++) {
 			ContentValues values = new ContentValues();
 			values.put("category_name", categories.get(i).getName());

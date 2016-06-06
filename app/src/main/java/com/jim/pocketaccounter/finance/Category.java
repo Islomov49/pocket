@@ -2,7 +2,6 @@ package com.jim.pocketaccounter.finance;
 
 public abstract class Category {
 	private String name, id;
-	public static final int INCOME=0, EXPANCE=1, BOTH=2;
 	public String getName() {
 		return name;
 	}

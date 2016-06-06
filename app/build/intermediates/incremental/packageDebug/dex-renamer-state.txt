@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-#Sat Jun 04 16:07:21 UZT 2016
+#Mon Jun 06 09:45:40 UZT 2016
 base.0=C\:\\shinauz\\example\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
-=======
-#Sat Jun 04 15:20:14 UZT 2016
-base.0=D\:\\example\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
->>>>>>> origin/master
 renamed.0=classes.dex
-file.0=D\:\\example\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex
+file.0=C\:\\shinauz\\example\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex

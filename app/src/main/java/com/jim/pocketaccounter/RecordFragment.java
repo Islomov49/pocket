@@ -12,9 +12,13 @@ import android.widget.RelativeLayout;
 import com.jim.pocketaccounter.helper.record.RecordExpanseView;
 import com.jim.pocketaccounter.helper.record.RecordIncomesView;
 
-@SuppressLint("InflateParams")
+import java.util.Calendar;
+
+@SuppressLint({"InflateParams", "ValidFragment"})
 public class RecordFragment extends Fragment {
 	private RelativeLayout rlRecordsMain, rlRecordIncomes;
+	private Calendar date;
+	public RecordFragment(Calendar date) {this.date = (Calendar)date.clone();}
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.record_layout, container, false);
 		((PocketAccounter)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -52,4 +56,6 @@ public class RecordFragment extends Fragment {
 		super.onStop();
 		PocketAccounter.financeManager.saveRecords();
 	}
+	public void setDate(Calendar date) {this.date = (Calendar)date.clone();}
+	public Calendar getDate() {return date;}
 }
