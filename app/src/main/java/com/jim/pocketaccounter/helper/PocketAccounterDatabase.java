@@ -21,7 +21,6 @@ import com.jim.pocketaccounter.finance.RootCategory;
 import com.jim.pocketaccounter.finance.SubCategory;
 
 public class PocketAccounterDatabase extends SQLiteOpenHelper {
-	
 	private Context context;
 	private SimpleDateFormat dateFormat = null;
 	public PocketAccounterDatabase(Context context) {
