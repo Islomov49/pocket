@@ -1,6 +1,7 @@
 package com.jim.pocketaccounter;
 
 
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -13,13 +14,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.jim.pocketaccounter.debt.BorrowFragment;
 import com.jim.pocketaccounter.debt.DebtBorrowFragment;
 import com.jim.pocketaccounter.finance.FinanceManager;
 import com.jim.pocketaccounter.helper.LeftMenuAdapter;
 import com.jim.pocketaccounter.helper.LeftMenuItem;
 import com.jim.pocketaccounter.helper.LeftSideDrawer;
-import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -121,11 +120,9 @@ public class PocketAccounter extends AppCompatActivity {
                         break;
                     case 8:
                         replaceFragment(new CreditFragment());
-
                         //credit
                         break;
                     case 9:
-
                         //debts
                         replaceFragment(new DebtBorrowFragment());
                         break;

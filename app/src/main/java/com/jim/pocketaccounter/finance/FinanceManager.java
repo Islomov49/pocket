@@ -1,10 +1,9 @@
 package com.jim.pocketaccounter.finance;
 
 import android.content.Context;
-import android.provider.DocumentsContract;
 
+import com.jim.pocketaccounter.debt.DebtBorrow;
 import com.jim.pocketaccounter.helper.PocketAccounterDatabase;
-import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
 import java.util.ArrayList;
 
@@ -14,6 +13,7 @@ public class FinanceManager {
 	private ArrayList<RootCategory> categories, expanses, incomes;
 	private ArrayList<Account> accounts;
 	private ArrayList<FinanceRecord> records;
+	private ArrayList<DebtBorrow> debtBorrows;
 	private PocketAccounterDatabase db;
 	public FinanceManager(Context context) {
 		this.context = context;
@@ -32,11 +32,21 @@ public class FinanceManager {
 	private ArrayList<Currency> loadCurrencies() {
 		return db.loadCurrencies();
 	}
+
+	public ArrayList<DebtBorrow> getDebtBorrows() {
+		return debtBorrows;
+	}
+
+	public void setDebtBorrows(ArrayList<DebtBorrow> debtBorrows) {
+		this.debtBorrows = debtBorrows;
+	}
+
 	public Currency getMainCurrency() {
 		for (int i=0; i<currencies.size(); i++) {
 			if (currencies.get(i).getMain())
 				return currencies.get(i);
 		}
+
 		return null;
 	}
 	public ArrayList<RootCategory> getCategories() {

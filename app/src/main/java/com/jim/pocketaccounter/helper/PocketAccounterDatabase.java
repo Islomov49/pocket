@@ -242,7 +242,7 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 			newCategory.setType(catCursor.getInt(catCursor.getColumnIndex("category_type")));
 			newCategory.setIcon(catCursor.getInt(catCursor.getColumnIndex("icon")));
 			subcatCursor.moveToFirst();
-			ArrayList<SubCategory> subCats = new ArrayList<SubCategory>();
+			ArrayList<SubCategory> subCats = new ArrayList<>();
 			while(!subcatCursor.isAfterLast()) {
 				if (subcatCursor.getString(subcatCursor.getColumnIndex("category_id")).matches(catId)) {
 					SubCategory newSubCategory = new SubCategory();
