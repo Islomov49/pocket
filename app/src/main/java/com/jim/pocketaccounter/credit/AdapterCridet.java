@@ -65,7 +65,7 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
     public myViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.cred_titem, parent, false);
+                .inflate(R.layout.moder_titem, parent, false);
         // set the view's size, margins, paddings and layout parameters
 
         myViewHolder vh = new myViewHolder(v);
