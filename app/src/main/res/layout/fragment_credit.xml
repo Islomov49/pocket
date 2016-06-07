@@ -13,7 +13,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/my_recycler_view"
                 android:scrollbars="none"
-                android:paddingTop="10dp"
+                android:paddingTop="8dp"
                 tools:context=".MainActivity"
                 tools:listitem="@layout/cred_titem"
                 android:layout_width="match_parent"

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.jim.pocketaccounter.credit.AdapterCridet;
 import com.jim.pocketaccounter.credit.CreditComputeDate;
+import com.jim.pocketaccounter.finance.Currency;
 import com.melnykov.fab.FloatingActionButton;
 
 
@@ -57,13 +58,14 @@ public class CreditFragment extends Fragment {
         V.post(new Runnable() {
             @Override
             public void run() {
-                crList.add(new CreditComputeDate(1,"Credit for Tv","$" ,120,1320, 3200,230,System.currentTimeMillis()));
-
+                crList.add(new CreditComputeDate(0,10,10000,1520,System.currentTimeMillis()-(long)1000*60*60*24*256,(long)1000*60*60*24*30, new Currency("$")));
+                crAdap.notifyItemInserted(0);
+/*
 
                 Date AAa = (new Date());
 
                 crAdap.notifyItemInserted(0);
-
+*/
             }
         });
 

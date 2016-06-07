@@ -1,40 +1,55 @@
 package com.jim.pocketaccounter.credit;
 
+import com.jim.pocketaccounter.finance.Currency;
+
 /**
  * Created by developer on 02.06.2016.
  */
 
 public class CreditComputeDate {
     private  int ID;
-    private  String NameCredit;
-    private  String valuta;
-    private double shouldPay;
-    private double overallDebt;
-    private double periodPayed;
-    private double totalPaid;
-    private Long perionEndsInMilisec;
+    private double procent_100_system;
+    private double total_value;
+    private double total_paid;
+    private long date_start;
+    private long interval;
+    private Currency valyuta;
 
-    public String getValuta() {
-        return valuta;
+
+    public long getInterval() {
+        return interval;
     }
 
-    public void setValuta(String valuta) {
-        this.valuta = valuta;
+    public void setInterval(long interval) {
+        this.interval = interval;
     }
 
-    public CreditComputeDate(int ID, String nameCredit, String valuta, double shouldPay, double overallDebt, double periodPayed, double totalPaid, long perionEndsInMilisec) {
+    public CreditComputeDate(){
+        ID=0;
+        procent_100_system=0;
+        total_value=0;
+        total_paid=0;
+        date_start=0;
+
+    }
+    public CreditComputeDate(int ID, double procent_100_system, double total_value, double total_paid, long date_start,long interval, Currency valyuta) {
         this.ID = ID;
-        NameCredit = nameCredit;
-        this.valuta=valuta;
-        this.shouldPay = shouldPay;
-        this.overallDebt = overallDebt;
-        this.periodPayed = periodPayed;
-        this.totalPaid = totalPaid;
-        this.perionEndsInMilisec = perionEndsInMilisec;
+        this.procent_100_system = procent_100_system;
+        this.total_value = total_value;
+        this.total_paid = total_paid;
+        this.date_start = date_start;
+        this.interval = interval;
+
+        this.valyuta=valyuta;
     }
 
+    public Currency getValyuta() {
+        return valyuta;
+    }
 
-
+    public void setValyuta(Currency valyuta) {
+        this.valyuta = valyuta;
+    }
 
     public int getID() {
         return ID;
@@ -44,51 +59,37 @@ public class CreditComputeDate {
         this.ID = ID;
     }
 
-    public double getShouldPay() {
-        return shouldPay;
+    public double getProcent_100_system() {
+        return procent_100_system;
     }
 
-    public void setShouldPay(double shouldPay) {
-        this.shouldPay = shouldPay;
+    public void setProcent_100_system(double procent_100_system) {
+        this.procent_100_system = procent_100_system;
     }
 
-    public double getOverallDebt() {
-        return overallDebt;
+    public double getTotal_value() {
+        return total_value;
     }
 
-    public void setOverallDebt(double overallDebt) {
-        this.overallDebt = overallDebt;
+    public void setTotal_value(double total_value) {
+        this.total_value = total_value;
     }
 
-    public double getPeriodPayed() {
-        return periodPayed;
+    public double getTotal_paid() {
+        return total_paid;
     }
 
-    public void setPeriodPayed(double periodPayed) {
-        this.periodPayed = periodPayed;
+    public void setTotal_paid(double total_paid) {
+        this.total_paid = total_paid;
     }
 
-    public double getTotalPaid() {
-        return totalPaid;
+    public long getDate_start() {
+        return date_start;
     }
 
-    public void setTotalPaid(double totalPaid) {
-        this.totalPaid = totalPaid;
+    public void setDate_start(long date_end) {
+        this.date_start = date_end;
     }
 
-    public String getNameCredit() {
-        return NameCredit;
-    }
 
-    public void setNameCredit(String nameCredit) {
-        NameCredit = nameCredit;
-    }
-
-    public long getPerionEndsInMilisec() {
-        return perionEndsInMilisec;
-    }
-
-    public void setPerionEndsInMilisec(long perionEndsInMilisec) {
-        this.perionEndsInMilisec = perionEndsInMilisec;
-    }
 }

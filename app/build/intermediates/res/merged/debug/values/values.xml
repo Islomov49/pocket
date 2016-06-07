@@ -957,6 +957,7 @@
     <string name="add">Добавить</string>
     <string name="app_name">MoneyHolder</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="archive">TO ARCHIVE</string>
     <string name="beauty">Красота</string>
     <string name="both">Оба</string>
     <string name="bottom_sheet_behavior" translatable="false">android.support.design.widget.BottomSheetBehavior</string>
@@ -977,8 +978,11 @@
     <string name="currency_empty_warning">Список валют не должен быть пустым!!!</string>
     <string name="currency_exchange">Курс валюты</string>
     <string name="currency_exchange_warning">Данные по курсам валют и записи будут утеряны, так как вы не выбрали ранее вами выбранную валюту!</string>
+    <string name="day">day</string>
+    <string name="days">days</string>
     <string name="define_FloatingActionButton"/>
     <string name="divide_null">На ноль делить нельзя!</string>
+    <string name="ends">Ends</string>
     <string name="enter_cat_name">Введите название категории</string>
     <string name="enter_exchange">Введите курс</string>
     <string name="equipment">Оргтехника</string>
@@ -1003,6 +1007,8 @@
     <string name="library_FloatingActionButton_repositoryLink">https://github.com/makovkastar/FloatingActionButton</string>
     <string name="main_currency">Основная валюта: </string>
     <string name="main_currency_edit">Основная валюта</string>
+    <string name="moth">month</string>
+    <string name="moths">months</string>
     <string name="network">Связь</string>
     <string name="no">Нет</string>
     <string name="select_icon">Выберите иконку</string>
@@ -1014,9 +1020,11 @@
     <string name="this_period_ends">This period ends:</string>
     <string name="total_paid">Total paid:</string>
     <string name="transport">Транспорт</string>
-    <string name="verall_debt">Оverall debt:</string>
+    <string name="verall_debt">Оverall amount:</string>
     <string name="warning">Предупреждение!!!</string>
     <string name="warning_subcat">Существует подкатегория с таким названием.</string>
+    <string name="year">year</string>
+    <string name="years">years</string>
     <string name="yes">Да</string>
     <style name="AlertDialog.AppCompat" parent="Base.AlertDialog.AppCompat"/>
     <style name="AlertDialog.AppCompat.Light" parent="Base.AlertDialog.AppCompat.Light"/>
