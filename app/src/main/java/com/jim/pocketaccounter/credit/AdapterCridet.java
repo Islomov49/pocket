@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.jim.pocketaccounter.AddCreditFragment;
+import com.jim.pocketaccounter.InfoCreditFragment;
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
 
@@ -48,10 +49,7 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
         holder.glav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-           //     openFragment(new AddCreditFragment(),"Addcredit");
-                cardDetials.add(0,new CreditComputeDate(1,"Master Card Credit","$" ,78,480, 580,0,System.currentTimeMillis()));
-
-               notifyItemInserted(0);
+                openFragment(new InfoCreditFragment(),"infoFrag");
 
             }
         });

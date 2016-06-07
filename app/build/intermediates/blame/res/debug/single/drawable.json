@@ -8,12 +8,12 @@
         "source": "D:\\DEV\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_cab_background_internal_bg.xml"
     },
     {
-        "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_23.png",
-        "source": "D:\\example\\example\\app\\src\\main\\res\\drawable\\ic_category_23.png"
-    },
-    {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_55.png",
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\ic_category_55.png"
+    },
+    {
+        "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_23.png",
+        "source": "D:\\example\\example\\app\\src\\main\\res\\drawable\\ic_category_23.png"
     },
     {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_5.png",
@@ -84,12 +84,12 @@
         "source": "D:\\example\\example\\app\\src\\main\\res\\drawable\\no_photo.png"
     },
     {
-        "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_35.png",
-        "source": "D:\\example\\example\\app\\src\\main\\res\\drawable\\ic_category_35.png"
-    },
-    {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_67.png",
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\ic_category_67.png"
+    },
+    {
+        "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_35.png",
+        "source": "D:\\example\\example\\app\\src\\main\\res\\drawable\\ic_category_35.png"
     },
     {
         "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\drawer_finance.png",
@@ -132,28 +132,28 @@
         "source": "D:\\example\\example\\app\\src\\main\\res\\drawable\\bottom_shadow.png"
     },
     {
-        "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",
-        "source": "D:\\example\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_item_background_holo_dark.xml"
-    },
-    {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_1.png",
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\ic_category_1.png"
     },
     {
-        "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_cat_trash.png",
-        "source": "D:\\example\\example\\app\\src\\main\\res\\drawable\\ic_cat_trash.png"
+        "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",
+        "source": "D:\\example\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_item_background_holo_dark.xml"
     },
     {
-        "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_64.png",
-        "source": "D:\\example\\example\\app\\src\\main\\res\\drawable\\ic_category_64.png"
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\drawer_credit.png",
+        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\drawer_credit.png"
     },
     {
         "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_11.png",
         "source": "D:\\example\\example\\app\\src\\main\\res\\drawable\\ic_category_11.png"
     },
     {
-        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\drawer_credit.png",
-        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\drawer_credit.png"
+        "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_64.png",
+        "source": "D:\\example\\example\\app\\src\\main\\res\\drawable\\ic_category_64.png"
+    },
+    {
+        "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_cat_trash.png",
+        "source": "D:\\example\\example\\app\\src\\main\\res\\drawable\\ic_cat_trash.png"
     },
     {
         "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_full_material.xml",
@@ -196,12 +196,12 @@
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\fab_shadow_mini.png"
     },
     {
-        "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\pencil.png",
-        "source": "D:\\example\\example\\app\\src\\main\\res\\drawable\\pencil.png"
-    },
-    {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_light.xml",
         "source": "D:\\DEV\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_item_background_holo_light.xml"
+    },
+    {
+        "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\pencil.png",
+        "source": "D:\\example\\example\\app\\src\\main\\res\\drawable\\pencil.png"
     },
     {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_22.png",
@@ -368,12 +368,12 @@
         "source": "D:\\example\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_list_selector_holo_light.xml"
     },
     {
-        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_dialog_material_background_light.xml",
-        "source": "D:\\DEV\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_dialog_material_background_light.xml"
-    },
-    {
         "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_cab_background_top_material.xml",
         "source": "D:\\example\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_cab_background_top_material.xml"
+    },
+    {
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_dialog_material_background_light.xml",
+        "source": "D:\\DEV\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_dialog_material_background_light.xml"
     },
     {
         "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\gv_icon.xml",
@@ -464,12 +464,12 @@
         "source": "D:\\example\\example\\app\\src\\main\\res\\drawable\\ic_category_22.png"
     },
     {
-        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_42.png",
-        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\ic_category_42.png"
-    },
-    {
         "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_checked.png",
         "source": "D:\\example\\example\\app\\src\\main\\res\\drawable\\ic_checked.png"
+    },
+    {
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_42.png",
+        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\ic_category_42.png"
     },
     {
         "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_8.png",
@@ -568,16 +568,16 @@
         "source": "D:\\example\\example\\app\\src\\main\\res\\drawable\\record_edit_button.png"
     },
     {
-        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\no_category.png",
-        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\no_category.png"
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\white_edittext.xml",
+        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\white_edittext.xml"
     },
     {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_pen.png",
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\ic_pen.png"
     },
     {
-        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\white_edittext.xml",
-        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\white_edittext.xml"
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\no_category.png",
+        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\no_category.png"
     },
     {
         "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_26.png",
@@ -592,12 +592,12 @@
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\ic_category_35.png"
     },
     {
-        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\workspace_shader.png",
-        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\workspace_shader.png"
-    },
-    {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_cat_trash.png",
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\ic_cat_trash.png"
+    },
+    {
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\workspace_shader.png",
+        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\workspace_shader.png"
     },
     {
         "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_80.png",
@@ -640,12 +640,12 @@
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\ic_category_63.png"
     },
     {
-        "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_74.png",
-        "source": "D:\\example\\example\\app\\src\\main\\res\\drawable\\ic_category_74.png"
-    },
-    {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_25.png",
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\ic_category_25.png"
+    },
+    {
+        "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_74.png",
+        "source": "D:\\example\\example\\app\\src\\main\\res\\drawable\\ic_category_74.png"
     },
     {
         "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_77.png",
