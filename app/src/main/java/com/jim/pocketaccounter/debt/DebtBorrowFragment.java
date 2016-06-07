@@ -31,7 +31,6 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private FloatingActionButton fb;
-    private ArrayList<BorrowFragment> borrowFragments;
 
     @Nullable
     @Override
@@ -42,12 +41,8 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
         viewPager = (ViewPager) view.findViewById(R.id.vpDebtBorrowFragment);
         fb = (FloatingActionButton) view.findViewById(R.id.fbDebtBorrowFragment);
         fb.setOnClickListener(this);
-        borrowFragments = new ArrayList<>();
-        borrowFragments.add(new BorrowFragment());
-        borrowFragments.add(new BorrowFragment());
-        borrowFragments.add(new BorrowFragment());
 
-        viewPager.setAdapter(new MyAdapter(((PocketAccounter)getContext()).getSupportFragmentManager(), borrowFragments));
+        viewPager.setAdapter(new MyAdapter(((PocketAccounter)getContext()).getSupportFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
         return view;
     }
@@ -57,12 +52,11 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
         if (v.getId() == R.id.fbDebtBorrowFragment) {
             switch (viewPager.getCurrentItem()) {
                 case BORROW_FRAGMENT: {
-                    Toast.makeText(getContext(), "asda", Toast.LENGTH_SHORT).show();
-                    ((PocketAccounter) getContext()).replaceFragment(new AddBorrowFragment());
+                    ((PocketAccounter) getContext()).replaceFragment(AddBorrowFragment.getInstance(BORROW_FRAGMENT));
                     break;
                 }
                 case DEBT_FRAGMENT: {
-
+                    ((PocketAccounter) getContext()).replaceFragment(AddBorrowFragment.getInstance(DEBT_FRAGMENT));
                     break;
                 }
             }
@@ -70,20 +64,17 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
     }
 
     private class MyAdapter extends FragmentStatePagerAdapter {
-        private List<BorrowFragment> borrowFragmentsl;
-
-        public MyAdapter(FragmentManager fm, List<BorrowFragment> fragments) {
+        public MyAdapter(FragmentManager fm) {
             super(fm);
-            borrowFragmentsl = fragments;
         }
         @Override
         public Fragment getItem(int position) {
-            return borrowFragmentsl.get(position);
+            return BorrowFragment.getInstance(position);
         }
 
         @Override
         public int getCount() {
-            return borrowFragmentsl.size();
+            return 3;
         }
 
         @Override
