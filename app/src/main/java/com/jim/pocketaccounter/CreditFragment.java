@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.jim.pocketaccounter.credit.AdapterCridet;
 import com.jim.pocketaccounter.credit.CreditComputeDate;
+import com.jim.pocketaccounter.credit.CreditDetials;
 import com.jim.pocketaccounter.finance.Currency;
 import com.melnykov.fab.FloatingActionButton;
 
@@ -52,20 +54,25 @@ public class CreditFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(This);
         crRV.setLayoutManager(llm);
 
-        crAdap=new AdapterCridet(crList,This);
-        crRV.setAdapter(crAdap);
+        crAdap=new AdapterCridet(crList, This, new AdapterCridet.forListner() {
+            @Override
+            public void togoInfo(CreditComputeDate current) {
+                //lisdat positon turgan obyektni yuboramiz
+                Log.d("prostoo",""+current.getName());
+                openFragment(new InfoCreditFragment(),"Addcredit");
 
+            }
+        });
+        crRV.setAdapter(crAdap);
+        crList.add(new CreditComputeDate(0,"Credit for TV", 10,10000,1520,System.currentTimeMillis()-1000L*60L*60L*24L*256L,1000L*60L*60L*24L*850L , new Currency("$")));
+        crList.add(new CreditComputeDate(0,"Mobile credit",15,8000,3820,System.currentTimeMillis()-1000L*60L*60L*24L*100L,1000L*60L*60L*24L-1 , new Currency("\u20BD")));
+
+        crAdap.notifyDataSetChanged();
         V.post(new Runnable() {
             @Override
             public void run() {
-                crList.add(new CreditComputeDate(0,10,10000,1520,System.currentTimeMillis()-(long)1000*60*60*24*256,(long)1000*60*60*24*30, new Currency("$")));
-                crAdap.notifyItemInserted(0);
-/*
 
-                Date AAa = (new Date());
 
-                crAdap.notifyItemInserted(0);
-*/
             }
         });
 

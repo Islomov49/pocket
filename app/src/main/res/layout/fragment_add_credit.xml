@@ -4,9 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.jim.pocketaccounter.AddCreditFragment"
-    android:background="#ffffff"
-
-
+    android:background="#fff"
+    android:id="@+id/pustoyy"
    >
     <ScrollView
         android:layout_width="match_parent"
@@ -46,16 +45,25 @@
                         android:textColor="#212121"
 
                         android:layout_marginTop="29dp"/>
+
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="what tag you want?"
                         android:textSize="16sp"
                         android:textColor="@color/black_for_glavniy_text"
-                        android:textColorHint="@color/black_for_secondary_text"/>
+                        android:textColorHint="@color/black_for_secondary_text"
+                        android:id="@+id/editText" />
                 </LinearLayout>
 
             </LinearLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="@color/green_light_forline"
+
+
+                />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -326,34 +334,9 @@
 
 
                         </RelativeLayout>
-                        <RadioGroup
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentRight="true"
-                            android:layout_alignParentEnd="true"
-                            android:id="@+id/radiogr_transtype"
 
-                            android:orientation="horizontal"
-                            android:gravity="center"
-                            android:layout_alignParentBottom="true">
-                        <RadioButton
-                            android:id="@+id/alltoghet"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:text="alltogether"
-                            android:textSize="14sp"
-                            />
-                        <RadioButton
-                            android:id="@+id/in_pperiod"
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="wrap_content"
-                            android:text="in this period"
-                            android:textSize="14sp"
-                            android:checked="true"
-                            /></RadioGroup>
                     </LinearLayout>
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

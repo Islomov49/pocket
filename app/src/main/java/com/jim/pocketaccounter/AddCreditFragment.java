@@ -38,6 +38,12 @@ public class AddCreditFragment extends Fragment {
         spinner_peiod=(Spinner) V.findViewById(R.id.spinner_period);
         spiner_trasnact=(Spinner) V.findViewById(R.id.spinner_sceta);
 
+        V.findViewById(R.id.pustoyy).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_spinner_item, new String[] {

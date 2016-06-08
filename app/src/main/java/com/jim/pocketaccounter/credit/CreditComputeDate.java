@@ -8,6 +8,16 @@ import com.jim.pocketaccounter.finance.Currency;
 
 public class CreditComputeDate {
     private  int ID;
+
+    public String getName() {
+        return Name;
+    }
+
+    public void setName(String name) {
+        Name = name;
+    }
+
+    private String Name;
     private double procent_100_system;
     private double total_value;
     private double total_paid;
@@ -32,8 +42,9 @@ public class CreditComputeDate {
         date_start=0;
 
     }
-    public CreditComputeDate(int ID, double procent_100_system, double total_value, double total_paid, long date_start,long interval, Currency valyuta) {
+    public CreditComputeDate(int ID,String name, double procent_100_system, double total_value, double total_paid, long date_start,long interval, Currency valyuta) {
         this.ID = ID;
+        Name=name;
         this.procent_100_system = procent_100_system;
         this.total_value = total_value;
         this.total_paid = total_paid;

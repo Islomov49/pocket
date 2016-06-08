@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jim.pocketaccounter.credit.CreditDetials;
+
 public class InfoCreditFragment extends Fragment {
 
 
@@ -15,7 +17,9 @@ public class InfoCreditFragment extends Fragment {
     public InfoCreditFragment() {
         // Required empty public constructor
     }
+    public void shareData(CreditDetials current){
 
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,7 +31,12 @@ public class InfoCreditFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View V=inflater.inflate(R.layout.fragment_info_credit, container, false);
+        V.findViewById(R.id.pustooyy).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
         return V;
     }
 

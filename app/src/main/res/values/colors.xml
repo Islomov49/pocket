@@ -29,7 +29,10 @@
 
 
 
+    <color name="grey_light2" type="color">#fafffd</color>
+    <color name="gold" type="color">#CF9D22</color>
 
+    <color name="grey_light3" type="color">#f6fffc</color>
     <color type="color" name="grey_light">#f5f5f5</color>
     <color type="color" name="green_light">#1c835d</color>
     <color type="color" name="green_light_forline">#efefef</color>

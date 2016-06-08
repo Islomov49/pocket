@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jim.pocketaccounter.AddCreditFragment;
 import com.jim.pocketaccounter.InfoCreditFragment;
@@ -30,36 +31,45 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
     int S = 0;
     SimpleDateFormat dateformarter;
     Context This;
-    public AdapterCridet(List<CreditComputeDate> cardDetials, Context This){
+    forListner A1;
+    long forDay=1000L*60L*60L*24L;
+    long forMoth=1000L*60L*60L*24L*30L;
+    long forYear=1000L*60L*60L*24L*365L;
+    public AdapterCridet(List<CreditComputeDate> cardDetials, Context This, forListner A1){
        this.cardDetials=cardDetials;
         this.This=This;
         dateformarter=new SimpleDateFormat("dd.MM.yyyy");
+        this.A1=A1;
     }
 
-
+    public interface forListner{
+         void togoInfo(CreditComputeDate current);
+    }
     @Override
-    public void onBindViewHolder(myViewHolder holder, int position) {
+    public void onBindViewHolder(myViewHolder holder, final int position) {
     final CreditComputeDate itemCr= cardDetials.get(position);
         holder.credit_procent.setText(parseToWithoutNull(itemCr.getProcent_100_system())+"%");
         holder.total_value.setText(parseToWithoutNull(itemCr.getTotal_value())+itemCr.getValyuta().getName());
         holder.total_paid.setText(parseToWithoutNull(itemCr.getTotal_paid())+itemCr.getValyuta().getName());
-
+        holder.nameCredit.setText(itemCr.getName());
         Date AAa = (new Date());
         AAa.setTime(itemCr.getDate_start());
         holder.taken_credit_date.setText(dateformarter.format(AAa));
 
         long for_compute_interval=itemCr.getInterval();
+        Log.d("valeee","day Obw: "+(double)for_compute_interval/1000/60/60/24);
         String left_date_string="";
 
-        if (for_compute_interval/1000/60/60/24<1){
-            holder.pay_or_archive.setText(R.string.archive);
-            holder.left_date.setText(R.string.ends);
-            holder.left_date.setTextColor(Color.parseColor(String.valueOf(R.color.red)));
+        if ((int)((double)for_compute_interval/1000/60/60/24)<1){
 
-        }
+            holder.pay_or_archive.setText(R.string.archive);
+
+            holder.left_date.setText(R.string.ends);
+            holder.left_date.setTextColor(Color.parseColor("#832e1c"));
+             }
         else{
-            int a=(int)for_compute_interval/1000/60/60/24/365;
-            Log.d("valeee",""+a);
+            int a=(int)((double)for_compute_interval/1000/60/60/24/365);
+            Log.d("valeee","year : "+a);
             if(a>=1){
                 if(a>1){
                     left_date_string+=Integer.toString(a)+" "+This.getString(R.string.years);
@@ -69,10 +79,12 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
                     left_date_string+=Integer.toString(a)+" "+This.getString(R.string.year);
                 }
 
-                for_compute_interval-=a*1000*60*60*24*365;
+                for_compute_interval-=(long)a*forYear;
             }
-            int b=(int)for_compute_interval/1000/60/60/24/30;
-            Log.d("valeee",""+b);
+            int b=(int)((double)for_compute_interval/1000/60/60/24/30);
+            Log.d("valeee","day Obw: "+(double)for_compute_interval/1000/60/60/24);
+
+            Log.d("valeee","month : "+b);
             if(b>=1){
                 if(!left_date_string.matches("")){
                     left_date_string+=" ";
@@ -84,10 +96,12 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
                 else{
                     left_date_string+=Integer.toString(b)+" "+This.getString(R.string.moth);
                 }
-                for_compute_interval-=a*1000*60*60*24*30;
+                for_compute_interval-=(long) b*forMoth;
             }
-            int c=(int)for_compute_interval/1000/60/60/24;
-            Log.d("valeee",""+c);
+            int c=(int)((double)for_compute_interval/1000/60/60/24);
+            Log.d("valeee","day Obw: "+(double)for_compute_interval/1000/60/60/24);
+            Log.d("valeee","day : "+c);
+
             if(c>=1){
                 if(!left_date_string.matches("")){
                     left_date_string+=" ";
@@ -99,7 +113,7 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
                 else{
                     left_date_string+=Integer.toString(c)+" "+This.getString(R.string.day);
                 }
-                for_compute_interval-=a*1000*60*60*24;
+                for_compute_interval-=c*forDay;
             }
             holder.left_date.setText(left_date_string);
 
@@ -110,6 +124,19 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
         Log.d("interal",""+itemCr.getInterval());
         holder.overall_amount.setText(parseToWithoutNull(itemCr.getTotal_value()-itemCr.getTotal_paid())+itemCr.getValyuta().getName());
 
+        holder.glav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               A1.togoInfo(itemCr);
+                // openFragment(new InfoCreditFragment(),"infoFragment");
+            }
+        });
+        holder.pay_or_archive.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(This,"Should dialog to pay",Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -143,6 +170,7 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
         TextView left_date;
         TextView overall_amount;
         TextView pay_or_archive;
+        TextView nameCredit;
         View glav;
         public myViewHolder(View v) {
             super(v);
@@ -153,15 +181,15 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
             left_date=(TextView) v.findViewById(R.id.left_date);
             overall_amount=(TextView) v.findViewById(R.id.overallpay);
             pay_or_archive=(TextView) v.findViewById(R.id.pay);
+            nameCredit=(TextView) v.findViewById(R.id.NameCr);
             glav=v;
         }
     }
     public void openFragment(Fragment fragment,String tag) {
         if (fragment != null) {
-            final FragmentTransaction ft = ((PocketAccounter)This).getSupportFragmentManager().beginTransaction().addToBackStack(tag);
-            ft.add(R.id.flMain, fragment,tag);
-
-            ft.commit();
+            ((PocketAccounter)This).replaceFragment(fragment);
+//            ft.add(R.id.flMain, fragment,tag);
+//            ft.commit();
         }
     }
 }
