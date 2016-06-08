@@ -8,6 +8,16 @@ import com.jim.pocketaccounter.finance.Currency;
 
 public class CreditDetials {
     private String credit_name;
+    private int icon_ID;
+
+    public int getIcon_ID() {
+        return icon_ID;
+    }
+
+    public void setIcon_ID(int icon_ID) {
+        this.icon_ID = icon_ID;
+    }
+
     private long take_time;
     private double procent;
     private double procent_interval;
@@ -19,7 +29,8 @@ public class CreditDetials {
     public CreditDetials(){
 
     }
-    public CreditDetials(String credit_name, long take_time, double procent, double procent_interval, long period_time, double value_of_credit, Currency valyute_currency) {
+    public CreditDetials(int icon_ID,String credit_name, long take_time, double procent, double procent_interval, long period_time, double value_of_credit, Currency valyute_currency) {
+        this.icon_ID=icon_ID;
         this.credit_name = credit_name;
         this.take_time = take_time;
         this.procent = procent;
