@@ -10,12 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
-import com.jim.pocketaccounter.finance.Account;
-import com.jim.pocketaccounter.finance.Currency;
 import com.jim.pocketaccounter.finance.FinanceManager;
 
 import java.util.ArrayList;
@@ -34,6 +32,15 @@ public class BorrowFragment extends Fragment {
     private LinearLayoutManager mLayoutManager;
     private MyAdapter myAdapter;
     private FinanceManager financeManager;
+    private int TYPE = 0;
+
+    public static BorrowFragment getInstance(int type) {
+        BorrowFragment fragment = new BorrowFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("type", type);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -43,6 +50,7 @@ public class BorrowFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        TYPE = getArguments().getInt("type", 0);
         financeManager = new FinanceManager(getContext());
     }
 
@@ -51,52 +59,31 @@ public class BorrowFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.borrow_fragment_layout, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.lvBorrowFragment);
-
-        ArrayList<DebtBorrow> borrowPersons = new ArrayList<>();
-        borrowPersons.add(
-                new DebtBorrow(new Person("Nasimxon", "+99898121225", ""),
-                        Calendar.getInstance(),
-                        Calendar.getInstance(),
-                        false,
-                        new Account(),
-                        new Currency("asda"),
-                        200.23,
-                        false
-                ));
-        borrowPersons.add(
-                new DebtBorrow(new Person("Barton", "+99898121225", ""),
-                        Calendar.getInstance(),
-                        Calendar.getInstance(),
-                        false,
-                        new Account(),
-                        new Currency("asda"),
-                        200.23,
-                        false
-                ));
-        borrowPersons.add(
-                new DebtBorrow(new Person("Bobur", "+99898121225", ""),
-                        Calendar.getInstance(),
-                        Calendar.getInstance(),
-                        false,
-                        new Account(),
-                        new Currency("asda"),
-                        200.23,
-                        false
-                ));
-        financeManager.setDebtBorrows(borrowPersons);
-        myAdapter = new MyAdapter(borrowPersons);
-
+        myAdapter = new MyAdapter(getList());
         mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(myAdapter);
-        registerForContextMenu(recyclerView);
 
         return view;
     }
 
-    public void addList() {
-//        Person person = new Person("BARTON MARTON", "+9989255151", "200", "Data zayma: 05.06.2016", "Data vozvrata: 02.03.2016", "", "");
-//        myAdapter.setDataChanged(person);
+    public ArrayList<DebtBorrow> getList() {
+        ArrayList<DebtBorrow> list = new ArrayList<>();
+        switch (TYPE) {
+            case 0:
+            case 1: {
+                for (DebtBorrow debtBorrow : financeManager.getDebtBorrows()) {
+                    if (debtBorrow.getType() == TYPE) {
+                        list.add(debtBorrow);
+                    }
+                }
+                break;
+            }
+            case 2: {
+                return financeManager.getDebtBorrows();
+            }
+        }
+        return list;
     }
 
     @Override
@@ -116,7 +103,7 @@ public class BorrowFragment extends Fragment {
         }
 
         public void onBindViewHolder(BorrowFragment.ViewHolder view, final int position) {
-            DebtBorrow person = persons.get(position);
+            final DebtBorrow person = persons.get(position);
             view.BorrowPersonName.setText(person.getPerson().getName());
             view.BorrowPersonNumber.setText(person.getPerson().getPhoneNumber());
             view.BorrowPersonDateGet.setText(
@@ -141,9 +128,7 @@ public class BorrowFragment extends Fragment {
             view.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(),
-                            ""+financeManager.getDebtBorrows().get(position).getPerson().getName()
-                            , Toast.LENGTH_SHORT).show();
+                    ((PocketAccounter) getContext()).replaceFragment(InfoDebtBorrowFragment.getInstance(persons.get(position).getId()));
                 }
             });
         }
@@ -162,6 +147,7 @@ public class BorrowFragment extends Fragment {
             persons.remove(id);
             notifyItemRemoved(id);
         }
+
     }
 
     public class ViewHolder extends android.support.v7.widget.RecyclerView.ViewHolder {

@@ -80,9 +80,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:text="06.05.2016"
+            android:hint="D - M - Y"
             android:textColor="#29952e"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textColorHint="#29952e"
+            android:inputType="date"
+            />
 
         <TextView
             android:id="@+id/textView7"
@@ -96,8 +99,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:text="03.08.2016"
+            android:hint="D - M - Y"
             android:textColor="#d60810"
+            android:textColorHint="#d60810"
+            android:inputType="date"
             android:textSize="14sp" />
 
         <TextView
@@ -116,14 +121,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="Summa"
-                android:paddingRight="20dp"
+                android:paddingRight="25dp"
                 android:textSize="14sp" />
 
             <Spinner
                 android:id="@+id/spBorrowAddPopupValyuta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingRight="20dp"
+                android:paddingRight="25dp"
                 android:textSize="14sp" />
 
 
