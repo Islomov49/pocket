@@ -10,18 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
-import com.jim.pocketaccounter.finance.Account;
-import com.jim.pocketaccounter.finance.Currency;
 import com.jim.pocketaccounter.finance.FinanceManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -62,14 +59,10 @@ public class BorrowFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.borrow_fragment_layout, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.lvBorrowFragment);
-
-
-
         myAdapter = new MyAdapter(getList());
         mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(myAdapter);
-        registerForContextMenu(recyclerView);
 
         return view;
     }
@@ -110,7 +103,7 @@ public class BorrowFragment extends Fragment {
         }
 
         public void onBindViewHolder(BorrowFragment.ViewHolder view, final int position) {
-            DebtBorrow person = persons.get(position);
+            final DebtBorrow person = persons.get(position);
             view.BorrowPersonName.setText(person.getPerson().getName());
             view.BorrowPersonNumber.setText(person.getPerson().getPhoneNumber());
             view.BorrowPersonDateGet.setText(
@@ -135,9 +128,7 @@ public class BorrowFragment extends Fragment {
             view.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(getContext(),
-                            "" + financeManager.getDebtBorrows().get(position).getPerson().getName()
-                            , Toast.LENGTH_SHORT).show();
+                    ((PocketAccounter) getContext()).replaceFragment(InfoDebtBorrowFragment.getInstance(persons.get(position).getId()));
                 }
             });
         }
@@ -156,6 +147,7 @@ public class BorrowFragment extends Fragment {
             persons.remove(id);
             notifyItemRemoved(id);
         }
+
     }
 
     public class ViewHolder extends android.support.v7.widget.RecyclerView.ViewHolder {

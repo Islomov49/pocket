@@ -12,11 +12,10 @@ import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -29,8 +28,8 @@ import com.bumptech.glide.Glide;
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
 import com.jim.pocketaccounter.finance.FinanceManager;
-import com.sw926.imagefileselector.ImageFileSelector;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.UUID;
 
@@ -62,7 +61,7 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
     private FinanceManager manager;
     private int RESULT_LOAD_IMAGE = 1;
 
-    public static Fragment getInstance (int type) {
+    public static Fragment getInstance(int type) {
         AddBorrowFragment fragment = new AddBorrowFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("type", type);
@@ -113,14 +112,14 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
         for (int i = 0; i < manager.getDebtBorrows().size(); i++) {
             Toast.makeText(getContext(), "" + i, Toast.LENGTH_SHORT).show();
         }
-        
+
         PersonAccount.setOnItemSelectedListener(this);
         PersonValyuta.setOnItemSelectedListener(this);
-        String [] accaounts = new String[manager.getAccounts().size()];
+        String[] accaounts = new String[manager.getAccounts().size()];
         for (int i = 0; i < accaounts.length; i++) {
             accaounts[i] = manager.getAccounts().get(i).getName();
         }
-        String [] valyuts = new String[manager.getCurrencies().size()];
+        String[] valyuts = new String[manager.getCurrencies().size()];
         for (int i = 0; i < valyuts.length; i++) {
             valyuts[i] = manager.getCurrencies().get(i).getAbbr();
         }
@@ -139,15 +138,19 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
                 android.R.layout.simple_spinner_dropdown_item);
         PersonValyuta.setAdapter(arrayValyuAdapter);
 
-        PersonDataGet.setOnClickListener(new View.OnClickListener() {
+        PersonDataGet.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                Calendar calender = Calendar.getInstance();
-                Dialog mDialog = new DatePickerDialog(getContext(),
-                        getDatesetListener, calender.get(Calendar.YEAR),
-                        calender.get(Calendar.MONTH), calender
-                        .get(Calendar.DAY_OF_MONTH));
-                mDialog.show();
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    Calendar calender = Calendar.getInstance();
+                    Dialog mDialog = new DatePickerDialog(getContext(),
+                            getDatesetListener, calender.get(Calendar.YEAR),
+                            calender.get(Calendar.MONTH), calender
+                            .get(Calendar.DAY_OF_MONTH));
+                    mDialog.show();
+                    Toast.makeText(getContext(), "sadas", Toast.LENGTH_LONG).show();
+                }
+                return true;
             }
         });
 
@@ -178,18 +181,36 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
                     if (PersonSumm.getText().toString().equals("")) {
                         PersonName.setHintTextColor(Color.RED);
                     } else {
-                        manager.getDebtBorrows().add(new DebtBorrow(new Person(PersonName.getText().toString(), PersonNumber.getText().toString(), photoPath),
-                                getDate,
-                                returnDate,
-                                "borrow_" + UUID.randomUUID().toString(),
-                                PersonAccount.getSelectedItem().toString(),
-                                PersonValyuta.getSelectedItem().toString(),
-                                Double.parseDouble(PersonSumm.getText().toString()),
-                                TYPE));
-                        Toast.makeText(getContext(), "" +
-                                "" + manager.getDebtBorrows().size(), Toast.LENGTH_SHORT).show();
-                        manager.saveDebtBorrows();
-                        manager.loadDebtBorrows();
+                        if (PersonDataGet.getText().toString().matches("")) {
+                            PersonDataGet.setHintTextColor(Color.RED);
+                        } else {
+                            ArrayList<DebtBorrow> list = manager.getDebtBorrows();
+                            if (returnDate == null) {
+                                list.add(new DebtBorrow(new Person(PersonName.getText().toString(), PersonNumber.getText().toString(), photoPath),
+                                        getDate,
+                                        returnDate,
+                                        "borrow_" + UUID.randomUUID().toString(),
+                                        PersonAccount.getSelectedItem().toString(),
+                                        PersonValyuta.getSelectedItem().toString(),
+                                        Double.parseDouble(PersonSumm.getText().toString()),
+                                        TYPE));
+
+                            } else {
+                                list.add(new DebtBorrow(new Person(PersonName.getText().toString(), PersonNumber.getText().toString(), photoPath),
+                                        getDate,
+                                        returnDate,
+                                        "borrow_" + UUID.randomUUID().toString(),
+                                        PersonAccount.getSelectedItem().toString(),
+                                        PersonValyuta.getSelectedItem().toString(),
+                                        Double.parseDouble(PersonSumm.getText().toString()),
+                                        TYPE));
+                            }
+                            Toast.makeText(getContext(), "" +
+                                    "" + list.size(), Toast.LENGTH_SHORT).show();
+                            manager.setDebtBorrows(list);
+                            manager.saveDebtBorrows();
+                            manager.loadDebtBorrows();
+                        }
                     }
                 }
             }
@@ -252,9 +273,9 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
                 PersonNumber.setText(number);
             }
         }
-        if (requestCode == RESULT_LOAD_IMAGE  && null != data) {
+        if (requestCode == RESULT_LOAD_IMAGE && null != data) {
             Uri selectedImage = data.getData();
-            String[] filePathColumn = { MediaStore.Images.Media.DATA };
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
             Cursor cursor = getActivity().getContentResolver().query(selectedImage,
                     filePathColumn, null, null, null);
@@ -268,8 +289,12 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {}
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+    }
+
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {}
+    public void onNothingSelected(AdapterView<?> parent) {
+    }
 }

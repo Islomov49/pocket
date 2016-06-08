@@ -40,6 +40,10 @@
         "source": "D:\\example\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_86.png"
     },
     {
+        "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\knopka_zeleniy.9.png",
+        "source": "D:\\example\\example\\app\\src\\main\\res\\drawable-xxhdpi\\knopka_zeleniy.9.png"
+    },
+    {
         "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\unselected_icon.xml",
         "source": "D:\\example\\example\\app\\src\\main\\res\\drawable-xxhdpi\\unselected_icon.xml"
     },
@@ -708,12 +712,12 @@
         "source": "D:\\example\\example\\app\\src\\main\\res\\drawable-xxhdpi\\circle_checked.png"
     },
     {
-        "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_77.png",
-        "source": "D:\\example\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_77.png"
-    },
-    {
         "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\record_bg.jpg",
         "source": "D:\\example\\example\\app\\src\\main\\res\\drawable-xxhdpi\\record_bg.jpg"
+    },
+    {
+        "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_77.png",
+        "source": "D:\\example\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_77.png"
     },
     {
         "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_6.png",

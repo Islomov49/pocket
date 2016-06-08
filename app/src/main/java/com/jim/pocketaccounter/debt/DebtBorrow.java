@@ -1,11 +1,8 @@
 package com.jim.pocketaccounter.debt;
 
-import android.support.v4.util.ArrayMap;
-
-import com.jim.pocketaccounter.finance.Account;
-import com.jim.pocketaccounter.finance.Currency;
-
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Map;
 
 public class DebtBorrow {
@@ -15,8 +12,8 @@ public class DebtBorrow {
     private String account;
     private String currency;
     private double amount;
-    private Map<Calendar, Double> recking;
-    public static final int DEBT = 0, BORROW = 1;
+    private ArrayList<Recking> reckings;
+    public static final int DEBT = 1, BORROW = 0;
     private String id; //"debt_"+UUID.randowUUID().toString();
 
     public DebtBorrow(Person person, Calendar takenDate, Calendar returnDate, String id, String account, String currency, double amount, int type) {
@@ -26,7 +23,18 @@ public class DebtBorrow {
         this.account = account;
         this.currency = currency;
         this.amount = amount;
-        recking = new ArrayMap<>();
+        reckings = new ArrayList<>();
+        this.type = type;
+        this.id = id;
+    }
+
+    public DebtBorrow(Person person, Calendar takenDate, String id, String account, String currency, double amount, int type) {
+        this.person = person;
+        this.takenDate = takenDate;
+        this.account = account;
+        this.currency = currency;
+        this.amount = amount;
+        reckings = new ArrayList<>();
         this.type = type;
         this.id = id;
     }
@@ -58,10 +66,13 @@ public class DebtBorrow {
     public void setType(int type) {
         this.type = type;
     }
-    public void addRecking(Calendar calendar, double summ) {recking.put(calendar, summ);}
-    public Map<Calendar, Double> getRecking() {return recking;}
-    public void setRecking(ArrayMap<Calendar, Double> recking) {
-        this.recking = recking;
+    public ArrayList<Recking> getReckings() {
+        return reckings;
     }
-
+    public void setReckings(ArrayList<Recking> reckings) {
+        this.reckings = reckings;
+    }
+    public void addRecking(Recking recking) {
+        reckings.add(recking);
+    }
 }
