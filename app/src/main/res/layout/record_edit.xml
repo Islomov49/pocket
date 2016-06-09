@@ -10,6 +10,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1" >
 
+
+
         <ImageView
             android:id="@+id/imageView1"
             android:layout_width="match_parent"
@@ -22,25 +24,20 @@
             android:src="@drawable/record_edit_display_bg" />
 
         <TextView
-            android:id="@+id/tvRecordEditCurrency"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/twentysix_dp"
-            android:text="$"
-            android:textSize="@dimen/sixteen_sp" />
-
-        <TextView
             android:id="@+id/tvRecordEditDisplay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/five_dp"
-            android:layout_toLeftOf="@+id/tvRecordEditCurrency"
+            android:layout_marginRight="@dimen/twentyfive_dp"
             android:text="0"
+            android:layout_alignParentRight="true"
             android:textSize="@dimen/twentytwo_sp" />
-
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spRecordEdit"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/thirty_dp"/>
     </RelativeLayout>
 
     <LinearLayout
@@ -61,13 +58,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" >
-
                 <ImageView
-                    android:id="@+id/ivRecordEditCategory"
+                    android:id="@+id/ivsss1"
                     android:layout_width="@dimen/seventy_dp"
                     android:layout_height="@dimen/seventy_dp"
                     android:layout_centerInParent="true"
                     android:src="@drawable/record_edit_button" />
+                <ImageView
+                    android:id="@+id/ivRecordEditCategory"
+                    android:layout_width="@dimen/twentyfour_dp"
+                    android:layout_height="@dimen/twentyfour_dp"
+                    android:layout_centerInParent="true"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -75,13 +76,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" >
-
                 <ImageView
-                    android:id="@+id/ivRecordEditSubCategory"
+                    android:id="@+id/ivssss1"
                     android:layout_width="@dimen/seventy_dp"
                     android:layout_height="@dimen/seventy_dp"
                     android:layout_centerInParent="true"
                     android:src="@drawable/record_edit_button" />
+                <ImageView
+                    android:id="@+id/ivRecordEditSubCategory"
+                    android:layout_width="@dimen/twentyfour_dp"
+                    android:layout_height="@dimen/twentyfour_dp"
+                    android:layout_centerInParent="true"/>
             </RelativeLayout>
 
             <RelativeLayout

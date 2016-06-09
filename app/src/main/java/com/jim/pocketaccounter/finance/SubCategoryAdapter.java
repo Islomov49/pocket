@@ -30,17 +30,11 @@ public class SubCategoryAdapter extends BaseAdapter {
 	    inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 	@Override
-	public int getCount() {
-		return result.size();
-	}
+	public int getCount() {return result.size();}
 	@Override
-	public Object getItem(int position) {
-		return result.get(position);
-	}
+	public Object getItem(int position) {return result.get(position);}
 	@Override
-	public long getItemId(int position) {
-		return position;
-	}
+	public long getItemId(int position) {return position;}
 	@SuppressLint("ViewHolder")
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {

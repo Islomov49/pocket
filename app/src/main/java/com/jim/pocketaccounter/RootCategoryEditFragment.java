@@ -187,6 +187,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 	}
 	@SuppressLint({ "InfateParams", "NewApi" })
 	public void openIconsDialog() {
+		//Nasimga icondialog
 		final Dialog dialog=new Dialog(getActivity());
 		View dialogView = getActivity().getLayoutInflater().inflate(R.layout.cat_icon_select, null);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -217,6 +218,36 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 		dialog.setContentView(dialogView);
 		mode = PocketAccounterGeneral.NORMAL_MODE;
 		setMode(mode);
+		final FABIcon fabChooseIcon = (FABIcon) dialogView.findViewById(R.id.fabChooseIcon);
+		Bitmap temp  = BitmapFactory.decodeResource(getResources(), subCategory.getIcon());
+		Bitmap scaled = Bitmap.createScaledBitmap(temp, (int)getResources().getDimension(R.dimen.twentyfive_dp), (int)getResources().getDimension(R.dimen.twentyfive_dp), false);
+		fabChooseIcon.setImageBitmap(scaled);
+		fabChooseIcon.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				final Dialog dialog=new Dialog(getActivity());
+				View dialogView = getActivity().getLayoutInflater().inflate(R.layout.cat_icon_select, null);
+				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+				dialog.setContentView(dialogView);
+				final GridView gvCategoryIcons = (GridView) dialogView.findViewById(R.id.gvCategoryIcons);
+				IconAdapter adapter = new IconAdapter(getActivity(), icons, subCategory.getIcon());
+				gvCategoryIcons.setAdapter(adapter);
+				gvCategoryIcons.setOnItemClickListener(new OnItemClickListener() {
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+						subCategory.setIcon(icons[position]);
+						Bitmap temp  = BitmapFactory.decodeResource(getResources(), icons[position]);
+						Bitmap scaled = Bitmap.createScaledBitmap(temp, (int)getResources().getDimension(R.dimen.twentyfive_dp), (int)getResources().getDimension(R.dimen.twentyfive_dp), false);
+						fabChooseIcon.setImageBitmap(scaled);
+						dialog.dismiss();
+					}
+				});
+				DisplayMetrics dm = getResources().getDisplayMetrics();
+				int width = dm.widthPixels;
+				dialog.getWindow().setLayout(8*width/9, LayoutParams.MATCH_PARENT);
+				dialog.show();
+			}
+		});
 		ImageView ivSubCatClose = (ImageView) dialogView.findViewById(R.id.ivSubCatClose);
 		ImageView ivSubCatSave = (ImageView) dialogView.findViewById(R.id.ivSubCatSave);
 		final EditText etSubCategoryName = (EditText) dialogView.findViewById(R.id.etSubCategoryName);

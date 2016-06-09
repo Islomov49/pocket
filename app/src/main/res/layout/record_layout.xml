@@ -25,7 +25,7 @@
             android:elevation="@dimen/two_dp" >
 
             <TextView
-                android:id="@+id/tvRecordEditCurrency"
+                android:id="@+id/tvRecordIncome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/ten_dp"
@@ -37,7 +37,7 @@
                 android:text="TextView" />
 
             <TextView
-                android:id="@+id/tvEqual"
+                android:id="@+id/tvRecordBalanse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/ten_dp"
@@ -48,7 +48,7 @@
                 android:text="TextView" />
 
             <TextView
-                android:id="@+id/tvDot"
+                android:id="@+id/tvRecordExpanse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/ten_dp"

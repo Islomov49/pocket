@@ -11,22 +11,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/toolbar_color"
-        android:elevation="@dimen/four_dp"
-        >
+        android:elevation="@dimen/four_dp">
         <ImageView
             android:id="@+id/ivToolbarMostRight"
-            android:layout_width="@dimen/twentyfour_dp"
-            android:layout_height="@dimen/twentyfour_dp"
+            android:layout_width="@dimen/thirty_dp"
+            android:layout_height="@dimen/thirty_dp"
             android:layout_marginRight="@dimen/sixteen_dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_gravity="right"
             android:visibility="gone"/>
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spToolbar"
+            android:layout_marginLeft="@dimen/two_dp"
+            android:visibility="gone"
+            android:background="@drawable/spinner"/>
     </android.support.v7.widget.Toolbar>
     <FrameLayout
         android:id="@+id/flMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar">
+        android:layout_below="@+id/toolbar"
+        >
+
     </FrameLayout>
 </RelativeLayout>

@@ -14,6 +14,7 @@ import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
 public class RecordButtonExpanse {
 	public static final int TOP_LEFT = 0, SIMPLE = 1, LEFT_SIMPLE = 2, LEFT_BOTTOM = 3, BOTTOM_SIMPLE = 4,

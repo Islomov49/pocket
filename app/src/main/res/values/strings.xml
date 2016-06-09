@@ -602,4 +602,11 @@
         <item>ic_category_16</item>
         <item>ic_category_17</item>
     </string-array>
+    <string name="no_category">no_category</string>
+    <string name="no_category_name">Без подкатегории</string>
+    <string name="records">Записи</string>
+    <string name="balanse">Баланс</string>
+    <!-- for google signing -->
+    <string name="sign_out">Sign Out</string>
+    <string name="disconnect">Disconnect</string>
 </resources>

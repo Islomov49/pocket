@@ -1,9 +1,11 @@
 package com.jim.pocketaccounter.helper.record;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
+import com.jim.pocketaccounter.RecordEditFragment;
 import com.jim.pocketaccounter.finance.RootCategory;
 import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
@@ -19,34 +21,28 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GestureDetectorCompat;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
 @SuppressLint("DrawAllocation")
-public class RecordExpanseView extends View {
+public class RecordExpanseView extends View implements 	GestureDetector.OnGestureListener {
 	private final float workspaceCornerRadius, workspaceMargin;
 	private Bitmap workspaceShader;
 	private RectF workspace;
 	private ArrayList<RecordButtonExpanse> buttons;
-	private float firstX, firstY;
 	private ArrayList<RootCategory> expanses;
+	private GestureDetectorCompat gestureDetector;
 	public RecordExpanseView(Context context) {
 		super(context);
+		gestureDetector = new GestureDetectorCompat(getContext(),this);
 		workspaceCornerRadius = getResources().getDimension(R.dimen.five_dp);
 		workspaceMargin = getResources().getDimension(R.dimen.twenty_dp);
-		expanses = new ArrayList<RootCategory>();
-		for (int i=0; i< PocketAccounter.financeManager.getCategories().size(); i++) {
-			if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.EXPANCE)
-				expanses.add(PocketAccounter.financeManager.getCategories().get(i));
-		}
-		while (expanses.size()<PocketAccounterGeneral.EXPANCE_BUTTONS_COUNT) {
-			expanses.add(null);
-		}
-
-		String[] tempIcons = getResources().getStringArray(R.array.icons);
+		expanses = PocketAccounter.financeManager.getExpanses();
 		buttons = new ArrayList<RecordButtonExpanse>();
-		for (int i = 0; i< PocketAccounterGeneral.EXPANCE_BUTTONS_COUNT; i++) {
+		for (int i=0; i<PocketAccounterGeneral.EXPANCE_BUTTONS_COUNT; i++) {
 			RecordButtonExpanse button = null;
 			int type = 0;
 			switch(i) {
@@ -95,7 +91,6 @@ public class RecordExpanseView extends View {
 	@Override
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
-		
 		workspace = new RectF(workspaceMargin, workspaceMargin, getWidth()-workspaceMargin, getHeight()-workspaceMargin);
 		drawButtons(canvas);
 		drawWorkspaceShader(canvas);
@@ -112,7 +107,8 @@ public class RecordExpanseView extends View {
 			bottom = workspace.top+((int)(Math.floor(i/4)+1)*height);
 			buttons.get(i).setBounds(left, top, right, bottom, workspaceCornerRadius);
 		}
-		for (int i=0; i<buttons.size(); i++) 
+		int buttonsCount = buttons.size();
+		for (int i=0; i<buttonsCount; i++)
 			buttons.get(i).drawButton(canvas);
 		
 		Paint borderPaint = new Paint();
@@ -151,30 +147,58 @@ public class RecordExpanseView extends View {
 	@SuppressLint("ClickableViewAccessibility")
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		switch(event.getAction()) {
-		case MotionEvent.ACTION_DOWN:
-			firstX = event.getX();
-			firstY = event.getY();
-			int size = buttons.size();
-			for (int i=0; i<size; i++) {
-				boolean isIn = buttons.get(i).getContainer().contains(firstX, firstY);
-				buttons.get(i).setPressed(isIn);
-			}
-			invalidate();
-			break;
-		case MotionEvent.ACTION_UP:
-			size = buttons.size();
-			for (int i=0; i<size; i++) 
-				buttons.get(i).setPressed(false);
-//			if (event.getX()>firstX-30 && event.getX()<firstX+30 &&
-//					event.getY()>firstY-30 && event.getY()<firstY+30) {
-//				invalidate();
-//			}
-			invalidate();
-			break;
-		}
-		
+		this.gestureDetector.onTouchEvent(event);
 		return super.onTouchEvent(event);
 	}
-	
+
+	@Override
+	public boolean onDown(MotionEvent e) {
+		return false;
+	}
+	@Override
+	public void onShowPress(MotionEvent e) {}
+	@Override
+	public boolean onSingleTapUp(MotionEvent e) {
+		int size = buttons.size();
+		float x = e.getX();
+		float y = e.getY();
+		for (int i=0; i<size; i++) {
+			if (buttons.get(i).getContainer().contains(x, y)) {
+				buttons.get(i).setPressed(true);
+				final int position = i;
+				postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						RootCategory category = PocketAccounter.financeManager.getExpanses().get(position);
+						if (category != null)
+							((PocketAccounter) getContext()).replaceFragment(new RecordEditFragment(category, Calendar.getInstance(), null));
+						else
+							((PocketAccounter) getContext()).replaceFragment(new RecordEditFragment(PocketAccounter.financeManager.getExpanses().get(position), Calendar.getInstance(), null));
+					}
+				}, 250);
+				invalidate();
+				break;
+			}
+		}
+		return false;
+	}
+	@Override
+	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+		return false;
+	}
+	@Override
+	public void onLongPress(MotionEvent e) {
+		float x = e.getX(), y = e.getY();
+		int size = buttons.size();
+		for (int i=0; i<size; i++) {
+			if (buttons.get(i).getContainer().contains(x, y)) {
+
+				break;
+			}
+		}
+	}
+	@Override
+	public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+		return false;
+	}
 }

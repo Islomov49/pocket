@@ -8,12 +8,12 @@ package de.hdodenhof.circleimageview;
 
 public final class R {
 	public static final class attr {
-		public static final int border_color = 0x7f0100a6;
-		public static final int border_overlay = 0x7f0100a7;
-		public static final int border_width = 0x7f0100a5;
+		public static final int border_color = 0x7f0100b0;
+		public static final int border_overlay = 0x7f0100b1;
+		public static final int border_width = 0x7f0100af;
 	}
 	public static final class styleable {
-		public static final int[] CircleImageView = { 0x7f0100a5, 0x7f0100a6, 0x7f0100a7, 0x7f0100a8, 0x7f0100a9, 0x7f0100aa, 0x7f0100ab };
+		public static final int[] CircleImageView = { 0x7f0100af, 0x7f0100b0, 0x7f0100b1, 0x7f0100b2, 0x7f0100b3, 0x7f0100b4, 0x7f0100b5 };
 		public static final int CircleImageView_border_color = 1;
 		public static final int CircleImageView_border_overlay = 2;
 		public static final int CircleImageView_border_width = 0;
