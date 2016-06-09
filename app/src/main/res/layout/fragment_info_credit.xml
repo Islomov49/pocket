@@ -117,7 +117,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/grey_light2">
+                android:background="@color/grey_light">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -155,7 +155,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="2px"
-                android:background="@color/black_for_secondary_text"/>
+                android:background="@color/green_light_forline"/>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_for_transactions"
                 android:layout_width="match_parent"
