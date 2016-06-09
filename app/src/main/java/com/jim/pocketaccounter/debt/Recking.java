@@ -5,15 +5,26 @@ package com.jim.pocketaccounter.debt;
  */
 
 public class Recking {
-
     private String payDate;
     private double amount;
+    private String accountId;
     private String id;
+    private String comment;
 
-    public Recking(String payDate, double amount, String id) {
+    public Recking(String payDate, double amount, String id, String accountId, String comment) {
         this.payDate = payDate;
         this.amount = amount;
         this.id = id;
+        this.accountId = accountId;
+        this.comment = comment;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public Recking() {
@@ -21,6 +32,14 @@ public class Recking {
 
     public String getPayDate() {
         return payDate;
+    }
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
     }
 
     public void setPayDate(String payDate) {

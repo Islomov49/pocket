@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -107,7 +108,7 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
         PersonSumm = (EditText) view.findViewById(R.id.etBorrowAddPopupSumm);
         PersonValyuta = (Spinner) view.findViewById(R.id.spBorrowAddPopupValyuta);
         PersonAccount = (Spinner) view.findViewById(R.id.spBorrowAddPopupAccount);
-        manager = new FinanceManager(getContext());
+        manager = PocketAccounter.financeManager;
 
         for (int i = 0; i < manager.getDebtBorrows().size(); i++) {
             Toast.makeText(getContext(), "" + i, Toast.LENGTH_SHORT).show();
@@ -210,6 +211,7 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
                             manager.setDebtBorrows(list);
                             manager.saveDebtBorrows();
                             manager.loadDebtBorrows();
+                            ((PocketAccounter) getContext()).replaceFragment(new DebtBorrowFragment());
                         }
                     }
                 }
@@ -262,12 +264,7 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
                 photoPath = cursor.getString(photoIndex);
                 Toast.makeText(getContext(), number + "\n" + name, Toast.LENGTH_SHORT).show();
                 if (photoPath != null) {
-                    Glide
-                            .with(this)
-                            .load(name)
-                            .centerCrop()
-                            .crossFade()
-                            .into(imageView);
+                    imageView.setImageDrawable(Drawable.createFromPath(photoPath));
                 }
                 PersonName.setText(name);
                 PersonNumber.setText(number);

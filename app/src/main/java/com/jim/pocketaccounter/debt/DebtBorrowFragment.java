@@ -23,7 +23,7 @@ import java.util.List;
  * Created by user on 6/4/2016.
  */
 
-public class DebtBorrowFragment extends Fragment implements View.OnClickListener {
+public class DebtBorrowFragment extends Fragment implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private final int BORROW_FRAGMENT = 0;
     private final int DEBT_FRAGMENT = 1;
     private final int DEBT_BORROW_ARHIV = 2;
@@ -44,6 +44,7 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
 
         viewPager.setAdapter(new MyAdapter(((PocketAccounter)getContext()).getSupportFragmentManager()));
         tabLayout.setupWithViewPager(viewPager);
+        viewPager.addOnPageChangeListener(this);
         return view;
     }
 
@@ -63,21 +64,25 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
         }
     }
 
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        if (position == DEBT_FRAGMENT) {
+            fb.setAlpha(1-positionOffset);
+        }
+    }
+    @Override
+    public void onPageSelected(int position) {}
+    @Override
+    public void onPageScrollStateChanged(int state) {}
+
     private class MyAdapter extends FragmentStatePagerAdapter {
         public MyAdapter(FragmentManager fm) {
             super(fm);
         }
-        @Override
         public Fragment getItem(int position) {
             return BorrowFragment.getInstance(position);
         }
-
-        @Override
-        public int getCount() {
-            return 3;
-        }
-
-        @Override
+        public int getCount() {return 3;}
         public CharSequence getPageTitle(int position) {
             if (position == BORROW_FRAGMENT) {
                 return "Borrows";

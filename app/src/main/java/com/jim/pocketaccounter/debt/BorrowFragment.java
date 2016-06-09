@@ -1,6 +1,7 @@
 package com.jim.pocketaccounter.debt;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -51,7 +52,7 @@ public class BorrowFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         TYPE = getArguments().getInt("type", 0);
-        financeManager = new FinanceManager(getContext());
+        financeManager = PocketAccounter.financeManager;
     }
 
     @Nullable
@@ -63,7 +64,6 @@ public class BorrowFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(myAdapter);
-
         return view;
     }
 
@@ -118,12 +118,7 @@ public class BorrowFragment extends Fragment {
             if (person.getPerson().getPhoto().equals("")) {
                 view.BorrowPersonPhotoPath.setImageResource(R.drawable.credit_icon);
             } else {
-                Glide
-                        .with(getContext())
-                        .load(person.getPerson().getPhoto())
-                        .centerCrop()
-                        .crossFade()
-                        .into(view.BorrowPersonPhotoPath);
+                view.BorrowPersonPhotoPath.setImageDrawable(Drawable.createFromPath(person.getPerson().getPhoto()));
             }
             view.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -147,7 +142,6 @@ public class BorrowFragment extends Fragment {
             persons.remove(id);
             notifyItemRemoved(id);
         }
-
     }
 
     public class ViewHolder extends android.support.v7.widget.RecyclerView.ViewHolder {

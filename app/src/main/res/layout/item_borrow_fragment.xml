@@ -21,7 +21,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="6dp"
-            android:background="@drawable/credit_icon"
+            android:src="@drawable/credit_icon"
             android:paddingLeft="15dp"
             app:civ_border_color="#FF000000"
             app:civ_border_width="5dp" />

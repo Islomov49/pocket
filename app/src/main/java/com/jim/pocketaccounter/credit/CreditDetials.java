@@ -17,8 +17,8 @@ public class CreditDetials {
     private Currency valyute_currency;
 
     public CreditDetials(){
-
     }
+
     public CreditDetials(String credit_name, long take_time, double procent, double procent_interval, long period_time, double value_of_credit, Currency valyute_currency) {
         this.credit_name = credit_name;
         this.take_time = take_time;

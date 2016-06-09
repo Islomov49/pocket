@@ -15,6 +15,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.jim.pocketaccounter.R;
 import com.jim.pocketaccounter.debt.DebtBorrow;
@@ -113,6 +115,8 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
                 + "pay_date TEXT,"
                 + "amount REAL,"
                 + "id TEXT"
+                + "account_id TEXT"
+                + "comment TEXT"
                 + ");");
 
         initDefault(db);
@@ -142,7 +146,9 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
             for (Recking rc : list) {
                 values.put("pay_date", rc.getPayDate());
                 values.put("amount", rc.getAmount());
-                values.put("id", rc.getId());
+                values.put("id", debtBorrow.getId());
+                values.put("account_id", rc.getAccountId());
+                values.put("comment", rc.getComment());
                 db.insert("debtborrow_recking_table", null, values);
                 values.clear();
             }
@@ -188,11 +194,14 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
             reckCursor.moveToFirst();
             ArrayList<Recking> list = new ArrayList<>();
             while (!reckCursor.isAfterLast()) {
-                Calendar calendar = Calendar.getInstance();
                 if (id.matches(reckCursor.getString(reckCursor.getColumnIndex("id")))) {
                     list.add(new Recking(reckCursor.getString(reckCursor.getColumnIndex("pay_date")),
-                            reckCursor.getDouble(reckCursor.getColumnIndex("amount")), id));
+                            reckCursor.getDouble(reckCursor.getColumnIndex("amount")), id,
+                            reckCursor.getString(reckCursor.getColumnIndex("account_id")),
+                            reckCursor.getString(reckCursor.getColumnIndex("comment"))
+                    ));
                 }
+                reckCursor.moveToNext();
             }
             newDebtBorrow.setReckings(list);
             result.add(newDebtBorrow);
