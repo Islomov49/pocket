@@ -361,7 +361,7 @@
     <string name="total_paid">Total paid:</string>
     <string name="in_this_period_paid">In this period paid:</string>
     <string name="this_period_ends">This period ends:</string>
-    <string name="verall_debt">Оverall debt:</string>
+    <string name="verall_debt">Оverall amount:</string>
     <string name="in_this_month_should_pay">In this month should pay:</string>
     <string name="credit_name">Credit name</string>
     <string name="home">Дом</string>
@@ -376,6 +376,14 @@
     <string name="sport">Спорт</string>
     <string name="beauty">Красота</string>
     <string name="equipment">Оргтехника</string>
+    <string name="year">year</string>
+    <string name="moth">month</string>
+    <string name="day">day</string>
+    <string name="moths">months</string>
+    <string name="years">years</string>
+    <string name="days">days</string>
+    <string name="ends">Ends</string>
+    <string name="archive">TO ARCHIVE</string>
     <string-array name="cat_values">
         <item>home</item>
         <item>network</item>

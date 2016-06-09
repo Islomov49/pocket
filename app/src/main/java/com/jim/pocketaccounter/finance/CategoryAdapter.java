@@ -48,6 +48,7 @@ public class CategoryAdapter extends BaseAdapter {
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 		View view = inflater.inflate(R.layout.category_list_item, parent, false);
+
 		ImageView ivCategoryListIcon = (ImageView) view.findViewById(R.id.ivAccountListIcon);
 		ivCategoryListIcon.setImageResource(((RootCategory)result.get(position)).getIcon());
 		TextView tvCategoryListName = (TextView) view.findViewById(R.id.tvAccountListName);
