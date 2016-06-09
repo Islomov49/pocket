@@ -201,9 +201,9 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
         }
 
         public void onBindViewHolder(InfoDebtBorrowFragment.ViewHolder view, int position) {
-            view.infoDate.setText("Date of Pay :" + list.get(position).getPayDate());
-            view.infoSumm.setText("Via: " + list.get(position).getAmount() + debtBorrow.getCurrency());
-            view.infoAccount.setText("" + list.get(position).getAccountId());
+            view.infoDate.setText("Date of Pay: " + list.get(position).getPayDate());
+            view.infoSumm.setText("" + list.get(position).getAmount() + debtBorrow.getCurrency());
+            view.infoAccount.setText("Via: " + list.get(position).getAccountId());
             if (!list.get(position).getComment().matches("")) {
                 view.comment.setText("Comment: " + list.get(position).getComment());
             } else {

@@ -144,6 +144,10 @@
         "source": "D:\\example\\example\\app\\src\\main\\res\\layout\\currency_choose_item.xml"
     },
     {
+        "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\adapter_spiner.xml",
+        "source": "D:\\example\\example\\app\\src\\main\\res\\layout\\adapter_spiner.xml"
+    },
+    {
         "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\currency_list_item.xml",
         "source": "D:\\example\\example\\app\\src\\main\\res\\layout\\currency_list_item.xml"
     },

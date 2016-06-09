@@ -16,16 +16,16 @@
         "source": "D:\\example\\example\\app\\src\\main\\res\\drawable-xxhdpi\\drawer_home.png"
     },
     {
-        "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_launcher.png",
-        "source": "D:\\example\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_launcher.png"
+        "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_menu_hardkey_panel_mtrl_mult.9.png",
+        "source": "D:\\example\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-xxhdpi-v4\\abc_menu_hardkey_panel_mtrl_mult.9.png"
     },
     {
         "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_74.png",
         "source": "D:\\example\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_74.png"
     },
     {
-        "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_menu_hardkey_panel_mtrl_mult.9.png",
-        "source": "D:\\example\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-xxhdpi-v4\\abc_menu_hardkey_panel_mtrl_mult.9.png"
+        "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_launcher.png",
+        "source": "D:\\example\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_launcher.png"
     },
     {
         "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_60.png",
@@ -120,12 +120,12 @@
         "source": "D:\\example\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_98.png"
     },
     {
-        "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_67.png",
-        "source": "D:\\example\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_67.png"
-    },
-    {
         "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\no_category.png",
         "source": "D:\\example\\example\\app\\src\\main\\res\\drawable-xxhdpi\\no_category.png"
+    },
+    {
+        "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_67.png",
+        "source": "D:\\example\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_67.png"
     },
     {
         "merged": "D:\\example\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_22.png",
