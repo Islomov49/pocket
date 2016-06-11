@@ -117,6 +117,51 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 				+ "debt_id TEXT,"
 				+ "photo_id TEXT"
 				+ ");");
+		//recking debt borrow
+		db.execSQL("CREATE TABLE debt_borrow_table ("
+				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ "person_name TEXT,"
+				+ "person_number TEXT,"
+				+ "taken_date TEXT,"
+				+ "return_date TEXT,"
+				+ "remind INTEGER,"
+				+ "type INTEGER,"
+				+ "account_id TEXT,"
+				+ "currency_id TEXT,"
+				+ "amount REAL,"
+				+ "debt_id TEXT,"
+				+ "photo_id TEXT"
+				+ ");");
+		//credit
+		db.execSQL("CREATE TABLE credit_table ("
+				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ "credit_name TEXT,"
+				+ "icon INTEGER,"
+				+ "taken_date TEXT,"
+				+ "percent REAL,"
+				+ "procent_interval TEXT,"
+				+ "period_time TEXT,"
+				+ "myCredit_id TEXT,"
+				+ "value_of_credit REAL,"
+				+ "value_of_credit_with_percent REAL,"
+				+ "currency_id TEXT"
+				+ ");");
+
+		//recking for credit
+		db.execSQL("CREATE TABLE debt_borrow_table ("
+				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ "person_name TEXT,"
+				+ "person_number TEXT,"
+				+ "taken_date TEXT,"
+				+ "return_date TEXT,"
+				+ "remind INTEGER,"
+				+ "type INTEGER,"
+				+ "account_id TEXT,"
+				+ "currency_id TEXT,"
+				+ "amount REAL,"
+				+ "debt_id TEXT,"
+				+ "photo_id TEXT"
+				+ ");");
 		initDefault(db);
 	}
 

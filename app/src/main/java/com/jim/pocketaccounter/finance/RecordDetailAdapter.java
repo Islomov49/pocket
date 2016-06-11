@@ -30,14 +30,12 @@ public class RecordDetailAdapter extends RecyclerView.Adapter<RecordDetailAdapte
     List<FinanceRecord> result;
     Context context;
     public RecordDetailAdapter(Context context, List<FinanceRecord> result){
-        Log.d("sss", "constructor");
         this.result = result;
         this.context = context;
 
     }
     @Override
     public void onBindViewHolder(DetailViewHolder holder, int position) {
-        Log.d("sss", "on bind");
         holder.ivRecordDetail.setImageResource(result.get(position).getCategory().getIcon());
         holder.tvRecordDetailCategoryName.setText(result.get(position).getCategory().getName());
         double totalAmount = 0.0;
@@ -48,7 +46,7 @@ public class RecordDetailAdapter extends RecyclerView.Adapter<RecordDetailAdapte
         }
         for (int i=0; i<records.size(); i++)
             totalAmount = totalAmount + PocketAccounterGeneral.getCost(records.get(i));
-        holder.tvRecordDetailCategoryAmount.setText(Double.toString(totalAmount)+PocketAccounter.financeManager.getMainCurrency());
+        holder.tvRecordDetailCategoryAmount.setText(Double.toString(totalAmount)+result.get(position).getCurrency().getAbbr());
         boolean subCategoryFound = false;
         for (int i=0; i<records.size(); i++) {
             if (records.get(i).getSubCategory() != null) {

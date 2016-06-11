@@ -4,6 +4,7 @@ import android.content.Context;
 import android.provider.DocumentsContract;
 import android.util.Log;
 
+import com.jim.pocketaccounter.credit.CreditDetials;
 import com.jim.pocketaccounter.helper.PocketAccounterDatabase;
 import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
@@ -15,6 +16,7 @@ public class FinanceManager {
 	private ArrayList<RootCategory> categories, expanses, incomes;
 	private ArrayList<Account> accounts;
 	private ArrayList<FinanceRecord> records;
+	private ArrayList<CreditDetials> credits;
 	private PocketAccounterDatabase db;
 	public FinanceManager(Context context) {
 		this.context = context;
@@ -25,7 +27,10 @@ public class FinanceManager {
 		incomes = loadIncomes();
 		accounts = loadAccounts();
 		records = loadRecords();
+		credits = loadCredits();
 	}
+	private ArrayList<CreditDetials> loadCredits() {return new ArrayList<CreditDetials>();}
+	public ArrayList<CreditDetials> getCredits() {return credits;}
 	public ArrayList<Currency> getCurrencies() {
 		return currencies;
 	}

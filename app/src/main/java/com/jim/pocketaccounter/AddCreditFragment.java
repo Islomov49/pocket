@@ -616,7 +616,6 @@ public class AddCreditFragment extends Fragment {
                 switch (spinner_peiod.getSelectedItemPosition()){
                     case 0:
                         period_inter*=forMoth;
-
                         break;
                     case 1:
                         period_inter*=forYear;
@@ -628,16 +627,9 @@ public class AddCreditFragment extends Fragment {
                         period_inter*=forDay;
                         break;
                 }
-
-
-
-
                 CreditDetials A1=new CreditDetials(selectedIcon,nameCred.getText().toString(),new GregorianCalendar(argFirst[0],argFirst[1],argFirst[2]),
                         Double.parseDouble(sb.toString()) ,procent_inter ,period_inter,Double.parseDouble(valueCred.getText().toString()),
                         currencies.get(spiner_forValut.getSelectedItemPosition()),Double.parseDouble(solution.getText().toString()),System.currentTimeMillis() );
-
-
-
                 Log.d("soemeV",
                         A1.getCredit_name()+"\n"
                                 +A1.getIcon_ID()+"\n"
@@ -663,9 +655,7 @@ public class AddCreditFragment extends Fragment {
             return Integer.toString((int)A);
         else{
             DecimalFormat format=new DecimalFormat("0.##");
-
             return format.format(A);
-
         }
 
     }
@@ -678,7 +668,7 @@ public class AddCreditFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         ivToolbarMostRight.setVisibility(View.INVISIBLE);
-
+//        PocketAccounter.financeManager.saveCredits();
     }
 
 
