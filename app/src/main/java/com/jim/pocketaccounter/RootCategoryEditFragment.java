@@ -18,6 +18,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -82,10 +83,36 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 			chbCatEditExpanse.setChecked(true);
 			chbCatEditIncome.setChecked(false);
 		}
-		if (edit_mode == PocketAccounterGeneral.EXPANSE_MODE) {
+		if (edit_mode == PocketAccounterGeneral.INCOME_MODE) {
 			chbCatEditExpanse.setChecked(false);
 			chbCatEditIncome.setChecked(true);
 		}
+		chbCatEditExpanse.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if (edit_mode == PocketAccounterGeneral.EXPANSE_MODE) {
+					chbCatEditExpanse.setChecked(true);
+					chbCatEditIncome.setChecked(false);
+				}
+				if (edit_mode == PocketAccounterGeneral.INCOME_MODE) {
+					chbCatEditExpanse.setChecked(false);
+					chbCatEditIncome.setChecked(true);
+				}
+			}
+		});
+		chbCatEditIncome.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if (edit_mode == PocketAccounterGeneral.EXPANSE_MODE) {
+					chbCatEditExpanse.setChecked(true);
+					chbCatEditIncome.setChecked(false);
+				}
+				if (edit_mode == PocketAccounterGeneral.INCOME_MODE) {
+					chbCatEditExpanse.setChecked(false);
+					chbCatEditIncome.setChecked(true);
+				}
+			}
+		});
 		fabCatIcon = (FABIcon) rootView.findViewById(R.id.fabAccountIcon);
 		fabCatIcon.setOnClickListener(this);
 		ivSubCatAdd = (ImageView) rootView.findViewById(R.id.ivSubCatAdd);
