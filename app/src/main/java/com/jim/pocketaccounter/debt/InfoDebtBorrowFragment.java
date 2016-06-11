@@ -237,10 +237,10 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
     }
 
     public class ViewHolder extends android.support.v7.widget.RecyclerView.ViewHolder {
-        public TextView infoDate;
-        public TextView infoSumm;
-        public TextView infoAccount;
-        public TextView comment;
+            public TextView infoDate;
+            public TextView infoSumm;
+            public TextView infoAccount;
+            public TextView comment;
 
         public ViewHolder(View view) {
             super(view);

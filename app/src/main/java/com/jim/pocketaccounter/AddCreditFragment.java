@@ -11,7 +11,11 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.Editable;
+import android.text.Selection;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,12 +30,16 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.jim.pocketaccounter.credit.CreditDetials;
 import com.jim.pocketaccounter.finance.Account;
 import com.jim.pocketaccounter.finance.Currency;
 import com.jim.pocketaccounter.finance.FinanceManager;
 import com.jim.pocketaccounter.finance.IconAdapter;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,8 +50,7 @@ import static android.R.id.selectedIcon;
 
 
 public class AddCreditFragment extends Fragment {
-    TextInputLayout credNameinput;
-    EditText credNameEdit;
+
     Spinner spiner_forValut,spiner_procent,spinner_peiod,spiner_trasnact;
     ImageView icona;
     String [] valyutes;
@@ -55,11 +62,15 @@ public class AddCreditFragment extends Fragment {
     Context context;
     Animation wooble;
     SimpleDateFormat dateformarter;
-
+    int argFirst[]=new int[3];
+    int argLast[]=new int[3];
     long forDay=1000L*60L*60L*24L;
     long forMoth=1000L*60L*60L*24L*30L;
+    long forWeek=1000L*60L*60L*24L*7L;
     long forYear=1000L*60L*60L*24L*365L;
-
+    boolean isAv=true;
+    ArrayList<Currency> currencies;
+    int isAvInt=0;
     public AddCreditFragment() {
         // Required empty public constructor
 
@@ -77,6 +88,7 @@ public class AddCreditFragment extends Fragment {
         // Inflate the layout for this fragment
         View V=inflater.inflate(R.layout.fragment_add_credit, container, false);
         context=getActivity();
+        Log.d("args",argFirst[0]+argFirst[1]+argFirst[2]+"");
         spiner_forValut=(Spinner) V.findViewById(R.id.spinner);
         spiner_procent=(Spinner) V.findViewById(R.id.spinner_procent);
         spinner_peiod=(Spinner) V.findViewById(R.id.spinner_period);
@@ -102,19 +114,42 @@ public class AddCreditFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //name checking
+                boolean isMojno=true;
                  if (nameCred.getText().toString().equals("")){
                     nameCred.setError("Name should not empty!");
                     nameCred.startAnimation(wooble);
-
+                     isMojno=false;
                  }
-                else nameCred.setHintTextColor(ContextCompat.getColor(context,R.color.black_for_glavniy_text));
+                else nameCred.setHintTextColor(ContextCompat.getColor(context,R.color.black_for_secondary_text));
 
                 //value cheking
                 if (valueCred.getText().toString().equals("")){
                 valueCred.setError("Value should not empty!");
                     valueCred.startAnimation(wooble);
+                    isMojno=false;
                 }
-                else valueCred.setHintTextColor(ContextCompat.getColor(context,R.color.black_for_glavniy_text));
+                else valueCred.setHintTextColor(ContextCompat.getColor(context,R.color.black_for_secondary_text));
+
+                if (procentCred.getText().toString().equals("")){
+                    procentCred.setError("Procent should not empty!");
+                    procentCred.startAnimation(wooble);
+                    isMojno=false;
+                }
+                else procentCred.setHintTextColor(ContextCompat.getColor(context,R.color.black_for_secondary_text));
+
+                if (periodCred.getText().toString().equals("")){
+                    periodCred.setError("Procent should not empty!");
+                    periodCred.startAnimation(wooble);
+                    isMojno=false;
+                }
+                else periodCred.setHintTextColor(ContextCompat.getColor(context,R.color.black_for_secondary_text));
+               //TODO first transaction
+
+
+                if(isMojno){
+
+                   openDialog();
+                }
 
 
             }
@@ -123,6 +158,9 @@ public class AddCreditFragment extends Fragment {
         final DatePickerDialog.OnDateSetListener getDatesetListener = new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
                 Date AAa = (new Date());
+                argFirst[0]=arg1;
+                argFirst[1]=arg2;
+                argFirst[2]=arg3;
                 Calendar calend=new GregorianCalendar(arg1,arg2,arg3);
                 AAa.setTime(calend.getTimeInMillis());
 
@@ -142,8 +180,13 @@ public class AddCreditFragment extends Fragment {
                             calend.add(Calendar.YEAR, period_long);
                             break;
                         case 2:
+                            //week
+                            calend.add(Calendar.WEEK_OF_YEAR, period_long);
+                            break;
+                        case 3:
                             //day
                             calend.add(Calendar.DAY_OF_YEAR, period_long);
+
                             break;
                         default:
                             break;
@@ -164,11 +207,17 @@ public class AddCreditFragment extends Fragment {
         };
         final DatePickerDialog.OnDateSetListener getDatesetListener2 = new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+                argLast[0]=arg1;
+                argLast[1]=arg2;
+                argLast[2]=arg3;
+
                 Date AAa = (new Date());
                 Calendar calend=new GregorianCalendar(arg1,arg2,arg3);
                 AAa.setTime(calend.getTimeInMillis());
 
+
                 lastCred.setText(dateformarter.format(AAa));
+
 
                 int period_long=1;
                 if(!periodCred.getText().toString().matches("")){
@@ -184,8 +233,13 @@ public class AddCreditFragment extends Fragment {
                             calend.add(Calendar.YEAR, -period_long);
                             break;
                         case 2:
+                            //week
+                            calend.add(Calendar.WEEK_OF_YEAR, -period_long);
+                            break;
+                        case 3:
                             //day
                             calend.add(Calendar.DAY_OF_YEAR, -period_long);
+
                             break;
                         default:
                             break;
@@ -206,19 +260,20 @@ public class AddCreditFragment extends Fragment {
             }
         };
 
-        lastCred.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus){
-                    Calendar calendar = Calendar.getInstance();
-                    Dialog mDialog = new DatePickerDialog(getContext(),
-                            getDatesetListener2, calendar.get(Calendar.YEAR),
-                            calendar.get(Calendar.MONTH), calendar
-                            .get(Calendar.DAY_OF_MONTH));
-                    mDialog.show();
-                }
-            }
-        });
+//        lastCred.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if(hasFocus){
+//                    Calendar calendar = Calendar.getInstance();
+//                    Dialog mDialog = new DatePickerDialog(getContext(),
+//                            getDatesetListener2, calendar.get(Calendar.YEAR),
+//                            calendar.get(Calendar.MONTH), calendar
+//                            .get(Calendar.DAY_OF_MONTH));
+//                    mDialog.show();
+//                }
+//            }
+//        });
+
         lastCred.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -232,19 +287,19 @@ public class AddCreditFragment extends Fragment {
         });
 
 
-        firstCred.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus){
-                    Calendar calendar = Calendar.getInstance();
-                    Dialog mDialog = new DatePickerDialog(getContext(),
-                            getDatesetListener, calendar.get(Calendar.YEAR),
-                            calendar.get(Calendar.MONTH), calendar
-                            .get(Calendar.DAY_OF_MONTH));
-                    mDialog.show();
-                }
-            }
-        });
+//        firstCred.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if(hasFocus){
+//                    Calendar calendar = Calendar.getInstance();
+//                    Dialog mDialog = new DatePickerDialog(getContext(),
+//                            getDatesetListener, calendar.get(Calendar.YEAR),
+//                            calendar.get(Calendar.MONTH), calendar
+//                            .get(Calendar.DAY_OF_MONTH));
+//                    mDialog.show();
+//                }
+//            }
+//        });
         firstCred.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -256,8 +311,68 @@ public class AddCreditFragment extends Fragment {
                 mDialog.show();
             }
         });
+        procentCred.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    String A=procentCred.getText().toString();
+                    Log.d("someeV",isAvInt+" "+A.length());
+                    if(!A.equals("")) {
+                        //ADDING SUFFIX AGAIN
+                        if(A.contains("%")){
+                            StringBuilder sb = new StringBuilder(A);
+                            sb.deleteCharAt(A.indexOf("%"));
+                            procentCred.setText(sb.toString()+"%");
+
+                        }
+                        else {
+                            procentCred.setText(A+"%");
+
+                        }
 
 
+                    }
+                }
+            }
+        });
+        spinner_peiod.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if(argFirst[0]!=0){
+                    forDateSyncFirst();
+                }
+                else if(argLast[0]!=0){
+                    forDateSyncLast();
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        periodCred.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(argFirst[0]!=0){
+                    forDateSyncFirst();
+                }
+                else if(argLast[0]!=0){
+                    forDateSyncLast();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         icona=(ImageView) V.findViewById(R.id.imageForIcon) ;
         String[] tempIcons = getResources().getStringArray(R.array.icons);
@@ -303,7 +418,7 @@ public class AddCreditFragment extends Fragment {
         });
 
         FinanceManager manager = new FinanceManager(getContext());
-        ArrayList<Currency> currencies = manager.getCurrencies();
+        currencies = manager.getCurrencies();
         valyutes = new String[currencies.size()];
         valyutes_symbols = new String[currencies.size()];
 
@@ -324,7 +439,7 @@ public class AddCreditFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                 R.layout.adapter_spiner,
                 new String[] {
-                        "Per year", "Per month", "Per day"
+                        "Per month", "Per year","Per week", "Per day"
                 } );
 
 
@@ -335,7 +450,7 @@ public class AddCreditFragment extends Fragment {
 
         ArrayAdapter<String> adapter_period = new ArrayAdapter<String>(getActivity(),
                 R.layout.adapter_spiner, new String[] {
-                "Month", "Year", "Day"
+                "Month", "Year", "Week","Day"
         });
 
         ArrayAdapter<String> adapter_scet = new ArrayAdapter<String>(getActivity(),
@@ -348,6 +463,212 @@ public class AddCreditFragment extends Fragment {
         return  V;
     }
 
+    public void forDateSyncFirst(){
+        Date AAa = (new Date());
+        Calendar calend=new GregorianCalendar(argFirst[0],argFirst[1],argFirst[2]);
+        AAa.setTime(calend.getTimeInMillis());
+
+        firstCred.setText(dateformarter.format(AAa));
+
+
+        int period_long=1;
+        if(!periodCred.getText().toString().matches("")){
+            period_long=Integer.parseInt(periodCred.getText().toString());
+            switch (spinner_peiod.getSelectedItemPosition()){
+                case 0:
+                    //moth
+                    calend.add(Calendar.MONTH, period_long);
+
+                    break;
+                case 1:
+                    //year
+                    calend.add(Calendar.YEAR, period_long);
+                    break;
+                case 2:
+                    //week
+                    calend.add(Calendar.WEEK_OF_YEAR, period_long);
+                    break;
+                case 3:
+                    //day
+                    calend.add(Calendar.DAY_OF_YEAR, period_long);
+
+                    break;
+                default:
+                    break;
+            }
+
+
+            long forCompute=calend.getTimeInMillis();
+            // forCompute+=period_long;
+
+            AAa.setTime(forCompute);
+            lastCred.setText(dateformarter.format(AAa));
+
+        }
+        else {
+            periodCred.setError("First enter period of debt!");
+        }
+    }
+
+    public void forDateSyncLast(){
+        Date AAa = (new Date());
+        Calendar calend=new GregorianCalendar(argLast[0],argLast[1],argLast[2]);
+        AAa.setTime(calend.getTimeInMillis());
+
+        lastCred.setText(dateformarter.format(AAa));
+
+
+        int period_long=1;
+        if(!periodCred.getText().toString().matches("")){
+            period_long=Integer.parseInt(periodCred.getText().toString());
+            switch (spinner_peiod.getSelectedItemPosition()){
+                case 0:
+                    //moth
+                    calend.add(Calendar.MONTH, -period_long);
+
+                    break;
+                case 1:
+                    //year
+                    calend.add(Calendar.YEAR, -period_long);
+                    break;
+                case 2:
+                    //week
+                    calend.add(Calendar.WEEK_OF_YEAR, -period_long);
+                    break;
+                case 3:
+                    //day
+                    calend.add(Calendar.DAY_OF_YEAR, -period_long);
+
+                    break;
+                default:
+                    break;
+            }
+
+
+            long forCompute=calend.getTimeInMillis();
+            // forCompute+=period_long;
+
+            AAa.setTime(forCompute);
+            firstCred.setText(dateformarter.format(AAa));
+
+        }
+        else {
+            periodCred.setError("First enter period of debt!");
+        }
+    }
+
+    StringBuilder sb;
+    double creditValueWith;
+    private void openDialog () {
+        final Dialog dialog=new Dialog(getActivity());
+        View dialogView = getActivity().getLayoutInflater().inflate(R.layout.info_about_all, null);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(dialogView);
+
+        final TextView value = (TextView) dialogView.findViewById(R.id.textView9);
+        final TextView procent = (TextView) dialogView.findViewById(R.id.textView11);
+        final EditText solution = (EditText) dialogView.findViewById(R.id.edit_result);
+
+        ImageView cancel = (ImageView) dialogView.findViewById(R.id.ivInfoDebtBorrowCancel);
+        ImageView save = (ImageView) dialogView.findViewById(R.id.ivInfoDebtBorrowSave);
+
+        sb=new StringBuilder(procentCred.getText().toString());
+        int a=sb.toString().indexOf('%');
+        if(a!=-1)
+            sb.deleteCharAt(a);
+
+        value.setText(valueCred.getText().toString());
+        procent.setText(procentCred.getText().toString());
+        solution.setText(parseToWithoutNull(Double.parseDouble(valueCred.getText().toString())*(1d+Double.parseDouble(sb.toString())/100)));
+
+
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+
+
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                long procent_inter=1;
+                switch (spiner_procent.getSelectedItemPosition()){
+                    case 0:
+                        procent_inter*=forMoth;
+                        break;
+                    case 1:
+                        procent_inter*=forYear;
+                        break;
+                    case 2:
+                        procent_inter*=forWeek;
+                        break;
+                    case 3:
+                        procent_inter*=forDay;
+                        break;
+                }
+                long period_inter=Long.parseLong(periodCred.getText().toString());
+                switch (spinner_peiod.getSelectedItemPosition()){
+                    case 0:
+                        period_inter*=forMoth;
+
+                        break;
+                    case 1:
+                        period_inter*=forYear;
+                        break;
+                    case 2:
+                        period_inter*=forWeek;
+                        break;
+                    case 3:
+                        period_inter*=forDay;
+                        break;
+                }
+
+
+
+
+                CreditDetials A1=new CreditDetials(selectedIcon,nameCred.getText().toString(),new GregorianCalendar(argFirst[0],argFirst[1],argFirst[2]),
+                        Double.parseDouble(sb.toString()) ,procent_inter ,period_inter,Double.parseDouble(valueCred.getText().toString()),
+                        currencies.get(spiner_forValut.getSelectedItemPosition()),Double.parseDouble(solution.getText().toString()),System.currentTimeMillis() );
+
+
+
+                Log.d("soemeV",
+                        A1.getCredit_name()+"\n"
+                                +A1.getIcon_ID()+"\n"
+                                +A1.getPeriod_time()+"\n"
+                                +A1.getProcent()+"\n"+
+                                A1.getProcent_interval()+"\n"+
+                                A1.getTake_time().getTimeInMillis()+
+                                "\n"+A1.getValue_of_credit()+"\n"+
+                                A1.getValyute_currency().getName()
+                +  "\n"+A1.getValue_of_credit_with_procent());
+                Toast.makeText(context,"ObjectCreate",Toast.LENGTH_SHORT).show();
+            }
+        });
+        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+        int width = displayMetrics.widthPixels;
+        dialog.getWindow().setLayout(7*width/8, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        dialog.show();
+    }
+
+
+    public String parseToWithoutNull(double A){
+        if(A==(int)A)
+            return Integer.toString((int)A);
+        else{
+            DecimalFormat format=new DecimalFormat("0.##");
+
+            return format.format(A);
+
+        }
+
+    }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

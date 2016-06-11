@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,7 +56,8 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
         Date AAa = (new Date());
         AAa.setTime(itemCr.getDate_start());
         holder.taken_credit_date.setText(dateformarter.format(AAa));
-
+        holder.iconn.setImageResource(itemCr.getID());
+        
         long for_compute_interval=itemCr.getInterval();
         Log.d("valeee","day Obw: "+(double)for_compute_interval/1000/60/60/24);
         String left_date_string="";
@@ -172,6 +174,7 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
         TextView pay_or_archive;
         TextView nameCredit;
         View glav;
+        ImageView iconn;
         public myViewHolder(View v) {
             super(v);
             credit_procent=(TextView) v.findViewById(R.id.procent_of_credit);
@@ -182,6 +185,7 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
             overall_amount=(TextView) v.findViewById(R.id.overallpay);
             pay_or_archive=(TextView) v.findViewById(R.id.pay);
             nameCredit=(TextView) v.findViewById(R.id.NameCr);
+            iconn=(ImageView) v.findViewById(R.id.iconaaa);
             glav=v;
         }
     }

@@ -51,6 +51,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="what tag you want?"
+
                         android:textSize="16sp"
                         android:textColor="@color/black_for_glavniy_text"
                         android:textColorHint="@color/black_for_secondary_text"
@@ -159,7 +160,9 @@
                                     android:layout_toLeftOf="@+id/spinner_procent"
                                     android:layout_toStartOf="@+id/spinner_procent"
                                     android:layout_marginRight="6dp"
-                                    android:inputType="numberDecimal"/>
+                                    android:inputType="numberDecimal"
+                                    android:elevation="0dp"
+                                    />
 
                                 <Spinner
                                     android:layout_width="wrap_content"
@@ -210,7 +213,7 @@
                                 android:layout_toLeftOf="@+id/spinner_period"
                                 android:layout_toStartOf="@+id/spinner_period"
                                 android:layout_marginRight="6dp"
-                                android:inputType="numberDecimal"/>
+                                android:inputType="number"/>
 
                             <Spinner
                                 android:layout_width="wrap_content"
@@ -256,6 +259,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:hint="when you take?"
+                                android:focusableInTouchMode="false"
                                 android:textSize="14sp"
                                 android:layout_marginRight="6dp"
                                 android:layout_toLeftOf="@+id/imageView2"
@@ -273,6 +277,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:hint="when ends?"
+                                android:focusableInTouchMode="false"
                                 android:textSize="14sp"
                                 android:layout_marginLeft="6dp"
                                 android:layout_alignParentRight="true"

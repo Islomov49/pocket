@@ -21,6 +21,7 @@ import com.melnykov.fab.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 
@@ -64,8 +65,12 @@ public class CreditFragment extends Fragment {
             }
         });
         crRV.setAdapter(crAdap);
-        crList.add(new CreditComputeDate(0,"Credit for TV", 10,10000,1520,System.currentTimeMillis()-1000L*60L*60L*24L*256L,1000L*60L*60L*24L*850L , new Currency("$")));
-        crList.add(new CreditComputeDate(0,"Mobile credit",15,8000,3820,System.currentTimeMillis()-1000L*60L*60L*24L*100L,1000L*60L*60L*24L-1 , new Currency("\u20BD")));
+
+        crList.add(CompyuteData(new CreditDetials(R.drawable.ic_category_4,"Come Text",new GregorianCalendar(2016,06,06),
+                20d ,1000L*60L*60L*24L*30L ,1000L*60L*60L*24L*33,8000,
+                new Currency("\u20BD"),9000,System.currentTimeMillis() )));
+
+        crList.add(new CreditComputeDate(R.drawable.ic_category_9,"Mobile credit",15,8000,3820,System.currentTimeMillis()-1000L*60L*60L*24L*100L,1000L*60L*60L*24L-1 , new Currency("\u20BD")));
 
         crAdap.notifyDataSetChanged();
         V.post(new Runnable() {
@@ -95,7 +100,22 @@ public class CreditFragment extends Fragment {
             ft.commit();
         }
     }
+    public CreditComputeDate CompyuteData(CreditDetials ItemDet){
+        CreditComputeDate itemC=new CreditComputeDate();
+        itemC.setID(ItemDet.getIcon_ID());
+        itemC.setDate_start(ItemDet.getTake_time().getTimeInMillis());
+        itemC.setInterval(ItemDet.getPeriod_time());
+        itemC.setName(ItemDet.getCredit_name());
+        itemC.setProcent_100_system(ItemDet.getProcent());
 
+        //TODO Total paid computing
+        double total_paid=100;
+
+        itemC.setTotal_paid(total_paid);
+        itemC.setValyuta(ItemDet.getValyute_currency());
+        itemC.setTotal_value(ItemDet.getValue_of_credit_with_procent());
+        return itemC;
+    }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -107,8 +127,5 @@ public class CreditFragment extends Fragment {
     }
 
 
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
+
 }
