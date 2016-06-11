@@ -103,15 +103,14 @@
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:layout_marginTop="3dp"
-                   android:layout_marginBottom="8dp"
-                   >
+                   android:layout_marginBottom="8dp">
 
                    <TextView
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:text="@string/total_paid"
                        android:textSize="12sp"
-                        android:textColor="@color/for_darker"
+                       android:textColor="@color/for_darker"
                        android:id="@+id/textView6"
                        android:layout_alignParentTop="true"
                        android:layout_alignParentLeft="true"

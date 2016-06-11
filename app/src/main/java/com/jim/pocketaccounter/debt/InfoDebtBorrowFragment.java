@@ -78,15 +78,15 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
         id = getArguments().getString("id");
 
         manager = PocketAccounter.financeManager;
-        debtBorrow = new DebtBorrow();
-        if (manager.getDebtBorrows() != null) {
-            for (DebtBorrow db : manager.getDebtBorrows()) {
-                if (db.getId().matches(id)) {
-                    debtBorrow = db;
-                    break;
-                }
-            }
-        }
+//        debtBorrow = new DebtBorrow();
+//        if (manager.getDebtBorrows() != null) {
+//            for (DebtBorrow db : manager.getDebtBorrows()) {
+//                if (db.getId().matches(id)) {
+//                    debtBorrow = db;
+//                    break;
+//                }
+//            }
+//        }
         peysAdapter = new PeysAdapter(debtBorrow.getReckings());
         Calendar currentDate = Calendar.getInstance();
         int delta = (debtBorrow.getReturnDate().get(Calendar.DAY_OF_YEAR) - currentDate.get(Calendar.DAY_OF_YEAR));
@@ -231,7 +231,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
 //                    break;
 //                }
 //            }
-            manager.loadDebtBorrows();
+//            manager.loadDebtBorrows();
             notifyItemInserted(0);
         }
     }
@@ -254,6 +254,6 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
     @Override
     public void onStop() {
         super.onStop();
-        manager.saveDebtBorrows();
+//        manager.saveDebtBorrows();
     }
 }

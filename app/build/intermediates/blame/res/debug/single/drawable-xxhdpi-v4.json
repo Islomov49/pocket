@@ -1,5 +1,9 @@
 [
     {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\knopka_zeleniy.9.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\knopka_zeleniy.9.png"
+    },
+    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_73.png",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_73.png"
     },
@@ -12,12 +16,12 @@
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-xxhdpi-v4\\abc_textfield_search_activated_mtrl_alpha.9.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_cat_trash.png",
-        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_cat_trash.png"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\common_plus_signin_btn_text_dark_disabled.9.png",
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\8.3.0\\res\\drawable-xxhdpi\\common_plus_signin_btn_text_dark_disabled.9.png"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_cat_trash.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_cat_trash.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_56.png",
@@ -44,6 +48,10 @@
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\selected_icon.xml"
     },
     {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_cast_dark.png",
+        "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\drawable-xxhdpi\\ic_cast_dark.png"
+    },
+    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\record_pressed_first.png",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\record_pressed_first.png"
     },
@@ -52,36 +60,32 @@
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\workspace_shader.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_cast_dark.png",
-        "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\drawable-xxhdpi\\ic_cast_dark.png"
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_90.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_90.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_btn_switch_to_on_mtrl_00001.9.png",
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-xxhdpi-v4\\abc_btn_switch_to_on_mtrl_00001.9.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_90.png",
-        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_90.png"
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\drawer_finance.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\drawer_finance.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_8.png",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_8.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\drawer_finance.png",
-        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\drawer_finance.png"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_39.png",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_39.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\left_bottom.png",
-        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\left_bottom.png"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_58.png",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_58.png"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\left_bottom.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\left_bottom.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ab_share_pack_mtrl_alpha.9.png",
@@ -236,12 +240,12 @@
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\category_not_selected.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_list_focused_holo.9.png",
-        "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-xxhdpi-v4\\abc_list_focused_holo.9.png"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_30.png",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_30.png"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_list_focused_holo.9.png",
+        "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-xxhdpi-v4\\abc_list_focused_holo.9.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_27.png",
@@ -276,12 +280,12 @@
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_68.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_list_longpressed_holo.9.png",
-        "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-xxhdpi-v4\\abc_list_longpressed_holo.9.png"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_media_route_on_mono_dark.png",
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\drawable-xxhdpi\\ic_media_route_on_mono_dark.png"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_list_longpressed_holo.9.png",
+        "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-xxhdpi-v4\\abc_list_longpressed_holo.9.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_cast_on_0_light.png",
@@ -348,12 +352,12 @@
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\gv_icon.xml"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_78.png",
-        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_78.png"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_82.png",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_82.png"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_78.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_78.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_pen.png",
@@ -364,12 +368,12 @@
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\drawable-xxhdpi\\ic_play_light.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\drawer_letter_us.png",
-        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\drawer_letter_us.png"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_97.png",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_97.png"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\drawer_letter_us.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\drawer_letter_us.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_menu_copy_mtrl_am_alpha.png",
@@ -456,12 +460,12 @@
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_launcher.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\bottom_shadow.png",
-        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\bottom_shadow.png"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\common_google_signin_btn_text_dark_normal.9.png",
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\8.3.0\\res\\drawable-xxhdpi\\common_google_signin_btn_text_dark_normal.9.png"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\bottom_shadow.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\bottom_shadow.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_89.png",
@@ -496,12 +500,12 @@
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_16.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\record_pressed_third.png",
-        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\record_pressed_third.png"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_44.png",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_44.png"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\record_pressed_third.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\record_pressed_third.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\cast_ic_notification_on.png",
@@ -648,20 +652,20 @@
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\drawable-xxhdpi\\ic_setting_light.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_list_divider_mtrl_alpha.9.png",
-        "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-xxhdpi-v4\\abc_list_divider_mtrl_alpha.9.png"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_media_play.png",
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\drawable-xxhdpi\\ic_media_play.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_72.png",
-        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_72.png"
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_list_divider_mtrl_alpha.9.png",
+        "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-xxhdpi-v4\\abc_list_divider_mtrl_alpha.9.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\common_plus_signin_btn_text_light_focused.9.png",
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\8.3.0\\res\\drawable-xxhdpi\\common_plus_signin_btn_text_light_focused.9.png"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_72.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_72.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_91.png",
@@ -676,12 +680,12 @@
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable-xxhdpi-v4\\abc_spinner_mtrl_am_alpha.9.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_9.png",
-        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_9.png"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_12.png",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_12.png"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_9.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_9.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_pause_dark.png",
@@ -936,12 +940,12 @@
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\white_edittext.xml"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_50.png",
-        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_50.png"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_cast_on_light.png",
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\drawable-xxhdpi\\ic_cast_on_light.png"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_50.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_50.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_ic_clear_mtrl_alpha.png",
@@ -1020,12 +1024,12 @@
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\circle_unchecked.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_13.png",
-        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_13.png"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_19.png",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_19.png"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\ic_category_13.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_13.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\abc_btn_check_to_on_mtrl_000.png",
@@ -1076,12 +1080,12 @@
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\ic_category_57.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\checkbox.xml",
-        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\checkbox.xml"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\common_google_signin_btn_text_light_disabled.9.png",
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\8.3.0\\res\\drawable-xxhdpi\\common_google_signin_btn_text_light_disabled.9.png"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\checkbox.xml",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable-xxhdpi\\checkbox.xml"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4\\common_google_signin_btn_text_dark_focused.9.png",

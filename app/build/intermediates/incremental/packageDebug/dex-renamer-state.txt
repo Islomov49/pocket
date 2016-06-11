@@ -1,4 +1,4 @@
-#Thu Jun 09 13:14:19 UZT 2016
+#Fri Jun 10 14:54:47 UZT 2016
 base.0=C\:\\shinauz\\example\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
 renamed.0=classes.dex
 file.0=C\:\\shinauz\\example\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex

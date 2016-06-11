@@ -25,7 +25,8 @@
             android:textColor="@color/toolbar_text_color"
             android:textSize="@dimen/twelve_sp" />
 
-        <CheckBox
+
+        <CheckBox
             android:id="@+id/chbCatExpanses"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,19 +36,6 @@
             android:checked="true"
             android:paddingLeft="@dimen/ten_dp"
             android:text="@string/expanse"
-            android:textColor="@color/toolbar_text_color"
-            android:textSize="@dimen/twelve_sp" />
-
-        <CheckBox
-            android:id="@+id/chbCatBoth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginRight="@dimen/sixteen_dp"
-            android:button="@drawable/blue_bg_checkbox"
-            android:checked="true"
-            android:paddingLeft="@dimen/ten_dp"
-            android:text="@string/both"
             android:textColor="@color/toolbar_text_color"
             android:textSize="@dimen/twelve_sp" />
 

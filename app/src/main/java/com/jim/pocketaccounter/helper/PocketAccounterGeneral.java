@@ -12,7 +12,7 @@ public class PocketAccounterGeneral {
 	public static final int BOTH=2;
 	public static final int EXPANCE_BUTTONS_COUNT = 16;
 	public static final int INCOME_BUTTONS_COUNT = 4;
-
+	public static final int NO_MODE = 0, EXPANSE_MODE = 1, INCOME_MODE = 2;
 	public static double getCost(FinanceRecord record) {
 		double amount = 0.0;
 		if (record.getCurrency().getMain())

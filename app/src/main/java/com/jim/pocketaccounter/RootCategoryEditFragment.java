@@ -34,6 +34,7 @@ import com.jim.pocketaccounter.helper.FABIcon;
 import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.UUID;
 
 @SuppressLint({"InflateParams", "ValidFragment"})
@@ -48,8 +49,14 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 	private boolean[] selected;
 	private int[] icons;
 	private ArrayList<SubCategory> subCategories;
-	public RootCategoryEditFragment(RootCategory category) {
+	private int edit_mode, pos;
+	private Calendar calendar;
+	public RootCategoryEditFragment(RootCategory category, int mode, int pos, Calendar date) {
 		this.category = category;
+		this.edit_mode = mode;
+		this.pos = pos;
+		if (date != null)
+			calendar = (Calendar) date.clone();
 	}
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.cat_edit_layout, container, false);
@@ -58,7 +65,10 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 		PocketAccounter.toolbar.setNavigationOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				((PocketAccounter)getContext()).replaceFragment(new CategoryFragment());
+				if (edit_mode == PocketAccounterGeneral.NO_MODE)
+					((PocketAccounter)getContext()).replaceFragment(new CategoryFragment());
+				else
+					((PocketAccounter)getContext()).replaceFragment(new RecordFragment(calendar));
 			}
 		});
 		ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
@@ -68,6 +78,14 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 		etCatEditName = (EditText) rootView.findViewById(R.id.etAccountEditName);
 		chbCatEditExpanse = (CheckBox) rootView.findViewById(R.id.chbCatEditExpanse);
 		chbCatEditIncome = (CheckBox) rootView.findViewById(R.id.chbCatEditIncome);
+		if (edit_mode == PocketAccounterGeneral.EXPANSE_MODE) {
+			chbCatEditExpanse.setChecked(true);
+			chbCatEditIncome.setChecked(false);
+		}
+		if (edit_mode == PocketAccounterGeneral.EXPANSE_MODE) {
+			chbCatEditExpanse.setChecked(false);
+			chbCatEditIncome.setChecked(true);
+		}
 		fabCatIcon = (FABIcon) rootView.findViewById(R.id.fabAccountIcon);
 		fabCatIcon.setOnClickListener(this);
 		ivSubCatAdd = (ImageView) rootView.findViewById(R.id.ivSubCatAdd);
@@ -167,27 +185,50 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 				type = PocketAccounterGeneral.EXPANCE;
 			if (chbCatEditIncome.isChecked() && chbCatEditExpanse.isChecked())
 				type = PocketAccounterGeneral.BOTH;
-			if (category != null) {
-				category.setName(etCatEditName.getText().toString());
-				category.setType(type);
-				category.setIcon(selectedIcon);
-				category.setSubCategories(subCategories);
+			if (edit_mode == PocketAccounterGeneral.NO_MODE) {
+				if (category != null) {
+					category.setName(etCatEditName.getText().toString());
+					category.setType(type);
+					category.setIcon(selectedIcon);
+					category.setSubCategories(subCategories);
+				}
+				else {
+					RootCategory newCategory = new RootCategory();
+					newCategory.setName(etCatEditName.getText().toString());
+					newCategory.setType(type);
+					newCategory.setIcon(selectedIcon);
+					newCategory.setSubCategories(subCategories);
+					newCategory.setId("rootcategory_"+UUID.randomUUID().toString());
+					PocketAccounter.financeManager.getCategories().add(newCategory);
+				}
+				((PocketAccounter)getActivity()).replaceFragment(new CategoryFragment());
 			}
-			else {
+			else if (type==PocketAccounterGeneral.INCOME || type==PocketAccounterGeneral.BOTH) {
 				RootCategory newCategory = new RootCategory();
 				newCategory.setName(etCatEditName.getText().toString());
 				newCategory.setType(type);
 				newCategory.setIcon(selectedIcon);
 				newCategory.setSubCategories(subCategories);
+				newCategory.setId("rootcategory_"+UUID.randomUUID().toString());
+				PocketAccounter.financeManager.getIncomes().set(pos, newCategory);
 				PocketAccounter.financeManager.getCategories().add(newCategory);
+				((PocketAccounter)getActivity()).replaceFragment(new RecordFragment(calendar));
+			} else if (type==PocketAccounterGeneral.EXPANCE || type==PocketAccounterGeneral.BOTH) {
+				RootCategory newCategory = new RootCategory();
+				newCategory.setName(etCatEditName.getText().toString());
+				newCategory.setType(type);
+				newCategory.setIcon(selectedIcon);
+				newCategory.setSubCategories(subCategories);
+				newCategory.setId("rootcategory_"+UUID.randomUUID().toString());
+				PocketAccounter.financeManager.getExpanses().set(pos, newCategory);
+				PocketAccounter.financeManager.getCategories().add(newCategory);
+				((PocketAccounter)getActivity()).replaceFragment(new RecordFragment(calendar));
 			}
-			((PocketAccounter)getActivity()).replaceFragment(new CategoryFragment());
 			break;
 		}
 	}
 	@SuppressLint({ "InfateParams", "NewApi" })
 	public void openIconsDialog() {
-		//Nasimga icondialog
 		final Dialog dialog=new Dialog(getActivity());
 		View dialogView = getActivity().getLayoutInflater().inflate(R.layout.cat_icon_select, null);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);

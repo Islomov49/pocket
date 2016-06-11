@@ -81,21 +81,21 @@ public class InfoCreditFragment extends Fragment {
 
         public void setDataChanged(String clDate, double value) {
             Toast.makeText(getContext(), "212", Toast.LENGTH_LONG).show();
-            for (DebtBorrow debtBorrow : manager.getDebtBorrows()) {
-                if (debtBorrow.getReckings().equals(list)) {
-//                    Recking recking = new Recking(clDate, value, debtBorrow.getId());
-//                    list.add(0, recking);
-//                    double qoldiq = 0;
-//                    for (int i = 0; i < list.size(); i++) {
-//                        qoldiq += list.get(i).getAmount();
-//                    }
-////                    leftAmount.setText(""+ (debtBorrow.getAmount() - qoldiq));
-////                    totalPayAmount.setText("" + qoldiq);
-//                    debtBorrow.setReckings(list);
-                    break;
-                }
-            }
-            manager.loadDebtBorrows();
+//            for (DebtBorrow debtBorrow : manager.getDebtBorrows()) {
+//                if (debtBorrow.getReckings().equals(list)) {
+////                    Recking recking = new Recking(clDate, value, debtBorrow.getId());
+////                    list.add(0, recking);
+////                    double qoldiq = 0;
+////                    for (int i = 0; i < list.size(); i++) {
+////                        qoldiq += list.get(i).getAmount();
+////                    }
+//////                    leftAmount.setText(""+ (debtBorrow.getAmount() - qoldiq));
+//////                    totalPayAmount.setText("" + qoldiq);
+////                    debtBorrow.setReckings(list);
+//                    break;
+//                }
+//            }
+//            manager.loadDebtBorrows();
             notifyItemInserted(0);
         }
 

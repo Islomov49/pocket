@@ -35,6 +35,7 @@ import com.jim.pocketaccounter.finance.RecordCategoryAdapter;
 import com.jim.pocketaccounter.finance.RecordSubCategoryAdapter;
 import com.jim.pocketaccounter.finance.RootCategory;
 import com.jim.pocketaccounter.finance.SubCategory;
+import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -61,7 +62,6 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
             tek2 = false,
             calc = false,
             sequence = false;
-
     @SuppressLint("ValidFragment")
     public RecordEditFragment(RootCategory category, Calendar date, FinanceRecord record) {
         if (category != null) {
@@ -373,8 +373,7 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
             record.setAccount(account);
             record.setCurrency(currency);
             record.setAmount(Double.parseDouble(tvRecordEditDisplay.getText().toString()));
-        }
-        else {
+        } else {
             FinanceRecord newRecord = new FinanceRecord();
             newRecord.setCategory(category);
             newRecord.setSubCategory(subCategory);
@@ -384,7 +383,7 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
             newRecord.setAmount(Double.parseDouble(tvRecordEditDisplay.getText().toString()));
             PocketAccounter.financeManager.getRecords().add(newRecord);
         }
-        ((PocketAccounter)getContext()).replaceFragment(new RecordFragment(date));
+        ((PocketAccounter) getContext()).replaceFragment(new RecordFragment(date));
     }
     private void openCategoryDialog() {
         final Dialog dialog=new Dialog(getActivity());

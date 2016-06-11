@@ -25,7 +25,7 @@ import java.util.ArrayList;
 public class CategoryFragment extends Fragment implements OnClickListener, OnItemClickListener, OnCheckedChangeListener {
 	private FloatingActionButton fabCategoryAdd;
 	private ListView lvCategories;
-	private CheckBox chbCatIncomes, chbCatExpanses, chbCatBoth;
+	private CheckBox chbCatIncomes, chbCatExpanses;
 	private ImageView ivToolbarMostRight;
 	private int mode = PocketAccounterGeneral.NORMAL_MODE;
 	private boolean[] selected;
@@ -52,8 +52,6 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 		chbCatIncomes.setOnCheckedChangeListener(this);
 		chbCatExpanses = (CheckBox) rootView.findViewById(R.id.chbCatExpanses);
 		chbCatExpanses.setOnCheckedChangeListener(this);
-		chbCatBoth = (CheckBox) rootView.findViewById(R.id.chbCatBoth);
-		chbCatBoth.setOnCheckedChangeListener(this);
 		setMode(mode);
 		refreshList(mode);
 		return rootView;
@@ -62,15 +60,13 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 		ArrayList<RootCategory> categories = new ArrayList<RootCategory>();
 		for (int i = 0; i< PocketAccounter.financeManager.getCategories().size(); i++) {
 			if (chbCatIncomes.isChecked()) {
-				if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.INCOME)
+				if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.INCOME ||
+						PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.BOTH)
 					categories.add(PocketAccounter.financeManager.getCategories().get(i));
 			}
 			if(chbCatExpanses.isChecked()) {
-				if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.EXPANCE)
-					categories.add(PocketAccounter.financeManager.getCategories().get(i));
-			}
-			if(chbCatBoth.isChecked()) {
-				if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.BOTH)
+				if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.EXPANCE ||
+						PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.BOTH)
 					categories.add(PocketAccounter.financeManager.getCategories().get(i));
 			}
 		}
@@ -81,7 +77,7 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 	public void onClick(View v) {
 		switch(v.getId()) {
 		case R.id.fabAccountAdd:
-			((PocketAccounter)getActivity()).replaceFragment(new RootCategoryEditFragment(null));
+			((PocketAccounter)getActivity()).replaceFragment(new RootCategoryEditFragment(null, PocketAccounterGeneral.NO_MODE, 0, null));
 			break;
 		case R.id.ivToolbarMostRight:
 			if (mode == PocketAccounterGeneral.NORMAL_MODE)
@@ -97,7 +93,7 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		if (mode == PocketAccounterGeneral.NORMAL_MODE)
-			((PocketAccounter)getActivity()).replaceFragment(new RootCategoryEditFragment(PocketAccounter.financeManager.getCategories().get(position)));
+			((PocketAccounter)getActivity()).replaceFragment(new RootCategoryEditFragment(PocketAccounter.financeManager.getCategories().get(position), PocketAccounterGeneral.NO_MODE, 0, null));
 		else {
 			CheckBox chbCatListItem = (CheckBox) view.findViewById(R.id.chbAccountListItem);
 			chbCatListItem.setChecked(!chbCatListItem.isChecked());
@@ -120,9 +116,21 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 		refreshList(mode);
 	}
 	private void deleteCategories() {
+		//delete from all categories
 		for (int i=0; i<selected.length; i++) {
-			if (selected[i])
+			if (selected[i]) {
+				String id = PocketAccounter.financeManager.getCategories().get(i).getId();
+				for (int j=0; j<PocketAccounter.financeManager.getExpanses().size(); j++) {
+					if (PocketAccounter.financeManager.getExpanses().get(j).getId().matches(id))
+						PocketAccounter.financeManager.getExpanses().set(i, null);
+				}
+				for (int j=0; j<PocketAccounter.financeManager.getIncomes().size(); j++) {
+					if (PocketAccounter.financeManager.getIncomes().get(j).getId().matches(id))
+						PocketAccounter.financeManager.getIncomes().set(i, null);
+				}
 				PocketAccounter.financeManager.getCategories().set(i, null);
+			}
+
 		}
 		for (int i = 0; i< PocketAccounter.financeManager.getCategories().size(); i++) {
 			if (PocketAccounter.financeManager.getCategories().get(i) == null) {

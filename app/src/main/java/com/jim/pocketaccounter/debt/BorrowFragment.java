@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+//import com.bumptech.glide.Glide;
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
 import com.jim.pocketaccounter.finance.FinanceManager;
@@ -69,20 +69,20 @@ public class BorrowFragment extends Fragment {
 
     public ArrayList<DebtBorrow> getList() {
         ArrayList<DebtBorrow> list = new ArrayList<>();
-        switch (TYPE) {
-            case 0:
-            case 1: {
-                for (DebtBorrow debtBorrow : financeManager.getDebtBorrows()) {
-                    if (debtBorrow.getType() == TYPE) {
-                        list.add(debtBorrow);
-                    }
-                }
-                break;
-            }
-            case 2: {
-                return financeManager.getDebtBorrows();
-            }
-        }
+//        switch (TYPE) {
+//            case 0:
+//            case 1: {
+//                for (DebtBorrow debtBorrow : financeManager.getDebtBorrows()) {
+//                    if (debtBorrow.getType() == TYPE) {
+//                        list.add(debtBorrow);
+//                    }
+//                }
+//                break;
+//            }
+//            case 2: {
+//                return financeManager.getDebtBorrows();
+//            }
+//        }
         return list;
     }
 

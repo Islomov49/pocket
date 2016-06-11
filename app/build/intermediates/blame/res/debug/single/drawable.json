@@ -12,12 +12,12 @@
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\ic_category_15.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_8.png",
-        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\ic_category_8.png"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_radio_material.xml",
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_btn_radio_material.xml"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_8.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\ic_category_8.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\record_edit_button.png",
@@ -108,16 +108,16 @@
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\ic_category_46.png"
     },
     {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_dialog_material_background_dark.xml",
+        "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_dialog_material_background_dark.xml"
+    },
+    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_item_background_holo_dark.xml",
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_item_background_holo_dark.xml"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\no_photo.png",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\no_photo.png"
-    },
-    {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_dialog_material_background_dark.xml",
-        "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_dialog_material_background_dark.xml"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_13.png",
@@ -220,20 +220,20 @@
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\ic_category_85.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\add_green.png",
-        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\add_green.png"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cancel_sign.png",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\cancel_sign.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_check_material.xml",
-        "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_btn_check_material.xml"
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\add_green.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\add_green.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_pause_light.xml",
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\drawable\\mr_ic_pause_light.xml"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_check_material.xml",
+        "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_btn_check_material.xml"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_54.png",
@@ -260,12 +260,12 @@
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_btn_borderless_material.xml"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_84.png",
-        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\ic_category_84.png"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_text_light.xml",
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\8.3.0\\res\\drawable\\common_google_signin_btn_text_light.xml"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_84.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\ic_category_84.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_98.png",
@@ -328,12 +328,12 @@
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\shadow.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\drawer_share.png",
-        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\drawer_share.png"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_plus_signin_btn_text_dark.xml",
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\8.3.0\\res\\drawable\\common_plus_signin_btn_text_dark.xml"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\drawer_share.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\drawer_share.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_media_route_mono_dark.xml",
@@ -344,12 +344,12 @@
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\ic_category_35.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_21.png",
-        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\ic_category_21.png"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_text_dark.xml",
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\8.3.0\\res\\drawable\\common_google_signin_btn_text_dark.xml"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_21.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\ic_category_21.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\record_pressed_second.png",
@@ -448,6 +448,10 @@
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\ic_category_74.png"
     },
     {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\knopka_zeleniy.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\knopka_zeleniy.png"
+    },
+    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_93.png",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\ic_category_93.png"
     },
@@ -472,16 +476,16 @@
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\drawer_credit.png"
     },
     {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\subcat_add.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\subcat_add.png"
+    },
+    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_31.png",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\ic_category_31.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_76.png",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\ic_category_76.png"
-    },
-    {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\subcat_add.png",
-        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\subcat_add.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\drawer_letter_us.png",
@@ -524,12 +528,12 @@
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\ic_category_78.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_43.png",
-        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\ic_category_43.png"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\currency_choose.xml",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\currency_choose.xml"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_43.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\ic_category_43.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_16.png",
@@ -604,12 +608,12 @@
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\ic_category_41.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_60.png",
-        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\ic_category_60.png"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\listview_bg.xml",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\listview_bg.xml"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_60.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\ic_category_60.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\workspace_shader.png",
@@ -672,12 +676,12 @@
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\ic_category_70.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\design_snackbar_background.xml",
-        "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.4.0\\res\\drawable\\design_snackbar_background.xml"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_3.png",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\ic_category_3.png"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\design_snackbar_background.xml",
+        "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\design\\23.4.0\\res\\drawable\\design_snackbar_background.xml"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_pen.png",
@@ -728,12 +732,12 @@
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\ic_category_97.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_dialog_material_background_light.xml",
-        "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_dialog_material_background_light.xml"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_ratingbar_indicator_material.xml",
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_ratingbar_indicator_material.xml"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_dialog_material_background_light.xml",
+        "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_dialog_material_background_light.xml"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\drawer_account.png",
@@ -832,12 +836,12 @@
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\ic_category_58.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\drawer_debts.png",
-        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\drawer_debts.png"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_list_selector_holo_light.xml",
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_list_selector_holo_light.xml"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\drawer_debts.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\drawer_debts.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_39.png",
@@ -868,12 +872,16 @@
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\ic_category_96.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\category_not_selected.png",
-        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\category_not_selected.png"
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\iconforpr.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\iconforpr.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\mr_ic_play_dark.xml",
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\mediarouter-v7\\22.2.0\\res\\drawable\\mr_ic_play_dark.xml"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\category_not_selected.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\category_not_selected.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_77.png",

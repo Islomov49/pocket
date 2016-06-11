@@ -99,7 +99,7 @@ public class RecordFragment extends Fragment {
 			side =  width;
 		else
 			side = (int)(height*0.6);
-		RecordExpanseView rv = new RecordExpanseView(getActivity());
+		RecordExpanseView rv = new RecordExpanseView(getContext(), date);
 		RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(side, side);
 		lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
 		rv.setLayoutParams(lp);

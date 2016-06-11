@@ -16,7 +16,7 @@ public final class R {
 		public static final int fab_type = 0x7f0100de;
 	}
 	public static final class color {
-		public static final int material_blue_500 = 0x7f0e0052;
+		public static final int material_blue_500 = 0x7f0e0057;
 	}
 	public static final class dimen {
 		public static final int fab_elevation_lollipop = 0x7f0a0072;
@@ -34,16 +34,16 @@ public final class R {
 		public static final int normal = 0x7f0f000d;
 	}
 	public static final class string {
-		public static final int define_FloatingActionButton = 0x7f08005e;
-		public static final int library_FloatingActionButton_author = 0x7f080071;
-		public static final int library_FloatingActionButton_authorWebsite = 0x7f080072;
-		public static final int library_FloatingActionButton_isOpenSource = 0x7f080073;
-		public static final int library_FloatingActionButton_libraryDescription = 0x7f080074;
-		public static final int library_FloatingActionButton_libraryName = 0x7f080075;
-		public static final int library_FloatingActionButton_libraryVersion = 0x7f080076;
-		public static final int library_FloatingActionButton_libraryWebsite = 0x7f080077;
-		public static final int library_FloatingActionButton_licenseId = 0x7f080078;
-		public static final int library_FloatingActionButton_repositoryLink = 0x7f080079;
+		public static final int define_FloatingActionButton = 0x7f080064;
+		public static final int library_FloatingActionButton_author = 0x7f080078;
+		public static final int library_FloatingActionButton_authorWebsite = 0x7f080079;
+		public static final int library_FloatingActionButton_isOpenSource = 0x7f08007a;
+		public static final int library_FloatingActionButton_libraryDescription = 0x7f08007b;
+		public static final int library_FloatingActionButton_libraryName = 0x7f08007c;
+		public static final int library_FloatingActionButton_libraryVersion = 0x7f08007d;
+		public static final int library_FloatingActionButton_libraryWebsite = 0x7f08007e;
+		public static final int library_FloatingActionButton_licenseId = 0x7f08007f;
+		public static final int library_FloatingActionButton_repositoryLink = 0x7f080080;
 	}
 	public static final class styleable {
 		public static final int[] FloatingActionButton = { 0x7f010021, 0x7f0100d9, 0x7f0100da, 0x7f0100db, 0x7f0100dc, 0x7f0100dd, 0x7f0100de, 0x7f0100df, 0x7f0100e0, 0x7f0100e1, 0x7f0100e2, 0x7f0100e3, 0x7f010153, 0x7f010154 };

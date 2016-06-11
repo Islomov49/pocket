@@ -638,13 +638,18 @@
     <color name="drawer_title_bg_color" type="color">#36434c</color>
     <color name="empty" type="color">#00000000</color>
     <color name="fab_icon_bg" type="color">#ffffff</color>
+    <color name="for_darker" type="color">#414141</color>
     <color name="foreground_material_dark">@android:color/white</color>
     <color name="foreground_material_light">@android:color/black</color>
     <color name="forlines" type="color">#494949</color>
+    <color name="gold" type="color">#CF9D22</color>
     <color name="green_just" type="color">#29952e</color>
     <color name="green_light" type="color">#1c835d</color>
     <color name="green_light_forline" type="color">#efefef</color>
+    <color name="green_light_forline_darker" type="color">#c9c8c8</color>
     <color name="grey_light" type="color">#f5f5f5</color>
+    <color name="grey_light2" type="color">#fafffd</color>
+    <color name="grey_light3" type="color">#f6fffc</color>
     <color name="highlighted_text_material_dark">#6680cbc4</color>
     <color name="highlighted_text_material_light">#66009688</color>
     <color name="hint_foreground_material_dark">@color/bright_foreground_disabled_material_dark</color>
@@ -1072,6 +1077,7 @@
     <string name="add">Добавить</string>
     <string name="app_name">MoneyHolder</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="archive">TO ARCHIVE</string>
     <string name="auth_google_play_services_client_facebook_display_name">Facebook</string>
     <string name="auth_google_play_services_client_google_display_name">Google</string>
     <string name="balanse">Баланс</string>
@@ -1086,9 +1092,11 @@
     <string name="cat_name">Наименование</string>
     <string name="cat_type_not_choosen">Выберите тип категории</string>
     <string name="category">Категории</string>
+    <string name="change">Заменить</string>
     <string name="character_counter_pattern" translatable="false">%1$d / %2$d</string>
     <string name="choose_currencies">Выберите валюту</string>
     <string name="choose_date">Выберите дату</string>
+    <string name="clear">Убрать</string>
     <string name="clothes">Одежда</string>
     <string name="common_android_wear_notification_needs_update_text"><ns1:g id="app_name">%1$s</ns1:g> requires an update to the Android Wear app.</string>
     <string name="common_android_wear_update_text"><ns1:g id="app_name">%1$s</ns1:g> won\'t run unless you update the Android Wear app.</string>
@@ -1123,6 +1131,7 @@
     <string name="common_signin_button_text">Sign in</string>
     <string name="common_signin_button_text_long">Sign in with Google</string>
     <string name="costs_selected_all_warning">В списке должно остаться хотябы один элемент</string>
+    <string name="create">Создать</string>
     <string name="create_calendar_message">Allow Ad to create a calendar event?</string>
     <string name="create_calendar_title">Create calendar event</string>
     <string name="credit_name">Credit name</string>
@@ -1132,10 +1141,13 @@
     <string name="currency_empty_warning">Список валют не должен быть пустым!!!</string>
     <string name="currency_exchange">Курс валюты</string>
     <string name="currency_exchange_warning">Данные по курсам валют и записи будут утеряны, так как вы не выбрали ранее вами выбранную валюту!</string>
+    <string name="day">day</string>
+    <string name="days">days</string>
     <string name="decline">Decline</string>
     <string name="define_FloatingActionButton"/>
     <string name="disconnect">Disconnect</string>
     <string name="divide_null">На ноль делить нельзя!</string>
+    <string name="ends">Ends</string>
     <string name="enter_cat_name">Введите название категории</string>
     <string name="enter_exchange">Введите курс</string>
     <string name="equipment">Оргтехника</string>
@@ -1163,6 +1175,8 @@
     <string name="library_FloatingActionButton_repositoryLink">https://github.com/makovkastar/FloatingActionButton</string>
     <string name="main_currency">Основная валюта: </string>
     <string name="main_currency_edit">Основная валюта</string>
+    <string name="moth">month</string>
+    <string name="moths">months</string>
     <string name="mr_media_route_button_content_description">Cast</string>
     <string name="mr_media_route_chooser_searching">Searching for devices\u2026</string>
     <string name="mr_media_route_chooser_title">Connect to device</string>
@@ -1190,10 +1204,12 @@
     <string name="this_period_ends">This period ends:</string>
     <string name="total_paid">Total paid:</string>
     <string name="transport">Транспорт</string>
-    <string name="verall_debt">Оverall debt:</string>
+    <string name="verall_debt">Оverall amount:</string>
     <string name="wallet_buy_button_place_holder">Buy with Google</string>
     <string name="warning">Предупреждение!!!</string>
     <string name="warning_subcat">Существует подкатегория с таким названием.</string>
+    <string name="year">year</string>
+    <string name="years">years</string>
     <string name="yes">Да</string>
     <style name="AlertDialog.AppCompat" parent="Base.AlertDialog.AppCompat"/>
     <style name="AlertDialog.AppCompat.Light" parent="Base.AlertDialog.AppCompat.Light"/>

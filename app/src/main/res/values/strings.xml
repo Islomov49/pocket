@@ -617,4 +617,7 @@
     <!-- for google signing -->
     <string name="sign_out">Sign Out</string>
     <string name="disconnect">Disconnect</string>
+    <string name="create">Создать</string>
+    <string name="change">Заменить</string>
+    <string name="clear">Убрать</string>
 </resources>
