@@ -1,6 +1,9 @@
 package com.jim.pocketaccounter.report;
 
+import android.content.Context;
+
 import com.jim.pocketaccounter.PocketAccounter;
+import com.jim.pocketaccounter.R;
 import com.jim.pocketaccounter.debt.DebtBorrow;
 import com.jim.pocketaccounter.finance.Category;
 import com.jim.pocketaccounter.finance.FinanceRecord;
@@ -15,8 +18,9 @@ public class CategoryReportDatas {
     private Calendar begin, end;
     private ArrayList<FinanceRecord> periodDatas;
     private ArrayList<DebtBorrow> debtBorrows;
-
-    public CategoryReportDatas(Calendar begin, Calendar end) {
+    private Context context;
+    public CategoryReportDatas(Context context, Calendar begin, Calendar end) {
+        this.context = context;
         this.begin = (Calendar) begin.clone();
         this.end = (Calendar) end.clone();
         for (int i=0; i< PocketAccounter.financeManager.getRecords().size(); i++) {
@@ -25,7 +29,8 @@ public class CategoryReportDatas {
                 periodDatas.add(PocketAccounter.financeManager.getRecords().get(i));
         }
     }
-    public CategoryReportDatas() {
+    public CategoryReportDatas(Context context) {
+        this.context = context;
         for (int i=0; i< PocketAccounter.financeManager.getRecords().size(); i++)
             periodDatas.add(PocketAccounter.financeManager.getRecords().get(i));
     }
@@ -33,71 +38,80 @@ public class CategoryReportDatas {
         ArrayList<CategoryDataRow> result  = new ArrayList<CategoryDataRow>();
         for (int i=0; i<periodDatas.size(); i++) {
             boolean categoryFound = false;
-            int position = 0;
+            int foundCategoryPosition = 0;
             for (int j=0; j<result.size(); j++) {
                 if (result.get(j).getCategory().getId().matches(periodDatas.get(i).getCategory().getId())) {
-                    position = j;
                     categoryFound = true;
+                    foundCategoryPosition = j;
                     break;
                 }
             }
             if (categoryFound) {
-                boolean isNull = (periodDatas.get(i).getSubCategory() == null);
-                if (isNull) {
-                    boolean nullSubCatIsFound = false;
-                    int nullSubCatPosition = 0;
-                    for (int j=0; j<result.get(position).getSubCats().size(); j++) {
-                        if (result.get(position).getSubCats().get(j).getSubCategory().getName().matches(result.get(position).getCategory().getName())) {
-                            nullSubCatIsFound = true;
-                            nullSubCatPosition = j;
+                CategoryDataRow foundCategory = result.get(foundCategoryPosition);
+                if (periodDatas.get(i).getSubCategory() == null) {
+                    boolean nullSubcatFound = false;
+                    int nullSubcatPosition = 0;
+                    for (int j = 0; j < foundCategory.getSubCats().size(); j++) {
+                        if (foundCategory.getSubCats().get(j).getSubCategory().getId().matches(context.getResources().getString(R.string.no_category))) {
+                            nullSubcatPosition = j;
+                            nullSubcatFound = true;
                             break;
                         }
                     }
-                    if (nullSubCatIsFound)
-                        result.get(position).getSubCats().get(nullSubCatPosition)
-                                .setAmount(result.get(position).getSubCats().get(nullSubCatPosition).getAmount() +
-                                        PocketAccounterGeneral.getCost(periodDatas.get(i)));
+                    if (nullSubcatFound)
+                        foundCategory.getSubCats().get(nullSubcatPosition).setAmount(foundCategory.getSubCats().get(nullSubcatPosition).getAmount()+PocketAccounterGeneral.getCost(periodDatas.get(i)));
+                    else {
+                        SubCategoryWitAmount newSubCategoryWithAmount = new SubCategoryWitAmount();
+                        SubCategory noSubCategory = new SubCategory();
+                        noSubCategory.setId(context.getResources().getString(R.string.no_category));
+                        newSubCategoryWithAmount.setSubCategory(noSubCategory);
+                        newSubCategoryWithAmount.setAmount(PocketAccounterGeneral.getCost(periodDatas.get(i)));
+                        foundCategory.getSubCats().add(newSubCategoryWithAmount);
+                    }
                 }
                 else {
-                    boolean currentSubCatIsFound = false;
-                    int currencySubCatPosition = 0;
-                    for (int j=0; j<result.get(position).getSubCats().size(); j++) {
-                        if (result.get(position).getSubCats().get(j).getSubCategory().getName().matches(periodDatas.get(i).getSubCategory().getName())) {
-                            currentSubCatIsFound = true;
-                            currencySubCatPosition = j;
+                    boolean subcatFound = false;
+                    int foundSubcatPosition = 0;
+                    for (int j=0; j<foundCategory.getSubCats().size(); j++) {
+                        if (foundCategory.getSubCats().get(j).getSubCategory().getId().matches(periodDatas.get(i).getSubCategory().getId())) {
+                            subcatFound = true;
+                            foundSubcatPosition = j;
                             break;
                         }
                     }
-                    if (currentSubCatIsFound) {
-                        result.get(position).getSubCats().get(currencySubCatPosition).setAmount(result.get(position).getSubCats().get(currencySubCatPosition).getAmount()+
-                                PocketAccounterGeneral.getCost(periodDatas.get(i)));
+                    if (subcatFound) {
+                        foundCategory.getSubCats().get(foundSubcatPosition).setAmount(foundCategory.getSubCats().get(foundSubcatPosition).getAmount()+PocketAccounterGeneral.getCost(periodDatas.get(i)));
                     }
                     else {
-                        SubCategory newSubCategory = new SubCategory();
-                        newSubCategory.setName(periodDatas.get(i).getSubCategory().getName());
-                        newSubCategory.setId(periodDatas.get(i).getSubCategory().getId());
-                        newSubCategory.setIcon(periodDatas.get(i).getSubCategory().getIcon());
-                        double amount  = PocketAccounterGeneral.getCost(periodDatas.get(i));
                         SubCategoryWitAmount newSubCategoryWithAmount = new SubCategoryWitAmount();
-                        newSubCategoryWithAmount.setSubCategory(newSubCategory);
-                        newSubCategoryWithAmount.setAmount(amount);
-                        result.get(position).getSubCats().add(newSubCategoryWithAmount);
+                        newSubCategoryWithAmount.setSubCategory(periodDatas.get(i).getSubCategory());
+                        newSubCategoryWithAmount.setAmount(PocketAccounterGeneral.getCost(periodDatas.get(i)));
+                        foundCategory.getSubCats().add(newSubCategoryWithAmount);
                     }
                 }
+                double amount = 0.0;
+                for (int j=0; j<foundCategory.getSubCats().size(); j++)
+                    amount = amount + foundCategory.getSubCats().get(j).getAmount();
+                foundCategory.setTotalAmount(amount);
             }
             else {
                 CategoryDataRow newCategoryDataRow = new CategoryDataRow();
                 newCategoryDataRow.setCategory(periodDatas.get(i).getCategory());
-                SubCategory newSubCategory = new SubCategory();
-                if (periodDatas.get(i).getSubCategory() == null)
-                    newSubCategory.setName(periodDatas.get(i).getCategory().getName());
-                else
-                    newSubCategory = periodDatas.get(i).getSubCategory();
-                double amount = PocketAccounterGeneral.getCost(periodDatas.get(i));
-                SubCategoryWitAmount newSubCatWithAmount = new SubCategoryWitAmount();
-                newSubCatWithAmount.setSubCategory(newSubCategory);
-                newSubCatWithAmount.setAmount(amount);
-                newCategoryDataRow.getSubCats().add(newSubCatWithAmount);
+                newCategoryDataRow.setTotalAmount(PocketAccounterGeneral.getCost(periodDatas.get(i)));
+                SubCategoryWitAmount newSubCategoryWithAmount = new SubCategoryWitAmount();
+                if (periodDatas.get(i).getSubCategory() == null) {
+                    SubCategory noSubCategory = new SubCategory();
+                    noSubCategory.setId(context.getResources().getString(R.string.no_category));
+                    newSubCategoryWithAmount.setSubCategory(noSubCategory);
+                    newSubCategoryWithAmount.setAmount(PocketAccounterGeneral.getCost(periodDatas.get(i)));
+                }
+                else {
+                    newSubCategoryWithAmount.setSubCategory(periodDatas.get(i).getSubCategory());
+                    newSubCategoryWithAmount.setAmount(PocketAccounterGeneral.getCost(periodDatas.get(i)));
+                }
+                newCategoryDataRow.getSubCats().add(newSubCategoryWithAmount);
+                newCategoryDataRow.setTotalAmount(PocketAccounterGeneral.getCost(periodDatas.get(i)));
+                result.add(newCategoryDataRow);
             }
         }
         return result;

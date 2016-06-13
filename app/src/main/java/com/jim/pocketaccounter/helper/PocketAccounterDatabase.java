@@ -100,6 +100,7 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 				+ "subcategory_id TEXT,"
 				+ "account_id TEXT,"
 				+ "currency_id TEXT,"
+				+ "record_id TEXT, "
 				+ "amount REAL"
 				+ ");");
 		//debt_borrow_table
@@ -117,52 +118,8 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 				+ "debt_id TEXT,"
 				+ "photo_id TEXT"
 				+ ");");
-		//recking debt borrow
-		db.execSQL("CREATE TABLE debt_borrow_table ("
-				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
-				+ "person_name TEXT,"
-				+ "person_number TEXT,"
-				+ "taken_date TEXT,"
-				+ "return_date TEXT,"
-				+ "remind INTEGER,"
-				+ "type INTEGER,"
-				+ "account_id TEXT,"
-				+ "currency_id TEXT,"
-				+ "amount REAL,"
-				+ "debt_id TEXT,"
-				+ "photo_id TEXT"
-				+ ");");
-		//credit
-		db.execSQL("CREATE TABLE credit_table ("
-				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
-				+ "credit_name TEXT,"
-				+ "icon INTEGER,"
-				+ "taken_date TEXT,"
-				+ "percent REAL,"
-				+ "procent_interval TEXT,"
-				+ "period_time TEXT,"
-				+ "myCredit_id TEXT,"
-				+ "value_of_credit REAL,"
-				+ "value_of_credit_with_percent REAL,"
-				+ "currency_id TEXT"
-				+ ");");
-
-		//recking for credit
-		db.execSQL("CREATE TABLE debt_borrow_table ("
-				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
-				+ "person_name TEXT,"
-				+ "person_number TEXT,"
-				+ "taken_date TEXT,"
-				+ "return_date TEXT,"
-				+ "remind INTEGER,"
-				+ "type INTEGER,"
-				+ "account_id TEXT,"
-				+ "currency_id TEXT,"
-				+ "amount REAL,"
-				+ "debt_id TEXT,"
-				+ "photo_id TEXT"
-				+ ");");
 		initDefault(db);
+		initIncomesAndExpanses(db);
 	}
 
 	private void initDefault(SQLiteDatabase db) {
@@ -194,24 +151,77 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 				db.insert("subcategory_table", null, values);
 			}
 		}
-		for (int i=0; i<PocketAccounterGeneral.EXPANCE_BUTTONS_COUNT; i++) {
-			if (catValues.length<=i) {
-				ContentValues values = new ContentValues();
+	}
+
+	private void initIncomesAndExpanses(SQLiteDatabase db) {
+		Cursor catCursor = db.query("category_table", null, null, null, null, null, null);
+		Cursor subcatCursor = db.query("subcategory_table", null, null, null, null, null, null);
+		ArrayList<RootCategory> categories = new ArrayList<RootCategory>();
+		catCursor.moveToFirst();
+		while(!catCursor.isAfterLast()) {
+			RootCategory newCategory = new RootCategory();
+			newCategory.setName(catCursor.getString(catCursor.getColumnIndex("category_name")));
+			String catId = catCursor.getString(catCursor.getColumnIndex("category_id"));
+			newCategory.setId(catId);
+			newCategory.setType(catCursor.getInt(catCursor.getColumnIndex("category_type")));
+			newCategory.setIcon(catCursor.getInt(catCursor.getColumnIndex("icon")));
+			subcatCursor.moveToFirst();
+			ArrayList<SubCategory> subCats = new ArrayList<SubCategory>();
+			while(!subcatCursor.isAfterLast()) {
+				if (subcatCursor.getString(subcatCursor.getColumnIndex("category_id")).matches(catId)) {
+					SubCategory newSubCategory = new SubCategory();
+					newSubCategory.setName(subcatCursor.getString(subcatCursor.getColumnIndex("subcategory_name")));
+					newSubCategory.setId(subcatCursor.getString(subcatCursor.getColumnIndex("subcategory_id")));
+					newSubCategory.setParentId(catId);
+					newSubCategory.setIcon(subcatCursor.getInt(subcatCursor.getColumnIndex("icon")));
+					subCats.add(newSubCategory);
+				}
+				subcatCursor.moveToNext();
+			}
+			newCategory.setSubCategories(subCats);
+			categories.add(newCategory);
+			catCursor.moveToNext();
+		}
+		catCursor.close();
+		subcatCursor.close();
+		ArrayList<RootCategory> incomes = new ArrayList<>();
+		ArrayList<RootCategory> expanses = new ArrayList<>();
+		for (int i=0; i<categories.size(); i++) {
+			if (categories.get(i).getType() == PocketAccounterGeneral.INCOME)
+				incomes.add(categories.get(i));
+			else
+				expanses.add(categories.get(i));
+		}
+		while(incomes.size() < PocketAccounterGeneral.INCOME_BUTTONS_COUNT)
+			incomes.add(null);
+		while (expanses.size() < PocketAccounterGeneral.EXPANCE_BUTTONS_COUNT)
+			expanses.add(null);
+		ContentValues values = new ContentValues();
+		for (int i=0; i<incomes.size(); i++) {
+			if (incomes.get(i) == null) {
+				values.put("category_name", context.getResources().getString(R.string.no_category));
+				db.insert("incomes_table", null, values);
+				continue;
+			}
+			values.put("category_name", incomes.get(i).getName());
+			values.put("category_id", incomes.get(i).getId());
+			values.put("category_type", incomes.get(i).getType());
+			values.put("icon", incomes.get(i).getIcon());
+			db.insert("incomes_table", null, values);
+		}
+		values.clear();
+		for (int i=0; i<expanses.size(); i++) {
+			if (expanses.get(i) == null) {
 				values.put("category_name", context.getResources().getString(R.string.no_category));
 				db.insert("expanses_table", null, values);
+				continue;
 			}
-			else {
-				int resId = context.getResources().getIdentifier(catValues[i], "string", context.getPackageName());
-				int iconId = context.getResources().getIdentifier(catIcons[i], "drawable", context.getPackageName());
-				ContentValues values = new ContentValues();
-				values.put("category_name", context.getResources().getString(resId));
-				values.put("category_id", catValues[i]);
-				values.put("category_type", catTypes[i]);
-				values.put("icon", iconId);
-				db.insert("expanses_table", null, values);
-			}
+			values.put("category_name", expanses.get(i).getName());
+			values.put("category_id", expanses.get(i).getId());
+			values.put("category_type", expanses.get(i).getType());
+			values.put("icon", expanses.get(i).getIcon());
+			db.insert("expanses_table", null, values);
 		}
-		//incomes buttons
 	}
 
 	public void saveIncomes(ArrayList<RootCategory> incomes) {
@@ -219,6 +229,11 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 		ContentValues values = new ContentValues();
 		db.execSQL("DELETE FROM incomes_table");
 		for (int i=0; i<incomes.size(); i++) {
+			if (incomes.get(i) == null) {
+				values.put("category_name", context.getResources().getString(R.string.no_category));
+				db.insert("incomes_table", null, values);
+				continue;
+			}
 			values.put("category_name", incomes.get(i).getName());
 			values.put("category_id", incomes.get(i).getId());
 			values.put("category_type", incomes.get(i).getType());
@@ -252,6 +267,7 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 		SQLiteDatabase db = getReadableDatabase();
 		Cursor cursor = db.query("incomes_table", null, null, null, null, null, null);
 		cursor.moveToFirst();
+
 		while(!cursor.isAfterLast()) {
 			RootCategory newCategory = new RootCategory();
 			if (cursor.getString(cursor.getColumnIndex("category_name")).matches(context.getResources().getString(R.string.no_category))) {
@@ -287,10 +303,6 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 			newCategory.setIcon(cursor.getInt(cursor.getColumnIndex("icon")));
 			result.add(newCategory);
 			cursor.moveToNext();
-		}
-		for (int i=0; i<result.size(); i++) {
-			if (result.get(i) != null)
-				Log.d("ssssss", result.get(i).getName());
 		}
 		return result;
 	}
@@ -471,6 +483,7 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 				values.put("subcategory_id", records.get(i).getSubCategory().getId());
 			values.put("account_id", records.get(i).getAccount().getId());
 			values.put("currency_id", records.get(i).getCurrency().getId());
+			values.put("record_id", records.get(i).getRecordId());
 			values.put("amount", records.get(i).getAmount());
 			db.insert("daily_record_table", null, values);
 		}
@@ -517,6 +530,7 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 				if (cursor.getString(cursor.getColumnIndex("currency_id")).matches(currencies.get(i).getId()))
 					newRecord.setCurrency(currencies.get(i));
 			}
+			newRecord.setRecordId(cursor.getString(cursor.getColumnIndex("record_id")));
 			newRecord.setAmount(cursor.getDouble(cursor.getColumnIndex("amount")));
 			result.add(newRecord);
 			cursor.moveToNext();

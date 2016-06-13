@@ -556,7 +556,6 @@ public class AddCreditFragment extends Fragment {
             periodCred.setError("First enter period of debt!");
         }
     }
-
     StringBuilder sb;
     double creditValueWith;
     private void openDialog () {
@@ -564,35 +563,24 @@ public class AddCreditFragment extends Fragment {
         View dialogView = getActivity().getLayoutInflater().inflate(R.layout.info_about_all, null);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(dialogView);
-
         final TextView value = (TextView) dialogView.findViewById(R.id.textView9);
         final TextView procent = (TextView) dialogView.findViewById(R.id.textView11);
         final EditText solution = (EditText) dialogView.findViewById(R.id.edit_result);
-
         ImageView cancel = (ImageView) dialogView.findViewById(R.id.ivInfoDebtBorrowCancel);
         ImageView save = (ImageView) dialogView.findViewById(R.id.ivInfoDebtBorrowSave);
-
         sb=new StringBuilder(procentCred.getText().toString());
         int a=sb.toString().indexOf('%');
         if(a!=-1)
             sb.deleteCharAt(a);
-
         value.setText(valueCred.getText().toString());
         procent.setText(procentCred.getText().toString());
         solution.setText(parseToWithoutNull(Double.parseDouble(valueCred.getText().toString())*(1d+Double.parseDouble(sb.toString())/100)));
-
-
-
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
             }
         });
-
-
-
-
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

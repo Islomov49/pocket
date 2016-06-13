@@ -97,7 +97,10 @@ public class RecordExpanseView extends View implements 	GestureDetector.OnGestur
 					break;
 			}
 			button = new RecordButtonExpanse(getContext(), type);
-			button.setCategory(PocketAccounter.financeManager.getExpanses().get(i));
+			if (PocketAccounter.financeManager.getExpanses().isEmpty())
+				button.setCategory(null);
+			else
+				button.setCategory(PocketAccounter.financeManager.getExpanses().get(i));
 			buttons.add(button);
 		}
 	}
@@ -183,9 +186,13 @@ public class RecordExpanseView extends View implements 	GestureDetector.OnGestur
 				postDelayed(new Runnable() {
 					@Override
 					public void run() {
-						RootCategory category = PocketAccounter.financeManager.getExpanses().get(position);
+						RootCategory category;
+						if(PocketAccounter.financeManager.getExpanses().isEmpty())
+							category = null;
+						else
+							category = PocketAccounter.financeManager.getExpanses().get(position);
 						if (category != null)
-							((PocketAccounter) getContext()).replaceFragment(new RecordEditFragment(category, Calendar.getInstance(), null));
+							((PocketAccounter) getContext()).replaceFragment(new RecordEditFragment(category, Calendar.getInstance(), null, PocketAccounterGeneral.MAIN));
 						else
 							openChooseDialog(position);
 				}
@@ -311,7 +318,8 @@ public class RecordExpanseView extends View implements 	GestureDetector.OnGestur
 		dialog.setContentView(dialogView);
 		final ArrayList<RootCategory> categories = new ArrayList<RootCategory>();
 		for (int i=0; i<PocketAccounter.financeManager.getCategories().size(); i++) {
-			if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.EXPANCE)
+			if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.EXPANCE ||
+					PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.BOTH)
 				categories.add(PocketAccounter.financeManager.getCategories().get(i));
 		}
 		CategoryAdapterForDialog adapter = new CategoryAdapterForDialog(getContext(), categories);

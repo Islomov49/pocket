@@ -105,7 +105,7 @@ public class RecordFragment extends Fragment {
 		rv.setLayoutParams(lp);
 		rlRecordsMain.addView(rv);
 		rlRecordIncomes = (RelativeLayout) rootView.findViewById(R.id.rlRecordIncomes);
-		RecordIncomesView rIncomes = new RecordIncomesView(getActivity());
+		RecordIncomesView rIncomes = new RecordIncomesView(getContext(), date);
 		RelativeLayout.LayoutParams lpIncomes = new RelativeLayout.LayoutParams(width, width/4+(int)(getResources().getDimension(R.dimen.thirty_dp)));
 		lpIncomes.addRule(RelativeLayout.CENTER_HORIZONTAL);
 		rIncomes.setLayoutParams(lpIncomes);
@@ -147,6 +147,9 @@ public class RecordFragment extends Fragment {
 	public void onStop() {
 		super.onStop();
 		PocketAccounter.financeManager.saveRecords();
+		PocketAccounter.financeManager.saveCategories();
+		PocketAccounter.financeManager.saveIncomes();
+		PocketAccounter.financeManager.saveExpanses();
 	}
 	public void setDate(Calendar date) {this.date = (Calendar)date.clone();}
 	public Calendar getDate() {return date;}

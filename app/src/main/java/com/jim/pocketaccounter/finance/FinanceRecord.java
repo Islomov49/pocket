@@ -7,6 +7,9 @@ public class FinanceRecord {
     private SubCategory subCategory = null;
     private Account account = null;
     private Currency currency = null;
+    private String recordId;
+    public String getRecordId() {return recordId;}
+    public void setRecordId(String recordId) {this.recordId = recordId;}
     public FinanceRecord() {}
     public void setDate(Calendar date) {
         this.date = (Calendar) date.clone();

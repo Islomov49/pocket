@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.jim.pocketaccounter.finance.Account;
 import com.jim.pocketaccounter.finance.AccountAdapter;
+import com.jim.pocketaccounter.finance.Category;
 import com.jim.pocketaccounter.finance.CategoryAdapter;
 import com.jim.pocketaccounter.finance.Currency;
 import com.jim.pocketaccounter.finance.FinanceRecord;
@@ -39,8 +40,10 @@ import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.UUID;
 
 @SuppressLint("ValidFragment")
 public class RecordEditFragment extends Fragment implements OnClickListener {
@@ -58,12 +61,14 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
     private Currency currency;
     private Account account;
     private Calendar date;
+    private int parent;
     private boolean tek = false,
             tek2 = false,
             calc = false,
             sequence = false;
     @SuppressLint("ValidFragment")
-    public RecordEditFragment(RootCategory category, Calendar date, FinanceRecord record) {
+    public RecordEditFragment(RootCategory category, Calendar date, FinanceRecord record, int parent) {
+        this.parent = parent;
         if (category != null) {
             for (int i=0; i<PocketAccounter.financeManager.getCategories().size(); i++) {
                 if (category.getId().matches(PocketAccounter.financeManager.getCategories().get(i).getId()))
@@ -85,7 +90,10 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
         PocketAccounter.toolbar.setNavigationOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((PocketAccounter)getContext()).replaceFragment(new RecordFragment(Calendar.getInstance()));
+                if (parent == PocketAccounterGeneral.MAIN)
+                    ((PocketAccounter)getContext()).replaceFragment(new RecordFragment(date));
+                else
+                    ((PocketAccounter)getContext()).replaceFragment(new RecordDetailFragment(date));
             }
         });
         PocketAccounter.toolbar.setTitle("");
@@ -97,10 +105,8 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
         spToolbar.setAdapter(accountAdapter);
         spToolbar.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                account = PocketAccounter.financeManager.getAccounts().get(position);
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {account = PocketAccounter.financeManager.getAccounts().get(position);
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
         });
@@ -129,14 +135,7 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
         ivToolbarMostRight.setOnClickListener(this);
         ivRecordEditCategory = (ImageView) rootView.findViewById(R.id.ivRecordEditCategory);
         ivRecordEditSubCategory = (ImageView) rootView.findViewById(R.id.ivRecordEditSubCategory);
-        if (category != null) {
-            ivRecordEditSubCategory.setImageResource(R.drawable.category_not_selected);
-            ivRecordEditCategory.setImageResource(category.getIcon());
-        }
-        if (record != null) {
-            ivRecordEditSubCategory.setImageResource(record.getCategory().getIcon());
-            ivRecordEditCategory.setImageResource(record.getCategory().getIcon());
-        }
+        tvRecordEditDisplay = (TextView) rootView.findViewById(R.id.tvRecordEditDisplay);
         rlZero = (RelativeLayout) rootView.findViewById(R.id.rlZero);
         rlZero.setOnClickListener(this);
         rlOne = (RelativeLayout) rootView.findViewById(R.id.rlOne);
@@ -178,10 +177,36 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
         rlCategory.setOnClickListener(this);
         rlSubCategory = (RelativeLayout) rootView.findViewById(R.id.rlSubcategory);
         rlSubCategory.setOnClickListener(this);
-        tvRecordEditDisplay = (TextView) rootView.findViewById(R.id.tvRecordEditDisplay);
+        DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols();
+        otherSymbols.setDecimalSeparator('.');
+        otherSymbols.setGroupingSeparator('.');
+        DecimalFormat decimalFormat = new DecimalFormat("0.00", otherSymbols);
+        if (category != null) {
+            ivRecordEditSubCategory.setImageResource(R.drawable.category_not_selected);
+            ivRecordEditCategory.setImageResource(category.getIcon());
+        }
+        if (record != null) {
+            ivRecordEditCategory.setImageResource(record.getCategory().getIcon());
+            if (record.getSubCategory() != null)
+                ivRecordEditSubCategory.setImageResource(record.getSubCategory().getIcon());
+            else
+                ivRecordEditSubCategory.setImageResource(R.drawable.category_not_selected);
+            tvRecordEditDisplay.setText(decimalFormat.format(record.getAmount()));
+            for (int i=0; i<PocketAccounter.financeManager.getCurrencies().size(); i++) {
+                if (PocketAccounter.financeManager.getCurrencies().get(i).getId().matches(record.getCurrency().getId())) {
+                    spRecordEdit.setSelection(i);
+                    break;
+                }
+            }
+            for (int i=0; i<PocketAccounter.financeManager.getAccounts().size(); i++) {
+                if (PocketAccounter.financeManager.getAccounts().get(i).getId().matches(record.getAccount().getId())) {
+                    spToolbar.setSelection(i);
+                    break;
+                }
+            }
+        }
         return rootView;
     }
-
     @Override
     public void onClick(View view) {
         if (!calc) {
@@ -353,7 +378,41 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
                         break;
                     }
                     case R.id.rlCategory:
-                        openCategoryDialog();
+                        final Dialog dialog=new Dialog(getActivity());
+                        View dialogView = getActivity().getLayoutInflater().inflate(R.layout.category_choose_list, null);
+                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        dialog.setContentView(dialogView);
+                        ListView lvCategoryChoose = (ListView) dialogView.findViewById(R.id.lvCategoryChoose);
+                        String expanse = getResources().getString(R.string.expanse);
+                        String income = getResources().getString(R.string.income);
+                        String[] items = new String[2];
+                        items[0] = expanse;
+                        items[1] = income;
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, items);
+                        lvCategoryChoose.setAdapter(adapter);
+                        lvCategoryChoose.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                ArrayList<RootCategory> categories = new ArrayList<RootCategory>();
+                                if (position == 0) {
+                                    for (int i=0; i<PocketAccounter.financeManager.getCategories().size(); i++) {
+                                        if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.EXPANCE ||
+                                                PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.BOTH)
+                                            categories.add(PocketAccounter.financeManager.getCategories().get(i));
+                                    }
+                                }
+                                else {
+                                    for (int i=0; i<PocketAccounter.financeManager.getCategories().size(); i++) {
+                                        if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.INCOME ||
+                                                PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.BOTH)
+                                            categories.add(PocketAccounter.financeManager.getCategories().get(i));
+                                    }
+                                }
+                                dialog.dismiss();
+                                openCategoryDialog(categories);
+                            }
+                        });
+                        dialog.show();
                         break;
                     case R.id.rlSubcategory:
                         openSubCategoryDialog();
@@ -381,17 +440,21 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
             newRecord.setAccount(account);
             newRecord.setCurrency(currency);
             newRecord.setAmount(Double.parseDouble(tvRecordEditDisplay.getText().toString()));
+            newRecord.setRecordId("record_"+UUID.randomUUID().toString());
             PocketAccounter.financeManager.getRecords().add(newRecord);
         }
-        ((PocketAccounter) getContext()).replaceFragment(new RecordFragment(date));
+        if (parent ==PocketAccounterGeneral.MAIN)
+            ((PocketAccounter) getContext()).replaceFragment(new RecordFragment(date));
+        else
+            ((PocketAccounter) getContext()).replaceFragment(new RecordDetailFragment(date));
     }
-    private void openCategoryDialog() {
+    private void openCategoryDialog(ArrayList<RootCategory> categories) {
         final Dialog dialog=new Dialog(getActivity());
         View dialogView = getActivity().getLayoutInflater().inflate(R.layout.category_choose_list, null);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(dialogView);
         ListView lvCategoryChoose = (ListView) dialogView.findViewById(R.id.lvCategoryChoose);
-        RecordCategoryAdapter adapter = new RecordCategoryAdapter(getContext(), PocketAccounter.financeManager.getCategories());
+        RecordCategoryAdapter adapter = new RecordCategoryAdapter(getContext(), categories);
         lvCategoryChoose.setAdapter(adapter);
         lvCategoryChoose.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

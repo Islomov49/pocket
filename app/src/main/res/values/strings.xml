@@ -3,7 +3,7 @@
     <string-array name="drawer_cats">
         <item>Home</item>
         <item>Finance</item>
-        <item>Planning</item>
+        <item>Statistics</item>
         <item>Accounting debt</item>
         <item>Settings</item>
         <item>Rate app</item>
@@ -20,17 +20,25 @@
         <item>9</item>
         <item>11</item>
     </string-array>
+    <string-array name="statistics_subitems">
+        <item>Report by account</item>
+        <item>Report by income/expanse</item>
+        <item>Report by category</item>
+    </string-array>
+    <string-array name="statistics_subitems_icons">
+        <item>drawer_currency</item>
+        <item>drawer_category</item>
+        <item>drawer_account</item>
+    </string-array>
     <string-array name="finance_subitems">
         <item>Currency management</item>
         <item>Category management</item>
         <item>Account management</item>
-        <item>Statistics</item>
     </string-array>
     <string-array name="finance_subitem_icons">
         <item>drawer_currency</item>
         <item>drawer_category</item>
         <item>drawer_account</item>
-        <item>drawer_statistics</item>
     </string-array>
     <string-array name="debts_subitems">
         <item>Credit</item>
@@ -621,4 +629,15 @@
     <string name="create">Создать</string>
     <string name="change">Заменить</string>
     <string name="clear">Убрать</string>
+    <string name="share_app">Share app</string>
+    <string name="from">From: </string>
+    <string name="to">To: </string>
+    <string name="from_email">from_email</string>
+    <string name="to_email">basicstepsdevelopment@gmail.com</string>
+    <string name="rate_app_web">https://play.google.com/store/apps/details?id=com.jim.pocketaccounter.lite</string>
+    <string name="share_app_text">Рекомендую "Мои деньги - учет лайт"
+        https://play.google.com/store/apps/details?id=com.jim.pocketaccounter.lite</string>
+    <string name="feedback_hint">Input feedback</string>
+    <string name="feedback_subject">Subject: </string>
+    <string name="feedback_content">Content: </string>
 </resources>

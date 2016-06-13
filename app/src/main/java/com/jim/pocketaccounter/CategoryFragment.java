@@ -121,16 +121,17 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 			if (selected[i]) {
 				String id = PocketAccounter.financeManager.getCategories().get(i).getId();
 				for (int j=0; j<PocketAccounter.financeManager.getExpanses().size(); j++) {
+					if (PocketAccounter.financeManager.getExpanses().get(j) == null)	continue;
 					if (PocketAccounter.financeManager.getExpanses().get(j).getId().matches(id))
-						PocketAccounter.financeManager.getExpanses().set(i, null);
+						PocketAccounter.financeManager.getExpanses().set(j, null);
 				}
 				for (int j=0; j<PocketAccounter.financeManager.getIncomes().size(); j++) {
+					if (PocketAccounter.financeManager.getIncomes().get(j) == null)	continue;
 					if (PocketAccounter.financeManager.getIncomes().get(j).getId().matches(id))
-						PocketAccounter.financeManager.getIncomes().set(i, null);
+						PocketAccounter.financeManager.getIncomes().set(j, null);
 				}
 				PocketAccounter.financeManager.getCategories().set(i, null);
 			}
-
 		}
 		for (int i = 0; i< PocketAccounter.financeManager.getCategories().size(); i++) {
 			if (PocketAccounter.financeManager.getCategories().get(i) == null) {

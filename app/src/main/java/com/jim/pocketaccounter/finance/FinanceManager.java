@@ -28,6 +28,7 @@ public class FinanceManager {
 		accounts = loadAccounts();
 		records = loadRecords();
 		credits = loadCredits();
+		Log.d("incomes", ""+incomes.size());
 	}
 	private ArrayList<CreditDetials> loadCredits() {return new ArrayList<CreditDetials>();}
 	public ArrayList<CreditDetials> getCredits() {return credits;}

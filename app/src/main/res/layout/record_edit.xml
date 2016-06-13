@@ -411,25 +411,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/ten_dp" >
             <RelativeLayout
-                android:id="@+id/rlZero"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" >
-                <ImageView
-                    android:id="@+id/ImageView15"
-                    android:layout_width="@dimen/seventy_dp"
-                    android:layout_height="@dimen/seventy_dp"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/record_edit_button" />
-                <TextView
-                    android:id="@+id/tvZero"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="0"
-                    android:textSize="@dimen/twentytwo_sp" />
-            </RelativeLayout>
-            <RelativeLayout
                 android:id="@+id/rlDot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -446,6 +427,25 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="."
+                    android:textSize="@dimen/twentytwo_sp" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rlZero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+                <ImageView
+                    android:id="@+id/ImageView15"
+                    android:layout_width="@dimen/seventy_dp"
+                    android:layout_height="@dimen/seventy_dp"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/record_edit_button" />
+                <TextView
+                    android:id="@+id/tvZero"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="0"
                     android:textSize="@dimen/twentytwo_sp" />
             </RelativeLayout>
             <RelativeLayout

@@ -1,11 +1,20 @@
 package com.jim.pocketaccounter.helper.record;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
+import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
+import com.jim.pocketaccounter.RecordEditFragment;
+import com.jim.pocketaccounter.RootCategoryEditFragment;
+import com.jim.pocketaccounter.finance.CategoryAdapterForDialog;
+import com.jim.pocketaccounter.finance.RootCategory;
+import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
@@ -15,53 +24,58 @@ import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GestureDetectorCompat;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 @SuppressLint("DrawAllocation")
-public class RecordIncomesView extends View {
+public class RecordIncomesView extends View implements 	GestureDetector.OnGestureListener{
 	private final float workspaceCornerRadius, workspaceMargin;
 	private Bitmap workspaceShader;
 	private RectF workspace;
 	private ArrayList<RecordButtonIncome> buttons;
-	private int[] icons;
-	private String[] categories;
-	private float firstX, firstY;
-	public RecordIncomesView(Context context) {
+	private GestureDetectorCompat gestureDetector;
+	private Calendar date;
+	public RecordIncomesView(Context context, Calendar date) {
 		super(context);
+		gestureDetector = new GestureDetectorCompat(getContext(),this);
 		workspaceCornerRadius = getResources().getDimension(R.dimen.five_dp);
 		workspaceMargin = getResources().getDimension(R.dimen.twenty_dp);
-		String[] tempIcons = getResources().getStringArray(R.array.icons);
-		icons = new int[tempIcons.length];
-		for (int i=0; i<tempIcons.length; i++) 
-			icons[i] = getResources().getIdentifier(tempIcons[i], "drawable", context.getPackageName());
-		categories = new String[4];
-		for (int i=0; i<categories.length; i++)
-			categories[i] = "Category "+i;
+		this.date = (Calendar) date.clone();
+		initButtons();
+		setClickable(true);
+	}
+	private void initButtons() {
+
 		buttons = new ArrayList<RecordButtonIncome>();
 		for (int i=0; i<4; i++) {
 			RecordButtonIncome button = null;
 			int type = 0;
 			switch(i) {
-			case 0:
-				type = RecordButtonIncome.MOST_LEFT;
-				break;
-			case 1:
-			case 2:
-				type = RecordButtonIncome.SIMPLE;
-				break;
-			case 3:
-				type = RecordButtonIncome.MOST_RIGHT;
-				break;
+				case 0:
+					type = RecordButtonIncome.MOST_LEFT;
+					break;
+				case 1:
+				case 2:
+					type = RecordButtonIncome.SIMPLE;
+					break;
+				case 3:
+					type = RecordButtonIncome.MOST_RIGHT;
+					break;
 			}
 			button = new RecordButtonIncome(getContext(), type);
-			button.setIcon(icons[i]);
-			button.setText(categories[i]);
+			button.setCategory(PocketAccounter.financeManager.getIncomes().get(i));
 			buttons.add(button);
 		}
-		setClickable(true);
 	}
 	@SuppressLint("DrawAllocation")
 	@Override
@@ -117,28 +131,196 @@ public class RecordIncomesView extends View {
 		canvas.drawBitmap(bitmap, rect, rect, paint);
 		return output;
 	}
-	@SuppressLint("ClickableViewAccessibility")
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
-		switch(event.getAction()) {
-		case MotionEvent.ACTION_DOWN:
-//			firstX = event.getX();
-//			firstY = event.getY();
-			for (int i=0; i<buttons.size(); i++) 
-				buttons.get(i).setPressed(buttons.get(i).getContainer().contains(event.getX(), event.getY()));
-			invalidate();
-			break;
-		case MotionEvent.ACTION_UP:
-//			if (event.getX()>firstX-30 && event.getX()<firstX+30 &&
-//					event.getY()>firstY-30 && event.getY()<firstY+30) {
-				for (int i=0; i<buttons.size(); i++) 
-					buttons.get(i).setPressed(false);
-				invalidate();
-//			}
-			break;
-		}
-		
+		this.gestureDetector.onTouchEvent(event);
 		return super.onTouchEvent(event);
 	}
-	
+
+
+	@Override
+	public boolean onDown(MotionEvent e) {
+		return false;
+	}
+
+	@Override
+	public void onShowPress(MotionEvent e) {
+
+	}
+
+	@Override
+	public boolean onSingleTapUp(MotionEvent e) {
+		int size = buttons.size();
+		float x = e.getX();
+		float y = e.getY();
+		for (int i=0; i<size; i++) {
+			if (buttons.get(i).getContainer().contains(x, y)) {
+				buttons.get(i).setPressed(true);
+				final int position = i;
+				postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						RootCategory category;
+						if(PocketAccounter.financeManager.getIncomes().isEmpty())
+							category = null;
+						else
+							category = PocketAccounter.financeManager.getIncomes().get(position);
+						if (category != null)
+							((PocketAccounter) getContext()).replaceFragment(new RecordEditFragment(category, Calendar.getInstance(), null, PocketAccounterGeneral.MAIN));
+						else
+							openChooseDialog(position);
+					}
+				}, 250);
+				invalidate();
+				break;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+		return false;
+	}
+
+	@Override
+	public void onLongPress(MotionEvent e) {
+		Vibrator vibr = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+		vibr.vibrate(60);
+		float x = e.getX(), y = e.getY();
+		int size = buttons.size();
+		for (int i=0; i<size; i++) {
+			if (buttons.get(i).getContainer().contains(x, y)) {
+				buttons.get(i).setPressed(true);
+				final int position = i;
+				if (PocketAccounter.financeManager.getIncomes().get(position) == null) {
+					for (int j=0; j<buttons.size(); j++)
+						buttons.get(j).setPressed(false);
+					invalidate();
+					return;
+				}
+				postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						openChooseDialogLongPress(position);
+					}
+				}, 250);
+				invalidate();
+				break;
+			}
+		}
+	}
+
+	@Override
+	public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+		return false;
+	}
+	private void openChooseDialogLongPress(final int pos) {
+		final Dialog dialog=new Dialog(getContext());
+		View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_with_listview, null);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(dialogView);
+		String change = getResources().getString(R.string.change);
+		String clear = getResources().getString(R.string.clear);
+		String[] items = new String[2];
+		items[0] = change;
+		items[1] = clear;
+		ListView lvDialog = (ListView) dialogView.findViewById(R.id.lvDialog);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, items);
+		lvDialog.setAdapter(adapter);
+		lvDialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				if (position == 0)
+					openCategoryChooseDialog(pos);
+				else {
+					PocketAccounter.financeManager.getIncomes().set(pos, null);
+					initButtons();
+					for (int i=0; i<buttons.size(); i++)
+						buttons.get(i).setPressed(false);
+					invalidate();
+				}
+
+				dialog.dismiss();
+			}
+		});
+		dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				for (int i=0; i<buttons.size(); i++)
+					buttons.get(i).setPressed(false);
+				invalidate();
+			}
+		});
+		dialog.show();
+	}
+	private void openChooseDialog(final int pos) {
+		final Dialog dialog=new Dialog(getContext());
+		View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_with_listview, null);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(dialogView);
+		String add, create;
+		add = getResources().getString(R.string.add);
+		create = getResources().getString(R.string.create);
+		String[] items = new String[2];
+		items[0] = add;
+		items[1] = create;
+		ListView lvDialog = (ListView) dialogView.findViewById(R.id.lvDialog);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, items);
+		lvDialog.setAdapter(adapter);
+		lvDialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				if (position == 0)
+					openCategoryChooseDialog(pos);
+				else
+					((PocketAccounter)getContext()).replaceFragment(new RootCategoryEditFragment(null, PocketAccounterGeneral.INCOME_MODE, pos, date));
+				dialog.dismiss();
+			}
+		});
+		dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				for (int i=0; i<buttons.size(); i++)
+					buttons.get(i).setPressed(false);
+				invalidate();
+			}
+		});
+		dialog.show();
+	}
+	private void openCategoryChooseDialog(final int pos) {
+		final Dialog dialog=new Dialog(getContext());
+		View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_with_listview, null);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(dialogView);
+		final ArrayList<RootCategory> categories = new ArrayList<RootCategory>();
+		for (int i=0; i<PocketAccounter.financeManager.getCategories().size(); i++) {
+			if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.INCOME ||
+					PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.BOTH)
+				categories.add(PocketAccounter.financeManager.getCategories().get(i));
+		}
+		CategoryAdapterForDialog adapter = new CategoryAdapterForDialog(getContext(), categories);
+		ListView lvDialog = (ListView) dialogView.findViewById(R.id.lvDialog);
+		lvDialog.setAdapter(adapter);
+		lvDialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				PocketAccounter.financeManager.getIncomes().set(pos, categories.get(position));
+				initButtons();
+				for (int i=0; i<buttons.size(); i++)
+					buttons.get(i).setPressed(false);
+				invalidate();
+				dialog.dismiss();
+			}
+		});
+		dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				for (int i=0; i<buttons.size(); i++)
+					buttons.get(i).setPressed(false);
+				invalidate();
+			}
+		});
+		dialog.show();
+	}
 }

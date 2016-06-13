@@ -50,10 +50,15 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 	private boolean[] selected;
 	private int[] icons;
 	private ArrayList<SubCategory> subCategories;
-	private int edit_mode, pos;
+	private int edit_mode, pos, subcatIcon;
 	private Calendar calendar;
+	private String categoryId;
 	public RootCategoryEditFragment(RootCategory category, int mode, int pos, Calendar date) {
 		this.category = category;
+		if (category == null)
+			categoryId = "category_"+UUID.randomUUID().toString();
+		else
+			categoryId = category.getId();
 		this.edit_mode = mode;
 		this.pos = pos;
 		if (date != null)
@@ -236,7 +241,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 				newCategory.setType(type);
 				newCategory.setIcon(selectedIcon);
 				newCategory.setSubCategories(subCategories);
-				newCategory.setId("rootcategory_"+UUID.randomUUID().toString());
+				newCategory.setId(categoryId);
 				PocketAccounter.financeManager.getIncomes().set(pos, newCategory);
 				PocketAccounter.financeManager.getCategories().add(newCategory);
 				((PocketAccounter)getActivity()).replaceFragment(new RecordFragment(calendar));
@@ -246,7 +251,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 				newCategory.setType(type);
 				newCategory.setIcon(selectedIcon);
 				newCategory.setSubCategories(subCategories);
-				newCategory.setId("rootcategory_"+UUID.randomUUID().toString());
+				newCategory.setId(categoryId);
 				PocketAccounter.financeManager.getExpanses().set(pos, newCategory);
 				PocketAccounter.financeManager.getCategories().add(newCategory);
 				((PocketAccounter)getActivity()).replaceFragment(new RecordFragment(calendar));
@@ -286,9 +291,15 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 		dialog.setContentView(dialogView);
 		mode = PocketAccounterGeneral.NORMAL_MODE;
 		setMode(mode);
+
 		final FABIcon fabChooseIcon = (FABIcon) dialogView.findViewById(R.id.fabChooseIcon);
-		Bitmap temp  = BitmapFactory.decodeResource(getResources(), subCategory.getIcon());
-		Bitmap scaled = Bitmap.createScaledBitmap(temp, (int)getResources().getDimension(R.dimen.twentyfive_dp), (int)getResources().getDimension(R.dimen.twentyfive_dp), false);
+		Bitmap temp, scaled;
+		if (subCategory != null)
+			subcatIcon = subCategory.getIcon();
+		else
+			subcatIcon = R.drawable.ic_category_1;
+		temp = BitmapFactory.decodeResource(getResources(), subcatIcon);
+		scaled = Bitmap.createScaledBitmap(temp, (int) getResources().getDimension(R.dimen.twentyfive_dp), (int) getResources().getDimension(R.dimen.twentyfive_dp), false);
 		fabChooseIcon.setImageBitmap(scaled);
 		fabChooseIcon.setOnClickListener(new OnClickListener() {
 			@Override
@@ -298,7 +309,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 				dialog.setContentView(dialogView);
 				final GridView gvCategoryIcons = (GridView) dialogView.findViewById(R.id.gvCategoryIcons);
-				IconAdapter adapter = new IconAdapter(getActivity(), icons, subCategory.getIcon());
+				IconAdapter adapter = new IconAdapter(getActivity(), icons, subcatIcon);
 				gvCategoryIcons.setAdapter(adapter);
 				gvCategoryIcons.setOnItemClickListener(new OnItemClickListener() {
 					@Override
@@ -307,6 +318,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 						Bitmap temp  = BitmapFactory.decodeResource(getResources(), icons[position]);
 						Bitmap scaled = Bitmap.createScaledBitmap(temp, (int)getResources().getDimension(R.dimen.twentyfive_dp), (int)getResources().getDimension(R.dimen.twentyfive_dp), false);
 						fabChooseIcon.setImageBitmap(scaled);
+						subcatIcon = icons[position];
 						dialog.dismiss();
 					}
 				});
@@ -329,13 +341,16 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 					etSubCategoryName.startAnimation(wobble);
 					return;
 				}
-				if (subCategory != null)
+				if (subCategory != null) {
 					subCategory.setName(etSubCategoryName.getText().toString());
+					subCategory.setIcon(subcatIcon);
+				}
 				else {
 					SubCategory newSubCategory = new SubCategory();
 					newSubCategory.setName(etSubCategoryName.getText().toString());
 					newSubCategory.setId("subcat_"+UUID.randomUUID().toString());
-					newSubCategory.setParent(category.getId());
+					newSubCategory.setParent(categoryId);
+					newSubCategory.setIcon(subcatIcon);
 					subCategories.add(newSubCategory);
 				}
 				refreshSubCatList(PocketAccounterGeneral.NORMAL_MODE);

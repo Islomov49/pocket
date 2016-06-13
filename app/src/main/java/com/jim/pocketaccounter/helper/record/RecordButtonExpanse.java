@@ -323,9 +323,6 @@ public class RecordButtonExpanse {
 			textPaint.getTextBounds(text, 0, text.length(), bounds);
 			canvas.drawText(text, container.centerX()-bounds.width()/2, container.centerY()+2*bounds.height(), textPaint);
 		}
-
-
-
 	}
 	public void setPressed(boolean pressed) {
 		this.pressed = pressed;
