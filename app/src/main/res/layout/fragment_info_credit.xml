@@ -21,20 +21,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/relativprosto"
-                android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="10dp">
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="10dp"
+                                android:paddingBottom="10dp">
                 <TextView
                     android:id="@+id/name_of_credit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="24sp"
-                    android:text="Credit for Tv"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Credit for Tv For "
                     android:textColor="@color/black_for_glavniy_text"
-                    android:layout_toLeftOf="@+id/icon_credit"
                     android:paddingRight="10dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
+                    android:layout_toRightOf="@+id/icon_creditt"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true" />
                 <TextView
                     android:id="@+id/left_amuont"
                     android:layout_width="wrap_content"
@@ -42,8 +46,12 @@
                     android:textSize="16sp"
                     android:layout_below="@+id/name_of_credit"
                     android:textColor="@color/forlines"
+                    android:layout_marginLeft="16dp"
                     android:text="Left amount :"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginTop="2dp"
+                    android:layout_toRightOf="@+id/icon_creditt"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
                 <TextView
                     android:id="@+id/value_credit_all"
                     android:layout_width="wrap_content"
@@ -51,112 +59,357 @@
                     android:layout_below="@id/left_amuont"
                     android:text="360$"
                     android:paddingRight="10dp"
-                    android:textSize="36sp"
+
+                    android:textSize="26sp"
+                    android:layout_marginLeft="16dp"
                     android:textColor="@color/red"
-                    android:layout_marginTop="2dp"
-                    android:layout_toLeftOf="@+id/icon_credit"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
-                <LinearLayout
-                    android:id="@+id/linearforline"
-                    android:layout_below="@+id/value_credit_all"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="2px"
-                    android:orientation="horizontal"
-                    >
-                    <FrameLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="7"
-                        android:background="@color/green_light_forline"/>
-                    <FrameLayout
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="4"
-                        />
-                </LinearLayout>
+                    android:layout_toRightOf="@+id/icon_creditt"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
                 <ImageView
-                    android:id="@+id/icon_credit"
+                    android:id="@+id/icon_creditt"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:src="@drawable/iconforpr"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
-                    />
-                <RelativeLayout
-                    android:id="@+id/relativprosto2"
-                    android:layout_below="@+id/linearforline"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:layout_width="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+                    </RelativeLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:textColor="@color/forlines"
-                        android:text="Period ends :"
-                        android:id="@+id/textView8" />
-                    <TextView
-                        android:layout_width="wrap_content"
+                        android:orientation="vertical">
+                        <RelativeLayout
+                            android:id="@+id/infoooc"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@color/grey_light2">
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="2px"
+                                android:background="@color/green_light_forline"
+                                android:layout_marginBottom="10dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentTop="true" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Information"
+                                    android:layout_centerVertical="true"
+                                    android:layout_marginLeft="16dp"
+                                    android:textSize="16sp"
+                                    android:textColor="@color/black_for_glavniy_text"/>
+                            <ImageView
+                                android:id="@+id/wlyuzik_opener"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:src="@drawable/infoo"
+                                android:layout_centerVertical="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_marginRight="16dp"/>
+                            <FrameLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="2px"
+                                android:background="@color/green_light_forline"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:id="@+id/shlyuzik"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="16sp"
-                        android:textColor="@color/black_for_glavniy_text"
-                        android:text="17 days"
-                        android:gravity="right"
-                        android:paddingLeft="10dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_toRightOf="@+id/textView8"
-                        android:layout_toEndOf="@+id/textView8" />
-                </RelativeLayout>
-            </RelativeLayout>
+                        android:background="@color/grey_light_backgr">
+                        <LinearLayout
+
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="visible"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="16dp">
+                            <RelativeLayout
+
+                                android:layout_below="@+id/linearforline"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                >
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/black_for_glavniy_text"
+                                    android:text="15% Per moth"
+                                    android:gravity="right"
+                                    android:paddingLeft="10dp"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:id="@+id/procentCredInfo" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/forlines"
+                                    android:text="Procent of credit:"
+                                    android:id="@+id/procentCredInfoText"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_alignParentStart="true" />
+                            </RelativeLayout>
+                            <RelativeLayout
+
+                                android:layout_below="@+id/linearforline"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/black_for_glavniy_text"
+                                    android:text="17 days"
+                                    android:gravity="right"
+                                    android:paddingLeft="10dp"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:id="@+id/leftDateInfo" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/forlines"
+                                    android:text="Left date :"
+                                    android:id="@+id/leftDateInfoText"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_alignParentStart="true" />
+                            </RelativeLayout>
+                            <RelativeLayout
+
+                                android:layout_below="@+id/linearforline"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/black_for_glavniy_text"
+                                    android:text="1 year"
+                                    android:gravity="right"
+                                    android:paddingLeft="10dp"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:id="@+id/intervalCreditInfo" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/forlines"
+                                    android:text="Period of credit :"
+                                    android:id="@+id/intervalCreditInfoText"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_alignParentStart="true" />
+                            </RelativeLayout>
+                            <RelativeLayout
+
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/black_for_glavniy_text"
+                                    android:text="01.02.2016"
+                                    android:gravity="right"
+                                    android:paddingLeft="10dp"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:id="@+id/takedtimeInfo" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/forlines"
+                                    android:text="Taked credit time :"
+                                    android:id="@+id/takedtimeInfoText"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_alignParentStart="true" />
+                            </RelativeLayout>
+                            <RelativeLayout
+
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/black_for_glavniy_text"
+                                    android:text="1200$"
+                                    android:gravity="right"
+                                    android:paddingLeft="10dp"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:id="@+id/takedValueInfo" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/forlines"
+                                    android:text="Taked value :"
+                                    android:id="@+id/takedValueInfoText"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_alignParentStart="true" />
+                            </RelativeLayout>
+                            <RelativeLayout
+
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/black_for_glavniy_text"
+                                    android:text="4000$"
+                                    android:gravity="right"
+                                    android:paddingLeft="10dp"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:id="@+id/totalReturnValueInfo" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="12sp"
+                                    android:textColor="@color/forlines"
+                                    android:text="Total return value :"
+                                    android:id="@+id/totalReturnValueText"
+                                    android:layout_alignParentTop="true"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_marginBottom="8dp"/>
+                            </RelativeLayout>
+                        </LinearLayout>
+
+                    </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/with_wlyuzik"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="@color/green_light_forline"
+               />
+
+
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
-                android:background="@color/grey_light">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Paid"
-                    android:textSize="24sp"
-                    android:layout_alignParentBottom="true"
+                    android:text="Transactions"
+                    android:gravity="bottom"
+                    android:layout_marginRight="20dp"
+                    android:textColor="@color/black_for_secondary_text"
+                    android:layout_alignBottom="@+id/frameLayout3"
                     android:layout_alignParentTop="true"
-                    android:gravity="center_vertical"
-                    android:layout_marginLeft="16dp"
-                    android:textColor="@color/black_for_glavniy_text"/>
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
                 <FrameLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginRight="20dp"
+
                     android:background="@drawable/knopka_zeleniy"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
-                    >
+                    android:id="@+id/frameLayout2">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
                         android:layout_marginLeft="16dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp"
                         android:text="PAY"
                         android:textColor="@color/green_light"
-                        android:textSize="14sp"
+                        android:textSize="12sp"
                         />
                 </FrameLayout>
 
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/knopka_seriy"
+                    android:layout_toLeftOf="@+id/frameLayout2"
+                    android:layout_toStartOf="@+id/frameLayout2"
+                    android:id="@+id/frameLayout3">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginBottom="3dp"
+                        android:text="DELETE"
+                        android:textColor="#d8d8d8"
+                        android:textSize="12sp"
+                        />
+                </FrameLayout>
             </RelativeLayout>
             <FrameLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="2px"
-                android:background="@color/green_light_forline"/>
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/green_light_forline"
+                android:layout_marginBottom="10dp"/>
+
             <android.support.v7.widget.RecyclerView
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
                 android:id="@+id/recycler_for_transactions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -166,31 +419,47 @@
             android:id="@+id/realitver"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp">
+
+            >
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="@color/green_light_forline"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="1840$"
                 android:textColor="@color/green_light"
-                android:textSize="16dp"
+                android:textSize="14dp"
+                android:layout_marginRight="20dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:id="@+id/total_transaction" />
+                android:id="@+id/total_transaction"
+                android:layout_alignTop="@+id/textView13"
+                android:layout_alignBottom="@+id/textView13" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16dp"
+                android:textSize="14dp"
                 android:gravity="right"
-                android:textColor="@color/black_for_glavniy_text"
+                android:textColor="@color/black_for_secondary_text"
                 android:text="Total :"
-                android:layout_marginRight="16dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
                 android:layout_toLeftOf="@+id/total_transaction"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:id="@+id/textView13" />
         </RelativeLayout>
 
     </RelativeLayout>

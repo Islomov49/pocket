@@ -1,7 +1,9 @@
 package com.jim.pocketaccounter.credit;
 
+import com.jim.pocketaccounter.debt.Recking;
 import com.jim.pocketaccounter.finance.Currency;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class CreditDetials {
@@ -15,6 +17,9 @@ public class CreditDetials {
     private double value_of_credit;
     private double value_of_credit_with_procent;
     private Currency valyute_currency;
+    private ArrayList<ReckingCredit> reckings;
+
+
     public CreditDetials(){
 
     }
@@ -32,7 +37,16 @@ public class CreditDetials {
         this.valyute_currency = valyute_currency;
         this.value_of_credit_with_procent=value_of_credit_with_procent;
         this.myCredit_id=myCredit_id;
+        reckings = new ArrayList<>();
     }
+
+    public ArrayList<ReckingCredit> getReckings() {
+        return reckings;
+    }
+    public void setReckings(ArrayList<ReckingCredit> reckings) {
+        this.reckings = reckings;
+    }
+
     public long getMyCredit_id() {
         return myCredit_id;
     }

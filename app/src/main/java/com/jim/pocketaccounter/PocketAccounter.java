@@ -189,7 +189,7 @@ public class PocketAccounter extends AppCompatActivity {
     }
     public void replaceFragment(Fragment fragment) {
         if (fragment != null) {
-            final FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            final FragmentTransaction ft = getSupportFragmentManager().beginTransaction().addToBackStack(null);
             ft.replace(R.id.flMain, fragment);
             ft.commit();
         }

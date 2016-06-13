@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jim.pocketaccounter.credit.AdapterCridet;
-import com.jim.pocketaccounter.credit.CreditComputeDate;
 import com.jim.pocketaccounter.credit.CreditDetials;
 import com.jim.pocketaccounter.finance.Currency;
 import com.melnykov.fab.FloatingActionButton;
@@ -26,7 +25,8 @@ import java.util.List;
 
 
 public class CreditFragment extends Fragment {
-    List<CreditComputeDate> crList;
+    ArrayList<CreditDetials> crList;
+    ArrayList<CreditDetials> creditDetialsesList;
     RecyclerView crRV;
     AdapterCridet crAdap;
     Context This;
@@ -57,22 +57,17 @@ public class CreditFragment extends Fragment {
 
         crAdap=new AdapterCridet(crList, This, new AdapterCridet.forListner() {
             @Override
-            public void togoInfo(CreditComputeDate current) {
+            public void togoInfo(CreditDetials current) {
                 //lisdat positon turgan obyektni yuboramiz
-                Log.d("prostoo",""+current.getName());
-                openFragment(new InfoCreditFragment(),"Addcredit");
+                InfoCreditFragment temp=new InfoCreditFragment();
+                temp.setConteent(current);
+                openFragment(temp,"InfoFragment");
 
             }
         });
         crRV.setAdapter(crAdap);
 
-        crList.add(CompyuteData(new CreditDetials(R.drawable.ic_category_4,"Come Text",new GregorianCalendar(2016,06,06),
-                20d ,1000L*60L*60L*24L*30L ,1000L*60L*60L*24L*33,8000,
-                new Currency("\u20BD"),9000,System.currentTimeMillis() )));
-
-        crList.add(new CreditComputeDate(R.drawable.ic_category_9,"Mobile credit",15,8000,3820,System.currentTimeMillis()-1000L*60L*60L*24L*100L,1000L*60L*60L*24L-1 , new Currency("\u20BD")));
-
-        crAdap.notifyDataSetChanged();
+        updateList();
         V.post(new Runnable() {
             @Override
             public void run() {
@@ -84,38 +79,46 @@ public class CreditFragment extends Fragment {
         fb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                openFragment(new AddCreditFragment(),"Addcredit");
-
-
+                openFragment(new InfoCreditFragment(),"InfoFragment");
+               // openFragment(new AddCreditFragment(),"Addcredit");
             }
         });
         return V;
     }
     public void openFragment(Fragment fragment,String tag) {
         if (fragment != null) {
-            final android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(tag);
-            ft.add(R.id.flMain, fragment,tag);
+            if(tag.matches("Addcredit"))
+            ((AddCreditFragment)fragment).addEventLis(new EventFromAdding() {
+                @Override
+                public void addedCredit() {
+                    updateToFirst();
+                }
 
+                @Override
+                public void canceledAdding() {
+                    //some think when canceled
+                }
+            });
+            final android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(tag).setTransition(android.support.v4.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            ft.add(R.id.flMain, fragment,tag);
             ft.commit();
         }
     }
-    public CreditComputeDate CompyuteData(CreditDetials ItemDet){
-        CreditComputeDate itemC=new CreditComputeDate();
-        itemC.setID(ItemDet.getIcon_ID());
-        itemC.setDate_start(ItemDet.getTake_time().getTimeInMillis());
-        itemC.setInterval(ItemDet.getPeriod_time());
-        itemC.setName(ItemDet.getCredit_name());
-        itemC.setProcent_100_system(ItemDet.getProcent());
-
-        //TODO Total paid computing
-        double total_paid=100;
-
-        itemC.setTotal_paid(total_paid);
-        itemC.setValyuta(ItemDet.getValyute_currency());
-        itemC.setTotal_value(ItemDet.getValue_of_credit_with_procent());
-        return itemC;
+    public void updateToFirst(){
+        creditDetialsesList=PocketAccounter.financeManager.getCredits();
+        crList.add(0,creditDetialsesList.get(0));
+        crAdap.notifyItemInserted(0);
     }
+    public void updateList(){
+        crList.clear();
+        creditDetialsesList=PocketAccounter.financeManager.getCredits();
+        for (CreditDetials temp:creditDetialsesList){
+            crList.add(temp);
+        }
+        crAdap.notifyDataSetChanged();
+    }
+
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -126,6 +129,10 @@ public class CreditFragment extends Fragment {
         super.onDetach();
     }
 
+    interface EventFromAdding{
+        void addedCredit();
+        void canceledAdding();
+    }
 
 
 }

@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.Selection;
@@ -50,7 +51,7 @@ import static android.R.id.selectedIcon;
 
 
 public class AddCreditFragment extends Fragment {
-
+    boolean onSucsessed=false;
     Spinner spiner_forValut,spiner_procent,spinner_peiod,spiner_trasnact;
     ImageView icona;
     String [] valyutes;
@@ -60,7 +61,6 @@ public class AddCreditFragment extends Fragment {
     ImageView ivToolbarMostRight;
     EditText nameCred,valueCred,procentCred,periodCred,firstCred ,lastCred,transactionCred;
     Context context;
-    Animation wooble;
     SimpleDateFormat dateformarter;
     int argFirst[]=new int[3];
     int argLast[]=new int[3];
@@ -71,9 +71,11 @@ public class AddCreditFragment extends Fragment {
     boolean isAv=true;
     ArrayList<Currency> currencies;
     int isAvInt=0;
+    CreditFragment.EventFromAdding eventLis;
+    AddCreditFragment ThisFragment;
     public AddCreditFragment() {
         // Required empty public constructor
-
+        ThisFragment=this;
     }
 
 
@@ -102,7 +104,6 @@ public class AddCreditFragment extends Fragment {
         lastCred=(EditText) V.findViewById(R.id.date_ends_edit) ;
         transactionCred=(EditText) V.findViewById(R.id.for_trasaction_credit) ;
 
-        wooble= AnimationUtils.loadAnimation(context,R.anim.wobble);
 
         ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
         ivToolbarMostRight.setImageResource(R.drawable.check_sign);
@@ -117,7 +118,6 @@ public class AddCreditFragment extends Fragment {
                 boolean isMojno=true;
                  if (nameCred.getText().toString().equals("")){
                     nameCred.setError("Name should not empty!");
-                    nameCred.startAnimation(wooble);
                      isMojno=false;
                  }
                 else nameCred.setHintTextColor(ContextCompat.getColor(context,R.color.black_for_secondary_text));
@@ -125,21 +125,18 @@ public class AddCreditFragment extends Fragment {
                 //value cheking
                 if (valueCred.getText().toString().equals("")){
                 valueCred.setError("Value should not empty!");
-                    valueCred.startAnimation(wooble);
                     isMojno=false;
                 }
                 else valueCred.setHintTextColor(ContextCompat.getColor(context,R.color.black_for_secondary_text));
 
                 if (procentCred.getText().toString().equals("")){
                     procentCred.setError("Procent should not empty!");
-                    procentCred.startAnimation(wooble);
                     isMojno=false;
                 }
                 else procentCred.setHintTextColor(ContextCompat.getColor(context,R.color.black_for_secondary_text));
 
                 if (periodCred.getText().toString().equals("")){
                     periodCred.setError("Procent should not empty!");
-                    periodCred.startAnimation(wooble);
                     isMojno=false;
                 }
                 else periodCred.setHintTextColor(ContextCompat.getColor(context,R.color.black_for_secondary_text));
@@ -439,7 +436,7 @@ public class AddCreditFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                 R.layout.adapter_spiner,
                 new String[] {
-                        "Per month", "Per year","Per week", "Per day"
+                        getString(R.string.per_month), getString(R.string.per_year),getString(R.string.per_week), getString(R.string.per_day)
                 } );
 
 
@@ -450,7 +447,7 @@ public class AddCreditFragment extends Fragment {
 
         ArrayAdapter<String> adapter_period = new ArrayAdapter<String>(getActivity(),
                 R.layout.adapter_spiner, new String[] {
-                "Month", "Year", "Week","Day"
+                getString(R.string.mont), getString(R.string.yearr), getString(R.string.weekk),getString(R.string.dayy)
         });
 
         ArrayAdapter<String> adapter_scet = new ArrayAdapter<String>(getActivity(),
@@ -615,9 +612,14 @@ public class AddCreditFragment extends Fragment {
                         period_inter*=forDay;
                         break;
                 }
+                ArrayList<CreditDetials> myList=PocketAccounter.financeManager.getCredits();
+
                 CreditDetials A1=new CreditDetials(selectedIcon,nameCred.getText().toString(),new GregorianCalendar(argFirst[0],argFirst[1],argFirst[2]),
                         Double.parseDouble(sb.toString()) ,procent_inter ,period_inter,Double.parseDouble(valueCred.getText().toString()),
                         currencies.get(spiner_forValut.getSelectedItemPosition()),Double.parseDouble(solution.getText().toString()),System.currentTimeMillis() );
+
+                myList.add(0,A1);
+
                 Log.d("soemeV",
                         A1.getCredit_name()+"\n"
                                 +A1.getIcon_ID()+"\n"
@@ -626,9 +628,11 @@ public class AddCreditFragment extends Fragment {
                                 A1.getProcent_interval()+"\n"+
                                 A1.getTake_time().getTimeInMillis()+
                                 "\n"+A1.getValue_of_credit()+"\n"+
-                                A1.getValyute_currency().getName()
-                +  "\n"+A1.getValue_of_credit_with_procent());
-                Toast.makeText(context,"ObjectCreate",Toast.LENGTH_SHORT).show();
+                                A1.getValyute_currency().getName()+
+                                "\n"+A1.getValue_of_credit_with_procent());
+                dialog.dismiss();
+                closeCurrentFragment();
+                onSucsessed=true;
             }
         });
         DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
@@ -637,7 +641,9 @@ public class AddCreditFragment extends Fragment {
         dialog.show();
     }
 
-
+    public void addEventLis(CreditFragment.EventFromAdding even){
+        eventLis=even;
+    }
     public String parseToWithoutNull(double A){
         if(A==(int)A)
             return Integer.toString((int)A);
@@ -654,9 +660,18 @@ public class AddCreditFragment extends Fragment {
 
     @Override
     public void onDetach() {
-        super.onDetach();
+        Log.d("Detached","true");
         ivToolbarMostRight.setVisibility(View.INVISIBLE);
+        if(!onSucsessed)
+        eventLis.canceledAdding();
+        else
+            eventLis.addedCredit();
 //        PocketAccounter.financeManager.saveCredits();
+        super.onDetach();
+    }
+
+    public void closeCurrentFragment(){
+        getActivity().getSupportFragmentManager().popBackStack ();
     }
 
 

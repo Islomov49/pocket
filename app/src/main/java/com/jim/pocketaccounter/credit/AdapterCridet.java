@@ -28,7 +28,7 @@ import java.util.List;
  */
 
 public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHolder>{
-   List<CreditComputeDate> cardDetials;
+   List<CreditDetials> cardDetials;
     int S = 0;
     SimpleDateFormat dateformarter;
     Context This;
@@ -36,7 +36,7 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
     long forDay=1000L*60L*60L*24L;
     long forMoth=1000L*60L*60L*24L*30L;
     long forYear=1000L*60L*60L*24L*365L;
-    public AdapterCridet(List<CreditComputeDate> cardDetials, Context This, forListner A1){
+    public AdapterCridet(List<CreditDetials> cardDetials, Context This, forListner A1){
        this.cardDetials=cardDetials;
         this.This=This;
         dateformarter=new SimpleDateFormat("dd.MM.yyyy");
@@ -44,48 +44,48 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
     }
 
     public interface forListner{
-         void togoInfo(CreditComputeDate current);
+         void togoInfo(CreditDetials current);
     }
     @Override
     public void onBindViewHolder(myViewHolder holder, final int position) {
-    final CreditComputeDate itemCr= cardDetials.get(position);
-        holder.credit_procent.setText(parseToWithoutNull(itemCr.getProcent_100_system())+"%");
-        holder.total_value.setText(parseToWithoutNull(itemCr.getTotal_value())+itemCr.getValyuta().getName());
-        holder.total_paid.setText(parseToWithoutNull(itemCr.getTotal_paid())+itemCr.getValyuta().getName());
-        holder.nameCredit.setText(itemCr.getName());
+    final CreditDetials itemCr= cardDetials.get(position);
+        holder.credit_procent.setText(parseToWithoutNull(itemCr.getProcent())+"%");
+        holder.total_value.setText(parseToWithoutNull(itemCr.getValue_of_credit_with_procent())+itemCr.getValyute_currency().getAbbr());
+
+        double total_paid=0;
+        for(ReckingCredit item:itemCr.getReckings())
+            total_paid+=item.getAmount();
+
+        holder.total_paid.setText(parseToWithoutNull(total_paid)+itemCr.getValyute_currency().getAbbr());
+        holder.nameCredit.setText(itemCr.getCredit_name());
+
         Date AAa = (new Date());
-        AAa.setTime(itemCr.getDate_start());
+        AAa.setTime(itemCr.getTake_time().getTimeInMillis());
         holder.taken_credit_date.setText(dateformarter.format(AAa));
-        holder.iconn.setImageResource(itemCr.getID());
+        holder.iconn.setImageResource(itemCr.getIcon_ID());
         
-        long for_compute_interval=itemCr.getInterval();
+        long for_compute_interval=itemCr.getTake_time().getTimeInMillis()+itemCr.getPeriod_time()-System.currentTimeMillis();
         Log.d("valeee","day Obw: "+(double)for_compute_interval/1000/60/60/24);
         String left_date_string="";
 
         if ((int)((double)for_compute_interval/1000/60/60/24)<1){
-
             holder.pay_or_archive.setText(R.string.archive);
-
             holder.left_date.setText(R.string.ends);
-            holder.left_date.setTextColor(Color.parseColor("#832e1c"));
-             }
+            holder.left_date.setTextColor(Color.parseColor("#832e1c"));}
         else{
             int a=(int)((double)for_compute_interval/1000/60/60/24/365);
             Log.d("valeee","year : "+a);
             if(a>=1){
                 if(a>1){
                     left_date_string+=Integer.toString(a)+" "+This.getString(R.string.years);
-
                 }
                 else{
                     left_date_string+=Integer.toString(a)+" "+This.getString(R.string.year);
                 }
-
                 for_compute_interval-=(long)a*forYear;
             }
             int b=(int)((double)for_compute_interval/1000/60/60/24/30);
             Log.d("valeee","day Obw: "+(double)for_compute_interval/1000/60/60/24);
-
             Log.d("valeee","month : "+b);
             if(b>=1){
                 if(!left_date_string.matches("")){
@@ -118,19 +118,14 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
                 for_compute_interval-=c*forDay;
             }
             holder.left_date.setText(left_date_string);
-
         }
 
 
-
-        Log.d("interal",""+itemCr.getInterval());
-        holder.overall_amount.setText(parseToWithoutNull(itemCr.getTotal_value()-itemCr.getTotal_paid())+itemCr.getValyuta().getName());
-
+        holder.overall_amount.setText(parseToWithoutNull(itemCr.getValue_of_credit_with_procent()-total_paid)+itemCr.getValyute_currency().getAbbr());
         holder.glav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                A1.togoInfo(itemCr);
-                // openFragment(new InfoCreditFragment(),"infoFragment");
             }
         });
         holder.pay_or_archive.setOnClickListener(new View.OnClickListener() {
