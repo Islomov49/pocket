@@ -66,6 +66,16 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
             tek2 = false,
             calc = false,
             sequence = false;
+    private int[] numericButtons = {R.id.rlZero, R.id.rlOne, R.id.rlTwo, R.id.rlThree, R.id.rlFour, R.id.rlFive, R.id.rlSix, R.id.rlSeven, R.id.rlEight, R.id.rlNine};
+    // IDs of all the operator buttons
+    private int[] operatorButtons = {R.id.rlPlusSign, R.id.rlMinusSign, R.id.rlMultipleSign, R.id.rlDivideSign};
+    // TextView used to display the output
+    private boolean lastNumeric;
+    // Represent that current state is in error or not
+    private boolean stateError;
+    // If true, do not allow to add another DOT
+    private boolean lastDot;
+
     @SuppressLint("ValidFragment")
     public RecordEditFragment(RootCategory category, Calendar date, FinanceRecord record, int parent) {
         this.parent = parent;
@@ -136,26 +146,10 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
         ivRecordEditCategory = (ImageView) rootView.findViewById(R.id.ivRecordEditCategory);
         ivRecordEditSubCategory = (ImageView) rootView.findViewById(R.id.ivRecordEditSubCategory);
         tvRecordEditDisplay = (TextView) rootView.findViewById(R.id.tvRecordEditDisplay);
-        rlZero = (RelativeLayout) rootView.findViewById(R.id.rlZero);
-        rlZero.setOnClickListener(this);
-        rlOne = (RelativeLayout) rootView.findViewById(R.id.rlOne);
-        rlOne.setOnClickListener(this);
-        rlTwo = (RelativeLayout) rootView.findViewById(R.id.rlTwo);
-        rlTwo.setOnClickListener(this);
-        rlThree = (RelativeLayout) rootView.findViewById(R.id.rlThree);
-        rlThree.setOnClickListener(this);
-        rlFour = (RelativeLayout) rootView.findViewById(R.id.rlFour);
-        rlFour.setOnClickListener(this);
-        rlFive = (RelativeLayout) rootView.findViewById(R.id.rlFive);
-        rlFive.setOnClickListener(this);
-        rlSix = (RelativeLayout) rootView.findViewById(R.id.rlSix);
-        rlSix.setOnClickListener(this);
-        rlSeven = (RelativeLayout) rootView.findViewById(R.id.rlSeven);
-        rlSeven.setOnClickListener(this);
-        rlEight = (RelativeLayout) rootView.findViewById(R.id.rlEight);
-        rlEight.setOnClickListener(this);
-        rlNine = (RelativeLayout) rootView.findViewById(R.id.rlNine);
-        rlNine.setOnClickListener(this);
+        // Find and set OnClickListener to numeric buttons
+        setNumericOnClickListener();
+        // Find and set OnClickListener to operator buttons, equal button and decimal point button
+//        setOperatorOnClickListener();
         rlDot = (RelativeLayout) rootView.findViewById(R.id.rlDot);
         rlDot.setOnClickListener(this);
         OperationHandler handler = new OperationHandler();
@@ -207,6 +201,61 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
         }
         return rootView;
     }
+    private void setNumericOnClickListener() {
+        // Create a common OnClickListener
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Just append/set the text of clicked button
+                RelativeLayout button = (RelativeLayout) v;
+                String text = "";
+                switch (v.getId()) {
+                    case R.id.rlOne:
+                        text = "1";
+                        break;
+                    case R.id.rlTwo:
+                        text = "2";
+                        break;
+                    case R.id.rlThree:
+                        text = "3";
+                        break;
+                    case R.id.rlFour:
+                        text = "4";
+                        break;
+                    case R.id.rlFive:
+                        text = "5";
+                        break;
+                    case R.id.rlSix:
+                        text = "6";
+                        break;
+                    case R.id.rlSeven:
+                        text = "7";
+                        break;
+                    case R.id.rlEight:
+                        text = "8";
+                        break;
+                    case R.id.rlNine:
+                        text = "9";
+                        break;
+                }
+                if (stateError) {
+                    // If current state is Error, replace the error message
+//                    tvRecordEditDisplay.setText(button.getText());
+                    stateError = false;
+                } else {
+                    // If not, already there is a valid expression so append to it
+//                    tvRecordEditDisplay.append(button.getText());
+                }
+                // Set the flag
+                lastNumeric = true;
+            }
+        };
+        // Assign the listener to all the numeric buttons
+        for (int id : numericButtons) {
+//            findViewById(id).setOnClickListener(listener);
+        }
+    }
+
     @Override
     public void onClick(View view) {
         if (!calc) {

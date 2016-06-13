@@ -10,9 +10,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.jim.pocketaccounter.R;
+import com.jim.pocketaccounter.credit.CreditDetials;
+import com.jim.pocketaccounter.credit.ReckingCredit;
 import com.jim.pocketaccounter.debt.DebtBorrow;
 import com.jim.pocketaccounter.finance.Account;
 import com.jim.pocketaccounter.finance.Currency;
@@ -118,10 +119,116 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 				+ "debt_id TEXT,"
 				+ "photo_id TEXT"
 				+ ");");
+		//credit
+		db.execSQL("CREATE TABLE credit_table ("
+				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ "credit_name TEXT,"
+				+ "icon_id INTEGER,"
+				+ "taken_date TEXT,"
+				+ "percent REAL,"
+				+ "percent_interval TEXT,"
+				+ "period_time TEXT,"
+				+ "credit_id TEXT,"
+				+ "credit_value REAL,"
+				+ "credit_value_with_percent REAL,"
+				+ "currency_id TEXT"
+				+ ");");
+		//recking_of_credit
+		db.execSQL("CREATE TABLE credit_recking_table ("
+				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ "pay_date TEXT,"
+				+ "amount REAL,"
+				+ "account_id TEXT,"
+				+ "comment TEXT,"
+				+ "credit_id TEXT"
+				+ ");");
 		initDefault(db);
 		initIncomesAndExpanses(db);
 	}
 
+	public void saveDatasToCreditTable(ArrayList<CreditDetials> credits) {
+		SQLiteDatabase db = getWritableDatabase();
+		ContentValues values = new ContentValues();
+		db.execSQL("DELETE FROM credit_table");
+		db.execSQL("DELETE FROM credit_recking_table");
+		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+		for (int i=0; i<credits.size(); i++) {
+			values.put("credit_name", credits.get(i).getCredit_name());
+			values.put("icon_id", credits.get(i).getIcon_ID());
+			values.put("taken_date", format.format(credits.get(i).getTake_time().getTime()));
+			values.put("percent", credits.get(i).getProcent());
+			values.put("percent_interval", Long.toString(credits.get(i).getProcent_interval()));
+			values.put("period_time", Long.toString(credits.get(i).getPeriod_time()));
+			values.put("credit_id", credits.get(i).getMyCredit_id());
+			values.put("credit_value", credits.get(i).getValue_of_credit());
+			values.put("credit_value_with_percent", credits.get(i).getValue_of_credit_with_procent());
+			values.put("currency_id", credits.get(i).getValyute_currency().getId());
+			db.insert("credit_table", null, values);
+			values.clear();
+			for (int j=0; j<credits.get(i).getReckings().size(); j++) {
+				values.put("pay_date", Long.toString(credits.get(i).getReckings().get(j).getPayDate()));
+				values.put("amount", credits.get(i).getReckings().get(j).getAmount());
+				values.put("account_id", credits.get(i).getReckings().get(j).getAccountId());
+				values.put("comment", credits.get(i).getReckings().get(j).getComment());
+				values.put("credit_id", credits.get(i).getReckings().get(j).getMyCredit_id());
+			}
+		}
+		db.close();
+	}
+
+	public ArrayList<CreditDetials> loadCredits() {
+		ArrayList<CreditDetials> result = new ArrayList<>();
+		ArrayList<Currency> currencies = loadCurrencies();
+		SQLiteDatabase db = getReadableDatabase();
+		Cursor curCreditTable = db.query("credit_table", null, null, null, null, null, null);
+		Cursor curCreditRecking = db.query("credit_recking_table", null, null, null, null, null, null);
+		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+		curCreditTable.moveToFirst();
+		while (!curCreditTable.isAfterLast()) {
+			CreditDetials credit = new CreditDetials();
+			credit.setCredit_name(curCreditTable.getString(curCreditTable.getColumnIndex("credit_name")));
+			credit.setIcon_ID(curCreditTable.getInt(curCreditTable.getColumnIndex("icon_id")));
+			try {
+				Calendar takenDate = Calendar.getInstance();
+				takenDate.setTime(format.parse(curCreditTable.getString(curCreditTable.getColumnIndex("taken_date"))));
+				credit.setTake_time(takenDate);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			credit.setProcent(curCreditTable.getDouble(curCreditTable.getColumnIndex("percent")));
+			credit.setProcent_interval(Long.parseLong(curCreditTable.getString(curCreditTable.getColumnIndex("percent_interval"))));
+			credit.setPeriod_time(Long.parseLong(curCreditTable.getString(curCreditTable.getColumnIndex("period_time"))));
+			credit.setMyCredit_id(Long.parseLong(curCreditTable.getString(curCreditTable.getColumnIndex("credit"))));
+			credit.setValue_of_credit(curCreditTable.getDouble(curCreditTable.getColumnIndex("credit_value")));
+			credit.setValue_of_credit_with_procent(curCreditTable.getDouble(curCreditTable.getColumnIndex("credit_value_with_percent")));
+			String currencyId = curCreditTable.getString(curCreditTable.getColumnIndex("currency_id"));
+			Currency currency = null;
+			for (int i = 0; i<currencies.size(); i++)  {
+				if (currencyId.matches(currencies.get(i).getId())) {
+					currency = currencies.get(i);
+					break;
+				}
+			}
+			credit.setValyute_currency(currency);
+			ArrayList<ReckingCredit> reckings = new ArrayList<ReckingCredit>();
+			curCreditRecking.moveToFirst();
+			while(!curCreditRecking.isAfterLast()) {
+				if (Long.parseLong(curCreditRecking.getString(curCreditRecking.getColumnIndex("credit_id"))) == Long.parseLong(curCreditTable.getString(curCreditTable.getColumnIndex("credit")))) {
+					double amount = curCreditRecking.getDouble(curCreditRecking.getColumnIndex("amount"));
+					long payDate = Long.parseLong(curCreditRecking.getString(curCreditRecking.getColumnIndex("pay_date")));
+					String comment = curCreditRecking.getString(curCreditRecking.getColumnIndex("comment"));
+					String accountId = curCreditRecking.getString(curCreditRecking.getColumnIndex("account_id"));
+					long creditId = Long.parseLong(curCreditRecking.getString(curCreditRecking.getColumnIndex("credit_id")));
+					ReckingCredit newReckingCredit = new ReckingCredit(payDate, amount, accountId, creditId, comment);
+					reckings.add(newReckingCredit);
+				}
+				curCreditRecking.moveToNext();
+			}
+			credit.setReckings(reckings);
+			curCreditTable.moveToNext();
+		}
+		return result;
+	}
 	private void initDefault(SQLiteDatabase db) {
 		String[] catValues = context.getResources().getStringArray(R.array.cat_values);
 		String[] catTypes = context.getResources().getStringArray(R.array.cat_types);

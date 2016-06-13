@@ -75,7 +75,7 @@ public class CreditDetials {
         return take_time;
     }
     public void setTake_time(Calendar take_time) {
-        this.take_time = take_time;
+        this.take_time = (Calendar)take_time.clone();
     }
     public double getProcent() {
         return procent;

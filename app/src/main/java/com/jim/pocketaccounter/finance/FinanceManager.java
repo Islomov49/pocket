@@ -28,10 +28,10 @@ public class FinanceManager {
 		accounts = loadAccounts();
 		records = loadRecords();
 		credits = loadCredits();
-		Log.d("incomes", ""+incomes.size());
 	}
-	private ArrayList<CreditDetials> loadCredits() {return new ArrayList<CreditDetials>();}
+	private ArrayList<CreditDetials> loadCredits() {return db.loadCredits();}
 	public ArrayList<CreditDetials> getCredits() {return credits;}
+	public void saveCredits() {db.saveDatasToCreditTable(credits);}
 	public ArrayList<Currency> getCurrencies() {
 		return currencies;
 	}
