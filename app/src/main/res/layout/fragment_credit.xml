@@ -10,19 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/my_recycler_view"
-                android:scrollbars="none"
-                android:paddingTop="8dp"
-                tools:context=".MainActivity"
-                tools:listitem="@layout/cred_titem"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-
-                />
-
-
-
 
         <com.melnykov.fab.FloatingActionButton
             android:id="@+id/fab"
@@ -34,6 +21,17 @@
             fab:fab_colorNormal="@color/green_light"
             fab:fab_colorPressed="@color/green_light"
             fab:fab_colorRipple="@color/green_light" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/my_recycler_view"
+            android:scrollbars="none"
+            android:paddingTop="8dp"
+            tools:context=".MainActivity"
+            tools:listitem="@layout/moder_titem"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            />
 
     </FrameLayout>
 

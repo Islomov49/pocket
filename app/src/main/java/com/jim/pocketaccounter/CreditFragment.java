@@ -79,8 +79,8 @@ public class CreditFragment extends Fragment {
         fb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openFragment(new InfoCreditFragment(),"InfoFragment");
-               // openFragment(new AddCreditFragment(),"Addcredit");
+               // openFragment(new InfoCreditFragment(),"InfoFragment");
+                openFragment(new AddCreditFragment(),"Addcredit");
             }
         });
         return V;

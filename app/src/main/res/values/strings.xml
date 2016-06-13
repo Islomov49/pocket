@@ -640,4 +640,12 @@
     <string name="feedback_hint">Input feedback</string>
     <string name="feedback_subject">Subject: </string>
     <string name="feedback_content">Content: </string>
+    <string name="per_day">Per day</string>
+    <string name="per_week">Per week</string>
+    <string name="per_month">Per month</string>
+    <string name="per_year">Per year</string>
+    <string name="mont">Month</string>
+    <string name="yearr">Year</string>
+    <string name="weekk">Week</string>
+    <string name="dayy">Day</string>
 </resources>

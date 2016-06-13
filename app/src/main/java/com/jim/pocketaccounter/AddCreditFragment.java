@@ -654,6 +654,11 @@ public class AddCreditFragment extends Fragment {
 
     }
     @Override
+    public void onStop(){
+        super.onStop();
+
+    }
+    @Override
     public void onAttach(Context context) {
         super.onAttach(context);
     }

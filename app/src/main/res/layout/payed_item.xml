@@ -7,27 +7,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginLeft="32dp">
+        >
+        <CheckBox
+            android:id="@+id/for_delete_check_box"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginRight="10dp"
+            android:checked="false"
+            android:text=""
 
+            android:layout_toLeftOf="@+id/frameLayout4"
+            android:layout_toStartOf="@+id/frameLayout4"
+            android:layout_above="@+id/paid_value"
+            android:layout_marginBottom="2dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="right"
             android:text="720 000 000$"
-            android:layout_marginRight="14dp"
+            android:layout_marginRight="10dp"
             android:textColor="@color/green_light"
             android:textSize="14sp"
             android:id="@+id/paid_value"
             android:layout_alignBottom="@+id/linearLayout2"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="14dp" />
+            android:layout_alignParentEnd="true" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:id="@+id/linearLayout2"
+            android:layout_marginLeft="10dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true">
@@ -38,7 +49,7 @@
                 android:text="Via: Visa card"
                 android:layout_marginTop="10dp"
                 android:textColor="@color/for_darker"
-                android:textSize="18sp"/>
+                android:textSize="16dp"/>
 
             <TextView
                 android:id="@+id/date_of_trans"
@@ -56,6 +67,23 @@
                 android:text="Comment: It is first time my debt"
                 android:textSize="12sp"/>
         </LinearLayout>
+        <FrameLayout
+            android:layout_width="2px"
+            android:layout_height="wrap_content"
+            android:background="@color/green_light_forline"
+            android:layout_alignBottom="@+id/linearLayout2"
+
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/frameLayout4" />
+        <FrameLayout
+            android:layout_width="2px"
+            android:layout_height="wrap_content"
+            android:background="@color/green_light_forline"
+            android:layout_alignBottom="@+id/linearLayout2"
+
+            android:layout_alignParentTop="true" />
     </RelativeLayout>
     <FrameLayout
         android:layout_width="match_parent"
