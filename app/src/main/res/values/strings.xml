@@ -655,4 +655,6 @@
     <string name="comment">Comment</string>
     <string name="diagram_no_data_text">Нет данных для отображения!</string>
     <string name="credit">Кредит</string>
+    <string name="pay">PAY</string>
+    <string name="cancel">CANCEL</string>
 </resources>

@@ -3,9 +3,11 @@ package com.jim.pocketaccounter;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -54,6 +56,7 @@ public class InfoCreditFragment extends Fragment {
     TextView calculeted;
     ImageView icon_credit;
     ConWithFragments A1;
+    boolean payKey=true;
     PaysCreditAdapter adapRecyc;
     ArrayList<ReckingCredit> rcList;
     boolean delete_flag=false;
@@ -68,7 +71,7 @@ public class InfoCreditFragment extends Fragment {
     boolean isExpandOpen=false;
     private FinanceManager manager;
     private Context context;
-
+    TextView myPay,myDelete;
     public InfoCreditFragment() {
         // Required empty public constructor
     }
@@ -108,6 +111,8 @@ public class InfoCreditFragment extends Fragment {
         icon_credit=(ImageView) V.findViewById(R.id.icon_creditt);
         rcList= currentCredit.getReckings();
         adapRecyc=new PaysCreditAdapter(rcList);
+        myPay=(TextView)  V.findViewById(R.id.paybut);
+        myDelete=(TextView)  V.findViewById(R.id.deleterbut);
         LinearLayoutManager llm = new LinearLayoutManager(context);
         tranact_recyc.setLayoutManager(llm);
 
@@ -130,9 +135,14 @@ public class InfoCreditFragment extends Fragment {
                 if(toArcive){
 
                 }
-                else
+                else if(!delete_flag)
                 {
                     openDialog();
+                }
+                else {
+                    delete_flag=false;
+                    myPay.setText(R.string.pay);
+                    adapRecyc.notifyDataSetChanged();
                 }
             }
         });
@@ -168,14 +178,14 @@ public class InfoCreditFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if(delete_flag){
-                    delete_flag=false;
-                    Log.d("Itemmmm","delete_frag false");
-                    //TODO CHECK LIST AND DELETE
                     delete_checked_items();
+
             }
                 else{
                     delete_flag=true;
                     adapRecyc.notifyDataSetChanged();
+                    myPay.setText(getString(R.string.cancel));
+                   //myDelete.setTextColor(getActivity().getColor(R.color.red));
                 }
             }
         });
@@ -403,35 +413,62 @@ public class InfoCreditFragment extends Fragment {
         for(ReckingCredit item:currentCredit.getReckings())
             total_paid+=item.getAmount();
         if(rcList.size()==0){
-            ifHaveItem.setVisibility(View.GONE);
-        }
+            ifHaveItem.setVisibility(View.GONE);}
         else{
-            ifHaveItem.setVisibility(View.VISIBLE);
-
-        }
+            ifHaveItem.setVisibility(View.VISIBLE);}
         myTotalPaid.setText(parseToWithoutNull(total_paid)+currentCredit.getValyute_currency().getAbbr());
         myLefAmount.setText(parseToWithoutNull(currentCredit.getValue_of_credit_with_procent()-total_paid)+currentCredit.getValyute_currency().getAbbr());
         //TODO update recycler
     }
+
     public void delete_checked_items(){
-        int lenght=rcList.size()-1;
-        Log.d("Itemmmm",""+lenght);
+        boolean keyfor=false;
+        final int lenght=rcList.size()-1;
         for(int t=lenght;t>=0;t--){
             View item=tranact_recyc.getChildAt(t);
             boolean forCheck=((CheckBox)item.findViewById(R.id.for_delete_check_box)).isChecked();
             Log.d("Itemmmm",""+forCheck);
             if(forCheck){
-                rcList.remove(t);
-                Log.d("Itemmmm",""+t);
+                keyfor=true;
             }
-            adapRecyc.notifyItemRemoved(t);
         }
-        updateDate();
-    }
+        if(keyfor){
+            final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage("You accept the deletion of records")
+                    .setPositiveButton("ACCEPT", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            for(int t=lenght;t>=0;t--){
+                                View item=tranact_recyc.getChildAt(t);
+                                boolean forCheck=((CheckBox)item.findViewById(R.id.for_delete_check_box)).isChecked();
+                                Log.d("Itemmmm",""+forCheck);
+                                if(forCheck){
+                                    rcList.remove(t);
+                                    Log.d("Itemmmm",""+t);
+                                }
+                                adapRecyc.notifyDataSetChanged();
+                                delete_flag=false;
+                                myPay.setText(getString(R.string.pay));
+                                A1.change_item(currentCredit,currentPOS);
+                            }
+                        }
+                    }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.cancel();
+                    adapRecyc.notifyDataSetChanged();
+                    updateDate();
+                              }
+            });
+            builder.create().show();
+        }
+        else {
+            adapRecyc.notifyDataSetChanged();
+        }
+
+        }
 
     @Override
     public void onStop(){
-        PocketAccounter.financeManager.saveCredits();
+     //   PocketAccounter.financeManager.saveCredits();
         super.onStop();
     }
 
@@ -464,6 +501,7 @@ public class InfoCreditFragment extends Fragment {
             }
             else {
                 view.infoAccount.setVisibility(View.GONE);
+
             }
             if(!item.getComment().matches(""))
             view.comment.setText(getString(R.string.comment)+": " + item.getComment());
@@ -481,7 +519,9 @@ public class InfoCreditFragment extends Fragment {
                 });
             }
             else{
+                view.forDelete.setChecked(false);
                 view.forDelete.setVisibility(View.GONE);
+
             }
         }
 

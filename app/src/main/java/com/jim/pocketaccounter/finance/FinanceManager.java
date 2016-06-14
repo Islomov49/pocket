@@ -34,8 +34,9 @@ public class FinanceManager {
 		debtBorrows = loadDebtBorrows();
 	}
 	public ArrayList<CreditDetials> loadCredits() {
-		return db.loadCredits();}
-	public ArrayList<CreditDetials> getCredits() {return credits;}
+				return db.loadCredits();}
+	public ArrayList<CreditDetials> getCredits() {
+				return credits;}
 	public void saveCredits() {db.saveDatasToCreditTable(credits);}
 	public ArrayList<Currency> getCurrencies() {
 		return currencies;

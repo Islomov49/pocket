@@ -13,6 +13,7 @@ import com.jim.pocketaccounter.R;
 import com.jim.pocketaccounter.debt.DebtBorrow;
 import com.jim.pocketaccounter.finance.FinanceManager;
 import com.jim.pocketaccounter.finance.FinanceRecord;
+import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

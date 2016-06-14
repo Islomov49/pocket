@@ -40,4 +40,5 @@
     <color name="grey_light3" type="color">#f6fffc</color>
     <color name="green_light_forline_darker" type="color">#c9c8c8</color>
     <color name="for_darker" type="color">#414141</color>
+    <color name="deletecolor" type="color">#d8d8d8</color>
 </resources>

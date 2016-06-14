@@ -1,8 +1,6 @@
 package com.jim.pocketaccounter;
 
-import android.app.FragmentTransaction;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,25 +9,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
-
 import com.jim.pocketaccounter.credit.AdapterCridet;
 import com.jim.pocketaccounter.credit.CreditDetials;
-import com.jim.pocketaccounter.finance.Currency;
+import com.jim.pocketaccounter.finance.FinanceManager;
 import com.melnykov.fab.FloatingActionButton;
-
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.GregorianCalendar;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
+
 
 
 public class CreditFragment extends Fragment {
@@ -39,25 +24,26 @@ public class CreditFragment extends Fragment {
     AdapterCridet crAdap;
     Context This;
     FloatingActionButton fb;
+    private FinanceManager financeManager;
     public CreditFragment() {
         // Required empty public constructor
 
     }
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        crList=new ArrayList<>();
+        crList=PocketAccounter.financeManager.getCredits();
+        for(CreditDetials temp:crList){
+            Log.d("proverka",temp.getCredit_name());
+        }
         This=getActivity();
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View V=inflater.inflate(R.layout.fragment_credit, container, false);
-
+        financeManager = PocketAccounter.financeManager;
         crRV=(RecyclerView) V.findViewById(R.id.my_recycler_view);
         fb=(FloatingActionButton) V.findViewById(R.id.fab);
         LinearLayoutManager llm = new LinearLayoutManager(This);
@@ -139,38 +125,37 @@ public class CreditFragment extends Fragment {
         }
     }
     public void updateToFirst(){
-        creditDetialsesList=PocketAccounter.financeManager.getCredits();
-        crList.add(0,creditDetialsesList.get(0));
+       // crList.add(0,creditDetialsesList.get(0));
+        crList=PocketAccounter.financeManager.getCredits();
         crAdap.notifyItemInserted(0);
+       // financeManager.setCredits(crList);
         crRV.scrollToPosition(0);
     }
     public void updateList(){
-        crList.clear();
-        creditDetialsesList=PocketAccounter.financeManager.getCredits();
+     //   crList.clear();
+      /* creditDetialsesList=PocketAccounter.financeManager.getCredits();
         for (CreditDetials temp:creditDetialsesList){
             crList.add(temp);
-        }
+        }*/
+        crList=PocketAccounter.financeManager.getCredits();
         crAdap.notifyDataSetChanged();
     }
-
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
     }
     @Override
-
     public void onStop() {
         super.onStop();
+      //  PocketAccounter.financeManager.setCredits(crList);
         PocketAccounter.financeManager.saveCredits();
-    }
 
+    }
     @Override
     public void onDetach() {
         super.onDetach();
-
+        PocketAccounter.financeManager.saveCredits();
     }
-
     interface EventFromAdding{
         void addedCredit();
         void canceledAdding();

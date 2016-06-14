@@ -82,6 +82,8 @@ public class AddCreditFragment extends Fragment {
     CheckBox isOpkey;
     public static final String OPENED_TAG="Addcredit";
     public static  boolean to_open_dialog=false;
+    private FinanceManager manager;
+
     public AddCreditFragment() {
         // Required empty public constructor
         ThisFragment=this;
@@ -106,7 +108,7 @@ public class AddCreditFragment extends Fragment {
         spinner_peiod=(Spinner) V.findViewById(R.id.spinner_period);
         spiner_trasnact=(Spinner) V.findViewById(R.id.spinner_sceta);
         isOpkey=(CheckBox) V.findViewById(R.id.key_for_balance);
-
+        to_open_dialog=false;
         nameCred=(EditText) V.findViewById(R.id.editText) ;
         valueCred=(EditText) V.findViewById(R.id.value_credit) ;
         procentCred=(EditText) V.findViewById(R.id.procent_credit) ;
@@ -115,7 +117,30 @@ public class AddCreditFragment extends Fragment {
         lastCred=(EditText) V.findViewById(R.id.date_ends_edit) ;
         transactionCred=(EditText) V.findViewById(R.id.for_trasaction_credit) ;
 
+        nameCred.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(nameCred.getText().toString().matches("")){
+                    to_open_dialog=false;
+                }
+                else{
+
+                        to_open_dialog=true;
+
+                }
+                Log.d("somesome",""+to_open_dialog+" "+nameCred.getText().toString());
+            }
+        });
         ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
         ivToolbarMostRight.setImageResource(R.drawable.check_sign);
         ivToolbarMostRight.setVisibility(View.VISIBLE);
@@ -551,6 +576,9 @@ public class AddCreditFragment extends Fragment {
         View dialogView = getActivity().getLayoutInflater().inflate(R.layout.info_about_all, null);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(dialogView);
+
+        manager = PocketAccounter.financeManager;
+
         final TextView value = (TextView) dialogView.findViewById(R.id.textView9);
         final TextView procent = (TextView) dialogView.findViewById(R.id.textView11);
         final EditText solution = (EditText) dialogView.findViewById(R.id.edit_result);
@@ -608,10 +636,7 @@ public class AddCreditFragment extends Fragment {
                         period_tip=forDay;
                         break;
                 }
-                myList=PocketAccounter.financeManager.getCredits();
-
-
-
+                myList=manager.getCredits();
 
                 boolean key=true;
                 key = isOpkey.isChecked();
@@ -691,14 +716,10 @@ public class AddCreditFragment extends Fragment {
         if(!onSucsessed)
         eventLis.canceledAdding();
         else{
-          /*  FinanceManager manager = PocketAccounter.financeManager;
-            manager.setCredits(myList);*/
-           PocketAccounter.financeManager.saveCredits();
-//            manager.setCredits(manager.loadCredits());
+            PocketAccounter.financeManager.saveCredits();
             eventLis.addedCredit();
         }
 
-//        PocketAccounter.financeManager.saveCredits();
         super.onDetach();
     }
 

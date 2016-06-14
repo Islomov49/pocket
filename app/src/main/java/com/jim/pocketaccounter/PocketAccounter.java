@@ -187,6 +187,7 @@ public class PocketAccounter extends AppCompatActivity {
         android.support.v4.app.Fragment temp00 = getSupportFragmentManager().
                 findFragmentById(R.id.flMain);
         if(temp00!=null){
+            if(temp00.getTag()!=null)
             if(temp00.getTag().equals(AddCreditFragment.OPENED_TAG) && AddCreditFragment.to_open_dialog){
                 Log.d("somethinkkk","DIALOG OPENED IN ADDCREDIT");
                 final AlertDialog.Builder builder = new AlertDialog.Builder(PocketAccounter.this);
@@ -206,11 +207,16 @@ public class PocketAccounter extends AppCompatActivity {
             else {
                 AddCreditFragment.to_open_dialog=true;
                 super.onBackPressed();
+            } else{
+                super.onBackPressed();
+
             }
         }
         else{
             super.onBackPressed();
+
         }
+
     }
 
     @Override
