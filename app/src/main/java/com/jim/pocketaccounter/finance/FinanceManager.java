@@ -5,6 +5,7 @@ import android.provider.DocumentsContract;
 import android.util.Log;
 
 import com.jim.pocketaccounter.credit.CreditDetials;
+import com.jim.pocketaccounter.debt.DebtBorrow;
 import com.jim.pocketaccounter.helper.PocketAccounterDatabase;
 import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
@@ -18,6 +19,8 @@ public class FinanceManager {
 	private ArrayList<FinanceRecord> records;
 	private ArrayList<CreditDetials> credits;
 	private PocketAccounterDatabase db;
+	private ArrayList<DebtBorrow> debtBorrows;
+
 	public FinanceManager(Context context) {
 		this.context = context;
 		db = new PocketAccounterDatabase(context);
@@ -28,6 +31,7 @@ public class FinanceManager {
 		accounts = loadAccounts();
 		records = loadRecords();
 		credits = loadCredits();
+		debtBorrows = loadDebtBorrows();
 	}
 	public ArrayList<CreditDetials> loadCredits() {
 		return db.loadCredits();}
@@ -41,6 +45,14 @@ public class FinanceManager {
 	}
 	private ArrayList<Currency> loadCurrencies() {
 		return db.loadCurrencies();
+	}
+
+	public ArrayList<DebtBorrow> getDebtBorrows() {
+		return debtBorrows;
+	}
+
+	public void setDebtBorrows(ArrayList<DebtBorrow> debtBorrows) {
+		this.debtBorrows = debtBorrows;
 	}
 
 	public void setCredits(ArrayList<CreditDetials> credits) {
@@ -75,4 +87,10 @@ public class FinanceManager {
 	public void saveIncomes() {db.saveIncomes(incomes);}
 	public ArrayList<RootCategory> getExpanses() {return expanses;}
 	public ArrayList<RootCategory> getIncomes() {return incomes;}
+	public void saveDebtBorrows () {
+		db.saveDebtBorrowsToTable(debtBorrows);
+	}
+	public ArrayList<DebtBorrow> loadDebtBorrows () {
+		return db.loadDebtBorrows();
+	}
 }

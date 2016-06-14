@@ -20,14 +20,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-//import com.bumptech.glide.Glide;
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
+import com.jim.pocketaccounter.finance.Currency;
 import com.jim.pocketaccounter.finance.FinanceManager;
 
 import java.util.ArrayList;
@@ -57,6 +58,7 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
     private String photoPath = "";
     private Calendar getDate;
     private Calendar returnDate;
+    private CheckBox calculate;
     private int TYPE = 0;
     private static final int REQUEST_SELECT_CONTACT = 2;
     private FinanceManager manager;
@@ -108,11 +110,12 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
         PersonSumm = (EditText) view.findViewById(R.id.etBorrowAddPopupSumm);
         PersonValyuta = (Spinner) view.findViewById(R.id.spBorrowAddPopupValyuta);
         PersonAccount = (Spinner) view.findViewById(R.id.spBorrowAddPopupAccount);
+        calculate = (CheckBox) view.findViewById(R.id.chbAddDebtBorrowCalculate);
         manager = PocketAccounter.financeManager;
 
-//        for (int i = 0; i < manager.getDebtBorrows().size(); i++) {
-//            Toast.makeText(getContext(), "" + i, Toast.LENGTH_SHORT).show();
-//        }
+        for (int i = 0; i < manager.getDebtBorrows().size(); i++) {
+            Toast.makeText(getContext(), "" + i, Toast.LENGTH_SHORT).show();
+        }
 
         PersonAccount.setOnItemSelectedListener(this);
         PersonValyuta.setOnItemSelectedListener(this);
@@ -176,45 +179,46 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (PersonName.getText().toString().equals("")) {
-//                    PersonName.setHintTextColor(Color.RED);
-//                } else {
-//                    if (PersonSumm.getText().toString().equals("")) {
-//                        PersonName.setHintTextColor(Color.RED);
-//                    } else {
-//                        if (PersonDataGet.getText().toString().matches("")) {
-//                            PersonDataGet.setHintTextColor(Color.RED);
-//                        } else {
-//                            ArrayList<DebtBorrow> list = manager.getDebtBorrows();
-//                            if (returnDate == null) {
-//                                list.add(new DebtBorrow(new Person(PersonName.getText().toString(), PersonNumber.getText().toString(), photoPath),
-//                                        getDate,
-//                                        returnDate,
-//                                        "borrow_" + UUID.randomUUID().toString(),
-//                                        PersonAccount.getSelectedItem().toString(),
-//                                        PersonValyuta.getSelectedItem().toString(),
-//                                        Double.parseDouble(PersonSumm.getText().toString()),
-//                                        TYPE));
-//
-//                            } else {
-//                                list.add(new DebtBorrow(new Person(PersonName.getText().toString(), PersonNumber.getText().toString(), photoPath),
-//                                        getDate,
-//                                        returnDate,
-//                                        "borrow_" + UUID.randomUUID().toString(),
-//                                        PersonAccount.getSelectedItem().toString(),
-//                                        PersonValyuta.getSelectedItem().toString(),
-//                                        Double.parseDouble(PersonSumm.getText().toString()),
-//                                        TYPE));
-//                            }
-//                            Toast.makeText(getContext(), "" +
-//                                    "" + list.size(), Toast.LENGTH_SHORT).show();
-//                            manager.setDebtBorrows(list);
-//                            manager.saveDebtBorrows();
-//                            manager.loadDebtBorrows();
-//                            ((PocketAccounter) getContext()).replaceFragment(new DebtBorrowFragment());
-//                        }
-//                    }
-//                }
+                if (PersonName.getText().toString().equals("")) {
+                    PersonName.setHintTextColor(Color.RED);
+                } else {
+                    if (PersonSumm.getText().toString().equals("")) {
+                        PersonName.setHintTextColor(Color.RED);
+                    } else {
+                        if (PersonDataGet.getText().toString().matches("")) {
+                            PersonDataGet.setHintTextColor(Color.RED);
+                        } else {
+                            ArrayList<DebtBorrow> list = manager.getDebtBorrows();
+                            Currency currency = manager.getCurrencies().get(PersonValyuta.getSelectedItemPosition());
+                            if (returnDate == null) {
+                                list.add(new DebtBorrow(new Person(PersonName.getText().toString(), PersonNumber.getText().toString(), photoPath),
+                                        getDate,
+                                        returnDate,
+                                        "borrow_" + UUID.randomUUID().toString(),
+                                        PersonAccount.getSelectedItem().toString(),
+                                        currency,
+                                        Double.parseDouble(PersonSumm.getText().toString()),
+                                        TYPE, calculate.isChecked()));
+
+                            } else {
+                                list.add(new DebtBorrow(new Person(PersonName.getText().toString(), PersonNumber.getText().toString(), photoPath),
+                                        getDate,
+                                        returnDate,
+                                        "borrow_" + UUID.randomUUID().toString(),
+                                        PersonAccount.getSelectedItem().toString(),
+                                        currency,
+                                        Double.parseDouble(PersonSumm.getText().toString()),
+                                        TYPE, calculate.isChecked()));
+                            }
+                            Toast.makeText(getContext(), "" +
+                                    "" + list.size(), Toast.LENGTH_SHORT).show();
+                            manager.setDebtBorrows(list);
+                            manager.saveDebtBorrows();
+                            manager.loadDebtBorrows();
+                            ((PocketAccounter) getContext()).replaceFragment(new DebtBorrowFragment());
+                        }
+                    }
+                }
             }
         });
 
@@ -247,7 +251,7 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_SELECT_CONTACT && resultCode == RESULT_OK) {
-            // Get the URI and query the content provider for the phone number
+//             Get the URI and query the content provider for the phone number
             Uri contactUri = data.getData();
             String[] projection = new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER,
                     ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
