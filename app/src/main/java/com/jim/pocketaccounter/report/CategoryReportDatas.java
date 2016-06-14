@@ -36,6 +36,7 @@ public class CategoryReportDatas {
     }
     public ArrayList<CategoryDataRow> makeReport() {
         ArrayList<CategoryDataRow> result  = new ArrayList<CategoryDataRow>();
+        //income expanses begin
         for (int i=0; i<periodDatas.size(); i++) {
             boolean categoryFound = false;
             int foundCategoryPosition = 0;
@@ -114,6 +115,13 @@ public class CategoryReportDatas {
                 result.add(newCategoryDataRow);
             }
         }
+        //end income expanses
+
+        //credit begin
+        //credit end
+
+        //debt borrows begin
+        //debt borrows end
         return result;
     }
 }

@@ -15,6 +15,8 @@ import com.jim.pocketaccounter.R;
 import com.jim.pocketaccounter.credit.CreditDetials;
 import com.jim.pocketaccounter.credit.ReckingCredit;
 import com.jim.pocketaccounter.debt.DebtBorrow;
+import com.jim.pocketaccounter.debt.Person;
+import com.jim.pocketaccounter.debt.Recking;
 import com.jim.pocketaccounter.finance.Account;
 import com.jim.pocketaccounter.finance.Currency;
 import com.jim.pocketaccounter.finance.CurrencyCost;
@@ -111,13 +113,23 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 				+ "person_number TEXT,"
 				+ "taken_date TEXT,"
 				+ "return_date TEXT,"
-				+ "remind INTEGER,"
+				+ "calculate INTEGER,"
+				+ "to_archive INTEGER,"
 				+ "type INTEGER,"
 				+ "account_id TEXT,"
 				+ "currency_id TEXT,"
 				+ "amount REAL,"
-				+ "debt_id TEXT,"
+				+ "id TEXT,"
 				+ "photo_id TEXT"
+				+ ");");
+		//debtborrow recking table
+		db.execSQL("CREATE TABLE debtborrow_recking_table ("
+				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ "pay_date TEXT,"
+				+ "amount REAL,"
+				+ "id TEXT,"
+				+ "account_id TEXT,"
+				+ "comment TEXT"
 				+ ");");
 		//credit
 		db.execSQL("CREATE TABLE credit_table ("
@@ -145,7 +157,41 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 		initDefault(db);
 		initIncomesAndExpanses(db);
 	}
+	public void saveDebtBorrowsToTable(ArrayList<DebtBorrow> debtBorrows) {
+		SQLiteDatabase db = getWritableDatabase();
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+		db.execSQL("DELETE FROM debt_borrow_table");
+		db.execSQL("DELETE FROM debtborrow_recking_table");
+		for (DebtBorrow debtBorrow : debtBorrows) {
+			ContentValues values = new ContentValues();
+			values.put("person_name", debtBorrow.getPerson().getName());
+			values.put("person_number", debtBorrow.getPerson().getPhoneNumber());
+			values.put("photo_id", debtBorrow.getPerson().getPhoto());
+			values.put("taken_date", dateFormat.format(debtBorrow.getTakenDate().getTime()));
+			values.put("return_date", dateFormat.format(debtBorrow.getReturnDate().getTime()));
+			values.put("type", debtBorrow.getType());
+			values.put("account_id", debtBorrow.getAccount());
+			values.put("currency_id", debtBorrow.getCurrency().getId());
+			values.put("amount", debtBorrow.getAmount());
+			values.put("id", debtBorrow.getId());
+			values.put("calculate", debtBorrow.isCalculate());
+			values.put("to_archive", debtBorrow.isTo_archive());
+			db.insert("debt_borrow_table", null, values);
+			values.clear();
 
+			ArrayList<Recking> list = debtBorrow.getReckings();
+			for (Recking rc : list) {
+				values.put("pay_date", rc.getPayDate());
+				values.put("amount", rc.getAmount());
+				values.put("id", debtBorrow.getId());
+				values.put("account_id", rc.getAccountId());
+				values.put("comment", rc.getComment());
+				db.insert("debtborrow_recking_table", null, values);
+				values.clear();
+			}
+		}
+		db.close();
+	}
 	public void saveDatasToCreditTable(ArrayList<CreditDetials> credits) {
 		SQLiteDatabase db = getWritableDatabase();
 		ContentValues values = new ContentValues();
@@ -641,6 +687,68 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 			newRecord.setAmount(cursor.getDouble(cursor.getColumnIndex("amount")));
 			result.add(newRecord);
 			cursor.moveToNext();
+		}
+		return result;
+	}
+	public ArrayList<DebtBorrow> loadDebtBorrows() {
+		ArrayList<DebtBorrow> result = new ArrayList();
+		SQLiteDatabase db = getReadableDatabase();
+		Cursor dbCursor = db.query("debt_borrow_table", null, null, null, null, null, null);
+		Cursor reckCursor = db.query("debtborrow_recking_table", null, null, null, null, null, null);
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+		dbCursor.moveToFirst();
+		while (!dbCursor.isAfterLast()) {
+			DebtBorrow newDebtBorrow = new DebtBorrow();
+			Person newPerson = new Person();
+			newPerson.setName(dbCursor.getString(dbCursor.getColumnIndex("person_name")));
+			newPerson.setPhoneNumber(dbCursor.getString(dbCursor.getColumnIndex("person_number")));
+			newPerson.setPhoto(dbCursor.getString(dbCursor.getColumnIndex("photo_id")));
+			newDebtBorrow.setPerson(newPerson);
+			try {
+				Calendar takenCalendar = Calendar.getInstance();
+				Calendar returnCalendar = Calendar.getInstance();
+				takenCalendar.setTime(dateFormat.parse(dbCursor.getString(dbCursor.getColumnIndex("taken_date"))));
+				if (dbCursor.getString(dbCursor.getColumnIndex("return_date")).matches(""))
+					returnCalendar = null;
+				else
+					returnCalendar.setTime(dateFormat.parse(dbCursor.getString(dbCursor.getColumnIndex("return_date"))));
+				newDebtBorrow.setTakenDate(takenCalendar);
+				newDebtBorrow.setReturnDate(returnCalendar);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			String accountId = dbCursor.getString(dbCursor.getColumnIndex("account_id"));
+			String currencyId = dbCursor.getString(dbCursor.getColumnIndex("currency_id"));
+			newDebtBorrow.setAccount(accountId);
+			newDebtBorrow.setCalculate(dbCursor.getInt(dbCursor.getColumnIndex("calculate")) == 0 ? false : true);
+
+			ArrayList<Currency> currencies = loadCurrencies();
+
+			for (Currency cr : currencies) {
+				if (cr.getId().equals(currencyId)) {
+					newDebtBorrow.setCurrency(cr);
+					break;
+				}
+			}
+			newDebtBorrow.setAmount(dbCursor.getDouble(dbCursor.getColumnIndex("amount")));
+			newDebtBorrow.setType(dbCursor.getInt(dbCursor.getColumnIndex("type")));
+			String id = dbCursor.getString(dbCursor.getColumnIndex("id"));
+			newDebtBorrow.setId(id);
+			reckCursor.moveToFirst();
+			ArrayList<Recking> list = new ArrayList<Recking>();
+			while (!reckCursor.isAfterLast()) {
+				if (id.matches(reckCursor.getString(reckCursor.getColumnIndex("id")))) {
+					list.add(new Recking(reckCursor.getString(reckCursor.getColumnIndex("pay_date")),
+							reckCursor.getDouble(reckCursor.getColumnIndex("amount")), id,
+							reckCursor.getString(reckCursor.getColumnIndex("account_id")),
+							reckCursor.getString(reckCursor.getColumnIndex("comment"))
+					));
+				}
+				reckCursor.moveToNext();
+			}
+			newDebtBorrow.setReckings(list);
+			result.add(newDebtBorrow);
+			dbCursor.moveToNext();
 		}
 		return result;
 	}

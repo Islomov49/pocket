@@ -60,13 +60,11 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 		ArrayList<RootCategory> categories = new ArrayList<RootCategory>();
 		for (int i = 0; i< PocketAccounter.financeManager.getCategories().size(); i++) {
 			if (chbCatIncomes.isChecked()) {
-				if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.INCOME ||
-						PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.BOTH)
+				if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.INCOME)
 					categories.add(PocketAccounter.financeManager.getCategories().get(i));
 			}
 			if(chbCatExpanses.isChecked()) {
-				if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.EXPANCE ||
-						PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.BOTH)
+				if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.EXPANCE)
 					categories.add(PocketAccounter.financeManager.getCategories().get(i));
 			}
 		}

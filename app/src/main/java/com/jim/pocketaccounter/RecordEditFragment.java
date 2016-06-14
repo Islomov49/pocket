@@ -38,6 +38,9 @@ import com.jim.pocketaccounter.finance.RootCategory;
 import com.jim.pocketaccounter.finance.SubCategory;
 import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
+import net.objecthunter.exp4j.Expression;
+import net.objecthunter.exp4j.ExpressionBuilder;
+
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -46,9 +49,7 @@ import java.util.Calendar;
 import java.util.UUID;
 
 @SuppressLint("ValidFragment")
-public class RecordEditFragment extends Fragment implements OnClickListener {
-    private RelativeLayout rlZero, rlOne, rlTwo, rlThree, rlFour, rlFive, rlSix, rlSeven, rlEight, rlNine, rlDot, rlEqualSign,
-            rlPlusSign, rlMinusSign, rlMultipleSign, rlDivideSign, rlClearSign, rlBackspaceSign, rlCategory, rlSubCategory;
+public class RecordEditFragment extends Fragment implements OnClickListener{
     private TextView tvRecordEditDisplay;
     private ImageView ivToolbarMostRight, ivRecordEditCategory, ivRecordEditSubCategory;
     private Spinner spRecordEdit, spToolbar;
@@ -67,15 +68,11 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
             calc = false,
             sequence = false;
     private int[] numericButtons = {R.id.rlZero, R.id.rlOne, R.id.rlTwo, R.id.rlThree, R.id.rlFour, R.id.rlFive, R.id.rlSix, R.id.rlSeven, R.id.rlEight, R.id.rlNine};
-    // IDs of all the operator buttons
     private int[] operatorButtons = {R.id.rlPlusSign, R.id.rlMinusSign, R.id.rlMultipleSign, R.id.rlDivideSign};
-    // TextView used to display the output
     private boolean lastNumeric;
-    // Represent that current state is in error or not
     private boolean stateError;
-    // If true, do not allow to add another DOT
     private boolean lastDot;
-
+    private boolean lastOperator;
     @SuppressLint("ValidFragment")
     public RecordEditFragment(RootCategory category, Calendar date, FinanceRecord record, int parent) {
         this.parent = parent;
@@ -146,31 +143,8 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
         ivRecordEditCategory = (ImageView) rootView.findViewById(R.id.ivRecordEditCategory);
         ivRecordEditSubCategory = (ImageView) rootView.findViewById(R.id.ivRecordEditSubCategory);
         tvRecordEditDisplay = (TextView) rootView.findViewById(R.id.tvRecordEditDisplay);
-        // Find and set OnClickListener to numeric buttons
-        setNumericOnClickListener();
-        // Find and set OnClickListener to operator buttons, equal button and decimal point button
-//        setOperatorOnClickListener();
-        rlDot = (RelativeLayout) rootView.findViewById(R.id.rlDot);
-        rlDot.setOnClickListener(this);
-        OperationHandler handler = new OperationHandler();
-        rlEqualSign = (RelativeLayout) rootView.findViewById(R.id.rlEqualSign);
-        rlEqualSign.setOnClickListener(handler);
-        rlPlusSign = (RelativeLayout) rootView.findViewById(R.id.rlPlusSign);
-        rlPlusSign.setOnClickListener(handler);
-        rlMinusSign = (RelativeLayout) rootView.findViewById(R.id.rlMinusSign);
-        rlMinusSign.setOnClickListener(handler);
-        rlMultipleSign = (RelativeLayout) rootView.findViewById(R.id.rlMultipleSign);
-        rlMultipleSign.setOnClickListener(handler);
-        rlDivideSign = (RelativeLayout) rootView.findViewById(R.id.rlDivideSign);
-        rlDivideSign.setOnClickListener(handler);
-        rlClearSign = (RelativeLayout) rootView.findViewById(R.id.rlCancelSign);
-        rlClearSign.setOnClickListener(handler);
-        rlBackspaceSign = (RelativeLayout) rootView.findViewById(R.id.rlBackspaceSign);
-        rlBackspaceSign.setOnClickListener(this);
-        rlCategory = (RelativeLayout) rootView.findViewById(R.id.rlCategory);
-        rlCategory.setOnClickListener(this);
-        rlSubCategory = (RelativeLayout) rootView.findViewById(R.id.rlSubcategory);
-        rlSubCategory.setOnClickListener(this);
+        setNumericOnClickListener(rootView);
+        setOperatorOnClickListener(rootView);
         DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols();
         otherSymbols.setDecimalSeparator('.');
         otherSymbols.setGroupingSeparator('.');
@@ -201,15 +175,15 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
         }
         return rootView;
     }
-    private void setNumericOnClickListener() {
-        // Create a common OnClickListener
+    private void setNumericOnClickListener(View view) {
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Just append/set the text of clicked button
-                RelativeLayout button = (RelativeLayout) v;
                 String text = "";
                 switch (v.getId()) {
+                    case R.id.rlZero:
+                        text = "0";
+                        break;
                     case R.id.rlOne:
                         text = "1";
                         break;
@@ -239,238 +213,167 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
                         break;
                 }
                 if (stateError) {
-                    // If current state is Error, replace the error message
-//                    tvRecordEditDisplay.setText(button.getText());
+                    tvRecordEditDisplay.setText(text);
                     stateError = false;
                 } else {
-                    // If not, already there is a valid expression so append to it
-//                    tvRecordEditDisplay.append(button.getText());
+                    String displayText = tvRecordEditDisplay.getText().toString();
+                    if (displayText.matches("") || displayText.matches("0"))
+                        tvRecordEditDisplay.setText(text);
+                    else
+                        tvRecordEditDisplay.append(text);
                 }
-                // Set the flag
                 lastNumeric = true;
+                lastOperator = false;
             }
         };
-        // Assign the listener to all the numeric buttons
-        for (int id : numericButtons) {
-//            findViewById(id).setOnClickListener(listener);
-        }
+        for (int id : numericButtons)
+            view.findViewById(id).setOnClickListener(listener);
     }
-
-    @Override
-    public void onClick(View view) {
-        if (!calc) {
-            sequence = false;
-            if (tek ? s2.length() < 18 : s.length() < 18) {
-                switch (view.getId()) {
-                    case R.id.rlZero:
-                        if (tek) {
-                            if (tek2) {
-                                s2 = "";
-                                tek2 = false;
-                            }
-                            s2 += "0";
-                            tvRecordEditDisplay.setText(s2);
-                        } else {
-                            s += "0";
-                            tvRecordEditDisplay.setText(s);
-                        }
+    private void setOperatorOnClickListener(View view) {
+        // Create a common OnClickListener for operators
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = "";
+                switch (v.getId()) {
+                    case R.id.rlPlusSign:
+                        text = "+";
                         break;
-                    case R.id.rlOne:
-                        if (tek) {
-                            if (tek2) {
-                                s2 = "";
-                                tek2 = false;
-                            }
-                            s2 += "1";
-                            tvRecordEditDisplay.setText(s2);
-                        } else {
-                            s += "1";
-                            tvRecordEditDisplay.setText(s);
-                        }
+                    case R.id.rlMinusSign:
+                        text = "-";
                         break;
-                    case R.id.rlTwo:
-                        if (tek) {
-                            if (tek2) {
-                                s2 = "";
-                                tek2 = false;
-                            }
-                            s2 += "2";
-                            tvRecordEditDisplay.setText(s2);
-                        } else {
-                            s += "2";
-                            tvRecordEditDisplay.setText(s);
-                        }
+                    case R.id.rlDivideSign:
+                        text = "/";
                         break;
-                    case R.id.rlThree:
-                        if (tek) {
-                            if (tek2) {
-                                s2 = "";
-                                tek2 = false;
-                            }
-                            s2 += "3";
-                            tvRecordEditDisplay.setText(s2);
-                        } else {
-                            s += "3";
-                            tvRecordEditDisplay.setText(s);
-                        }
-                        break;
-                    case R.id.rlFour:
-                        if (tek) {
-                            if (tek2) {
-                                s2 = "";
-                                tek2 = false;
-                            }
-                            s2 += "4";
-                            tvRecordEditDisplay.setText(s2);
-                        } else {
-                            s += "4";
-                            tvRecordEditDisplay.setText(s);
-                        }
-                        break;
-                    case R.id.rlFive:
-                        if (tek) {
-                            if (tek2) {
-                                s2 = "";
-                                tek2 = false;
-                            }
-                            s2 += "5";
-                            tvRecordEditDisplay.setText(s2);
-                        } else {
-                            s += "5";
-                            tvRecordEditDisplay.setText(s);
-                        }
-                        break;
-                    case R.id.rlSix:
-                        if (tek) {
-                            if (tek2) {
-                                s2 = "";
-                                tek2 = false;
-                            }
-                            s2 += "6";
-                            tvRecordEditDisplay.setText(s2);
-                        } else {
-                            s += "6";
-                            tvRecordEditDisplay.setText(s);
-                        }
-                        break;
-                    case R.id.rlSeven:
-                        if (tek) {
-                            if (tek2) {
-                                s2 = "";
-                                tek2 = false;
-                            }
-                            s2 += "7";
-                            tvRecordEditDisplay.setText(s2);
-                        } else {
-                            s += "7";
-                            tvRecordEditDisplay.setText(s);
-                        }
-                        break;
-                    case R.id.rlEight:
-                        if (tek) {
-                            if (tek2) {
-                                s2 = "";
-                                tek2 = false;
-                            }
-                            s2 += "8";
-                            tvRecordEditDisplay.setText(s2);
-                        } else {
-                            s += "8";
-                            tvRecordEditDisplay.setText(s);
-                        }
-                        break;
-                    case R.id.rlNine:
-                        if (tek) {
-                            if (tek2) {
-                                s2 = "";
-                                tek2 = false;
-                            }
-                            s2 += "9";
-                            tvRecordEditDisplay.setText(s2);
-                        } else {
-                            s += "9";
-                            tvRecordEditDisplay.setText(s);
-                        }
-                        break;
-                    case R.id.rlDot:
-                        if (tek) {
-                            if (s2.indexOf('.') == -1) {
-                                if (tek2 && s2.isEmpty()) {
-                                    s2 = "0";
-                                    tek2 = false;
-                                }
-                                s2 += ".";
-                                tvRecordEditDisplay.setText(s2);
-                            }
-                        } else {
-                            if (s.indexOf('.') == -1) {
-                                if (s.isEmpty()) s = "0";
-                                s += ".";
-                                tvRecordEditDisplay.setText(s);
-                            }
-                        }
-                        break;
-                    case R.id.rlBackspaceSign: {
-                        if (tek ? s2.length() > 0 : s.length() > 0) {
-                            if (tek) {
-                                if (tek2) {
-                                    s2 = "0";
-                                    tek2 = false;
-                                }
-                                s2 = s2.substring(0, s2.length() - 1);
-                                tvRecordEditDisplay.setText(s2.length() > 0 ? s2 : "0");
-                            } else {
-                                s = s.substring(0, s.length() - 1);
-                                tvRecordEditDisplay.setText(s.length() > 0 ? s : "0");
-                            }
-                        }
-                        break;
-                    }
-                    case R.id.rlCategory:
-                        final Dialog dialog=new Dialog(getActivity());
-                        View dialogView = getActivity().getLayoutInflater().inflate(R.layout.category_choose_list, null);
-                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                        dialog.setContentView(dialogView);
-                        ListView lvCategoryChoose = (ListView) dialogView.findViewById(R.id.lvCategoryChoose);
-                        String expanse = getResources().getString(R.string.expanse);
-                        String income = getResources().getString(R.string.income);
-                        String[] items = new String[2];
-                        items[0] = expanse;
-                        items[1] = income;
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, items);
-                        lvCategoryChoose.setAdapter(adapter);
-                        lvCategoryChoose.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                ArrayList<RootCategory> categories = new ArrayList<RootCategory>();
-                                if (position == 0) {
-                                    for (int i=0; i<PocketAccounter.financeManager.getCategories().size(); i++) {
-                                        if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.EXPANCE ||
-                                                PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.BOTH)
-                                            categories.add(PocketAccounter.financeManager.getCategories().get(i));
-                                    }
-                                }
-                                else {
-                                    for (int i=0; i<PocketAccounter.financeManager.getCategories().size(); i++) {
-                                        if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.INCOME ||
-                                                PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.BOTH)
-                                            categories.add(PocketAccounter.financeManager.getCategories().get(i));
-                                    }
-                                }
-                                dialog.dismiss();
-                                openCategoryDialog(categories);
-                            }
-                        });
-                        dialog.show();
-                        break;
-                    case R.id.rlSubcategory:
-                        openSubCategoryDialog();
-                        break;
-                    case R.id.ivToolbarMostRight:
-                        createNewRecord();
+                    case R.id.rlMultipleSign:
+                        text = "*";
                         break;
                 }
+                if (lastNumeric && !stateError) {
+                    tvRecordEditDisplay.append(text);
+                    lastNumeric = false;
+                    lastDot = false;
+                    lastOperator = true;
+                }
+                if (lastOperator) {
+                    String dispText = tvRecordEditDisplay.getText().toString();
+                    dispText = dispText.substring(0, dispText.length()-1)+text;
+                    tvRecordEditDisplay.setText(dispText);
+                }
             }
+        };
+        for (int id : operatorButtons)
+            view.findViewById(id).setOnClickListener(listener);
+        view.findViewById(R.id.rlDot).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (lastNumeric && !stateError && !lastDot && !lastOperator) {
+                    tvRecordEditDisplay.append(".");
+                    lastNumeric = false;
+                    lastDot = true;
+                }
+            }
+        });
+        view.findViewById(R.id.rlBackspaceSign).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String dispText = tvRecordEditDisplay.getText().toString();
+                char lastChar = dispText.charAt(dispText.length()-1);
+                char[] opers = {'+', '-', '*', '/'};
+                for (int i=0; i<opers.length; i++) {
+                    if (opers[i] == lastChar) {
+                        lastOperator = false;
+                        lastNumeric = true;
+                    }
+                }
+                if (lastChar == '.') {
+                    lastDot = false;
+                    lastNumeric = true;
+                }
+                if (tvRecordEditDisplay.getText().toString().length() == 1)
+                    tvRecordEditDisplay.setText("0");
+                else {
+                    dispText = dispText.substring(0, dispText.length()-1);
+                    tvRecordEditDisplay.setText(dispText);
+                }
+            }
+        });
+        view.findViewById(R.id.rlCancelSign).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tvRecordEditDisplay.setText("0");
+                lastNumeric = false;
+                stateError = false;
+                lastDot = false;
+                lastOperator = false;
+            }
+        });
+        view.findViewById(R.id.rlEqualSign).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onEqual();
+            }
+        });
+    }
+    private void onEqual() {
+        if (lastNumeric && !stateError) {
+            String txt = tvRecordEditDisplay.getText().toString();
+            Expression expression = new ExpressionBuilder(txt).build();
+            try {
+                double result = expression.evaluate();
+                tvRecordEditDisplay.setText(Double.toString(result));
+                lastDot = true;
+            } catch (ArithmeticException ex) {
+                tvRecordEditDisplay.setText("Error");
+                stateError = true;
+                lastNumeric = false;
+            }
+        }
+    }
+    @Override
+    public void onClick(View view) {
+        switch(view.getId()) {
+            case R.id.rlCategory:
+                final Dialog dialog=new Dialog(getActivity());
+                View dialogView = getActivity().getLayoutInflater().inflate(R.layout.category_choose_list, null);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(dialogView);
+                ListView lvCategoryChoose = (ListView) dialogView.findViewById(R.id.lvCategoryChoose);
+                String expanse = getResources().getString(R.string.expanse);
+                String income = getResources().getString(R.string.income);
+                String[] items = new String[2];
+                items[0] = expanse;
+                items[1] = income;
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, items);
+                lvCategoryChoose.setAdapter(adapter);
+                lvCategoryChoose.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        ArrayList<RootCategory> categories = new ArrayList<RootCategory>();
+                        if (position == 0) {
+                            for (int i=0; i<PocketAccounter.financeManager.getCategories().size(); i++) {
+                                if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.EXPANCE)
+                                    categories.add(PocketAccounter.financeManager.getCategories().get(i));
+                            }
+                        }
+                        else {
+                            for (int i=0; i<PocketAccounter.financeManager.getCategories().size(); i++) {
+                                if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.INCOME)
+                                    categories.add(PocketAccounter.financeManager.getCategories().get(i));
+                            }
+                        }
+                        dialog.dismiss();
+                        openCategoryDialog(categories);
+                    }
+                });
+                dialog.show();
+                break;
+            case R.id.rlSubcategory:
+                openSubCategoryDialog();
+                break;
+            case R.id.ivToolbarMostRight:
+                createNewRecord();
+                break;
         }
     }
     private void createNewRecord() {
@@ -550,138 +453,5 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
         int width = dm.widthPixels;
         dialog.getWindow().setLayout(8*width/9, ActionBarOverlayLayout.LayoutParams.MATCH_PARENT);
         dialog.show();
-    }
-    private void calculate() {
-        if (operation != -1) {
-            if (!sequence) {
-                calc = false;
-            } else {
-                calc = true;
-            }
-            if (s.isEmpty())
-                s = "0";
-            if (s.indexOf('.') != -1 && s.substring(s.indexOf('.') + 1, s.length()).isEmpty())
-                s += "0";
-            if (s2.isEmpty()) {
-                switch (operation) {
-                    case 0:
-                    case 1: {
-                        s2 = s;
-                        s = "0";
-                        break;
-                    }
-                    case 2: {
-                        s2 = s;
-                        break;
-                    }
-                    case 3: {
-                        s2 = s;
-                        s = "1";
-                        break;
-                    }
-                }
-            }
-            if (s2.indexOf('.') != -1 && s2.substring(s2.indexOf('.') + 1, s2.length()).isEmpty())
-                s2 += "0";
-            BigDecimal a = new BigDecimal(s);
-            BigDecimal b = new BigDecimal(s2);
-            switch (operation) {
-                case 0: {
-                    a = a.add(b);
-                    break;
-                }
-                case 1: {
-                    a = a.subtract(b);
-                    break;
-                }
-                case 2: {
-                    a = a.multiply(b);
-                    break;
-                }
-                case 3: {
-                    if (b.equals(new BigDecimal("0"))) {
-                        tvRecordEditDisplay.setText(getResources().getString(R.string.divide_null));
-                        s = "";
-                        s2 = "";
-                        tek = false;
-                        calc = true;
-                    } else {
-                        a = a.divide(b);
-                    }
-                    break;
-                }
-            }
-            if (!b.equals(new BigDecimal("0"))) {
-                String text = "";
-                if ((a.toString()).length() > 18) {
-                    s = a.toString();
-                    text = (a.toString()).substring(0, 18);
-                } else {
-                    s = a.toString();
-                    text = s;
-                }
-                if (text.substring(text.indexOf('.') + 1, text.length()).equals("0"))
-                    tvRecordEditDisplay.setText(text.substring(0, text.indexOf('.')));
-                else tvRecordEditDisplay.setText(text);
-            }
-            tek2 = true;
-        }
-    }
-
-    class OperationHandler implements OnClickListener {
-        @Override
-        public void onClick(View v) {
-            if (!calc && !sequence) {
-                calculate();
-                sequence = true;
-            }
-            switch (v.getId()) {
-                case R.id.rlPlusSign: {
-                    operation = 0;
-                    tek = true;
-                    tek2 = true;
-                    calc = false;
-                    break;
-                }
-                case R.id.rlMinusSign: {
-                    operation = 1;
-                    tek2 = true;
-                    calc = false;
-                    tek = true;
-                    break;
-                }
-                case R.id.rlMultipleSign: {
-                    operation = 2;
-                    tek2 = true;
-                    tek = true;
-                    calc = false;
-                    break;
-                }
-                case R.id.rlDivideSign: {
-                    operation = 3;
-                    tek = true;
-                    tek2 = true;
-                    calc = false;
-                    break;
-                }
-                case R.id.rlEqualSign: {
-                    if (calc) {
-                        calculate();
-                    }
-                    calc = true;
-                    break;
-                }
-                case R.id.rlCancelSign: {
-                    s = "";
-                    s2 = "";
-                    tvRecordEditDisplay.setText("0");
-                    operation = -1;
-                    tek = false;
-                    tek2 = false;
-                    calc = false;
-                    break;
-                }
-            }
-        }
     }
 }

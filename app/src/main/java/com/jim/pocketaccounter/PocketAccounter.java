@@ -125,7 +125,7 @@ public class PocketAccounter extends AppCompatActivity {
                         //statistics by income/expanse
                         break;
                     case 8:
-                        //statistics by category
+                        replaceFragment(new ReportByCategory());
                         break;
                     case 10:
                         replaceFragment(new CreditFragment());

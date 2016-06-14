@@ -318,8 +318,7 @@ public class RecordExpanseView extends View implements 	GestureDetector.OnGestur
 		dialog.setContentView(dialogView);
 		final ArrayList<RootCategory> categories = new ArrayList<RootCategory>();
 		for (int i=0; i<PocketAccounter.financeManager.getCategories().size(); i++) {
-			if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.EXPANCE ||
-					PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.BOTH)
+			if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.EXPANCE)
 				categories.add(PocketAccounter.financeManager.getCategories().get(i));
 		}
 		CategoryAdapterForDialog adapter = new CategoryAdapterForDialog(getContext(), categories);

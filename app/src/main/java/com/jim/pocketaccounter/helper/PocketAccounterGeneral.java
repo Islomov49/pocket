@@ -9,7 +9,6 @@ public class PocketAccounterGeneral {
 	public static final int EDIT_MODE = 1;
 	public static final int INCOME=0;
 	public static final int EXPANCE=1;
-	public static final int BOTH=2;
 	public static final int EXPANCE_BUTTONS_COUNT = 16;
 	public static final int INCOME_BUTTONS_COUNT = 4;
 	public static final int NO_MODE = 0, EXPANSE_MODE = 1, INCOME_MODE = 2;

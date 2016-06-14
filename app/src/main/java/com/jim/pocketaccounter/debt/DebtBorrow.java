@@ -1,5 +1,9 @@
 package com.jim.pocketaccounter.debt;
 
+import android.widget.CheckBox;
+
+import com.jim.pocketaccounter.finance.Currency;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -10,13 +14,17 @@ public class DebtBorrow {
     private Calendar takenDate, returnDate;
     private int type;
     private String account;
-    private String currency;
+    private Currency currency;
+    private boolean calculate;
+    private boolean to_archive = false;
     private double amount;
     private ArrayList<Recking> reckings;
     public static final int DEBT = 1, BORROW = 0;
     private String id; //"debt_"+UUID.randowUUID().toString();
 
-    public DebtBorrow(Person person, Calendar takenDate, Calendar returnDate, String id, String account, String currency, double amount, int type) {
+    public DebtBorrow(Person person, Calendar takenDate, Calendar returnDate,
+                      String id, String account, Currency currency,
+                      double amount, int type, boolean calculate) {
         this.person = person;
         this.takenDate = takenDate;
         this.returnDate = returnDate;
@@ -26,9 +34,12 @@ public class DebtBorrow {
         reckings = new ArrayList<>();
         this.type = type;
         this.id = id;
+        this.calculate = calculate;
     }
 
-    public DebtBorrow(Person person, Calendar takenDate, String id, String account, String currency, double amount, int type) {
+    public DebtBorrow(Person person, Calendar takenDate,
+                      String id, String account, Currency currency,
+                      double amount, int type, boolean calculate) {
         this.person = person;
         this.takenDate = takenDate;
         this.account = account;
@@ -37,6 +48,7 @@ public class DebtBorrow {
         reckings = new ArrayList<>();
         this.type = type;
         this.id = id;
+        this.calculate = calculate;
     }
 
     public String getId() {
@@ -56,15 +68,23 @@ public class DebtBorrow {
     public void setReturnDate(Calendar returnDate) {this.returnDate = (Calendar)returnDate.clone();}
     public String getAccount() {return account;}
     public void setAccount(String account) {this.account = account;}
-    public String getCurrency() {return currency;}
-    public void setCurrency(String currency) {this.currency = currency;}
+    public Currency getCurrency() {return currency;}
+    public void setCurrency(Currency currency) {this.currency = currency;}
     public double getAmount() {return amount;}
     public void setAmount(double amount) {this.amount = amount;}
     public int getType() {
         return type;
     }
+    public boolean isTo_archive() {return to_archive;}
+    public void setTo_archive(boolean to_archive) {this.to_archive = to_archive;}
     public void setType(int type) {
         this.type = type;
+    }
+    public boolean isCalculate() {
+        return calculate;
+    }
+    public void setCalculate(boolean calculate) {
+        this.calculate = calculate;
     }
     public ArrayList<Recking> getReckings() {
         return reckings;

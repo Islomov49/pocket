@@ -95,6 +95,10 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 		chbCatEditExpanse.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if (edit_mode == PocketAccounterGeneral.NO_MODE) {
+					chbCatEditExpanse.setChecked(isChecked);
+					chbCatEditIncome.setChecked(!isChecked);
+				}
 				if (edit_mode == PocketAccounterGeneral.EXPANSE_MODE) {
 					chbCatEditExpanse.setChecked(true);
 					chbCatEditIncome.setChecked(false);
@@ -108,6 +112,10 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 		chbCatEditIncome.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if (edit_mode == PocketAccounterGeneral.NO_MODE) {
+					chbCatEditExpanse.setChecked(!isChecked);
+					chbCatEditIncome.setChecked(isChecked);
+				}
 				if (edit_mode == PocketAccounterGeneral.EXPANSE_MODE) {
 					chbCatEditExpanse.setChecked(true);
 					chbCatEditIncome.setChecked(false);
@@ -146,10 +154,6 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 				chbCatEditIncome.setChecked(true);
 				break;
 			case PocketAccounterGeneral.EXPANCE:
-				chbCatEditExpanse.setChecked(true);
-				break;
-			case PocketAccounterGeneral.BOTH:
-				chbCatEditIncome.setChecked(true);
 				chbCatEditExpanse.setChecked(true);
 				break;
 			}
@@ -215,8 +219,6 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 				type = PocketAccounterGeneral.INCOME;
 			if (chbCatEditExpanse.isChecked())
 				type = PocketAccounterGeneral.EXPANCE;
-			if (chbCatEditIncome.isChecked() && chbCatEditExpanse.isChecked())
-				type = PocketAccounterGeneral.BOTH;
 			if (edit_mode == PocketAccounterGeneral.NO_MODE) {
 				if (category != null) {
 					category.setName(etCatEditName.getText().toString());
@@ -235,7 +237,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 				}
 				((PocketAccounter)getActivity()).replaceFragment(new CategoryFragment());
 			}
-			else if (type==PocketAccounterGeneral.INCOME || type==PocketAccounterGeneral.BOTH) {
+			else if (type==PocketAccounterGeneral.INCOME) {
 				RootCategory newCategory = new RootCategory();
 				newCategory.setName(etCatEditName.getText().toString());
 				newCategory.setType(type);
@@ -245,7 +247,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 				PocketAccounter.financeManager.getIncomes().set(pos, newCategory);
 				PocketAccounter.financeManager.getCategories().add(newCategory);
 				((PocketAccounter)getActivity()).replaceFragment(new RecordFragment(calendar));
-			} else if (type==PocketAccounterGeneral.EXPANCE || type==PocketAccounterGeneral.BOTH) {
+			} else if (type==PocketAccounterGeneral.EXPANCE) {
 				RootCategory newCategory = new RootCategory();
 				newCategory.setName(etCatEditName.getText().toString());
 				newCategory.setType(type);
