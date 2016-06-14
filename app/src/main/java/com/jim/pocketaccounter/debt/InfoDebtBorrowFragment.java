@@ -78,18 +78,52 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
         id = getArguments().getString("id");
 
         manager = PocketAccounter.financeManager;
-//        debtBorrow = new DebtBorrow();
-//        if (manager.getDebtBorrows() != null) {
-//            for (DebtBorrow db : manager.getDebtBorrows()) {
-//                if (db.getId().matches(id)) {
-//                    debtBorrow = db;
-//                    break;
-//                }
-//            }
-//        }
+        debtBorrow = new DebtBorrow();
+        if (manager.getDebtBorrows() != null) {
+            for (DebtBorrow db : manager.getDebtBorrows()) {
+                if (db.getId().matches(id)) {
+                    debtBorrow = db;
+                    break;
+                }
+            }
+        }
         peysAdapter = new PeysAdapter(debtBorrow.getReckings());
         Calendar currentDate = Calendar.getInstance();
-        int delta = (debtBorrow.getReturnDate().get(Calendar.DAY_OF_YEAR) - currentDate.get(Calendar.DAY_OF_YEAR));
+
+        int day = 0;
+        int mounth = 0;
+        int year = 0;
+
+        if(currentDate.compareTo(debtBorrow.getReturnDate()) >= 0) {
+            if (currentDate.get(Calendar.DAY_OF_MONTH) >= debtBorrow.getReturnDate().get(Calendar.DAY_OF_MONTH)) {
+                day = currentDate.get(Calendar.DAY_OF_MONTH) - debtBorrow.getReturnDate().get(Calendar.DAY_OF_MONTH);
+                if (currentDate.get(Calendar.MONTH) >= debtBorrow.getReturnDate().get(Calendar.MONTH)) {
+                    mounth = currentDate.get(Calendar.MONTH) - debtBorrow.getReturnDate().get(Calendar.MONTH);
+                    if (currentDate.get(Calendar.YEAR) >= debtBorrow.getReturnDate().get(Calendar.YEAR)) {
+                        year = currentDate.get(Calendar.YEAR) - debtBorrow.getReturnDate().get(Calendar.YEAR);
+                    }
+                } else {
+                    mounth = currentDate.get(Calendar.MONTH) + 12 - debtBorrow.getReturnDate().get(Calendar.MONTH);
+                    year = currentDate.get(Calendar.YEAR) - 1 - debtBorrow.getReturnDate().get(Calendar.YEAR);
+                }
+            } else {
+                currentDate.add(Calendar.MONTH, -1);
+                day = currentDate.get(Calendar.DAY_OF_MONTH) + currentDate.getActualMaximum(Calendar.MONTH) - debtBorrow.getReturnDate().get(Calendar.DAY_OF_MONTH);
+                if (currentDate.get(Calendar.MONTH) >= debtBorrow.getReturnDate().get(Calendar.MONTH)) {
+                    mounth = currentDate.get(Calendar.MONTH) - debtBorrow.getReturnDate().get(Calendar.MONTH);
+                    if (currentDate.get(Calendar.YEAR) >= debtBorrow.getReturnDate().get(Calendar.YEAR)) {
+                        year = currentDate.get(Calendar.YEAR) - debtBorrow.getReturnDate().get(Calendar.YEAR);
+                    }
+                } else {
+                    mounth = currentDate.get(Calendar.MONTH) + 12 - debtBorrow.getReturnDate().get(Calendar.MONTH);
+                    if (currentDate.get(Calendar.YEAR) > debtBorrow.getReturnDate().get(Calendar.YEAR)) {
+                        year = currentDate.get(Calendar.YEAR) - 1 - debtBorrow.getReturnDate().get(Calendar.YEAR);
+                    }
+                }
+            }
+        }
+
+
         ArrayList<Recking> list = debtBorrow.getReckings();
         double total = 0;
         for (Recking rc : list) {
@@ -98,7 +132,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
 
         borrowName.setText(debtBorrow.getPerson().getName());
         leftAmount.setText("" + (debtBorrow.getAmount() - total));
-        borrowLeftDate.setText("" + delta);
+        borrowLeftDate.setText("year " + year + "\n" + "month " + mounth + "\n" + "day " + day);
         totalPayAmount.setText("" + total);
 
         if (!debtBorrow.getPerson().getPhoto().equals("")) {
@@ -143,6 +177,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
         });
         final DatePickerDialog.OnDateSetListener getDatesetListener = new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+                arg2 = arg2 + 1;
                 enterDate.setText(arg3 + "-" + arg2 + "-" + arg1);
                 date.set(arg1, arg2, arg3);
             }
@@ -162,10 +197,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
             @Override
             public void onClick(View v) {
                 SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-//                peysAdapter.setDataChanged("20.12.2016", Double.parseDouble(enterPay.getText().toString()));
-                peysAdapter.setDataChanged("" + date.get(Calendar.DAY_OF_MONTH) + "." +
-                                date.get(Calendar.MONTH) + "." +
-                                date.get(Calendar.YEAR), Double.parseDouble(enterPay.getText().toString()),
+                peysAdapter.setDataChanged(format.format(date.getTime()), Double.parseDouble(enterPay.getText().toString()),
                         "" + accountSp.getSelectedItem(), comment.getText().toString());
                 dialog.dismiss();
             }
@@ -202,7 +234,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
 
         public void onBindViewHolder(InfoDebtBorrowFragment.ViewHolder view, int position) {
             view.infoDate.setText("Date of Pay: " + list.get(position).getPayDate());
-            view.infoSumm.setText("" + list.get(position).getAmount() + debtBorrow.getCurrency());
+            view.infoSumm.setText("" + list.get(position).getAmount() + "");
             view.infoAccount.setText("Via: " + list.get(position).getAccountId());
             if (!list.get(position).getComment().matches("")) {
                 view.comment.setText("Comment: " + list.get(position).getComment());
@@ -217,8 +249,6 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
         }
 
         public void setDataChanged(String clDate, double value, String accountId, String comment) {
-//            for (DebtBorrow debtBorrow : manager.getDebtBorrows()) {
-//                if (debtBorrow.getReckings().equals(list)) {
             Recking recking = new Recking(clDate, value, debtBorrow.getId(), accountId, comment);
             list.add(0, recking);
             double qoldiq = 0;
@@ -228,19 +258,16 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
             leftAmount.setText("" + (debtBorrow.getAmount() - qoldiq));
             totalPayAmount.setText("" + qoldiq);
             debtBorrow.setReckings(list);
-//                    break;
-//                }
-//            }
-//            manager.loadDebtBorrows();
+            manager.setDebtBorrows(manager.getDebtBorrows());
             notifyItemInserted(0);
         }
     }
 
     public class ViewHolder extends android.support.v7.widget.RecyclerView.ViewHolder {
-            public TextView infoDate;
-            public TextView infoSumm;
-            public TextView infoAccount;
-            public TextView comment;
+        public TextView infoDate;
+        public TextView infoSumm;
+        public TextView infoAccount;
+        public TextView comment;
 
         public ViewHolder(View view) {
             super(view);
@@ -254,6 +281,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
     @Override
     public void onStop() {
         super.onStop();
-//        manager.saveDebtBorrows();
+        manager.saveDebtBorrows();
+        manager.loadDebtBorrows();
     }
 }

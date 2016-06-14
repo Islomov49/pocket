@@ -21,7 +21,7 @@
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:src="@drawable/credit_icon" />
+                android:src="@drawable/cancel_sign" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -139,6 +139,13 @@
                 android:textSize="14sp" />
 
         </LinearLayout>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hisoblansin"
+            android:id="@+id/chbAddDebtBorrowCalculate"
+            />
 
     </LinearLayout>
 
