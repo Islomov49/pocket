@@ -136,10 +136,12 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
 				+ "credit_name TEXT,"
 				+ "icon_id INTEGER,"
+				+ "key_for_include INTEGER,"
 				+ "taken_date TEXT,"
 				+ "percent REAL,"
 				+ "percent_interval TEXT,"
 				+ "period_time TEXT,"
+				+ "period_time_tip TEXT," //man qoshdim p.s. sardor
 				+ "credit_id TEXT,"
 				+ "credit_value REAL,"
 				+ "credit_value_with_percent REAL,"
@@ -201,10 +203,12 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 		for (int i=0; i<credits.size(); i++) {
 			values.put("credit_name", credits.get(i).getCredit_name());
 			values.put("icon_id", credits.get(i).getIcon_ID());
+			values.put("key_for_include", credits.get(i).isKey_for_include());
 			values.put("taken_date", format.format(credits.get(i).getTake_time().getTime()));
 			values.put("percent", credits.get(i).getProcent());
 			values.put("percent_interval", Long.toString(credits.get(i).getProcent_interval()));
 			values.put("period_time", Long.toString(credits.get(i).getPeriod_time()));
+			values.put("period_time_tip", Long.toString(credits.get(i).getPeriod_time_tip())); //ps Sardor
 			values.put("credit_id", credits.get(i).getMyCredit_id());
 			values.put("credit_value", credits.get(i).getValue_of_credit());
 			values.put("credit_value_with_percent", credits.get(i).getValue_of_credit_with_procent());
@@ -217,6 +221,7 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 				values.put("account_id", credits.get(i).getReckings().get(j).getAccountId());
 				values.put("comment", credits.get(i).getReckings().get(j).getComment());
 				values.put("credit_id", credits.get(i).getReckings().get(j).getMyCredit_id());
+				db.insert("credit_recking_table", null, values);
 			}
 		}
 		db.close();
@@ -244,9 +249,11 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 			credit.setProcent(curCreditTable.getDouble(curCreditTable.getColumnIndex("percent")));
 			credit.setProcent_interval(Long.parseLong(curCreditTable.getString(curCreditTable.getColumnIndex("percent_interval"))));
 			credit.setPeriod_time(Long.parseLong(curCreditTable.getString(curCreditTable.getColumnIndex("period_time"))));
-			credit.setMyCredit_id(Long.parseLong(curCreditTable.getString(curCreditTable.getColumnIndex("credit"))));
+			credit.setMyCredit_id(Long.parseLong(curCreditTable.getString(curCreditTable.getColumnIndex("credit_id"))));
 			credit.setValue_of_credit(curCreditTable.getDouble(curCreditTable.getColumnIndex("credit_value")));
 			credit.setValue_of_credit_with_procent(curCreditTable.getDouble(curCreditTable.getColumnIndex("credit_value_with_percent")));
+			credit.setPeriod_time_tip(Long.parseLong(curCreditTable.getString(curCreditTable.getColumnIndex("period_time_tip"))));
+			credit.setKey_for_include(curCreditTable.getInt(curCreditTable.getColumnIndex("key_for_include"))!=0);
 			String currencyId = curCreditTable.getString(curCreditTable.getColumnIndex("currency_id"));
 			Currency currency = null;
 			for (int i = 0; i<currencies.size(); i++)  {
@@ -256,10 +263,11 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 				}
 			}
 			credit.setValyute_currency(currency);
+
 			ArrayList<ReckingCredit> reckings = new ArrayList<ReckingCredit>();
 			curCreditRecking.moveToFirst();
 			while(!curCreditRecking.isAfterLast()) {
-				if (Long.parseLong(curCreditRecking.getString(curCreditRecking.getColumnIndex("credit_id"))) == Long.parseLong(curCreditTable.getString(curCreditTable.getColumnIndex("credit")))) {
+				if (Long.parseLong(curCreditRecking.getString(curCreditRecking.getColumnIndex("credit_id"))) == Long.parseLong(curCreditTable.getString(curCreditTable.getColumnIndex("credit_id")))) {
 					double amount = curCreditRecking.getDouble(curCreditRecking.getColumnIndex("amount"));
 					long payDate = Long.parseLong(curCreditRecking.getString(curCreditRecking.getColumnIndex("pay_date")));
 					String comment = curCreditRecking.getString(curCreditRecking.getColumnIndex("comment"));
@@ -271,6 +279,7 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 				curCreditRecking.moveToNext();
 			}
 			credit.setReckings(reckings);
+			result.add(credit);
 			curCreditTable.moveToNext();
 		}
 		return result;

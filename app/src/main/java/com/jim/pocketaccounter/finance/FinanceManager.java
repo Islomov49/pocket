@@ -29,7 +29,8 @@ public class FinanceManager {
 		records = loadRecords();
 		credits = loadCredits();
 	}
-	private ArrayList<CreditDetials> loadCredits() {return db.loadCredits();}
+	public ArrayList<CreditDetials> loadCredits() {
+		return db.loadCredits();}
 	public ArrayList<CreditDetials> getCredits() {return credits;}
 	public void saveCredits() {db.saveDatasToCreditTable(credits);}
 	public ArrayList<Currency> getCurrencies() {
@@ -41,9 +42,15 @@ public class FinanceManager {
 	private ArrayList<Currency> loadCurrencies() {
 		return db.loadCurrencies();
 	}
+
+	public void setCredits(ArrayList<CreditDetials> credits) {
+		this.credits = credits;
+	}
+
 	public Currency getMainCurrency() {
 		for (int i=0; i<currencies.size(); i++) {
 			if (currencies.get(i).getMain())
+
 				return currencies.get(i);
 		}
 		return null;

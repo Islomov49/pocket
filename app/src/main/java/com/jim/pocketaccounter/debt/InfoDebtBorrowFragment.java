@@ -114,7 +114,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
 
     private void openDialog() {
         final Dialog dialog = new Dialog(getActivity());
-        View dialogView = getActivity().getLayoutInflater().inflate(R.layout.add_pay_debt_borrow_info, null);
+        View dialogView = getActivity().getLayoutInflater().inflate(R.layout.add_pay_debt_borrow_info_mod, null);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(dialogView);
         final EditText enterDate = (EditText) dialogView.findViewById(R.id.etInfoDebtBorrowDate);

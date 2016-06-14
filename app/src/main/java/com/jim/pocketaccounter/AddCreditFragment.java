@@ -25,6 +25,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -35,6 +37,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jim.pocketaccounter.credit.CreditDetials;
+import com.jim.pocketaccounter.credit.ReckingCredit;
+import com.jim.pocketaccounter.debt.Recking;
 import com.jim.pocketaccounter.finance.Account;
 import com.jim.pocketaccounter.finance.Currency;
 import com.jim.pocketaccounter.finance.FinanceManager;
@@ -57,6 +61,7 @@ public class AddCreditFragment extends Fragment {
     String [] valyutes;
     String [] valyutes_symbols;
     String [] accs;
+    ArrayList<Account> accounts;
     int selectedIcon;
     ImageView ivToolbarMostRight;
     EditText nameCred,valueCred,procentCred,periodCred,firstCred ,lastCred,transactionCred;
@@ -73,6 +78,8 @@ public class AddCreditFragment extends Fragment {
     int isAvInt=0;
     CreditFragment.EventFromAdding eventLis;
     AddCreditFragment ThisFragment;
+    ArrayList<CreditDetials> myList;
+    CheckBox isOpkey;
     public AddCreditFragment() {
         // Required empty public constructor
         ThisFragment=this;
@@ -95,6 +102,7 @@ public class AddCreditFragment extends Fragment {
         spiner_procent=(Spinner) V.findViewById(R.id.spinner_procent);
         spinner_peiod=(Spinner) V.findViewById(R.id.spinner_period);
         spiner_trasnact=(Spinner) V.findViewById(R.id.spinner_sceta);
+        isOpkey=(CheckBox) V.findViewById(R.id.key_for_balance);
 
         nameCred=(EditText) V.findViewById(R.id.editText) ;
         valueCred=(EditText) V.findViewById(R.id.value_credit) ;
@@ -110,7 +118,6 @@ public class AddCreditFragment extends Fragment {
         ivToolbarMostRight.setVisibility(View.VISIBLE);
 
         dateformarter=new SimpleDateFormat("dd.MM.yyyy");
-
         ivToolbarMostRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -244,7 +251,6 @@ public class AddCreditFragment extends Fragment {
 
 
                     long forCompute=calend.getTimeInMillis();
-                   // forCompute+=period_long;
 
                     AAa.setTime(forCompute);
                     firstCred.setText(dateformarter.format(AAa));
@@ -257,19 +263,6 @@ public class AddCreditFragment extends Fragment {
             }
         };
 
-//        lastCred.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if(hasFocus){
-//                    Calendar calendar = Calendar.getInstance();
-//                    Dialog mDialog = new DatePickerDialog(getContext(),
-//                            getDatesetListener2, calendar.get(Calendar.YEAR),
-//                            calendar.get(Calendar.MONTH), calendar
-//                            .get(Calendar.DAY_OF_MONTH));
-//                    mDialog.show();
-//                }
-//            }
-//        });
 
         lastCred.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -282,21 +275,6 @@ public class AddCreditFragment extends Fragment {
                 mDialog.show();
             }
         });
-
-
-//        firstCred.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if(hasFocus){
-//                    Calendar calendar = Calendar.getInstance();
-//                    Dialog mDialog = new DatePickerDialog(getContext(),
-//                            getDatesetListener, calendar.get(Calendar.YEAR),
-//                            calendar.get(Calendar.MONTH), calendar
-//                            .get(Calendar.DAY_OF_MONTH));
-//                    mDialog.show();
-//                }
-//            }
-//        });
         firstCred.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -306,6 +284,17 @@ public class AddCreditFragment extends Fragment {
                         calendar.get(Calendar.MONTH), calendar
                         .get(Calendar.DAY_OF_MONTH));
                 mDialog.show();
+            }
+        });
+
+
+        isOpkey.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isOpkey.isChecked()){
+                    spiner_trasnact.setVisibility(View.VISIBLE);
+                }
+                else spiner_trasnact.setVisibility(View.GONE);
             }
         });
         procentCred.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -377,7 +366,7 @@ public class AddCreditFragment extends Fragment {
 
         for (int i=0; i<tempIcons.length; i++)
             icons[i] = getResources().getIdentifier(tempIcons[i], "drawable", getActivity().getPackageName());
-        selectedIcon = icons[18];
+        selectedIcon = icons[0];
 
         icona.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -426,9 +415,8 @@ public class AddCreditFragment extends Fragment {
             valyutes_symbols[i] = currencies.get(i).getAbbr();
         }
 
-        ArrayList<Account> accounts = manager.getAccounts();
+       accounts = manager.getAccounts();
         accs = new String[accounts.size()];
-
         for (int i = 0; i < accounts.size(); i++) {
             accs[i] = accounts.get(i).getName();
         }
@@ -451,7 +439,7 @@ public class AddCreditFragment extends Fragment {
         });
 
         ArrayAdapter<String> adapter_scet = new ArrayAdapter<String>(getActivity(),
-                R.layout.adapter_spiner, accs);
+                R.layout.spiner_gravity_right, accs);
 
         spiner_forValut.setAdapter(adapter_valyuta);
         spiner_procent.setAdapter(adapter);
@@ -598,26 +586,52 @@ public class AddCreditFragment extends Fragment {
                         break;
                 }
                 long period_inter=Long.parseLong(periodCred.getText().toString());
+                long period_tip = 0;
                 switch (spinner_peiod.getSelectedItemPosition()){
                     case 0:
                         period_inter*=forMoth;
+                        period_tip=forMoth;
                         break;
                     case 1:
                         period_inter*=forYear;
+                        period_tip=forYear;
                         break;
                     case 2:
                         period_inter*=forWeek;
+                        period_tip=forWeek;
                         break;
                     case 3:
                         period_inter*=forDay;
+                        period_tip=forDay;
                         break;
                 }
-                ArrayList<CreditDetials> myList=PocketAccounter.financeManager.getCredits();
+                myList=PocketAccounter.financeManager.getCredits();
+
+
+
+
+                boolean key=true;
+                key = isOpkey.isChecked();
 
                 CreditDetials A1=new CreditDetials(selectedIcon,nameCred.getText().toString(),new GregorianCalendar(argFirst[0],argFirst[1],argFirst[2]),
-                        Double.parseDouble(sb.toString()) ,procent_inter ,period_inter,Double.parseDouble(valueCred.getText().toString()),
+                        Double.parseDouble(sb.toString()) ,procent_inter ,period_inter,period_tip,key,Double.parseDouble(valueCred.getText().toString()),
                         currencies.get(spiner_forValut.getSelectedItemPosition()),Double.parseDouble(solution.getText().toString()),System.currentTimeMillis() );
+                String transactionCredString=transactionCred.getText().toString();
+                if(!transactionCredString.matches("")){
+                    ReckingCredit first_pay;
+                    if(key&&accounts.size()!=0) {
+                      first_pay = new ReckingCredit((new GregorianCalendar(argFirst[0], argFirst[1], argFirst[2])).getTimeInMillis(), Double.parseDouble(transactionCredString), accounts.get(spiner_trasnact.getSelectedItemPosition()).getId(),
+                                A1.getMyCredit_id(),    getString(R.string.this_first_comment));
+                    }
+                    else {
+                        first_pay = new ReckingCredit((new GregorianCalendar(argFirst[0], argFirst[1], argFirst[2])).getTimeInMillis(), Double.parseDouble(transactionCredString),"",
+                                A1.getMyCredit_id(), getString(R.string.this_first_comment));
 
+                    }
+                    ArrayList<ReckingCredit> tempik=A1.getReckings();
+                    tempik.add(0,first_pay);
+                    A1.setReckings(tempik);
+                }
                 myList.add(0,A1);
 
                 Log.d("soemeV",
@@ -656,6 +670,10 @@ public class AddCreditFragment extends Fragment {
     @Override
     public void onStop(){
         super.onStop();
+        if(onSucsessed){
+
+        }
+
 
     }
     @Override
@@ -669,11 +687,20 @@ public class AddCreditFragment extends Fragment {
         ivToolbarMostRight.setVisibility(View.INVISIBLE);
         if(!onSucsessed)
         eventLis.canceledAdding();
-        else
+        else{
+          /*  FinanceManager manager = PocketAccounter.financeManager;
+            manager.setCredits(myList);*/
+           PocketAccounter.financeManager.saveCredits();
+//            manager.setCredits(manager.loadCredits());
             eventLis.addedCredit();
+        }
+
 //        PocketAccounter.financeManager.saveCredits();
         super.onDetach();
     }
+
+
+
 
     public void closeCurrentFragment(){
         getActivity().getSupportFragmentManager().popBackStack ();

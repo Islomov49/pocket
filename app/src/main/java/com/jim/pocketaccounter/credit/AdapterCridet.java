@@ -1,15 +1,25 @@
 package com.jim.pocketaccounter.credit;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,10 +27,13 @@ import com.jim.pocketaccounter.AddCreditFragment;
 import com.jim.pocketaccounter.InfoCreditFragment;
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
+import com.jim.pocketaccounter.finance.Account;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -31,20 +44,27 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
    List<CreditDetials> cardDetials;
     int S = 0;
     SimpleDateFormat dateformarter;
-    Context This;
+    Context context;
     forListner A1;
+    ArrayList<Account> accaunt_AC;
+    boolean toArcive=false;
     long forDay=1000L*60L*60L*24L;
     long forMoth=1000L*60L*60L*24L*30L;
     long forYear=1000L*60L*60L*24L*365L;
+    final static long forWeek=1000L*60L*60L*24L*7L;
+
     public AdapterCridet(List<CreditDetials> cardDetials, Context This, forListner A1){
        this.cardDetials=cardDetials;
-        this.This=This;
+        this.context=This;
         dateformarter=new SimpleDateFormat("dd.MM.yyyy");
         this.A1=A1;
     }
 
     public interface forListner{
-         void togoInfo(CreditDetials current);
+         void togoInfo(CreditDetials current,int position);
+         void change_item(CreditDetials current,int position);
+         void item_delete(int position);
+         void item_to_archive(int position);
     }
     @Override
     public void onBindViewHolder(myViewHolder holder, final int position) {
@@ -63,77 +83,115 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
         AAa.setTime(itemCr.getTake_time().getTimeInMillis());
         holder.taken_credit_date.setText(dateformarter.format(AAa));
         holder.iconn.setImageResource(itemCr.getIcon_ID());
-        
-        long for_compute_interval=itemCr.getTake_time().getTimeInMillis()+itemCr.getPeriod_time()-System.currentTimeMillis();
-        Log.d("valeee","day Obw: "+(double)for_compute_interval/1000/60/60/24);
-        String left_date_string="";
 
-        if ((int)((double)for_compute_interval/1000/60/60/24)<1){
+        Calendar to= (Calendar) itemCr.getTake_time().clone();
+        long period_tip=itemCr.getPeriod_time_tip();
+        long period_voqt=itemCr.getPeriod_time();
+        int voqt_soni= (int) (period_voqt/period_tip);
+
+        if(period_tip==forDay){
+            to.add(Calendar.DAY_OF_YEAR, (int) voqt_soni);
+        }
+        else if(period_tip==forWeek){
+            to.add(Calendar.WEEK_OF_YEAR, (int) voqt_soni);
+        }
+        else if(period_tip==forMoth){
+            to.add(Calendar.MONTH, (int) voqt_soni);
+
+        }
+        else {
+            to.add(Calendar.YEAR, (int) voqt_soni);
+
+        }
+
+        Date from=new Date();
+        int t[]=getDateDifferenceInDDMMYYYY(from,to.getTime());
+        Log.d("Myday",t[0]+" "+t[1]+" "+t[2]);
+        if(t[0]*t[1]*t[2]<0&&(t[0]+t[1]+t[2])!=0){
             holder.pay_or_archive.setText(R.string.archive);
             holder.left_date.setText(R.string.ends);
-            holder.left_date.setTextColor(Color.parseColor("#832e1c"));}
-        else{
-            int a=(int)((double)for_compute_interval/1000/60/60/24/365);
-            Log.d("valeee","year : "+a);
-            if(a>=1){
-                if(a>1){
-                    left_date_string+=Integer.toString(a)+" "+This.getString(R.string.years);
+            holder.left_date.setTextColor(Color.parseColor("#832e1c"));
+        }
+        else {
+            String left_date_string="";
+            if(t[0]!=0){
+                if(t[0]>1){
+                    left_date_string+=Integer.toString(t[0])+" "+context.getString(R.string.years);
                 }
                 else{
-                    left_date_string+=Integer.toString(a)+" "+This.getString(R.string.year);
+                    left_date_string+=Integer.toString(t[0])+" "+context.getString(R.string.year);
                 }
-                for_compute_interval-=(long)a*forYear;
+
             }
-            int b=(int)((double)for_compute_interval/1000/60/60/24/30);
-            Log.d("valeee","day Obw: "+(double)for_compute_interval/1000/60/60/24);
-            Log.d("valeee","month : "+b);
-            if(b>=1){
+            if(t[1]!=0){
                 if(!left_date_string.matches("")){
                     left_date_string+=" ";
                 }
-                if(b>1){
-                    left_date_string+=Integer.toString(b)+" "+This.getString(R.string.moths);
-
+                if(t[1]>1){
+                    left_date_string+=Integer.toString(t[1])+" "+context.getString(R.string.moths);
                 }
                 else{
-                    left_date_string+=Integer.toString(b)+" "+This.getString(R.string.moth);
+                    left_date_string+=Integer.toString(t[1])+" "+context.getString(R.string.moth);
                 }
-                for_compute_interval-=(long) b*forMoth;
             }
-            int c=(int)((double)for_compute_interval/1000/60/60/24);
-            Log.d("valeee","day Obw: "+(double)for_compute_interval/1000/60/60/24);
-            Log.d("valeee","day : "+c);
-
-            if(c>=1){
+            if(t[2]!=0){
                 if(!left_date_string.matches("")){
                     left_date_string+=" ";
                 }
-                if(c>1){
-                    left_date_string+=Integer.toString(c)+" "+This.getString(R.string.days);
+                if(t[2]>1){
+                    left_date_string+=Integer.toString(t[2])+" "+context.getString(R.string.days);
 
                 }
                 else{
-                    left_date_string+=Integer.toString(c)+" "+This.getString(R.string.day);
+                    left_date_string+=Integer.toString(t[2])+" "+context.getString(R.string.day);
                 }
-                for_compute_interval-=c*forDay;
             }
             holder.left_date.setText(left_date_string);
         }
-
-
         holder.overall_amount.setText(parseToWithoutNull(itemCr.getValue_of_credit_with_procent()-total_paid)+itemCr.getValyute_currency().getAbbr());
         holder.glav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               A1.togoInfo(itemCr);
+               A1.togoInfo(itemCr,position);
             }
         });
         holder.pay_or_archive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(This,"Should dialog to pay",Toast.LENGTH_SHORT).show();
+              if(toArcive)
+              {}
+                else
+                openDialog(itemCr,position);
             }
         });
+    }
+    public static int [] getDateDifferenceInDDMMYYYY(Date from, Date to) {
+        Calendar fromDate=Calendar.getInstance();
+        Calendar toDate=Calendar.getInstance();
+        fromDate.setTime(from);
+        toDate.setTime(to);
+        int increment = 0;
+        int year,month,day;
+       if (fromDate.get(Calendar.DAY_OF_MONTH) > toDate.get(Calendar.DAY_OF_MONTH)) {
+            increment =fromDate.getActualMaximum(Calendar.DAY_OF_MONTH);
+        }
+        if (increment != 0) {
+            day = (toDate.get(Calendar.DAY_OF_MONTH) + increment) - fromDate.get(Calendar.DAY_OF_MONTH);
+            increment = 1;
+        } else {
+            day = toDate.get(Calendar.DAY_OF_MONTH) - fromDate.get(Calendar.DAY_OF_MONTH);
+        }
+
+        if ((fromDate.get(Calendar.MONTH) + increment) > toDate.get(Calendar.MONTH)) {
+            month = (toDate.get(Calendar.MONTH) + 12) - (fromDate.get(Calendar.MONTH) + increment);
+            increment = 1;
+        } else {
+            month = (toDate.get(Calendar.MONTH)) - (fromDate.get(Calendar.MONTH) + increment);
+            increment = 0;
+        }
+
+        year = toDate.get(Calendar.YEAR) - (fromDate.get(Calendar.YEAR) + increment);
+         return   new int[]{year, month, day};
     }
 
     @Override
@@ -184,11 +242,79 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
             glav=v;
         }
     }
-    public void openFragment(Fragment fragment,String tag) {
-        if (fragment != null) {
-            ((PocketAccounter)This).replaceFragment(fragment);
-//            ft.add(R.id.flMain, fragment,tag);
-//            ft.commit();
+    private void openDialog(final CreditDetials current, final int position) {
+        final Dialog dialog = new Dialog(context);
+        View dialogView = ((PocketAccounter)context).getLayoutInflater().inflate(R.layout.add_pay_debt_borrow_info_mod, null);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(dialogView);
+        final EditText enterDate = (EditText) dialogView.findViewById(R.id.etInfoDebtBorrowDate);
+        final EditText enterPay = (EditText) dialogView.findViewById(R.id.etInfoDebtBorrowPaySumm);
+        final EditText comment = (EditText) dialogView.findViewById(R.id.etInfoDebtBorrowPayComment);
+        final Spinner accountSp = (Spinner) dialogView.findViewById(R.id.spInfoDebtBorrowAccount);
+        if(current.isKey_for_include()){
+            accaunt_AC=PocketAccounter.financeManager.getAccounts();
+            String[] accaounts = new String[accaunt_AC.size()];
+            for (int i = 0; i < accaounts.length; i++) {
+                accaounts[i] = accaunt_AC.get(i).getName();
+            }
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+                    context, R.layout.spiner_gravity_right, accaounts);
+
+            accountSp.setAdapter(arrayAdapter);
+
         }
+        else{
+            dialogView.findViewById(R.id.is_calc).setVisibility(View.GONE);
+        }
+        final Calendar date = Calendar.getInstance();
+        enterDate.setText(dateformarter.format(date.getTime()));
+        ImageView cancel = (ImageView) dialogView.findViewById(R.id.ivInfoDebtBorrowCancel);
+        ImageView save = (ImageView) dialogView.findViewById(R.id.ivInfoDebtBorrowSave);
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        final DatePickerDialog.OnDateSetListener getDatesetListener = new DatePickerDialog.OnDateSetListener() {
+            public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+
+                enterDate.setText(dateformarter.format((new GregorianCalendar(arg1,arg2,arg3)).getTime()));
+                date.set(arg1, arg2, arg3);
+            }
+        };
+        enterDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                Dialog mDialog = new DatePickerDialog(context,
+                        getDatesetListener, calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONTH), calendar
+                        .get(Calendar.DAY_OF_MONTH));
+                mDialog.show();
+            }
+        });
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String amount=enterPay.getText().toString();
+                ReckingCredit rec=null;
+                if(!amount.matches("")&&current.isKey_for_include())
+                rec=new ReckingCredit(date.getTimeInMillis(),Double.parseDouble(amount),accaunt_AC.get(accountSp.getSelectedItemPosition()).getId(),current.getMyCredit_id(),comment.getText().toString());
+                else
+                rec=new ReckingCredit(date.getTimeInMillis(),Double.parseDouble(amount),"",current.getMyCredit_id(),comment.getText().toString());
+                current.getReckings().add(rec);
+                A1.change_item(current,position);
+                dialog.dismiss();
+            }
+        });
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        int width = displayMetrics.widthPixels;
+        dialog.getWindow().setLayout(7 * width / 8, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        dialog.show();
     }
+
+
+
 }

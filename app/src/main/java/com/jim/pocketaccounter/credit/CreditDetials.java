@@ -13,18 +13,19 @@ public class CreditDetials {
     private double procent;
     private long procent_interval;
     private long period_time;
+    private long period_time_tip;
     private long myCredit_id;
     private double value_of_credit;
     private double value_of_credit_with_procent;
     private Currency valyute_currency;
     private ArrayList<ReckingCredit> reckings;
-
+    private boolean key_for_include;
 
     public CreditDetials(){
 
     }
     public CreditDetials(int icon_ID, String credit_name, Calendar take_time,
-                         double procent, long procent_interval, long period_time,
+                         double procent, long procent_interval, long period_time,long period_time_tip,boolean key_for_include,
                          double value_of_credit, Currency valyute_currency,
                          double value_of_credit_with_procent, long myCredit_id) {
         this.icon_ID=icon_ID;
@@ -36,7 +37,9 @@ public class CreditDetials {
         this.value_of_credit = value_of_credit;
         this.valyute_currency = valyute_currency;
         this.value_of_credit_with_procent=value_of_credit_with_procent;
+        this.period_time_tip=period_time_tip;
         this.myCredit_id=myCredit_id;
+        this.key_for_include=key_for_include;
         reckings = new ArrayList<>();
     }
 
@@ -46,7 +49,18 @@ public class CreditDetials {
     public void setReckings(ArrayList<ReckingCredit> reckings) {
         this.reckings = reckings;
     }
-
+    public long getPeriod_time_tip() {
+        return period_time_tip;
+    }
+    public void setPeriod_time_tip(long period_time_tip) {
+        this.period_time_tip = period_time_tip;
+    }
+    public boolean isKey_for_include() {
+        return key_for_include;
+    }
+    public void setKey_for_include(boolean key_for_include) {
+        this.key_for_include = key_for_include;
+    }
     public long getMyCredit_id() {
         return myCredit_id;
     }

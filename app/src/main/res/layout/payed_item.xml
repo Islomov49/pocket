@@ -12,20 +12,21 @@
             android:id="@+id/for_delete_check_box"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
-            android:layout_marginRight="10dp"
             android:checked="false"
             android:text=""
-
-            android:layout_toLeftOf="@+id/frameLayout4"
-            android:layout_toStartOf="@+id/frameLayout4"
-            android:layout_above="@+id/paid_value"
-            android:layout_marginBottom="2dp"/>
+            android:visibility="visible"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="6dp"
+            android:layout_toRightOf="@+id/frameLayout6"
+            android:layout_toEndOf="@+id/frameLayout6"
+            android:layout_alignBottom="@+id/frameLayout6" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="right"
             android:text="720 000 000$"
             android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             android:textColor="@color/green_light"
             android:textSize="14sp"
             android:id="@+id/paid_value"
@@ -38,21 +39,29 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:id="@+id/linearLayout2"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_toLeftOf="@+id/paid_value"
+            android:layout_toEndOf="@+id/for_delete_check_box"
+            android:layout_toRightOf="@+id/for_delete_check_box"
+
+            >
             <TextView
                 android:id="@+id/via_acount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Via: Visa card"
-                android:layout_marginTop="10dp"
+                android:visibility="visible"
+
                 android:textColor="@color/for_darker"
                 android:textSize="16dp"/>
 
             <TextView
                 android:id="@+id/date_of_trans"
+                android:visibility="visible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Date of pay: 23.04.2016"
@@ -61,11 +70,14 @@
                 />
 
             <TextView
+
                 android:id="@+id/comment_trans"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Comment: It is first time my debt"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                android:visibility="visible"
+               />
         </LinearLayout>
         <FrameLayout
             android:layout_width="2px"
@@ -83,7 +95,8 @@
             android:background="@color/green_light_forline"
             android:layout_alignBottom="@+id/linearLayout2"
 
-            android:layout_alignParentTop="true" />
+            android:layout_alignParentTop="true"
+            android:id="@+id/frameLayout6" />
     </RelativeLayout>
     <FrameLayout
         android:layout_width="match_parent"

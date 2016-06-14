@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ScrollView;
 
 import com.jim.pocketaccounter.credit.AdapterCridet;
 import com.jim.pocketaccounter.credit.CreditDetials;
@@ -18,10 +19,17 @@ import com.jim.pocketaccounter.finance.Currency;
 import com.melnykov.fab.FloatingActionButton;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.GregorianCalendar;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 
 public class CreditFragment extends Fragment {
@@ -49,20 +57,46 @@ public class CreditFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View V=inflater.inflate(R.layout.fragment_credit, container, false);
+
         crRV=(RecyclerView) V.findViewById(R.id.my_recycler_view);
         fb=(FloatingActionButton) V.findViewById(R.id.fab);
-
         LinearLayoutManager llm = new LinearLayoutManager(This);
         crRV.setLayoutManager(llm);
 
         crAdap=new AdapterCridet(crList, This, new AdapterCridet.forListner() {
             @Override
-            public void togoInfo(CreditDetials current) {
-                //lisdat positon turgan obyektni yuboramiz
+            public void togoInfo(CreditDetials current,int position) {
                 InfoCreditFragment temp=new InfoCreditFragment();
-                temp.setConteent(current);
-                openFragment(temp,"InfoFragment");
+                temp.setConteent(current, position, new InfoCreditFragment.ConWithFragments() {
+                    @Override
+                    public void change_item(CreditDetials changed_item, int position) {
+                        crList.set(position,changed_item);
+                        crAdap.notifyItemChanged(position);
+                    }
 
+                    @Override
+                    public void to_Archive(int position) {
+
+                    }
+                });
+                openFragment(temp,"InfoFragment");
+            }
+
+            @Override
+            public void change_item(CreditDetials current, int position) {
+                 crList.set(position,current);
+                crAdap.notifyItemChanged(position);
+                            }
+
+            @Override
+            public void item_delete(int position) {
+                crList.remove(position);
+                crAdap.notifyItemRemoved(position);
+            }
+
+            @Override
+            public void item_to_archive(int position) {
+            //TODO to archive code
             }
         });
         crRV.setAdapter(crAdap);
@@ -108,6 +142,7 @@ public class CreditFragment extends Fragment {
         creditDetialsesList=PocketAccounter.financeManager.getCredits();
         crList.add(0,creditDetialsesList.get(0));
         crAdap.notifyItemInserted(0);
+        crRV.scrollToPosition(0);
     }
     public void updateList(){
         crList.clear();
@@ -122,6 +157,12 @@ public class CreditFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+    }
+    @Override
+
+    public void onStop() {
+        super.onStop();
+        PocketAccounter.financeManager.saveCredits();
     }
 
     @Override

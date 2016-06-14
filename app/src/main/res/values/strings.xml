@@ -648,4 +648,9 @@
     <string name="yearr">Year</string>
     <string name="weekk">Week</string>
     <string name="dayy">Day</string>
+    <string name="this_first_comment">This is piad before adding credit to aplication</string>
+    <string name="always_remember">Always remember to add your payment on the loan, and we will be happy to help you keep a balance!</string>
+    <string name="date_of_pay">Date of pay</string>
+    <string name="via">Via</string>
+    <string name="comment">Comment</string>
 </resources>
