@@ -44,30 +44,21 @@ public class ReportByCategoryExpansesFragment extends Fragment implements SeekBa
         pieChart.setUsePercentValues(true);
         pieChart.setDescription("");
         pieChart.setExtraOffsets(5, 10, 5, 5);
-        pieChart.setCenterText(generateCenterSpannableText());
-
+        pieChart.setCenterText(getResources().getString(R.string.expanse));
         pieChart.setDrawHoleEnabled(true);
         pieChart.setHoleColor(Color.WHITE);
-
         pieChart.setTransparentCircleColor(Color.WHITE);
         pieChart.setTransparentCircleAlpha(110);
-
-        pieChart.setHoleRadius(58f);
-        pieChart.setTransparentCircleRadius(61f);
-
+        pieChart.setHoleRadius(55f);
+        pieChart.setTransparentCircleRadius(60f);
         pieChart.setDrawCenterText(true);
-
+        pieChart.setNoDataText(getResources().getString(R.string.diagram_no_data_text));
         pieChart.setRotationAngle(0);
-        // enable rotation of the chart by touch
         pieChart.setRotationEnabled(false);
         pieChart.setHighlightPerTapEnabled(true);
         pieChart.setOnChartValueSelectedListener(this);
-
         setData(3, 100);
-
-        pieChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
-        // mChart.spin(2000, 0, 360);
-
+        pieChart.animateY(2500, Easing.EasingOption.EaseInOutQuad);
         Legend l = pieChart.getLegend();
         l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART);
         l.setXEntrySpace(7f);
@@ -75,67 +66,37 @@ public class ReportByCategoryExpansesFragment extends Fragment implements SeekBa
         l.setYOffset(0f);
         return rootView;
     }
-    private SpannableString generateCenterSpannableText() {
-
-        SpannableString s = new SpannableString(getResources().getString(R.string.expanse));
-
-        return s;
-    }
     private void setData(int count, float range) {
-
         float mult = range;
-
         ArrayList<Entry> yVals1 = new ArrayList<Entry>();
-
-        // IMPORTANT: In a PieChart, no values (Entry) should have the same
-        // xIndex (even if from different DataSets), since no values can be
-        // drawn above each other.
         for (int i = 0; i < count + 1; i++) {
             yVals1.add(new Entry((float) (Math.random() * mult) + mult / 5, i));
         }
-
         ArrayList<String> xVals = new ArrayList<String>();
-
         for (int i = 0; i < count + 1; i++)
             xVals.add(mParties[i % mParties.length]);
-
-        PieDataSet dataSet = new PieDataSet(yVals1, "Election Results");
+        PieDataSet dataSet = new PieDataSet(yVals1, "Список расходов");
         dataSet.setSliceSpace(3f);
         dataSet.setSelectionShift(5f);
-
-        // add a lot of colors
-
         ArrayList<Integer> colors = new ArrayList<Integer>();
-
         for (int c : ColorTemplate.VORDIPLOM_COLORS)
             colors.add(c);
-
         for (int c : ColorTemplate.JOYFUL_COLORS)
             colors.add(c);
-
         for (int c : ColorTemplate.COLORFUL_COLORS)
             colors.add(c);
-
         for (int c : ColorTemplate.LIBERTY_COLORS)
             colors.add(c);
-
         for (int c : ColorTemplate.PASTEL_COLORS)
             colors.add(c);
-
         colors.add(ColorTemplate.getHoloBlue());
-
         dataSet.setColors(colors);
-        //dataSet.setSelectionShift(0f);
-
         PieData data = new PieData(xVals, dataSet);
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(11f);
         data.setValueTextColor(Color.WHITE);
         pieChart.setData(data);
-
-        // undo all highlights
         pieChart.highlightValues(null);
-
         pieChart.invalidate();
     }
 
