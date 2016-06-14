@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
+import com.jim.pocketaccounter.credit.CreditDetials;
 import com.jim.pocketaccounter.debt.DebtBorrow;
 import com.jim.pocketaccounter.finance.Category;
 import com.jim.pocketaccounter.finance.FinanceRecord;
@@ -118,9 +119,29 @@ public class CategoryReportDatas {
         //end income expanses
 
         //credit begin
+        double creditTotalPaid = 0.0;
+        ArrayList<CreditDetials> credits = new ArrayList<CreditDetials>();
+        for (int i=0; i<PocketAccounter.financeManager.getCredits().size(); i++) {
+            if (PocketAccounter.financeManager.getCredits().get(i).isKey_for_include())
+                credits.add(PocketAccounter.financeManager.getCredits().get(i));
+        }
+        for (int i=0; i<credits.size(); i++) {
+            for (int j=0; j<credits.get(i).getReckings().size(); j++) {
+                Calendar cal = Calendar.getInstance();
+                cal.setTimeInMillis(credits.get(i).getReckings().get(j).getPayDate());
+                if (cal.compareTo(begin)>=0 && cal.compareTo(end)<=0)
+                    creditTotalPaid = creditTotalPaid + PocketAccounterGeneral.getCost(cal, credits.get(i).getValyute_currency(), credits.get(i).getReckings().get(j).getAmount());
+            }
+            CategoryDataRow creditDataRow = new CategoryDataRow();
+            RootCategory creditCategory = new RootCategory();
+            creditCategory.setName(credits.get(i).getCredit_name());
+            creditDataRow.setTotalAmount(creditTotalPaid);
+            result.add(creditDataRow);
+        }
         //credit end
 
         //debt borrows begin
+
         //debt borrows end
         return result;
     }

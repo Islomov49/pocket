@@ -654,4 +654,5 @@
     <string name="via">Via</string>
     <string name="comment">Comment</string>
     <string name="diagram_no_data_text">Нет данных для отображения!</string>
+    <string name="credit">Кредит</string>
 </resources>

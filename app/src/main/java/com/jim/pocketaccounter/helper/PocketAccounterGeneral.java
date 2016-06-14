@@ -4,6 +4,8 @@ import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.finance.Currency;
 import com.jim.pocketaccounter.finance.FinanceRecord;
 
+import java.util.Calendar;
+
 public class PocketAccounterGeneral {
 	public static final int NORMAL_MODE = 0;
 	public static final int EDIT_MODE = 1;
@@ -28,5 +30,20 @@ public class PocketAccounterGeneral {
 		}
 		amount = record.getAmount()/koeff;
 		return amount;
+	}
+	public static double getCost(Calendar date, Currency currency, double amount) {
+		double result = 0.0;
+		if (currency.getMain()) return amount;
+		double koeff = 1.0;
+		for (int i=0; i<currency.getCosts().size(); i++) {
+			if (date.compareTo(currency.getCosts().get(i).getDay())<=0) {
+				koeff = currency.getCosts().get(i).getCost();
+				break;
+			}
+			if (date.compareTo(currency.getCosts().get(i).getDay())>=0)
+				koeff = currency.getCosts().get(i).getCost();
+		}
+		result = amount/koeff;
+		return result;
 	}
 }
