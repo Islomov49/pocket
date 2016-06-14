@@ -655,6 +655,10 @@
     <string name="comment">Comment</string>
     <string name="diagram_no_data_text">Нет данных для отображения!</string>
     <string name="credit">Кредит</string>
+    <string name="borrow_statistics">Дал в долг</string>
+    <string name="borrow_recking_statistics">Вернул долг</string>
+    <string name="debt_statistics">Взял в долг</string>
+    <string name="debt_recking_statistics">Вернули долг</string>
     <string name="pay">PAY</string>
     <string name="cancel">CANCEL</string>
 </resources>

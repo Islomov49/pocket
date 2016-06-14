@@ -1,0 +1,116 @@
+package com.jim.pocketaccounter.report;
+
+import android.annotation.TargetApi;
+import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
+import android.util.AttributeSet;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
+import com.github.mikephil.charting.animation.Easing;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.utils.ColorTemplate;
+import com.jim.pocketaccounter.R;
+import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+
+
+public class CategoryReportView extends LinearLayout implements OnChartValueSelectedListener {
+    private PieChart pieChart;
+    private CategoryReportDatas categoryReportDatas;
+    private int type;
+    public CategoryReportView(Context context, int type) {
+        super(context);
+        this.type = type;
+        pieChart = new PieChart(context);
+        pieChart.setUsePercentValues(true);
+        pieChart.setDescription("");
+        pieChart.setExtraOffsets(5, 10, 5, 5);
+        pieChart.setCenterText(getResources().getString(R.string.expanse));
+        pieChart.setDrawHoleEnabled(true);
+        pieChart.setHoleColor(Color.WHITE);
+        pieChart.setTransparentCircleColor(Color.WHITE);
+        pieChart.setTransparentCircleAlpha(110);
+        pieChart.setHoleRadius(55f);
+        pieChart.setTransparentCircleRadius(60f);
+        pieChart.setDrawCenterText(true);
+        pieChart.setNoDataText(getResources().getString(R.string.diagram_no_data_text));
+        pieChart.setRotationAngle(0);
+        pieChart.setRotationEnabled(false);
+        pieChart.setHighlightPerTapEnabled(true);
+        pieChart.setOnChartValueSelectedListener(this);
+        pieChart.animateY(2500, Easing.EasingOption.EaseInOutQuad);
+        Calendar begin = Calendar.getInstance();
+        begin.set(1971, 0, 1);
+        Calendar end = Calendar.getInstance();
+        categoryReportDatas = new CategoryReportDatas(context, begin, end);
+        if (type == PocketAccounterGeneral.INCOME)
+            drawReport(categoryReportDatas.makeIncomeReport());
+        else
+            drawReport(categoryReportDatas.makeExpanseReport());
+        Legend l = pieChart.getLegend();
+        l.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
+        l.setXEntrySpace(7f);
+        l.setYEntrySpace(0f);
+        l.setYOffset(0f);
+        LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        pieChart.setLayoutParams(lp);
+        addView(pieChart);
+    }
+    public CategoryReportView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+    public CategoryReportView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public CategoryReportView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+    }
+    public void drawReport(ArrayList<CategoryDataRow> datas) {
+        ArrayList<Entry> yVals = new ArrayList<Entry>();
+        for (int i = 0; i < datas.size() + 1; i++) {
+            yVals.add(new Entry((float) datas.get(i).getTotalAmount(), i));
+        }
+        ArrayList<String> xVals = new ArrayList<String>();
+        for (int i = 0; i < datas.size() + 1; i++)
+            xVals.add(datas.get(i).getCategory().getName());
+        PieDataSet dataSet = new PieDataSet(yVals, "");
+        dataSet.setSliceSpace(3f);
+        dataSet.setSelectionShift(5f);
+        ArrayList<Integer> colors = new ArrayList<Integer>();
+        for (int c : ColorTemplate.VORDIPLOM_COLORS)
+            colors.add(c);
+        for (int c : ColorTemplate.JOYFUL_COLORS)
+            colors.add(c);
+        for (int c : ColorTemplate.COLORFUL_COLORS)
+            colors.add(c);
+        for (int c : ColorTemplate.LIBERTY_COLORS)
+            colors.add(c);
+        for (int c : ColorTemplate.PASTEL_COLORS)
+            colors.add(c);
+        colors.add(ColorTemplate.getHoloBlue());
+        dataSet.setColors(colors);
+        PieData data = new PieData(xVals, dataSet);
+        data.setValueFormatter(new PercentFormatter());
+        data.setValueTextSize(11f);
+        data.setValueTextColor(Color.WHITE);
+        pieChart.invalidate();
+    }
+    @Override
+    public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
+    }
+    @Override
+    public void onNothingSelected() {
+    }
+}
