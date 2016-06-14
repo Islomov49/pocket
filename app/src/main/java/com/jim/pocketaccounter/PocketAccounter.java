@@ -1,5 +1,7 @@
 package com.jim.pocketaccounter;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -10,11 +12,15 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.jim.pocketaccounter.debt.AddBorrowFragment;
 import com.jim.pocketaccounter.debt.DebtBorrowFragment;
 import com.jim.pocketaccounter.finance.FinanceManager;
 import com.jim.pocketaccounter.helper.LeftMenuAdapter;
@@ -29,6 +35,8 @@ public class PocketAccounter extends AppCompatActivity {
     public static LeftSideDrawer drawer;
     private ListView lvLeftMenu;
     public static FinanceManager financeManager;
+    public static boolean weAreIn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -174,6 +182,38 @@ public class PocketAccounter extends AppCompatActivity {
 
         activity.startActivity(emailIntent);
     }
+
+    @Override
+    public void onBackPressed(){
+        android.support.v4.app.Fragment temp00 = getSupportFragmentManager().
+                findFragmentById(R.id.flMain);
+        if(temp00!=null){
+            if(temp00.getTag().equals(AddCreditFragment.OPENED_TAG) && AddCreditFragment.to_open_dialog){
+                Log.d("somethinkkk","DIALOG OPENED IN ADDCREDIT");
+                final AlertDialog.Builder builder = new AlertDialog.Builder(PocketAccounter.this);
+                builder.setMessage("You have not added credit, just want to go out?")
+                        .setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                            }
+                        }).setNegativeButton("DISCARD", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        getSupportFragmentManager().popBackStack ();
+                    }
+                });
+                builder.create().show();
+            }
+            else {
+                AddCreditFragment.to_open_dialog=true;
+                super.onBackPressed();
+            }
+        }
+        else{
+            super.onBackPressed();
+        }
+    }
+
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         return super.onPrepareOptionsMenu(menu);

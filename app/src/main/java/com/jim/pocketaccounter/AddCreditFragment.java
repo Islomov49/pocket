@@ -80,6 +80,8 @@ public class AddCreditFragment extends Fragment {
     AddCreditFragment ThisFragment;
     ArrayList<CreditDetials> myList;
     CheckBox isOpkey;
+    public static final String OPENED_TAG="Addcredit";
+    public static  boolean to_open_dialog=false;
     public AddCreditFragment() {
         // Required empty public constructor
         ThisFragment=this;
@@ -97,6 +99,7 @@ public class AddCreditFragment extends Fragment {
         // Inflate the layout for this fragment
         View V=inflater.inflate(R.layout.fragment_add_credit, container, false);
         context=getActivity();
+     //   to_open_dialog=false;
         Log.d("args",argFirst[0]+argFirst[1]+argFirst[2]+"");
         spiner_forValut=(Spinner) V.findViewById(R.id.spinner);
         spiner_procent=(Spinner) V.findViewById(R.id.spinner_procent);

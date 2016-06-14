@@ -429,7 +429,11 @@ public class InfoCreditFragment extends Fragment {
         updateDate();
     }
 
-
+    @Override
+    public void onStop(){
+        PocketAccounter.financeManager.saveCredits();
+        super.onStop();
+    }
 
 
 

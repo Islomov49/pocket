@@ -114,7 +114,7 @@ public class CreditFragment extends Fragment {
             @Override
             public void onClick(View v) {
                // openFragment(new InfoCreditFragment(),"InfoFragment");
-                openFragment(new AddCreditFragment(),"Addcredit");
+                openFragment(new AddCreditFragment(),AddCreditFragment.OPENED_TAG);
             }
         });
         return V;
@@ -168,6 +168,7 @@ public class CreditFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+
     }
 
     interface EventFromAdding{
