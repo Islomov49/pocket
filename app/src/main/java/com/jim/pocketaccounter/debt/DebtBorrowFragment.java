@@ -53,27 +53,16 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.fbDebtBorrowFragment) {
-//            switch (viewPager.getCurrentItem()) {
-//                case BORROW_FRAGMENT: {
-//                    ((PocketAccounter) getContext()).replaceFragment(AddBorrowFragment.getInstance(BORROW_FRAGMENT));
-//                    break;
-//                }
-//                case DEBT_FRAGMENT: {
-//                    ((PocketAccounter) getContext()).replaceFragment(AddBorrowFragment.getInstance(DEBT_FRAGMENT));
-//                    break;
-//                }
-//            }
-            FilterDialog filterDialog = new FilterDialog(getContext());
-            filterDialog.setOnDateSelectedListener(new FilterSelectable() {
-                @Override
-                public void onDateSelected(Calendar begin, Calendar end) {
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-                    Toast.makeText(getContext(), dateFormat.format(begin.getTime()) + "\n"
-                            + dateFormat.format(end.getTime() ), Toast.LENGTH_LONG).show();
+            switch (viewPager.getCurrentItem()) {
+                case BORROW_FRAGMENT: {
+                    ((PocketAccounter) getContext()).replaceFragment(AddBorrowFragment.getInstance(BORROW_FRAGMENT));
+                    break;
                 }
-            });
-            filterDialog.show();
-
+                case DEBT_FRAGMENT: {
+                    ((PocketAccounter) getContext()).replaceFragment(AddBorrowFragment.getInstance(DEBT_FRAGMENT));
+                    break;
+                }
+            }
         }
     }
 
