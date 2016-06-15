@@ -1,13 +1,8 @@
 package com.jim.pocketaccounter.debt;
 
-import android.widget.CheckBox;
-
 import com.jim.pocketaccounter.finance.Currency;
-
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 
 public class DebtBorrow {
     private Person person;

@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,9 +40,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class BorrowFragment extends Fragment {
-
-
-
     private RecyclerView recyclerView;
     private LinearLayoutManager mLayoutManager;
     private MyAdapter myAdapter;
@@ -77,7 +75,16 @@ public class BorrowFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(myAdapter);
+
+        registerForContextMenu(recyclerView);
+
         return view;
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.add("Delete");
     }
 
     public ArrayList<DebtBorrow> getList() {
@@ -205,15 +212,6 @@ public class BorrowFragment extends Fragment {
                                         comment.getText().toString());
 
                                 persons.get(position).getReckings().add(recking);
-
-//                                peysAdapter.setDataChanged(format.format(date.getTime()), Double.parseDouble(enterPay.getText().toString()),
-//                                        "" + accountSp.getSelectedItem(), comment.getText().toString());
-//                                double qoldiq = 0;
-//                                for (int i = 0; i < list.size(); i++) {
-//                                    qoldiq += list.get(i).getAmount();
-//                                }
-//                                financeManager.setDebtBorrows(manager.getDebtBorrows());
-
                                 dialog.dismiss();
                             }
                         });

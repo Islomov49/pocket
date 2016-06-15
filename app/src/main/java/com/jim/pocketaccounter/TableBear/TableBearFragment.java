@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
+import com.jim.pocketaccounter.credit.ReckingCredit;
 import com.jim.pocketaccounter.debt.DebtBorrow;
 import com.jim.pocketaccounter.finance.FinanceManager;
 import com.jim.pocketaccounter.finance.FinanceRecord;
@@ -39,48 +40,6 @@ public class TableBearFragment extends Fragment {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
         kirimChiqims = new ArrayList<>();
 
-
-        Calendar current = Calendar.getInstance();
-        Calendar endTime = Calendar.getInstance();
-        endTime.set(Calendar.DAY_OF_MONTH, 12);
-        endTime.set(Calendar.MONTH, Calendar.JUNE);
-        endTime.set(Calendar.YEAR, 2016);
-
-        int day = 0;
-        int mounth = 0;
-        int year = 0;
-
-        if(current.compareTo(endTime) >= 0) {
-            if (current.get(Calendar.DAY_OF_MONTH) >= endTime.get(Calendar.DAY_OF_MONTH)) {
-                day = current.get(Calendar.DAY_OF_MONTH) - endTime.get(Calendar.DAY_OF_MONTH);
-                if (current.get(Calendar.MONTH) >= endTime.get(Calendar.MONTH)) {
-                    mounth = current.get(Calendar.MONTH) - endTime.get(Calendar.MONTH);
-                    if (current.get(Calendar.YEAR) >= endTime.get(Calendar.YEAR)) {
-                        year = current.get(Calendar.YEAR) - endTime.get(Calendar.YEAR);
-                    }
-                } else {
-                    mounth = current.get(Calendar.MONTH) + 12 - endTime.get(Calendar.MONTH);
-                    year = current.get(Calendar.YEAR) - 1 - endTime.get(Calendar.YEAR);
-                }
-            } else {
-                current.add(Calendar.MONTH, -1);
-                day = current.get(Calendar.DAY_OF_MONTH) + current.getActualMaximum(Calendar.MONTH) - endTime.get(Calendar.DAY_OF_MONTH);
-                if (current.get(Calendar.MONTH) >= endTime.get(Calendar.MONTH)) {
-                    mounth = current.get(Calendar.MONTH) - endTime.get(Calendar.MONTH);
-                    if (current.get(Calendar.YEAR) >= endTime.get(Calendar.YEAR)) {
-                        year = current.get(Calendar.YEAR) - endTime.get(Calendar.YEAR);
-                    }
-                } else {
-                    mounth = current.get(Calendar.MONTH) + 12 - endTime.get(Calendar.MONTH);
-                    if (current.get(Calendar.YEAR) > endTime.get(Calendar.YEAR)) {
-                        year = current.get(Calendar.YEAR) - 1 - endTime.get(Calendar.YEAR);
-                    }
-                }
-            }
-        }
-
-        Log.d("calendar", "" + day + " " + mounth + " " + year);
-
         ArrayList<DebtBorrow> debtBorrows = manager.getDebtBorrows();
         ArrayList<FinanceRecord> financeRecords = manager.getRecords();
 
@@ -104,15 +63,21 @@ public class TableBearFragment extends Fragment {
                 dayOf.add((Calendar) calendar.clone());
             }
         }
+
+        Log.d("sinov", "sdasdas");
         //-------------------bu yerda finance records tekshirildi --------------
-//        for (int i = 0; i < financeRecords.size(); i++) {
-//            dayOf.add((Calendar) financeRecords.get(i).getDate().clone());
-//        }
+        for (int i = 0; i < financeRecords.size(); i++) {
+            dayOf.add((Calendar) financeRecords.get(i).getDate().clone());
+        }
 
         //----------------- bu yerda Credit details tekshirildi ----------------
-//        for (int i = 0; i < manager.getCreditDetials().size(); i++) {
-//            long time = manager.getCreditDetials().get(i).getTake_time();
-//        }
+        for (int i = 0; i < manager.getCredits().size(); i++) {
+            Calendar cal = Calendar.getInstance();
+            for (ReckingCredit reckingCredit : manager.getCredits().get(i).getReckings()) {
+                cal.setTimeInMillis(reckingCredit.getPayDate());
+                dayOf.add(cal);
+            }
+        }
 
         //----------------- bir hildagi sanalarni o'chirib chiqish -------------
         for (int i = 0; i < dayOf.size() - 1; i++) {
@@ -136,10 +101,12 @@ public class TableBearFragment extends Fragment {
         //------------------- date larni o'sish tartibida saralash ------
         for (int i = 0; i < dayOf.size() - 1; i++) {
             for (int j = i + 1; j < dayOf.size(); j++) {
-                if (dayOf.get(i).compareTo(dayOf.get(j)) <= 0) {
+                if (dayOf.get(i).compareTo(dayOf.get(j)) >= 0) {
                     Calendar temp = (Calendar) dayOf.get(i).clone();
                     dayOf.add(i, (Calendar) dayOf.get(j).clone());
                     dayOf.add(j, temp);
+                    dayOf.remove(i+1);
+                    dayOf.remove(j+1);
                 }
             }
         }
@@ -164,6 +131,27 @@ public class TableBearFragment extends Fragment {
             Map<String, Double> chiqims = new HashMap<>();
             Map<String, Double> kirims = new HashMap<>();
 
+            //----------------- Start Credit Details -----------------------
+            for (int i = 0; i < manager.getCredits().size(); i++) {
+                for (int j = 0; j < manager.getCredits().get(i).getReckings().size(); j++) {
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTimeInMillis(manager.getCredits().get(i).getReckings().get(j).getPayDate());
+                    cal.set(Calendar.HOUR_OF_DAY, 0);
+                    cal.set(Calendar.MINUTE, 0);
+                    cal.set(Calendar.SECOND, 0);
+                    cal.set(Calendar.MILLISECOND, 0);
+
+                    if (days.compareTo(cal) == 0 && manager.getCredits().get(i).isKey_for_include()) {
+                        if (chiqims.get("credit pay") != null) {
+                            chiqims.put("credit pay", chiqims.get("credit pay") +
+                                    manager.getCredits().get(i).getReckings().get(j).getAmount());
+                        } else {
+                            chiqims.put("credit pay", manager.getCredits().get(i).getReckings().get(j).getAmount());
+                        }
+                    }
+                }
+            }
+
             for (int i = 0; i < debtBorrows.size(); i++) {
                 Calendar debtCalendar = debtBorrows.get(i).getTakenDate();
                 debtCalendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -171,7 +159,7 @@ public class TableBearFragment extends Fragment {
                 debtCalendar.set(Calendar.SECOND, 0);
                 debtCalendar.set(Calendar.MILLISECOND, 0);
 
-                if (days.compareTo(debtCalendar) == 0) {
+                if (days.compareTo(debtCalendar) == 0 && debtBorrows.get(i).isCalculate()) {
                     if (debtBorrows.get(i).getType() == DebtBorrow.DEBT) {
                         if (chiqims.get("qarz oldim") != null) {
                             chiqims.put("qarz oldim", chiqims.remove("qarz oldim") + debtBorrows.get(i).getAmount());
@@ -191,17 +179,16 @@ public class TableBearFragment extends Fragment {
                     Log.d("kk", dateFormat.format(startDate.getTime()));
                 }
 
-                // Reckingni tekshirdim
+//                 Reckingni tekshirdim
                 for (int j = 0; j < debtBorrows.get(i).getReckings().size(); j++) {
                     String date = debtBorrows.get(i).getReckings().get(j).getPayDate();
-
                     try {
                         calendar.setTime(dateFormat.parse(date));
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
-                    if (days.compareTo(calendar) == 0) {
-                        if (debtBorrows.get(i).getType() == DebtBorrow.DEBT) {
+                    if (days.compareTo(calendar) == 0 && debtBorrows.get(i).isCalculate()) {
+                        if (debtBorrows.get(i).getType() == DebtBorrow.BORROW) {
                             if (chiqims.get("qarz oldim") != null) {
                                 chiqims.put("qarz oldim", chiqims.remove("qarz oldim") + debtBorrows.get(i).getReckings().get(j).getAmount());
                             } else {
@@ -217,13 +204,12 @@ public class TableBearFragment extends Fragment {
                             kirim += debtBorrows.get(i).getReckings().get(j).getAmount();
                         }
                         Log.d("tek", dateFormat.format(startDate.getTime()));
-
                     }
                 }
             }
-            // ------------------ End Debt Borrow -------------------------------//
+//             ------------------ End Debt Borrow -------------------------------//
 
-            // ------------------ Start Finance Record --------------------------//
+//             ------------------ Start Finance Record --------------------------//
             for (int i = 0; i < financeRecords.size(); i++) {
                 if (financeRecords.get(i).getDate().compareTo(days) == 0) {
                     if (financeRecords.get(i).getCategory().getType() == PocketAccounterGeneral.EXPANCE) {
@@ -241,6 +227,7 @@ public class TableBearFragment extends Fragment {
                     }
                 }
             }
+
             if (kirims.size() != 0 || chiqims.size() != 0) {
                 kirimChiqims.add(new KirimChiqim(days, kirims, chiqims, kirim - chiqim));
                 Log.d("kunlar", "" + dateFormat.format(days.getTime()) + " " + kirim + " " + chiqim);

@@ -18,6 +18,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.jim.pocketaccounter.TableBear.FilterFragment;
+import com.jim.pocketaccounter.TableBear.TableBearFragment;
 import com.jim.pocketaccounter.debt.DebtBorrowFragment;
 import com.jim.pocketaccounter.finance.FinanceManager;
 import com.jim.pocketaccounter.helper.LeftMenuAdapter;
@@ -137,6 +140,8 @@ public class PocketAccounter extends AppCompatActivity {
                         replaceFragment(new DebtBorrowFragment());
                         break;
                     case 12:
+//                        replaceFragment(new TableBearFragment());
+                        replaceFragment(new FilterFragment());
                         //settings
                         break;
                     case 13:
