@@ -13,9 +13,11 @@ import android.view.ViewGroup;
 
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
-/**
- * Created by user on 6/15/2016.
- */
+import com.jim.pocketaccounter.ReportByIncomeExpanseBarFragment;
+import com.jim.pocketaccounter.ReportByIncomeExpanseTableFragment;
+import com.jim.pocketaccounter.finance.FinanceRecord;
+
+import java.util.ArrayList;
 
 public class TableBarFragment extends Fragment {
 
@@ -25,22 +27,22 @@ public class TableBarFragment extends Fragment {
         View view = inflater.inflate(R.layout.table_bar_fragment_layout, container, false);
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.vpTableBarFragment);
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tlTableBarFragment);
-
-
-        viewPager.setAdapter(new TableBarAdapter(((PocketAccounter)getContext()).getSupportFragmentManager()));
+        ArrayList<Fragment> list = new ArrayList<>();
+        list.add(new ReportByIncomeExpanseTableFragment());
+        list.add(new ReportByIncomeExpanseBarFragment());
+        viewPager.setAdapter(new TableBarAdapter(((PocketAccounter)getContext()).getSupportFragmentManager(), list));
         tabLayout.setupWithViewPager(viewPager);
         return view;
     }
 
     private class TableBarAdapter extends FragmentStatePagerAdapter {
-        public TableBarAdapter(FragmentManager fm) {
+        private ArrayList<Fragment> list;
+        public TableBarAdapter(FragmentManager fm, ArrayList<Fragment> list) {
             super(fm);
+            this.list = list;
         }
         public Fragment getItem(int position) {
-            if (position == 0) {
-                return new Fragment();
-            }
-            return new Fragment();
+            return list.get(position);
         }
         public int getCount() {return 2;}
 

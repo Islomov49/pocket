@@ -27,8 +27,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
-public class ReportByCategoryExpansesFragment extends Fragment implements SeekBar.OnSeekBarChangeListener,
-        OnChartValueSelectedListener {
+public class ReportByCategoryExpansesFragment extends Fragment implements OnChartValueSelectedListener {
     private PieChart pieChart;
     protected String[] mParties = new String[] {
             "Party A", "Party B", "Party C", "Party D", "Party E", "Party F", "Party G", "Party H",
@@ -98,21 +97,6 @@ public class ReportByCategoryExpansesFragment extends Fragment implements SeekBa
         pieChart.setData(data);
         pieChart.highlightValues(null);
         pieChart.invalidate();
-    }
-
-    @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-    }
-
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-
-    }
-
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
-
     }
 
     @Override

@@ -14,15 +14,12 @@ import android.widget.Toast;
 
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
-import com.jim.pocketaccounter.TableBear.FilterDialog;
-import com.jim.pocketaccounter.TableBear.FilterFragment;
+import com.jim.pocketaccounter.report.FilterDialog;
 import com.jim.pocketaccounter.helper.FloatingActionButton;
 import com.jim.pocketaccounter.report.FilterSelectable;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 /**
  * Created by user on 6/4/2016.

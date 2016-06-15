@@ -19,13 +19,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.jim.pocketaccounter.TableBear.FilterFragment;
-import com.jim.pocketaccounter.TableBear.TableBearFragment;
+import com.jim.pocketaccounter.report.FilterFragment;
 import com.jim.pocketaccounter.debt.DebtBorrowFragment;
 import com.jim.pocketaccounter.finance.FinanceManager;
 import com.jim.pocketaccounter.helper.LeftMenuAdapter;
 import com.jim.pocketaccounter.helper.LeftMenuItem;
 import com.jim.pocketaccounter.helper.LeftSideDrawer;
+import com.jim.pocketaccounter.report.TableBarFragment;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -129,6 +130,7 @@ public class PocketAccounter extends AppCompatActivity {
                         break;
                     case 7:
                         //statistics by income/expanse
+                        replaceFragment(new TableBarFragment());
                         break;
                     case 8:
                         replaceFragment(new ReportByCategory());
@@ -140,7 +142,6 @@ public class PocketAccounter extends AppCompatActivity {
                         replaceFragment(new DebtBorrowFragment());
                         break;
                     case 12:
-//                        replaceFragment(new TableBearFragment());
                         replaceFragment(new FilterFragment());
                         //settings
                         break;
