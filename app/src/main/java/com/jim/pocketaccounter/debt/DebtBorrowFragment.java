@@ -14,9 +14,14 @@ import android.widget.Toast;
 
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
+import com.jim.pocketaccounter.TableBear.FilterDialog;
+import com.jim.pocketaccounter.TableBear.FilterFragment;
 import com.jim.pocketaccounter.helper.FloatingActionButton;
+import com.jim.pocketaccounter.report.FilterSelectable;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -51,16 +56,27 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.fbDebtBorrowFragment) {
-            switch (viewPager.getCurrentItem()) {
-                case BORROW_FRAGMENT: {
-                    ((PocketAccounter) getContext()).replaceFragment(AddBorrowFragment.getInstance(BORROW_FRAGMENT));
-                    break;
+//            switch (viewPager.getCurrentItem()) {
+//                case BORROW_FRAGMENT: {
+//                    ((PocketAccounter) getContext()).replaceFragment(AddBorrowFragment.getInstance(BORROW_FRAGMENT));
+//                    break;
+//                }
+//                case DEBT_FRAGMENT: {
+//                    ((PocketAccounter) getContext()).replaceFragment(AddBorrowFragment.getInstance(DEBT_FRAGMENT));
+//                    break;
+//                }
+//            }
+            FilterDialog filterDialog = new FilterDialog(getContext());
+            filterDialog.setOnDateSelectedListener(new FilterSelectable() {
+                @Override
+                public void onDateSelected(Calendar begin, Calendar end) {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+                    Toast.makeText(getContext(), dateFormat.format(begin.getTime()) + "\n"
+                            + dateFormat.format(end.getTime() ), Toast.LENGTH_LONG).show();
                 }
-                case DEBT_FRAGMENT: {
-                    ((PocketAccounter) getContext()).replaceFragment(AddBorrowFragment.getInstance(DEBT_FRAGMENT));
-                    break;
-                }
-            }
+            });
+            filterDialog.show();
+
         }
     }
 
