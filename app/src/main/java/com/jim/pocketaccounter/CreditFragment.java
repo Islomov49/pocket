@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.jim.pocketaccounter.credit.AdapterCridet;
 import com.jim.pocketaccounter.credit.CreditDetials;
+import com.jim.pocketaccounter.credit.ReckingCredit;
 import com.jim.pocketaccounter.finance.FinanceManager;
 import com.melnykov.fab.FloatingActionButton;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class CreditFragment extends Fragment {
     RecyclerView crRV;
     AdapterCridet crAdap;
     Context This;
-    FloatingActionButton fb;
+    CreditTabLay.SvyazkaFragmentov svyaz;
     private FinanceManager financeManager;
     public CreditFragment() {
         // Required empty public constructor
@@ -33,10 +34,18 @@ public class CreditFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         crList=PocketAccounter.financeManager.getCredits();
-        for(CreditDetials temp:crList){
-            Log.d("proverka",temp.getCredit_name());
-        }
         This=getActivity();
+    }
+    public  CreditTabLay.ForFab getEvent(){
+        return new CreditTabLay.ForFab() {
+            @Override
+            public void pressedFab() {
+                openFragment(new AddCreditFragment(),AddCreditFragment.OPENED_TAG);
+            }
+        };
+    }
+    public void setSvyaz(CreditTabLay.SvyazkaFragmentov A){
+        svyaz=A;
     }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,7 +54,6 @@ public class CreditFragment extends Fragment {
         View V=inflater.inflate(R.layout.fragment_credit, container, false);
         financeManager = PocketAccounter.financeManager;
         crRV=(RecyclerView) V.findViewById(R.id.my_recycler_view);
-        fb=(FloatingActionButton) V.findViewById(R.id.fab);
         LinearLayoutManager llm = new LinearLayoutManager(This);
         crRV.setLayoutManager(llm);
 
@@ -62,9 +70,37 @@ public class CreditFragment extends Fragment {
 
                     @Override
                     public void to_Archive(int position) {
+                        CreditDetials toArc=crList.get(position);
+                        if(toArc.isKey_for_include()){
+                            toArc.setKey_for_archive(true);
+                            crList.set(position,toArc);
+                            crAdap.notifyItemChanged(position);
+                        }
+                        else{
+                            crList.remove(position);
+                            crAdap.notifyItemRemoved(position);
+                        }
 
+                        long toArchiveID=System.currentTimeMillis();
+                        toArc.setMyCredit_id(toArchiveID);
+                        ArrayList<ReckingCredit> recc=new ArrayList<>();
+                        for(ReckingCredit mycr:toArc.getReckings()){
+                            mycr.setMyCredit_id(toArchiveID);
+                            recc.add(mycr);
+                        }
+                        toArc.setReckings(recc);
+                        ArrayList<CreditDetials> A=financeManager.getArchiveCredits();
+                        A.add(0,toArc);
+                        financeManager.saveArchiveCredits();
+                        svyaz.itemInsertedToArchive();
                     }
-                });
+                    @Override
+                    public void delete_item(int position) {
+                        crList.remove(position);
+                        financeManager.saveCredits();
+                        crAdap.notifyItemRemoved(position);
+                    }
+                    });
                 openFragment(temp,"InfoFragment");
             }
 
@@ -83,26 +119,43 @@ public class CreditFragment extends Fragment {
             @Override
             public void item_to_archive(int position) {
             //TODO to archive code
+                CreditDetials toArc=crList.get(position);
+                if(toArc.isKey_for_include()){
+                    toArc.setKey_for_archive(true);
+                    crList.set(position,toArc);
+                    crAdap.notifyItemChanged(position);
+                }
+                else{
+                    crList.remove(position);
+                    crAdap.notifyItemRemoved(position);
+                }
+
+                long toArchiveID=System.currentTimeMillis();
+                toArc.setMyCredit_id(toArchiveID);
+                ArrayList<ReckingCredit> recc=new ArrayList<>();
+                for(ReckingCredit mycr:toArc.getReckings()){
+                    mycr.setMyCredit_id(toArchiveID);
+                    recc.add(mycr);
+                }
+                toArc.setReckings(recc);
+                financeManager.getArchiveCredits().add(0,toArc);
+                financeManager.saveArchiveCredits();
+                financeManager.saveCredits();
+                svyaz.itemInsertedToArchive();
             }
         });
-        crRV.setAdapter(crAdap);
 
-        updateList();
         V.post(new Runnable() {
             @Override
             public void run() {
+                crRV.setAdapter(crAdap);
 
+                updateList();
 
             }
         });
 
-        fb.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               // openFragment(new InfoCreditFragment(),"InfoFragment");
-                openFragment(new AddCreditFragment(),AddCreditFragment.OPENED_TAG);
-            }
-        });
+
         return V;
     }
     public void openFragment(Fragment fragment,String tag) {

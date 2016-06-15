@@ -18,6 +18,7 @@ public class FinanceManager {
 	private ArrayList<Account> accounts;
 	private ArrayList<FinanceRecord> records;
 	private ArrayList<CreditDetials> credits;
+	private ArrayList<CreditDetials> creditsArchive;
 	private PocketAccounterDatabase db;
 	private ArrayList<DebtBorrow> debtBorrows;
 
@@ -31,13 +32,23 @@ public class FinanceManager {
 		accounts = loadAccounts();
 		records = loadRecords();
 		credits = loadCredits();
+		creditsArchive=loadArchiveCredits();
 		debtBorrows = loadDebtBorrows();
 	}
+
+
 	public ArrayList<CreditDetials> loadCredits() {
 				return db.loadCredits();}
 	public ArrayList<CreditDetials> getCredits() {
 				return credits;}
 	public void saveCredits() {db.saveDatasToCreditTable(credits);}
+
+
+	public ArrayList<CreditDetials> loadArchiveCredits() {
+		return db.loadArchiveCredits();}
+	public ArrayList<CreditDetials> getArchiveCredits() {
+		return creditsArchive;}
+	public void saveArchiveCredits() {db.saveDatasToArchiveCreditTable(creditsArchive);}
 	public ArrayList<Currency> getCurrencies() {
 		return currencies;
 	}
@@ -47,19 +58,15 @@ public class FinanceManager {
 	private ArrayList<Currency> loadCurrencies() {
 		return db.loadCurrencies();
 	}
-
 	public ArrayList<DebtBorrow> getDebtBorrows() {
 		return debtBorrows;
 	}
-
 	public void setDebtBorrows(ArrayList<DebtBorrow> debtBorrows) {
 		this.debtBorrows = debtBorrows;
 	}
-
 	public void setCredits(ArrayList<CreditDetials> credits) {
 		this.credits = credits;
 	}
-
 	public Currency getMainCurrency() {
 		for (int i=0; i<currencies.size(); i++) {
 			if (currencies.get(i).getMain())

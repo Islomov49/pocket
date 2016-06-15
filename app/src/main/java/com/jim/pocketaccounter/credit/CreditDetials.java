@@ -20,6 +20,7 @@ public class CreditDetials {
     private Currency valyute_currency;
     private ArrayList<ReckingCredit> reckings;
     private boolean key_for_include;
+    private boolean key_for_archive;
 
     public CreditDetials(){
 
@@ -40,9 +41,16 @@ public class CreditDetials {
         this.period_time_tip=period_time_tip;
         this.myCredit_id=myCredit_id;
         this.key_for_include=key_for_include;
+        key_for_archive=false;
         reckings = new ArrayList<>();
     }
 
+    public boolean isKey_for_archive() {
+        return key_for_archive;
+    }
+    public void setKey_for_archive(boolean key_for_archive) {
+        this.key_for_archive = key_for_archive;
+    }
     public ArrayList<ReckingCredit> getReckings() {
         return reckings;
     }

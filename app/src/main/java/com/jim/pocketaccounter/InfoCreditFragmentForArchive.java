@@ -25,10 +25,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+
 import com.jim.pocketaccounter.credit.CreditDetials;
 import com.jim.pocketaccounter.credit.ReckingCredit;
 import com.jim.pocketaccounter.finance.Account;
 import com.jim.pocketaccounter.finance.FinanceManager;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -36,14 +38,13 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 
-public class InfoCreditFragment extends Fragment {
+public class InfoCreditFragmentForArchive extends Fragment {
     ImageView expandableBut;
     FrameLayout expandablePanel;
     FrameLayout expandableLiniya;
     FrameLayout ifHaveItem;
     RecyclerView tranact_recyc;
     CreditDetials currentCredit;
-    boolean toArcive=false;
     TextView myCreditName;
     TextView myLefAmount;
     TextView myProcent;
@@ -55,12 +56,8 @@ public class InfoCreditFragment extends Fragment {
     TextView myTotalPaid;
     TextView calculeted;
     ImageView icon_credit;
-    ConWithFragments A1;
-    boolean payKey=true;
     PaysCreditAdapter adapRecyc;
     ArrayList<ReckingCredit> rcList;
-    boolean delete_flag=false;
-    int currentPOS=0;
     final static long forDay=1000L*60L*60L*24L;
     final static long forMoth=1000L*60L*60L*24L*30L;
     final static long forWeek=1000L*60L*60L*24L*7L;
@@ -72,13 +69,15 @@ public class InfoCreditFragment extends Fragment {
     private FinanceManager manager;
     private Context context;
     TextView myPay,myDelete;
-    public InfoCreditFragment() {
+    CreditArchiveFragment.ListnerDel A1;
+    int POSITIOn;
+    public InfoCreditFragmentForArchive() {
         // Required empty public constructor
     }
-    public void setConteent(CreditDetials temp,int currentPOS,ConWithFragments A1){
+    public void setConteent(CreditDetials temp,int position, CreditArchiveFragment.ListnerDel A1){
         currentCredit=temp;
         this.A1=A1;
-        this.currentPOS=currentPOS;
+        POSITIOn=position;
     }
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,7 +90,7 @@ public class InfoCreditFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View V=inflater.inflate(R.layout.fragment_info_credit, container, false);
+        View V=inflater.inflate(R.layout.fragment_info_credit_archive, container, false);
         Date dateForSimpleDate = (new Date());
         expandableBut=(ImageView) V.findViewById(R.id.wlyuzik_opener);
         expandablePanel=(FrameLayout) V.findViewById(R.id.shlyuzik);
@@ -116,6 +115,19 @@ public class InfoCreditFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(context);
         tranact_recyc.setLayoutManager(llm);
 
+        tranact_recyc.setAdapter(adapRecyc);
+        if(rcList.size()==0){
+            ifHaveItem.setVisibility(View.GONE);
+        }else{
+            ifHaveItem.setVisibility(View.VISIBLE);
+
+        }
+            double total_paid=0;
+        for(ReckingCredit item:rcList){
+            total_paid+=item.getAmount();
+        }
+
+        adapRecyc.notifyDataSetChanged();
 
         ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
         ivToolbarMostRight.setImageResource(R.drawable.ic_delete_black_18dp);
@@ -130,7 +142,7 @@ public class InfoCreditFragment extends Fragment {
                         .setPositiveButton("DELETE ANYWAY", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialoge, int id) {
 
-                                A1.delete_item(currentPOS);
+                                A1.delete_item(POSITIOn);
                                 getActivity().getSupportFragmentManager().popBackStack ();
 
                             }
@@ -147,39 +159,6 @@ public class InfoCreditFragment extends Fragment {
             }
         });
 
-        tranact_recyc.setAdapter(adapRecyc);
-        if(rcList.size()==0){
-            ifHaveItem.setVisibility(View.GONE);
-        }else{
-            ifHaveItem.setVisibility(View.VISIBLE);
-
-        }
-            double total_paid=0;
-        for(ReckingCredit item:rcList){
-            total_paid+=item.getAmount();
-        }
-
-        adapRecyc.notifyDataSetChanged();
-        V.findViewById(R.id.frameLayout2).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(toArcive){
-
-                    A1.to_Archive(currentPOS);
-                    ((PocketAccounter)context).getSupportFragmentManager().popBackStack ();
-                    Log.d("test11","WE GO TO ARCHIVE:"+currentCredit);
-                }
-                else if(!delete_flag)
-                {
-                    openDialog();
-                }
-                else {
-                    delete_flag=false;
-                    myPay.setText(R.string.pay);
-                    adapRecyc.notifyDataSetChanged();
-                }
-            }
-        });
 
         myTakedValue.setText(parseToWithoutNull(currentCredit.getValue_of_credit())+currentCredit.getValyute_currency().getAbbr());
         myReturnValue.setText(parseToWithoutNull(currentCredit.getValue_of_credit_with_procent())+currentCredit.getValyute_currency().getAbbr());
@@ -190,12 +169,8 @@ public class InfoCreditFragment extends Fragment {
         myCreditName.setText(currentCredit.getCredit_name());
 
         myTotalPaid.setText(parseToWithoutNull(total_paid)+currentCredit.getValyute_currency().getAbbr());
-        if(currentCredit.getValue_of_credit_with_procent()-total_paid<=0){
-            myLefAmount.setText(getString(R.string.repaid));
-            toArcive=true;
-            myPay.setText(getString(R.string.archive));
-        } else
-        myLefAmount.setText(parseToWithoutNull(currentCredit.getValue_of_credit_with_procent()-total_paid)+currentCredit.getValyute_currency().getAbbr());
+
+        myLefAmount.setText(getString(R.string.repaid));
 
         String suffix="";
         if(currentCredit.getProcent_interval()==forDay){
@@ -212,22 +187,9 @@ public class InfoCreditFragment extends Fragment {
         }
 
         myProcent.setText(parseToWithoutNull(currentCredit.getProcent())+"%"+" "+suffix);
-        Calendar to= (Calendar) currentCredit.getTake_time().clone();
-        V.findViewById(R.id.frameLayout3).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(delete_flag){
-                    delete_checked_items();
 
-            }
-                else{
-                    delete_flag=true;
-                    adapRecyc.notifyDataSetChanged();
-                    myPay.setText(getString(R.string.cancel));
-                   //myDelete.setTextColor(getActivity().getColor(R.color.red));
-                }
-            }
-        });
+        Calendar to= (Calendar) currentCredit.getTake_time().clone();
+
         long period_tip=currentCredit.getPeriod_time_tip();
         long period_voqt=currentCredit.getPeriod_time();
         int voqt_soni= (int) (period_voqt/period_tip);
@@ -277,7 +239,6 @@ public class InfoCreditFragment extends Fragment {
         Log.d("Myday",t[0]+" "+t[1]+" "+t[2]);
         if(t[0]*t[1]*t[2]<0&&(t[0]+t[1]+t[2])!=0){
             myLefDate.setText(R.string.ends);
-            myLefDate.setTextColor(Color.parseColor("#832e1c"));
         }
         else {
             String left_date_string="";
@@ -364,193 +325,14 @@ public class InfoCreditFragment extends Fragment {
         return   new int[]{year, month, day};
     }
     interface ConWithFragments{
-        void change_item(CreditDetials changed_item,int position);
+        void change_item(CreditDetials changed_item, int position);
         void to_Archive(int position);
-        void delete_item(int position);
     }
 
     ArrayList<Account> accaunt_AC;
-    private void openDialog() {
-        final Dialog dialog = new Dialog(context);
-        View dialogView = ((PocketAccounter)context).getLayoutInflater().inflate(R.layout.add_pay_debt_borrow_info_mod, null);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(dialogView);
-        final EditText enterDate = (EditText) dialogView.findViewById(R.id.etInfoDebtBorrowDate);
-        final EditText enterPay = (EditText) dialogView.findViewById(R.id.etInfoDebtBorrowPaySumm);
-        final EditText comment = (EditText) dialogView.findViewById(R.id.etInfoDebtBorrowPayComment);
-        final Spinner accountSp = (Spinner) dialogView.findViewById(R.id.spInfoDebtBorrowAccount);
-        accaunt_AC=null;
-        if(currentCredit.isKey_for_include()){
-            accaunt_AC=PocketAccounter.financeManager.getAccounts();
-            String[] accaounts = new String[accaunt_AC.size()];
-            for (int i = 0; i < accaounts.length; i++) {
-                accaounts[i] = accaunt_AC.get(i).getName();
-            }
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                    context, R.layout.spiner_gravity_right, accaounts);
 
-            accountSp.setAdapter(arrayAdapter);
 
-        }
-        else{
-            dialogView.findViewById(R.id.is_calc).setVisibility(View.GONE);
-        }
-        final Calendar date = Calendar.getInstance();
-        enterDate.setText(dateformarter.format(date.getTime()));
-        ImageView cancel = (ImageView) dialogView.findViewById(R.id.ivInfoDebtBorrowCancel);
-        ImageView save = (ImageView) dialogView.findViewById(R.id.ivInfoDebtBorrowSave);
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        final DatePickerDialog.OnDateSetListener getDatesetListener = new DatePickerDialog.OnDateSetListener() {
-            public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-
-                enterDate.setText(dateformarter.format((new GregorianCalendar(arg1,arg2,arg3)).getTime()));
-                date.set(arg1, arg2, arg3);
-            }
-        };
-        enterDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
-                Dialog mDialog = new DatePickerDialog(context,
-                        getDatesetListener, calendar.get(Calendar.YEAR),
-                        calendar.get(Calendar.MONTH), calendar
-                        .get(Calendar.DAY_OF_MONTH));
-                mDialog.show();
-            }
-        });
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                final String amount=enterPay.getText().toString();
-                double total_paid=0;
-                for(ReckingCredit item:rcList)
-                    total_paid+=item.getAmount();
-                if(!amount.matches("")){
-                    if(Double.parseDouble(amount)>currentCredit.getValue_of_credit_with_procent()-total_paid){
-
-                        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                        builder.setMessage("Your payment balance is "+parseToWithoutNull(currentCredit.getValue_of_credit_with_procent()-total_paid)+
-                                currentCredit.getValyute_currency().getAbbr()+"."+" Are you sure of the fact that you have to pay more than "+
-                                parseToWithoutNull(Double.parseDouble(amount)-(currentCredit.getValue_of_credit_with_procent()-total_paid))+
-                                currentCredit.getValyute_currency().getAbbr()+" ?")
-                                .setPositiveButton("I'm sure", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialoge, int id) {
-                                        ReckingCredit rec=null;
-                                        if(!amount.matches("")&&currentCredit.isKey_for_include())
-                                            rec=new ReckingCredit(date.getTimeInMillis(),Double.parseDouble(amount),accaunt_AC.get(accountSp.getSelectedItemPosition()).getId(),
-                                                    currentCredit.getMyCredit_id(),comment.getText().toString());
-                                        else
-                                            rec=new ReckingCredit(date.getTimeInMillis(),Double.parseDouble(amount),"",
-                                                    currentCredit.getMyCredit_id(),comment.getText().toString());
-                                        rcList.add(rec);
-                                        currentCredit.setReckings(rcList);
-                                        A1.change_item(currentCredit,currentPOS);
-                                        updateDate();
-                                        dialog.dismiss();
-                                    }
-                                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-
-                            }
-                        });
-                        builder.create().show();
-
-                    }
-                    else {
-                        ReckingCredit rec=null;
-                        if(!amount.matches("")&&currentCredit.isKey_for_include())
-                            rec=new ReckingCredit(date.getTimeInMillis(),Double.parseDouble(amount),accaunt_AC.get(accountSp.getSelectedItemPosition()).getId(),currentCredit.getMyCredit_id(),comment.getText().toString());
-                        else
-                            rec=new ReckingCredit(date.getTimeInMillis(),Double.parseDouble(amount),"",currentCredit.getMyCredit_id(),comment.getText().toString());
-                        currentCredit.getReckings().add(rec);
-                        A1.change_item(currentCredit,currentPOS);
-                        updateDate();
-                        dialog.dismiss();
-                    }
-                }
-
-            }
-        });
-        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-        int width = displayMetrics.widthPixels;
-        dialog.getWindow().setLayout(7 * width / 8, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        dialog.show();
-    }
-    public void updateDate(){
-
-        double total_paid=0;
-        for(ReckingCredit item:rcList)
-            total_paid+=item.getAmount();
-        if(currentCredit.getValue_of_credit_with_procent()-total_paid<=0){
-            myLefAmount.setText(getString(R.string.repaid));
-            myPay.setText(getString(R.string.archive));
-            toArcive=true;
-        }
-        else {
-            toArcive=false;
-            myLefAmount.setText(parseToWithoutNull(currentCredit.getValue_of_credit_with_procent()-total_paid)+currentCredit.getValyute_currency().getAbbr());
-        }
-        if(rcList.size()==0){
-            ifHaveItem.setVisibility(View.GONE);}
-        else{
-            ifHaveItem.setVisibility(View.VISIBLE);}
-        myTotalPaid.setText(parseToWithoutNull(total_paid)+currentCredit.getValyute_currency().getAbbr());
-        //TODO update recycler
-    }
-
-    public void delete_checked_items(){
-        boolean keyfor=false;
-        final int lenght=rcList.size()-1;
-        for(int t=lenght;t>=0;t--){
-            View item=tranact_recyc.getChildAt(t);
-            boolean forCheck=((CheckBox)item.findViewById(R.id.for_delete_check_box)).isChecked();
-            Log.d("Itemmmm",""+forCheck);
-            if(forCheck){
-                keyfor=true;
-            }
-        }
-        if(keyfor){
-            final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setMessage("You accept the deletion of records")
-                    .setPositiveButton("ACCEPT", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            for(int t=lenght;t>=0;t--){
-                                View item=tranact_recyc.getChildAt(t);
-                                boolean forCheck=((CheckBox)item.findViewById(R.id.for_delete_check_box)).isChecked();
-                                Log.d("Itemmmm",""+forCheck);
-                                if(forCheck){
-                                    rcList.remove(t);
-                                    Log.d("Itemmmm",""+t);
-                                }
-                                adapRecyc.notifyDataSetChanged();
-                                delete_flag=false;
-                                myPay.setText(getString(R.string.pay));
-                                A1.change_item(currentCredit,currentPOS);
-                                updateDate();
-                            }
-                        }
-                    }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    dialog.cancel();
-                    adapRecyc.notifyDataSetChanged();
-                    updateDate();
-                              }
-            });
-            builder.create().show();
-        }
-        else {
-            adapRecyc.notifyDataSetChanged();
-        }
-
-        }
 
     @Override
     public void onStop(){
@@ -560,7 +342,7 @@ public class InfoCreditFragment extends Fragment {
 
 
 
-    private class PaysCreditAdapter extends RecyclerView.Adapter<InfoCreditFragment.ViewHolder> {
+    private class PaysCreditAdapter extends RecyclerView.Adapter<InfoCreditFragmentForArchive.ViewHolder> {
         private ArrayList<ReckingCredit> list;
 
         public PaysCreditAdapter(ArrayList<ReckingCredit> list) {
@@ -571,7 +353,7 @@ public class InfoCreditFragment extends Fragment {
             return list.size();
         }
 
-        public void onBindViewHolder(final InfoCreditFragment.ViewHolder view, int position) {
+        public void onBindViewHolder(final InfoCreditFragmentForArchive.ViewHolder view, int position) {
             ReckingCredit item=list.get(position);
             view.infoDate.setText(getString(R.string.date_of_pay)+": "+dateformarter.format(item.getPayDate()));
             view.infoSumm.setText(parseToWithoutNull(item.getAmount())+currentCredit.getValyute_currency().getAbbr());
@@ -593,32 +375,21 @@ public class InfoCreditFragment extends Fragment {
             view.comment.setText(getString(R.string.comment)+": " + item.getComment());
             else
                 view.comment.setVisibility(View.GONE);
-            if(delete_flag){
-                view.forDelete.setVisibility(View.VISIBLE);
-                view.glav.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if(view.forDelete.isChecked())
-                        view.forDelete.setChecked(false);
-                        else view.forDelete.setChecked(true);
-                    }
-                });
-            }
-            else{
+
                 view.forDelete.setChecked(false);
                 view.forDelete.setVisibility(View.GONE);
 
-            }
+
         }
 
-        public InfoCreditFragment.ViewHolder onCreateViewHolder(ViewGroup parent, int var2) {
+        public InfoCreditFragmentForArchive.ViewHolder onCreateViewHolder(ViewGroup parent, int var2) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.payed_item, parent, false);
             return new ViewHolder(view);
         }
 
 
     }
-    public class ViewHolder extends android.support.v7.widget.RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView infoDate;
         public TextView infoSumm;
         public TextView infoAccount;

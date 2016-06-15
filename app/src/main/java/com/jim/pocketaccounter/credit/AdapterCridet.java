@@ -2,10 +2,12 @@ package com.jim.pocketaccounter.credit;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -40,8 +42,9 @@ import java.util.List;
  * Created by developer on 02.06.2016.
  */
 
-public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHolder>{
+public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
    List<CreditDetials> cardDetials;
+   List<CreditDetials> allDetials;
     int S = 0;
     SimpleDateFormat dateformarter;
     Context context;
@@ -54,7 +57,7 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
     final static long forWeek=1000L*60L*60L*24L*7L;
 
     public AdapterCridet(List<CreditDetials> cardDetials, Context This, forListner A1){
-       this.cardDetials=cardDetials;
+        this.cardDetials=cardDetials;
         this.context=This;
         dateformarter=new SimpleDateFormat("dd.MM.yyyy");
         this.A1=A1;
@@ -67,9 +70,14 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
          void item_to_archive(int position);
     }
     @Override
-    public void onBindViewHolder(myViewHolder holder, final int position) {
-    final CreditDetials itemCr= cardDetials.get(position);
-        holder.credit_procent.setText(parseToWithoutNull(itemCr.getProcent())+"%");
+    public void onBindViewHolder(RecyclerView.ViewHolder holdeer, final int position) {
+        if(holdeer instanceof Fornull){
+            return;
+        }
+        final myViewHolder holder=(myViewHolder) holdeer;
+
+        final CreditDetials itemCr= cardDetials.get(position);
+            holder.credit_procent.setText(parseToWithoutNull(itemCr.getProcent())+"%");
         holder.total_value.setText(parseToWithoutNull(itemCr.getValue_of_credit_with_procent())+itemCr.getValyute_currency().getAbbr());
 
         double total_paid=0;
@@ -108,7 +116,6 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
         int t[]=getDateDifferenceInDDMMYYYY(from,to.getTime());
         Log.d("Myday",t[0]+" "+t[1]+" "+t[2]);
         if(t[0]*t[1]*t[2]<0&&(t[0]+t[1]+t[2])!=0){
-            holder.pay_or_archive.setText(R.string.archive);
             holder.left_date.setText(R.string.ends);
             holder.left_date.setTextColor(Color.parseColor("#832e1c"));
         }
@@ -148,8 +155,17 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
             }
             holder.left_date.setText(left_date_string);
         }
-        holder.overall_amount.setText(parseToWithoutNull(itemCr.getValue_of_credit_with_procent()-total_paid)+itemCr.getValyute_currency().getAbbr());
-        holder.glav.setOnClickListener(new View.OnClickListener() {
+        if(itemCr.getValue_of_credit_with_procent()-total_paid<=0){
+
+            holder.overall_amount.setText(context.getString(R.string.repaid));
+            holder.pay_or_archive.setText(R.string.archive);
+
+            toArcive=true;
+        }
+        else {
+            toArcive=false;
+            holder.overall_amount.setText(parseToWithoutNull(itemCr.getValue_of_credit_with_procent()-total_paid)+itemCr.getValyute_currency().getAbbr());
+        } holder.glav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                A1.togoInfo(itemCr,position);
@@ -159,7 +175,9 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
             @Override
             public void onClick(View v) {
               if(toArcive)
-              {}
+              {
+                A1.item_to_archive(position);
+              }
                 else
                 openDialog(itemCr,position);
             }
@@ -198,6 +216,13 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
     public int getItemCount() {
         return cardDetials.size();
     }
+    final static int VIEW_NULL=0;
+    final static int VIEW_NOT_NULL=1;
+
+    @Override
+    public int getItemViewType(int position) {
+        return cardDetials.get(position).isKey_for_archive() ? VIEW_NULL : VIEW_NOT_NULL;
+    }
 
     public String parseToWithoutNull(double A){
         if(A==(int)A)
@@ -206,15 +231,31 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
             return Double.toString(A);
     }
     @Override
-    public myViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.moder_titem, parent, false);
+        RecyclerView.ViewHolder vh = null;
+        if (viewType == VIEW_NULL) {
+            View v=LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.null_lay, parent, false);;
+            vh=new Fornull(v);
+
+        }
+        else if(viewType==VIEW_NOT_NULL){
+            View v = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.moder_titem, parent, false);
+            vh=new myViewHolder(v);
+        }
         // set the view's size, margins, paddings and layout parameters
 
-        myViewHolder vh = new myViewHolder(v);
+
         return vh;
     }
+    public static class Fornull extends RecyclerView.ViewHolder {
+
+        public Fornull(View v) {
+            super(v);
+
+        }}
 
     public static class myViewHolder extends RecyclerView.ViewHolder {
         TextView credit_procent;
@@ -240,7 +281,9 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
             iconn=(ImageView) v.findViewById(R.id.iconaaa);
             glav=v;
         }
+
     }
+
     private void openDialog(final CreditDetials current, final int position) {
         final Dialog dialog = new Dialog(context);
         View dialogView = ((PocketAccounter)context).getLayoutInflater().inflate(R.layout.add_pay_debt_borrow_info_mod, null);
@@ -297,15 +340,51 @@ public class AdapterCridet extends RecyclerView.Adapter<AdapterCridet.myViewHold
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String amount=enterPay.getText().toString();
-                ReckingCredit rec=null;
-                if(!amount.matches("")&&current.isKey_for_include())
-                rec=new ReckingCredit(date.getTimeInMillis(),Double.parseDouble(amount),accaunt_AC.get(accountSp.getSelectedItemPosition()).getId(),current.getMyCredit_id(),comment.getText().toString());
-                else
-                rec=new ReckingCredit(date.getTimeInMillis(),Double.parseDouble(amount),"",current.getMyCredit_id(),comment.getText().toString());
-                current.getReckings().add(rec);
-                A1.change_item(current,position);
-                dialog.dismiss();
+                final String amount=enterPay.getText().toString();
+                double total_paid=0;
+                for(ReckingCredit item:current.getReckings())
+                    total_paid+=item.getAmount();
+                if(!amount.matches("")){
+                    if(Double.parseDouble(amount)>current.getValue_of_credit_with_procent()-total_paid){
+
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        builder.setMessage("Your payment balance is "+parseToWithoutNull(current.getValue_of_credit_with_procent()-total_paid)+
+                                current.getValyute_currency().getAbbr()+"."+" Are you sure of the fact that you have to pay more than "+
+                                parseToWithoutNull(Double.parseDouble(amount)-(current.getValue_of_credit_with_procent()-total_paid))+
+                                current.getValyute_currency().getAbbr()+" ?")
+                                .setPositiveButton("I'm sure", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialoge, int id) {
+                                       String amount=enterPay.getText().toString();
+                                        ReckingCredit rec=null;
+                                        if(!amount.matches("")&&current.isKey_for_include())
+                                        rec=new ReckingCredit(date.getTimeInMillis(),Double.parseDouble(amount),accaunt_AC.get(accountSp.getSelectedItemPosition()).getId(),current.getMyCredit_id(),comment.getText().toString());
+                                        else
+                                        rec=new ReckingCredit(date.getTimeInMillis(),Double.parseDouble(amount),"",current.getMyCredit_id(),comment.getText().toString());
+                                        current.getReckings().add(rec);
+                                        A1.change_item(current,position);
+                                        dialog.dismiss();
+                                                            }
+                                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+
+                            }
+                        });
+                        builder.create().show();
+
+                    }
+                    else {
+                        ReckingCredit rec=null;
+                        if(!amount.matches("")&&current.isKey_for_include())
+                            rec=new ReckingCredit(date.getTimeInMillis(),Double.parseDouble(amount),accaunt_AC.get(accountSp.getSelectedItemPosition()).getId(),current.getMyCredit_id(),comment.getText().toString());
+                        else
+                            rec=new ReckingCredit(date.getTimeInMillis(),Double.parseDouble(amount),"",current.getMyCredit_id(),comment.getText().toString());
+                        current.getReckings().add(rec);
+                        A1.change_item(current,position);
+                        dialog.dismiss();
+                    }
+                }
+
             }
         });
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();

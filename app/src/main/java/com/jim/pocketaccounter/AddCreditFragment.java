@@ -141,10 +141,10 @@ public class AddCreditFragment extends Fragment {
                 Log.d("somesome",""+to_open_dialog+" "+nameCred.getText().toString());
             }
         });
+
         ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
         ivToolbarMostRight.setImageResource(R.drawable.check_sign);
         ivToolbarMostRight.setVisibility(View.VISIBLE);
-
         dateformarter=new SimpleDateFormat("dd.MM.yyyy");
         ivToolbarMostRight.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,19 +162,21 @@ public class AddCreditFragment extends Fragment {
                 valueCred.setError("Value should not empty!");
                     isMojno=false;
                 }
-                else valueCred.setHintTextColor(ContextCompat.getColor(context,R.color.black_for_secondary_text));
 
                 if (procentCred.getText().toString().equals("")){
                     procentCred.setError("Procent should not empty!");
                     isMojno=false;
                 }
-                else procentCred.setHintTextColor(ContextCompat.getColor(context,R.color.black_for_secondary_text));
 
                 if (periodCred.getText().toString().equals("")){
                     periodCred.setError("Procent should not empty!");
                     isMojno=false;
                 }
-                else periodCred.setHintTextColor(ContextCompat.getColor(context,R.color.black_for_secondary_text));
+                if (firstCred.getText().toString().equals("")){
+                    firstCred.setError("After Period choise geting or last return date!");
+                    isMojno=false;
+                }
+
                //TODO first transaction
 
 
@@ -652,7 +654,7 @@ public class AddCreditFragment extends Fragment {
                                 A1.getMyCredit_id(),    getString(R.string.this_first_comment));
                     }
                     else {
-                        first_pay = new ReckingCredit((new GregorianCalendar(argFirst[0], argFirst[1], argFirst[2])).getTimeInMillis(), Double.parseDouble(transactionCredString),"",
+                        first_pay = new ReckingCredit((new GregorianCalendar(argFirst[0], argFirst[1], argFirst[2])).getTimeInMillis(), Double.parseDouble(transactionCredString),"pustoy",
                                 A1.getMyCredit_id(), getString(R.string.this_first_comment));
 
                     }

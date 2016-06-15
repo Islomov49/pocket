@@ -134,7 +134,7 @@ public class PocketAccounter extends AppCompatActivity {
                         replaceFragment(new ReportByCategory());
                         break;
                     case 10:
-                        replaceFragment(new CreditFragment());
+                        replaceFragment(new CreditTabLay());
                         break;
                     case 11:
                         replaceFragment(new DebtBorrowFragment());
