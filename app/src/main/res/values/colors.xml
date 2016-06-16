@@ -45,6 +45,6 @@
     <color name="for_darker" type="color">#414141</color>
     <color name="deletecolor" type="color">#d8d8d8</color>
     <color name="expp" type="color">#ffffff</color>
-    <color name="new_green" type="color">#028929</color>
-    <color name="new_green" type="color">#ff0000</color>
+    <color name="balanse_expanse" type="color">#832e1c</color>
+    <color name="belt_balanse" type="color">#dfdfdf</color>
 </resources>

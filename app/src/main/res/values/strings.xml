@@ -655,9 +655,43 @@
     <string name="comment">Comment</string>
     <string name="diagram_no_data_text">Нет данных для отображения!</string>
     <string name="credit">Кредит</string>
+    <string name="borrow_statistics">Дал в долг</string>
+    <string name="borrow_recking_statistics">Вернул долг</string>
+    <string name="debt_statistics">Взял в долг</string>
+    <string name="debt_recking_statistics">Вернули долг</string>
     <string name="pay">PAY</string>
     <string name="cancel">CANCEL</string>
     <string name="repaid">Repaid</string>
     <string name="active">Active</string>
     <string name="archivee">Archive</string>
+    <string-array name="months">
+        <item>Yanvar</item>
+        <item>Fevral</item>
+        <item>Mart</item>
+        <item>Aprel</item>
+        <item>May</item>
+        <item>Iyun</item>
+        <item>Iyul</item>
+        <item>Avgust</item>
+        <item>Sentabr</item>
+        <item>Oktabr</item>
+        <item>Noyabr</item>
+        <item>Dekabr</item>
+    </string-array>
+    <string name="error">Ошибочное выражение!</string>
+    <string-array name="account_names">
+        <item>Наличные</item>
+        <item>Пластиковая карта</item>
+        <item>Банковский счет</item>
+    </string-array>
+    <string-array name="account_ids">
+        <item>acc_cash</item>
+        <item>acc_card</item>
+        <item>acc_bank</item>
+    </string-array>
+    <string-array name="account_icons">
+        <item>ic_category_1</item>
+        <item>ic_category_2</item>
+        <item>ic_category_3</item>
+    </string-array>
 </resources>
