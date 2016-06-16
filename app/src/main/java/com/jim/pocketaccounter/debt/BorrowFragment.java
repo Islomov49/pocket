@@ -89,27 +89,26 @@ public class BorrowFragment extends Fragment {
 
     public ArrayList<DebtBorrow> getList() {
         ArrayList<DebtBorrow> list = new ArrayList<>();
-//        switch (TYPE) {
-//            case 0:
-//            case 1: {
-//                for (DebtBorrow debtBorrow : financeManager.getDebtBorrows()) {
-//                    if (debtBorrow.getType() == TYPE && !debtBorrow.isTo_archive()) {
-//                        list.add(debtBorrow);
-//                    }
-//                }
-//                break;
-//            }
-//            case 2: {
-//                for (DebtBorrow debtBorrow : financeManager.getDebtBorrows()) {
-//                    if (debtBorrow.isTo_archive()) {
-//                        list.add(debtBorrow);
-//                    }
-//                }
-//                break;
-//            }
-//        }
-
-        return financeManager.getDebtBorrows();
+        switch (TYPE) {
+            case 0:
+            case 1: {
+                for (DebtBorrow debtBorrow : financeManager.getDebtBorrows()) {
+                    if (debtBorrow.getType() == TYPE && !debtBorrow.isTo_archive()) {
+                        list.add(debtBorrow);
+                    }
+                }
+                break;
+            }
+            case 2: {
+                for (DebtBorrow debtBorrow : financeManager.getDebtBorrows()) {
+                    if (debtBorrow.isTo_archive()) {
+                        list.add(debtBorrow);
+                    }
+                }
+                break;
+            }
+        }
+        return list;
     }
 
     @Override
@@ -119,26 +118,17 @@ public class BorrowFragment extends Fragment {
 
     private class MyAdapter extends RecyclerView.Adapter<ViewHolder> {
         private List<DebtBorrow> persons;
-        private List<DebtBorrow> allPersons;
 
         public MyAdapter(List<DebtBorrow> contactList) {
-            allPersons = contactList;
-            persons = new ArrayList<>();
-            for (DebtBorrow person : financeManager.getDebtBorrows()) {
-                if (!person.isTo_archive() && person.getType() == TYPE) {
-                    persons.add(person);
-                }
-                if (person.isTo_archive() && person.getType() == TYPE)
-                    persons.add(person);
-                }
-            }
+            persons = contactList;
+        }
 
         public int getItemCount() {
             return persons.size();
         }
 
-        public void onBindViewHolder(final BorrowFragment.ViewHolder view, final int position) {
-            final int t = TYPE == 2 ? persons.size() - 1 : 0;
+        public void onBindViewHolder(BorrowFragment.ViewHolder view, final int position) {
+            final int t = TYPE == 2?persons.size() - 1:0;
             final DebtBorrow person = persons.get(Math.abs(t - position));
 
             view.BorrowPersonName.setText(person.getPerson().getName());
@@ -160,24 +150,12 @@ public class BorrowFragment extends Fragment {
             view.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((PocketAccounter) getContext()).replaceFragment(InfoDebtBorrowFragment.getInstance(persons.get(Math.abs(t - position)).getId()));
+                    ((PocketAccounter) getContext()).replaceFragment(InfoDebtBorrowFragment.getInstance(persons.get(Math.abs(t-position)).getId()));
                 }
             });
-            if (TYPE == 2) {
-                view.pay.setVisibility(View.INVISIBLE);
-            } else {
-                double total = 0;
-                for (Recking rec : person.getReckings()) {
-                    total += rec.getAmount();
-                }
-                if (total >= person.getAmount()) {
-                    view.pay.setText("send Archive");
-                } else view.pay.setText("pay");
-            }
             view.pay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!view.pay.getText().toString().matches("send Archive")) {
                         final Dialog dialog = new Dialog(getActivity());
                         View dialogView = getActivity().getLayoutInflater().inflate(R.layout.add_pay_debt_borrow_info, null);
                         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -230,18 +208,10 @@ public class BorrowFragment extends Fragment {
                                 SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
                                 Recking recking = new Recking(format.format(date.getTime()),
                                         Double.parseDouble(enterPay.getText().toString()),
-                                        persons.get(position).getId(), "" + accountSp.getSelectedItem(),
+                                        persons.get(position).getId(), ""+accountSp.getSelectedItem(),
                                         comment.getText().toString());
 
                                 persons.get(position).getReckings().add(recking);
-                                allPersons.get(position).getReckings().add(recking);
-                                double total = 0;
-                                for (Recking recking1 : persons.get(position).getReckings()) {
-                                    total += recking1.getAmount();
-                                }
-                                if (persons.get(position).getAmount() <= total) {
-                                    view.pay.setText("send Archive");
-                                }
                                 dialog.dismiss();
                             }
                         });
@@ -249,19 +219,6 @@ public class BorrowFragment extends Fragment {
                         int width = displayMetrics.widthPixels;
                         dialog.getWindow().setLayout(7 * width / 8, RelativeLayout.LayoutParams.WRAP_CONTENT);
                         dialog.show();
-                    } else {
-                        for (int i = 0; i < financeManager.getDebtBorrows().size(); i ++) {
-                            if (financeManager.getDebtBorrows().get(i).equals(person)) {
-                                financeManager.getDebtBorrows().get(i).setTo_archive(true);
-                                financeManager.getDebtBorrows().get(i).setType(2);
-                                persons.remove(position);
-                                break;
-                            }
-                        }
-                        financeManager.saveDebtBorrows();
-                        financeManager.loadDebtBorrows();
-                        notifyItemRemoved(position);
-                    }
                 }
             });
         }
@@ -306,5 +263,6 @@ public class BorrowFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
+        financeManager.saveDebtBorrows();
     }
 }

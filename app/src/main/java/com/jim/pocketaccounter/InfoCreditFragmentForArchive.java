@@ -340,10 +340,6 @@ public class InfoCreditFragmentForArchive extends Fragment {
         super.onStop();
     }
 
-    public void onDetach() {
-        super.onDetach();
-        ivToolbarMostRight.setVisibility(View.GONE);
-    }
 
 
     private class PaysCreditAdapter extends RecyclerView.Adapter<InfoCreditFragmentForArchive.ViewHolder> {

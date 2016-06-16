@@ -101,7 +101,7 @@ public class RecordIncomesView extends View implements 	GestureDetector.OnGestur
 			buttons.get(i).drawButton(canvas);
 		Paint borderPaint = new Paint();
 		borderPaint.setColor(ContextCompat.getColor(getContext(), R.color.record_borders));
-		borderPaint.setStrokeWidth(getResources().getDimension(R.dimen.two_dp));
+		borderPaint.setStrokeWidth(getResources().getDimension(R.dimen.one_dp));
 		for (int i=0; i<3; i++) 
 			canvas.drawLine(workspace.left+(i+1)*width, workspace.top, workspace.left+(i+1)*width, workspace.bottom, borderPaint);
 		
@@ -110,7 +110,7 @@ public class RecordIncomesView extends View implements 	GestureDetector.OnGestur
 		Bitmap temp = BitmapFactory.decodeResource(getResources(), R.drawable.workspace_shader);
 		workspaceShader = Bitmap.createScaledBitmap(temp, (int)workspace.width(), (int)workspace.height(), false);
 		Paint paint = new Paint();
-		paint.setAlpha(0x77);
+		paint.setAlpha(0x55);
 		paint.setAntiAlias(true);
 		canvas.drawBitmap(getRoundedCornerBitmap(workspaceShader), workspace.left, workspace.top, paint);
 		paint.setStyle(Paint.Style.STROKE);

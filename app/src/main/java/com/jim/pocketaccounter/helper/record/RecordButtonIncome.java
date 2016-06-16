@@ -93,11 +93,12 @@ public class RecordButtonIncome {
 		Bitmap temp, scaled;
 		Paint bitmapPaint = new Paint();
 		bitmapPaint.setAntiAlias(true);
-		bitmapPaint.setAlpha(0xAA);
+		bitmapPaint.setAlpha(0x77);
 		Paint paint = new Paint();
 		paint.setAntiAlias(true);
 		paint.setStyle(Paint.Style.FILL);
 		paint.setColor(Color.WHITE);
+
 		switch(type) {
 		case MOST_LEFT:
 			if (!pressed) 

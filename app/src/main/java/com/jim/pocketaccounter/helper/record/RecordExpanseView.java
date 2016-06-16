@@ -3,6 +3,7 @@ package com.jim.pocketaccounter.helper.record;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import com.jim.pocketaccounter.CurrencyFragment;
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
 import com.jim.pocketaccounter.RecordEditFragment;
@@ -26,6 +27,8 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Vibrator;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.Log;
@@ -129,8 +132,8 @@ public class RecordExpanseView extends View implements 	GestureDetector.OnGestur
 			buttons.get(i).drawButton(canvas);
 		
 		Paint borderPaint = new Paint();
-		borderPaint.setColor(ContextCompat.getColor(getContext(), R.color.record_borders));
-		borderPaint.setStrokeWidth(getResources().getDimension(R.dimen.two_dp));
+		borderPaint.setColor(ContextCompat.getColor(getContext(), R.color.belt_balanse));
+		borderPaint.setStrokeWidth(getResources().getDimension(R.dimen.one_dp));
 		for (int i=0; i<3; i++) {
 			canvas.drawLine(workspace.left, workspace.top+(i+1)*width, workspace.right, workspace.top+(i+1)*width, borderPaint);
 			canvas.drawLine(workspace.left+(i+1)*width, workspace.top, workspace.left+(i+1)*width, workspace.bottom, borderPaint);
@@ -140,7 +143,7 @@ public class RecordExpanseView extends View implements 	GestureDetector.OnGestur
 		Bitmap temp = BitmapFactory.decodeResource(getResources(), R.drawable.workspace_shader);
 		workspaceShader = Bitmap.createScaledBitmap(temp, (int)workspace.width(), (int)workspace.height(), false);
 		Paint paint = new Paint();
-		paint.setAlpha(0x77);
+		paint.setAlpha(0x55);
 		paint.setAntiAlias(true);
 		canvas.drawBitmap(getRoundedCornerBitmap(workspaceShader), workspace.left, workspace.top, paint);
 		paint.setStyle(Paint.Style.STROKE);
@@ -192,17 +195,18 @@ public class RecordExpanseView extends View implements 	GestureDetector.OnGestur
 						else
 							category = PocketAccounter.financeManager.getExpanses().get(position);
 						if (category != null)
-							((PocketAccounter) getContext()).replaceFragment(new RecordEditFragment(category, Calendar.getInstance(), null, PocketAccounterGeneral.MAIN));
+							((PocketAccounter)getContext()).replaceFragment(new RecordEditFragment(category, Calendar.getInstance(), null, PocketAccounterGeneral.MAIN));
 						else
 							openChooseDialog(position);
 				}
-				}, 250);
+				}, 150);
 				invalidate();
 				break;
 			}
 		}
 		return false;
 	}
+
 	@Override
 	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
 		return false;

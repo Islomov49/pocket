@@ -32,13 +32,11 @@
     <color type="color" name="green_light_forline">#efefef</color>
     <color type="color" name="grey_light_backgr">#fefefe</color>
     <color type="color" name="red">#d60810</color>
-    <color type="color" name="red2">#832E1C</color>
     <color type="color" name="green_just">#29952e</color>
     <color type="color" name="black_for_glavniy_text">#212121</color>
     <color type="color" name="black_for_secondary_text">#838383</color>
     <color type="color" name="forlines">#494949</color>
     <color name="grey_light2" type="color">#fafffd</color>
-    <color name="grey_light_red" type="color">#fff8f8</color>
     <color name="gold" type="color">#CF9D22</color>
     <color name="grey_light3" type="color">#f6fffc</color>
     <color name="green_light_forline_darker" type="color">#c9c8c8</color>

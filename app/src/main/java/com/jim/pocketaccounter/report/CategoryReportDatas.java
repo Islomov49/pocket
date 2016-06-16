@@ -6,12 +6,13 @@ import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
 import com.jim.pocketaccounter.credit.CreditDetials;
 import com.jim.pocketaccounter.debt.DebtBorrow;
-import com.jim.pocketaccounter.finance.Category;
 import com.jim.pocketaccounter.finance.FinanceRecord;
 import com.jim.pocketaccounter.finance.RootCategory;
 import com.jim.pocketaccounter.finance.SubCategory;
 import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -23,7 +24,15 @@ public class CategoryReportDatas {
     public CategoryReportDatas(Context context, Calendar begin, Calendar end) {
         this.context = context;
         this.begin = (Calendar) begin.clone();
+        this.begin.set(Calendar.HOUR_OF_DAY, 0);
+        this.begin.set(Calendar.MINUTE, 0);
+        this.begin.set(Calendar.SECOND, 0);
+        this.begin.set(Calendar.MILLISECOND, 0);
         this.end = (Calendar) end.clone();
+        this.end.set(Calendar.HOUR_OF_DAY, 23);
+        this.end.set(Calendar.MINUTE, 59);
+        this.end.set(Calendar.SECOND, 59);
+        this.end.set(Calendar.MILLISECOND, 59);
         for (int i=0; i< PocketAccounter.financeManager.getRecords().size(); i++) {
             if (begin.compareTo(PocketAccounter.financeManager.getRecords().get(i).getDate())<=0 &&
                     end.compareTo(PocketAccounter.financeManager.getRecords().get(i).getDate())>=0)
@@ -35,7 +44,7 @@ public class CategoryReportDatas {
         for (int i=0; i< PocketAccounter.financeManager.getRecords().size(); i++)
             periodDatas.add(PocketAccounter.financeManager.getRecords().get(i));
     }
-    public ArrayList<CategoryDataRow> makeReport() {
+    private ArrayList<CategoryDataRow> makeWholeReport() {
         ArrayList<CategoryDataRow> result  = new ArrayList<CategoryDataRow>();
         //income expanses begin
         for (int i=0; i<periodDatas.size(); i++) {
@@ -117,7 +126,6 @@ public class CategoryReportDatas {
             }
         }
         //end income expanses
-
         //credit begin
         double creditTotalPaid = 0.0;
         ArrayList<CreditDetials> credits = new ArrayList<CreditDetials>();
@@ -132,17 +140,101 @@ public class CategoryReportDatas {
                 if (cal.compareTo(begin)>=0 && cal.compareTo(end)<=0)
                     creditTotalPaid = creditTotalPaid + PocketAccounterGeneral.getCost(cal, credits.get(i).getValyute_currency(), credits.get(i).getReckings().get(j).getAmount());
             }
-            CategoryDataRow creditDataRow = new CategoryDataRow();
-            RootCategory creditCategory = new RootCategory();
-            creditCategory.setName(credits.get(i).getCredit_name());
-            creditDataRow.setTotalAmount(creditTotalPaid);
-            result.add(creditDataRow);
+            if (creditTotalPaid != 0) {
+                CategoryDataRow creditDataRow = new CategoryDataRow();
+                RootCategory creditCategory = new RootCategory();
+                creditCategory.setType(PocketAccounterGeneral.EXPANCE);
+                creditCategory.setName(credits.get(i).getCredit_name());
+                creditDataRow.setTotalAmount(creditTotalPaid);
+                result.add(creditDataRow);
+            }
         }
         //credit end
-
         //debt borrows begin
-
+        ArrayList<DebtBorrow> debtBorrows = new ArrayList<DebtBorrow>();
+        for (int i=0; i<PocketAccounter.financeManager.getDebtBorrows().size(); i++) {
+            if (!PocketAccounter.financeManager.getDebtBorrows().get(i).isCalculate()) continue;
+            if (begin.compareTo(PocketAccounter.financeManager.getDebtBorrows().get(i).getTakenDate())<=0 &&
+                    end.compareTo(PocketAccounter.financeManager.getDebtBorrows().get(i).getTakenDate())>=0) {
+                debtBorrows.add(PocketAccounter.financeManager.getDebtBorrows().get(i));
+            }
+        }
+        for (int i=0; i<debtBorrows.size(); i++) {
+            RootCategory category = new RootCategory();
+            if (debtBorrows.get(i).getType() == DebtBorrow.BORROW) {
+                category.setType(PocketAccounterGeneral.EXPANCE);
+                category.setName(context.getResources().getString(R.string.borrow_statistics));
+            } else {
+                category.setType(PocketAccounterGeneral.INCOME);
+                category.setName(context.getResources().getString(R.string.debt_statistics));
+            }
+            CategoryDataRow categoryDataRow = new CategoryDataRow();
+            categoryDataRow.setTotalAmount(PocketAccounterGeneral.getCost(debtBorrows.get(i).getTakenDate(), debtBorrows.get(i).getCurrency(), debtBorrows.get(i).getAmount()));
+            categoryDataRow.setCategory(category);
+        }
+        debtBorrows.clear();
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        for (int i=0; i<PocketAccounter.financeManager.getDebtBorrows().size(); i++) {
+            if (!PocketAccounter.financeManager.getDebtBorrows().get(i).isCalculate()) continue;
+            for (int j=0; j<PocketAccounter.financeManager.getDebtBorrows().get(i).getReckings().size(); j++) {
+                Calendar cal = Calendar.getInstance();
+                try {
+                    cal.setTime(format.parse(PocketAccounter.financeManager.getDebtBorrows().get(i).getReckings().get(j).getPayDate()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if (begin.compareTo(cal)<=0 && end.compareTo(cal)>=0) {
+                    debtBorrows.add(PocketAccounter.financeManager.getDebtBorrows().get(i));
+                    break;
+                }
+            }
+        }
+        for (int i=0; i<debtBorrows.size(); i++) {
+            RootCategory category = new RootCategory();
+            double totalAmount = 0.0;
+            for (int j=0; j<debtBorrows.get(i).getReckings().size(); j++) {
+                Calendar cal = Calendar.getInstance();
+                try {
+                    cal.setTime(format.parse(debtBorrows.get(i).getReckings().get(j).getPayDate()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if (begin.compareTo(cal)<=0 && end.compareTo(cal) >= 0) {
+                    totalAmount = totalAmount + PocketAccounterGeneral.getCost(cal, debtBorrows.get(i).getCurrency(), debtBorrows.get(i).getReckings().get(j).getAmount());
+                }
+            }
+            if (debtBorrows.get(i).getType() == DebtBorrow.BORROW) {
+                category.setName(context.getResources().getString(R.string.borrow_recking_statistics));
+                category.setType(PocketAccounterGeneral.INCOME);
+            }
+            else {
+                category.setName(context.getResources().getString(R.string.debt_recking_statistics));
+                category.setType(PocketAccounterGeneral.EXPANCE);
+            }
+            CategoryDataRow categoryDataRow = new CategoryDataRow();
+            categoryDataRow.setCategory(category);
+            categoryDataRow.setTotalAmount(totalAmount);
+            result.add(categoryDataRow);
+        }
         //debt borrows end
+        return result;
+    }
+    public ArrayList<CategoryDataRow> makeExpanseReport() {
+        ArrayList<CategoryDataRow> result = new ArrayList<CategoryDataRow>();
+        ArrayList<CategoryDataRow> temp = makeWholeReport();
+        for (int i=0; i<temp.size(); i++) {
+            if (temp.get(i).getCategory().getType() == PocketAccounterGeneral.EXPANCE)
+                result.add(temp.get(i));
+        }
+        return result;
+    }
+    public ArrayList<CategoryDataRow> makeIncomeReport() {
+        ArrayList<CategoryDataRow> result = new ArrayList<CategoryDataRow>();
+        ArrayList<CategoryDataRow> temp = makeWholeReport();
+        for (int i=0; i<temp.size(); i++) {
+            if (temp.get(i).getCategory().getType() == PocketAccounterGeneral.INCOME)
+                result.add(temp.get(i));
+        }
         return result;
     }
 }

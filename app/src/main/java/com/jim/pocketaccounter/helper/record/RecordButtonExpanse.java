@@ -159,7 +159,7 @@ public class RecordButtonExpanse {
 		Bitmap temp, scaled;
 		Paint bitmapPaint = new Paint();
 		bitmapPaint.setAntiAlias(true);
-		bitmapPaint.setAlpha(0xAA);
+		bitmapPaint.setAlpha(0x77);
 		Paint paint = new Paint();
 		paint.setAntiAlias(true);
 		paint.setStyle(Paint.Style.FILL);
@@ -308,6 +308,7 @@ public class RecordButtonExpanse {
 			Paint textPaint = new Paint();
 			textPaint.setColor(ContextCompat.getColor(context, R.color.toolbar_text_color));
 			textPaint.setTextSize(context.getResources().getDimension(R.dimen.ten_sp));
+			textPaint.setAntiAlias(true);
 			Rect bounds = new Rect();
 			textPaint.getTextBounds(category.getName(), 0, category.getName().length(), bounds);
 			canvas.drawText(category.getName(), container.centerX()-bounds.width()/2, container.centerY()+2*bounds.height(), textPaint);
@@ -320,6 +321,7 @@ public class RecordButtonExpanse {
 			textPaint.setTextSize(context.getResources().getDimension(R.dimen.ten_sp));
 			Rect bounds = new Rect();
 			String text = context.getResources().getString(R.string.add);
+			textPaint.setAntiAlias(true);
 			textPaint.getTextBounds(text, 0, text.length(), bounds);
 			canvas.drawText(text, container.centerX()-bounds.width()/2, container.centerY()+2*bounds.height(), textPaint);
 		}

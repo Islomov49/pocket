@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#fff">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="right"
-        android:background="@color/grey_light2"
-        android:id="@+id/linearLayout3">
+        android:gravity="right">
 
         <ImageView
             android:id="@+id/ivInfoDebtBorrowCancel"
@@ -19,164 +15,73 @@
             android:layout_height="@dimen/twentyfive_dp"
             android:layout_gravity="center_vertical"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/cancel_sign"
-            />
+            android:src="@drawable/cancel_sign" />
 
         <ImageView
             android:id="@+id/ivInfoDebtBorrowSave"
             android:layout_width="@dimen/twentyfive_dp"
             android:layout_height="@dimen/twentyfive_dp"
+            android:layout_gravity="center_vertical"
             android:layout_margin="@dimen/sixteen_dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/check_sign"
-            android:layout_gravity="center_vertical"
-            />
+            android:src="@drawable/check_sign" />
 
     </LinearLayout>
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="2px"
-        android:layout_marginBottom="10dp"
 
-        android:background="@color/green_light_forline"
-        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date "
+        android:textSize="20sp" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
-            >
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Paid date : "
-                    android:textSize="16dp"
-                    android:textColor="@color/black_for_glavniy_text"/>
-                <EditText
-                    android:id="@+id/etInfoDebtBorrowDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="when you paid? "
-                    android:clickable="false"
-                    android:gravity="right"
-                    android:textSize="16dp"
-                    android:focusableInTouchMode="false"
-                    android:textColor="@color/black_for_glavniy_text"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Amount : "
-                    android:textSize="16dp"
-                    android:textColor="@color/black_for_glavniy_text"/>
-                <EditText
-                    android:id="@+id/etInfoDebtBorrowPaySumm"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="how much you paid? "
-                    android:gravity="right"
-                    android:textSize="16dp"
-                    android:inputType="numberDecimal"
-                    android:textColor="@color/black_for_glavniy_text"/>
-            </LinearLayout>
-            <RelativeLayout
-                android:id="@+id/is_calc"
-                android:visibility="visible"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="5dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="From account : "
-                    android:textSize="16dp"
-                    android:textColor="@color/black_for_glavniy_text"/>
-                <Spinner
-                    android:id="@+id/spInfoDebtBorrowAccount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="how much you paid? "
-                    android:gravity="right"
-                    android:textSize="20dp"
-                    android:textColor="@color/black_for_glavniy_text"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
-            </RelativeLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Comment : "
-                    android:textSize="16dp"
-                    android:textColor="@color/black_for_glavniy_text"/>
-                <EditText
-                    android:id="@+id/etInfoDebtBorrowPayComment"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Do you want note?"
-                    android:gravity="right"
-                    android:textSize="16dp"
-                    android:textColor="@color/black_for_glavniy_text"/>
-            </LinearLayout>
-        </LinearLayout>
-    </RelativeLayout>
-
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="2px"
-        android:layout_marginTop="5dp"
-
-
-        android:background="@color/green_light_forline"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/grey_light2">
-        <TextView
+        android:orientation="horizontal"
+        >
+
+        <EditText
+            android:id="@+id/etInfoDebtBorrowDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="This amount will absorb your debt"
-            android:textSize="12dp"
-            android:textColor="@color/black_for_glavniy_text"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
-            android:gravity="center"
-            android:layout_marginTop="10dp"
+            android:hint="Enter Date"
+            android:layout_weight="1"
+            android:textColorHint="#cfc7c7" />
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:id="@+id/spInfoDebtBorrowAccount"
             />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/always_remember"
-            android:textSize="10sp"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/black_for_secondary_text"
-            android:layout_marginRight="16dp"
-            android:paddingBottom="30dp"
-            android:layout_marginLeft="16dp"
-            android:gravity="center"
-            android:id="@+id/textView12" />
     </LinearLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pay"
+        android:textSize="20sp" />
 
+    <EditText
+        android:id="@+id/etInfoDebtBorrowPaySumm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter Value"
+        android:textColorHint="#bcacac" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Comment"/>
+
+    <EditText
+        android:id="@+id/etInfoDebtBorrowPayComment"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:hint="Comment ...."
+        android:textColorHint="#bcacac"
+        />
 
 </LinearLayout>
