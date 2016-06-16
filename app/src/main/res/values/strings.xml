@@ -240,7 +240,7 @@
         <item>ball_2</item>
         <item>balloon</item>
         <item>bathroom</item>
-        <item>beack</item>
+        <item>beach</item>
         <item>black</item>
         <item>black_1</item>
         <item>book</item>
@@ -429,7 +429,7 @@
         <item>ball_2</item>
         <item>balloon</item>
         <item>bathroom</item>
-        <item>beack</item>
+        <item>beach</item>
         <item>black</item>
         <item>black_1</item>
         <item>book</item>
@@ -453,7 +453,7 @@
         <item>ball_2</item>
         <item>balloon</item>
         <item>bathroom</item>
-        <item>beack</item>
+        <item>beach</item>
     </string-array>
     <string-array name="network">
         <item>Интернет</item>
@@ -520,14 +520,14 @@
         <item>Шины</item>
     </string-array>
     <string-array name="car_icons">
-        <item>ic_category_13</item>
-        <item>ic_category_14</item>
-        <item>ic_category_15</item>
-        <item>ic_category_16</item>
-        <item>ic_category_17</item>
-        <item>ic_category_18</item>
-        <item>ic_category_19</item>
-        <item>ic_category_20</item>
+        <item>sign_3d</item>
+        <item>p_full_hd</item>
+        <item>ball</item>
+        <item>ball_1</item>
+        <item>ball_2</item>
+        <item>balloon</item>
+        <item>bathroom</item>
+        <item>beach</item>
     </string-array>
     <string-array name="transport">
         <item>Такси</item>
@@ -538,12 +538,12 @@
         <item>Самолет</item>
     </string-array>
     <string-array name="transport_icons">
-        <item>ic_category_13</item>
-        <item>ic_category_14</item>
-        <item>ic_category_15</item>
-        <item>ic_category_16</item>
-        <item>ic_category_17</item>
-        <item>ic_category_18</item>
+        <item>sign_3d</item>
+        <item>p_full_hd</item>
+        <item>ball</item>
+        <item>ball_1</item>
+        <item>ball_2</item>
+        <item>balloon</item>
     </string-array>
     <string-array name="gaiety">
         <item>Ресторан</item>
@@ -555,13 +555,13 @@
         <item>Аттракцион</item>
     </string-array>
     <string-array name="gaiety_icons">
-        <item>ic_category_13</item>
-        <item>ic_category_14</item>
-        <item>ic_category_15</item>
-        <item>ic_category_16</item>
-        <item>ic_category_17</item>
-        <item>ic_category_18</item>
-        <item>ic_category_19</item>
+        <item>sign_3d</item>
+        <item>p_full_hd</item>
+        <item>ball</item>
+        <item>ball_1</item>
+        <item>ball_2</item>
+        <item>balloon</item>
+        <item>bathroom</item>
     </string-array>
     <string-array name="buy">
         <item>Зубная паста</item>
@@ -571,11 +571,11 @@
         <item>Напитки</item>
     </string-array>
     <string-array name="buy_icons">
-        <item>ic_category_13</item>
-        <item>ic_category_14</item>
-        <item>ic_category_15</item>
-        <item>ic_category_16</item>
-        <item>ic_category_17</item>
+        <item>sign_3d</item>
+        <item>p_full_hd</item>
+        <item>ball</item>
+        <item>ball_1</item>
+        <item>ball_2</item>
     </string-array>
     <string-array name="sport">
         <item>Тренажерный зал</item>
@@ -585,11 +585,11 @@
         <item>Плавание</item>
     </string-array>
     <string-array name="sport_icons">
-        <item>ic_category_13</item>
-        <item>ic_category_14</item>
-        <item>ic_category_15</item>
-        <item>ic_category_16</item>
-        <item>ic_category_17</item>
+        <item>sign_3d</item>
+        <item>p_full_hd</item>
+        <item>ball</item>
+        <item>ball_1</item>
+        <item>ball_2</item>
     </string-array>
     <string-array name="beauty">
         <item>Парикмахер</item>
@@ -599,11 +599,11 @@
         <item>Макияж</item>
     </string-array>
     <string-array name="beauty_icons">
-        <item>ic_category_13</item>
-        <item>ic_category_14</item>
-        <item>ic_category_15</item>
-        <item>ic_category_16</item>
-        <item>ic_category_17</item>
+        <item>sign_3d</item>
+        <item>p_full_hd</item>
+        <item>ball</item>
+        <item>ball_1</item>
+        <item>ball_2</item>
     </string-array>
     <string-array name="equipment">
         <item>Смартфон</item>
@@ -613,11 +613,11 @@
         <item>Принтер</item>
     </string-array>
     <string-array name="equipment_icons">
-        <item>ic_category_13</item>
-        <item>ic_category_14</item>
-        <item>ic_category_15</item>
-        <item>ic_category_16</item>
-        <item>ic_category_17</item>
+        <item>sign_3d</item>
+        <item>p_full_hd</item>
+        <item>ball</item>
+        <item>ball_1</item>
+        <item>ball_2</item>
     </string-array>
     <string name="no_category">no_category</string>
     <string name="no_category_name">Без подкатегории</string>

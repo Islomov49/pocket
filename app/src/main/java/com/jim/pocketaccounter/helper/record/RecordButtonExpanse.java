@@ -301,6 +301,7 @@ public class RecordButtonExpanse {
 			}
 			break;
 		}
+		bitmapPaint.setAlpha(0xFF);
 		if (category != null) {
 			temp = BitmapFactory.decodeResource(context.getResources(), category.getIcon());
 			scaled = Bitmap.createScaledBitmap(temp, (int)context.getResources().getDimension(R.dimen.thirty_dp), (int)context.getResources().getDimension(R.dimen.thirty_dp), false);
