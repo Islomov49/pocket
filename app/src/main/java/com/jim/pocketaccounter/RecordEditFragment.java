@@ -53,9 +53,6 @@ public class RecordEditFragment extends Fragment implements OnClickListener{
     private TextView tvRecordEditDisplay;
     private ImageView ivToolbarMostRight, ivRecordEditCategory, ivRecordEditSubCategory;
     private Spinner spRecordEdit, spToolbar;
-    private byte operation = -1;
-    private String s = "";
-    private String s2 = "";
     private RootCategory category;
     private SubCategory subCategory;
     private FinanceRecord record;
@@ -63,19 +60,21 @@ public class RecordEditFragment extends Fragment implements OnClickListener{
     private Account account;
     private Calendar date;
     private int parent;
-    private boolean tek = false,
-            tek2 = false,
-            calc = false,
-            sequence = false;
     private int[] numericButtons = {R.id.rlZero, R.id.rlOne, R.id.rlTwo, R.id.rlThree, R.id.rlFour, R.id.rlFive, R.id.rlSix, R.id.rlSeven, R.id.rlEight, R.id.rlNine};
     private int[] operatorButtons = {R.id.rlPlusSign, R.id.rlMinusSign, R.id.rlMultipleSign, R.id.rlDivideSign};
     private boolean lastNumeric;
     private boolean stateError;
     private boolean lastDot;
     private boolean lastOperator;
+    private DecimalFormat decimalFormat = null;
+    private RelativeLayout rlCategory, rlSubCategory;
     @SuppressLint("ValidFragment")
     public RecordEditFragment(RootCategory category, Calendar date, FinanceRecord record, int parent) {
         this.parent = parent;
+        DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols();
+        otherSymbols.setDecimalSeparator('.');
+        otherSymbols.setGroupingSeparator('.');
+        decimalFormat = new DecimalFormat("0.00##", otherSymbols);
         if (category != null) {
             for (int i=0; i<PocketAccounter.financeManager.getCategories().size(); i++) {
                 if (category.getId().matches(PocketAccounter.financeManager.getCategories().get(i).getId()))
@@ -143,6 +142,10 @@ public class RecordEditFragment extends Fragment implements OnClickListener{
         ivRecordEditCategory = (ImageView) rootView.findViewById(R.id.ivRecordEditCategory);
         ivRecordEditSubCategory = (ImageView) rootView.findViewById(R.id.ivRecordEditSubCategory);
         tvRecordEditDisplay = (TextView) rootView.findViewById(R.id.tvRecordEditDisplay);
+        rlCategory = (RelativeLayout) rootView.findViewById(R.id.rlCategory);
+        rlCategory.setOnClickListener(this);
+        rlSubCategory = (RelativeLayout) rootView.findViewById(R.id.rlSubcategory);
+        rlSubCategory.setOnClickListener(this);
         setNumericOnClickListener(rootView);
         setOperatorOnClickListener(rootView);
         DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols();
@@ -179,6 +182,7 @@ public class RecordEditFragment extends Fragment implements OnClickListener{
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (tvRecordEditDisplay.getText().toString().length() >= 14) return;
                 String text = "";
                 switch (v.getId()) {
                     case R.id.rlZero:
@@ -234,6 +238,7 @@ public class RecordEditFragment extends Fragment implements OnClickListener{
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (tvRecordEditDisplay.getText().toString().length() >= 14) return;
                 String text = "";
                 switch (v.getId()) {
                     case R.id.rlPlusSign:
@@ -267,6 +272,7 @@ public class RecordEditFragment extends Fragment implements OnClickListener{
         view.findViewById(R.id.rlDot).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (tvRecordEditDisplay.getText().toString().length() >= 14) return;
                 if (lastNumeric && !stateError && !lastDot && !lastOperator) {
                     tvRecordEditDisplay.append(".");
                     lastNumeric = false;
@@ -321,10 +327,10 @@ public class RecordEditFragment extends Fragment implements OnClickListener{
             Expression expression = new ExpressionBuilder(txt).build();
             try {
                 double result = expression.evaluate();
-                tvRecordEditDisplay.setText(Double.toString(result));
+                tvRecordEditDisplay.setText(decimalFormat.format(result));
                 lastDot = true;
             } catch (ArithmeticException ex) {
-                tvRecordEditDisplay.setText("Error");
+                tvRecordEditDisplay.setText(getResources().getString(R.string.error));
                 stateError = true;
                 lastNumeric = false;
             }

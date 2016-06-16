@@ -139,9 +139,9 @@ public class RecordFragment extends Fragment {
 		balanse = income - expanse;
 		String mainCurrencyAbbr = PocketAccounter.financeManager.getMainCurrency().getAbbr();
 		DecimalFormat decFormat = new DecimalFormat("0.00");
-		tvRecordIncome.setText(getResources().getString(R.string.income)+": "+decFormat.format(income)+mainCurrencyAbbr);
-		tvRecordExpanse.setText(getResources().getString(R.string.expanse)+": "+decFormat.format(expanse)+mainCurrencyAbbr);
-		tvRecordBalanse.setText(getResources().getString(R.string.balanse)+": "+decFormat.format(balanse)+mainCurrencyAbbr);
+		tvRecordIncome.setText(decFormat.format(income)+mainCurrencyAbbr);
+		tvRecordExpanse.setText(decFormat.format(expanse)+mainCurrencyAbbr);
+		tvRecordBalanse.setText(decFormat.format(balanse)+mainCurrencyAbbr);
 	}
 	@Override
 	public void onStop() {

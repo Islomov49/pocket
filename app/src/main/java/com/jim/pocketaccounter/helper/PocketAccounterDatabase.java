@@ -183,6 +183,7 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 				+ ");");
 		initDefault(db);
 		initIncomesAndExpanses(db);
+		initAccounts(db);
 	}
 	public void saveDebtBorrowsToTable(ArrayList<DebtBorrow> debtBorrows) {
 		SQLiteDatabase db = getWritableDatabase();
@@ -252,6 +253,24 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 			}
 		}
 		db.close();
+	}
+	private void initAccounts(SQLiteDatabase db) {
+		String[] accountNames = context.getResources().getStringArray(R.array.account_names);
+		String[] accountIds = context.getResources().getStringArray(R.array.account_ids);
+
+		String[] accountIcons = context.getResources().getStringArray(R.array.account_icons);
+		int[] icons = new int[accountIcons.length];
+		for (int i=0; i<accountIcons.length; i++) {
+			int resId = context.getResources().getIdentifier(accountIcons[i], "drawable", context.getPackageName());
+			icons[i] = resId;
+		}
+		ContentValues values = new ContentValues();
+		for (int i=0; i<accountNames.length; i++) {
+			values.put("account_name", accountNames[i]);
+			values.put("icon", icons[i]);
+			values.put("account_id", accountIds[i]);
+			db.insert("account_table", null, values);
+		}
 	}
 	public void saveDatasToArchiveCreditTable(ArrayList<CreditDetials> credits) {
 		SQLiteDatabase db = getWritableDatabase();

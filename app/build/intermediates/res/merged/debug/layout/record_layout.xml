@@ -15,49 +15,113 @@
     <RelativeLayout
         android:id="@+id/rlRecordBalance"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:elevation="@dimen/two_dp"
+        android:background="@color/belt_balanse">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:background="@color/toolbar_color"
-            android:elevation="@dimen/two_dp" >
-
-            <TextView
-                android:id="@+id/tvRecordIncome"
+            android:layout_centerVertical="true">
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/ten_dp"
-                android:layout_marginLeft="@dimen/sixteen_dp"
-                android:layout_marginRight="@dimen/ten_dp"
-                android:layout_marginTop="@dimen/ten_dp"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:text="TextView" />
-
-            <TextView
-                android:id="@+id/tvRecordBalanse"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/tvRecordIncomeTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/four_dp"
+                    android:layout_marginLeft="@dimen/sixteen_dp"
+                    android:layout_marginRight="@dimen/ten_dp"
+                    android:layout_marginTop="@dimen/ten_dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="@string/income"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/fourteen_sp"
+                    android:textColor="@color/green_just"/>
+                <TextView
+                    android:id="@+id/tvRecordIncome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/ten_dp"
+                    android:layout_marginLeft="@dimen/sixteen_dp"
+                    android:layout_marginRight="@dimen/ten_dp"
+                    android:textSize="@dimen/twelve_sp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="TextView"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/green_just"/>
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/ten_dp"
-                android:layout_marginRight="@dimen/ten_dp"
-                android:layout_marginTop="@dimen/ten_dp"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:text="TextView" />
-
-            <TextView
-                android:id="@+id/tvRecordExpanse"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/tvRecordBalanseTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/four_dp"
+                    android:layout_marginLeft="@dimen/sixteen_dp"
+                    android:layout_marginRight="@dimen/ten_dp"
+                    android:layout_marginTop="@dimen/ten_dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="@string/balanse"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/fourteen_sp"
+                    android:textColor="@color/toolbar_text_color"/>
+                <TextView
+                    android:id="@+id/tvRecordBalanse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/ten_dp"
+                    android:layout_marginLeft="@dimen/sixteen_dp"
+                    android:layout_marginRight="@dimen/ten_dp"
+                    android:textSize="@dimen/twelve_sp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="TextView"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/toolbar_text_color"/>
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/ten_dp"
-                android:layout_marginRight="@dimen/sixteen_dp"
-                android:layout_marginTop="@dimen/ten_dp"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:text="TextView" />
-
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/tvRecordExpanseTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/four_dp"
+                    android:layout_marginLeft="@dimen/sixteen_dp"
+                    android:layout_marginRight="@dimen/sixteen_dp"
+                    android:layout_marginTop="@dimen/ten_dp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="@string/expanse"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="@dimen/fourteen_sp"
+                    android:textColor="@color/red"/>
+                <TextView
+                    android:id="@+id/tvRecordExpanse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/ten_dp"
+                    android:layout_marginLeft="@dimen/sixteen_dp"
+                    android:layout_marginRight="@dimen/sixteen_dp"
+                    android:textSize="@dimen/twelve_sp"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="TextView"
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="@color/red"/>
+            </LinearLayout>
         </LinearLayout>
 
     </RelativeLayout>

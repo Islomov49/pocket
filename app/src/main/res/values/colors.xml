@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#494949</color>
     <color name="colorAccent">#FF4081</color>
     <color name="toolbar_color" type="color">#c9c8c8</color>
-    <color name="toolbar_text_color" type="color">#212121</color>
+    <color name="toolbar_text_color" type="color">#414141</color>
     <color name="drawer_color" type="color">#166982</color>
     <color name="blue_color" type="color">#308eff</color>
     <color name="toolbar_color_transparent" type="color">#BB2196f3</color>
@@ -45,4 +45,6 @@
     <color name="for_darker" type="color">#414141</color>
     <color name="deletecolor" type="color">#d8d8d8</color>
     <color name="expp" type="color">#ffffff</color>
+    <color name="balanse_expanse" type="color">#832e1c</color>
+    <color name="belt_balanse" type="color">#dfdfdf</color>
 </resources>

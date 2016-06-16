@@ -177,7 +177,19 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 		dialog.show();
 	}
 	private void deleteAccounts() {
+		boolean allSelected = true;
 		for (int i=0; i<selected.length; i++) {
+			if (!selected[i]) {
+				allSelected = false;
+				break;
+			}
+		}
+		int begPos = 0;
+		if (allSelected)
+			begPos = 1;
+		else
+			begPos = 0;
+		for (int i=begPos; i<selected.length; i++) {
 			if (selected[i])
 				PocketAccounter.financeManager.getAccounts().set(i, null);
 		}
