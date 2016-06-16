@@ -233,7 +233,7 @@
         <item>1.0</item>
     </string-array>
     <string-array name="icons">
-        <item>3d_sign</item>
+        <item>sign_3d</item>
         <item>p_full_hd</item>
         <item>ball</item>
         <item>ball_1</item>
@@ -270,13 +270,13 @@
         <item>cup</item>
         <item>cycle</item>
         <item>drink</item>
-        <item>ic_category_38</item>
-        <item>ic_category_39</item>
-        <item>ic_category_40</item>
-        <item>ic_category_41</item>
-        <item>ic_category_43</item>
-        <item>ic_category_44</item>
-        <item>ic_category_45</item>
+        <item>drink_2</item>
+        <item>drink_5</item>
+        <item>dumbbell</item>
+        <item>dvd_rom_logotype</item>
+        <item>fashion</item>
+        <item>fashion_1</item>
+        <item>fashion_2</item>
         <item>ic_category_46</item>
         <item>ic_category_47</item>
         <item>ic_category_48</item>
@@ -422,18 +422,18 @@
         <item>1</item>
     </string-array>
     <string-array name="cat_icons">
-        <item>ic_category_1</item>
-        <item>ic_category_2</item>
-        <item>ic_category_3</item>
-        <item>ic_category_4</item>
-        <item>ic_category_5</item>
-        <item>ic_category_6</item>
-        <item>ic_category_7</item>
-        <item>ic_category_8</item>
-        <item>ic_category_9</item>
-        <item>ic_category_10</item>
-        <item>ic_category_11</item>
-        <item>ic_category_12</item>
+        <item>sign_3d</item>
+        <item>p_full_hd</item>
+        <item>ball</item>
+        <item>ball_1</item>
+        <item>ball_2</item>
+        <item>balloon</item>
+        <item>bathroom</item>
+        <item>beack</item>
+        <item>black</item>
+        <item>black_1</item>
+        <item>book</item>
+        <item>book_1</item>
     </string-array>
     <string-array name="home">
         <item>Ремонт</item>
@@ -446,14 +446,14 @@
         <item>Кабельное ТВ</item>
     </string-array>
     <string-array name="home_icons">
-        <item>ic_category_13</item>
-        <item>ic_category_14</item>
-        <item>ic_category_15</item>
-        <item>ic_category_16</item>
-        <item>ic_category_17</item>
-        <item>ic_category_18</item>
-        <item>ic_category_19</item>
-        <item>ic_category_20</item>
+        <item>sign_3d</item>
+        <item>p_full_hd</item>
+        <item>ball</item>
+        <item>ball_1</item>
+        <item>ball_2</item>
+        <item>balloon</item>
+        <item>bathroom</item>
+        <item>beack</item>
     </string-array>
     <string-array name="network">
         <item>Интернет</item>
@@ -461,9 +461,9 @@
         <item>Телефон(моб.)</item>
     </string-array>
     <string-array name="network_icons">
-        <item>ic_category_13</item>
-        <item>ic_category_14</item>
-        <item>ic_category_15</item>
+        <item>sign_3d</item>
+        <item>p_full_hd</item>
+        <item>ball</item>
     </string-array>
     <string-array name="clothes">
         <item>Рубашка</item>
@@ -474,12 +474,12 @@
         <item>Туфли</item>
     </string-array>
     <string-array name="clothes_icons">
-        <item>ic_category_13</item>
-        <item>ic_category_14</item>
-        <item>ic_category_15</item>
-        <item>ic_category_16</item>
-        <item>ic_category_17</item>
-        <item>ic_category_18</item>
+        <item>sign_3d</item>
+        <item>p_full_hd</item>
+        <item>ball</item>
+        <item>ball_1</item>
+        <item>ball_2</item>
+        <item>balloon</item>
     </string-array>
     <string-array name="health">
         <item>Лекарство</item>
@@ -487,9 +487,9 @@
         <item>Стоматолог</item>
     </string-array>
     <string-array name="health_icons">
-        <item>ic_category_13</item>
-        <item>ic_category_14</item>
-        <item>ic_category_15</item>
+        <item>sign_3d</item>
+        <item>p_full_hd</item>
+        <item>ball</item>
     </string-array>
     <string-array name="food">
         <item>Хлеб</item>
@@ -501,13 +501,13 @@
         <item>Вода</item>
     </string-array>
     <string-array name="food_icons">
-        <item>ic_category_13</item>
-        <item>ic_category_14</item>
-        <item>ic_category_15</item>
-        <item>ic_category_16</item>
-        <item>ic_category_17</item>
-        <item>ic_category_18</item>
-        <item>ic_category_19</item>
+        <item>sign_3d</item>
+        <item>p_full_hd</item>
+        <item>ball</item>
+        <item>ball_1</item>
+        <item>ball_2</item>
+        <item>balloon</item>
+        <item>bathroom</item>
     </string-array>
     <string-array name="car">
         <item>Ремон</item>
