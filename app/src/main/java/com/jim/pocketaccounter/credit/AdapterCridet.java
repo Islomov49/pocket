@@ -229,7 +229,6 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             return Integer.toString((int)A);
         else
             return Double.toString(A);
-
     }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -393,7 +392,4 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         dialog.getWindow().setLayout(7 * width / 8, RelativeLayout.LayoutParams.WRAP_CONTENT);
         dialog.show();
     }
-
-
-
 }

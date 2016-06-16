@@ -19,13 +19,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.jim.pocketaccounter.TableBear.FilterFragment;
-import com.jim.pocketaccounter.TableBear.TableBearFragment;
+import com.jim.pocketaccounter.report.FilterFragment;
 import com.jim.pocketaccounter.debt.DebtBorrowFragment;
 import com.jim.pocketaccounter.finance.FinanceManager;
 import com.jim.pocketaccounter.helper.LeftMenuAdapter;
 import com.jim.pocketaccounter.helper.LeftMenuItem;
 import com.jim.pocketaccounter.helper.LeftSideDrawer;
+import com.jim.pocketaccounter.report.TableBarFragment;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -130,7 +131,6 @@ public class PocketAccounter extends AppCompatActivity {
                     case 7:
                         //statistics by income/expanse
                         replaceFragment(new TableBarFragment());
-
                         break;
                     case 8:
                         replaceFragment(new ReportByCategory());
@@ -142,7 +142,6 @@ public class PocketAccounter extends AppCompatActivity {
                         replaceFragment(new DebtBorrowFragment());
                         break;
                     case 12:
-//                        replaceFragment(new TableBearFragment());
                         replaceFragment(new FilterFragment());
                         //settings
                         break;
@@ -196,7 +195,6 @@ public class PocketAccounter extends AppCompatActivity {
         if(temp00!=null){
             if(temp00.getTag()!=null)
             if(temp00.getTag().equals(AddCreditFragment.OPENED_TAG) && AddCreditFragment.to_open_dialog){
-                Log.d("somethinkkk","DIALOG OPENED IN ADDCREDIT");
                 final AlertDialog.Builder builder = new AlertDialog.Builder(PocketAccounter.this);
                 builder.setMessage("You have not added credit, just want to go out?")
                         .setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
@@ -238,7 +236,7 @@ public class PocketAccounter extends AppCompatActivity {
     public void replaceFragment(Fragment fragment) {
         if (fragment != null) {
             final FragmentTransaction ft = getSupportFragmentManager().beginTransaction().addToBackStack(null);
-            ft.replace(R.id.flMain, fragment);
+            ft.add(R.id.flMain, fragment);
             ft.commit();
         }
     }

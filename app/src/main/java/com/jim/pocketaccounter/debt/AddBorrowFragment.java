@@ -158,19 +158,15 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
             }
         });
 
-        PersonDataRepeat.setOnTouchListener(new View.OnTouchListener() {
+        PersonDataRepeat.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    Calendar calender = Calendar.getInstance();
-                    Dialog mDialog = new DatePickerDialog(getContext(),
-                            returnDatesetListener, calender.get(Calendar.YEAR),
-                            calender.get(Calendar.MONTH), calender
-                            .get(Calendar.DAY_OF_MONTH));
-                    mDialog.show();
-                    return true;
-                }
-                return false;
+            public void onClick(View v) {
+                Calendar calender = Calendar.getInstance();
+                Dialog mDialog = new DatePickerDialog(getContext(),
+                        returnDatesetListener, calender.get(Calendar.YEAR),
+                        calender.get(Calendar.MONTH), calender
+                        .get(Calendar.DAY_OF_MONTH));
+                mDialog.show();
             }
         });
 
