@@ -328,6 +328,12 @@ public class InfoCreditFragment extends Fragment {
 
         return V;
     }
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        ivToolbarMostRight.setVisibility(View.GONE);
+    }
+
     public String parseToWithoutNull(double A){
         if(A==(int)A)
             return Integer.toString((int)A);
@@ -615,6 +621,7 @@ public class InfoCreditFragment extends Fragment {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.payed_item, parent, false);
             return new ViewHolder(view);
         }
+
 
 
     }

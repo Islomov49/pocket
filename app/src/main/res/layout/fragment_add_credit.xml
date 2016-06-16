@@ -1,67 +1,64 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/pustoyy"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context="com.jim.pocketaccounter.AddCreditFragment"
     android:background="#fff"
-    tools:context="com.jim.pocketaccounter.AddCreditFragment">
-
+    android:id="@+id/pustoyy"
+   >
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
-                android:background="@color/grey_light"
                 android:orientation="horizontal"
+                android:background="@color/grey_light"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
 
                 >
-
                 <ImageView
                     android:id="@+id/imageForIcon"
                     android:layout_width="90dp"
                     android:layout_height="90dp"
-                    android:layout_marginRight="10dp"
                     android:layout_marginTop="15dp"
                     android:background="@drawable/eclicse_button"
+                    android:src="@drawable/add_green"
                     android:padding="26dp"
-                    android:src="@drawable/add_green" />
+                    android:layout_marginRight="10dp"
+                    />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="29dp"
                         android:text="Credit name"
+                        android:textSize="20sp"
                         android:textColor="#212121"
 
-                        android:textSize="20sp" />
+                        android:layout_marginTop="29dp"/>
 
                     <EditText
-                        android:id="@+id/editText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
                         android:hint="what tag you want?"
+
+                        android:textSize="16sp"
                         android:textColor="@color/black_for_glavniy_text"
                         android:textColorHint="@color/black_for_secondary_text"
-                        android:textSize="16sp" />
+                        android:id="@+id/editText" />
                 </LinearLayout>
 
             </LinearLayout>
-
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="2px"
@@ -69,345 +66,321 @@
 
 
                 />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:text="Value of credit"
-                        android:textColor="@color/black_for_glavniy_text"
-                        android:textSize="18dp" />
-
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center">
-
-                        <ImageView
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="16dp">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="20dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="18dp"
+                                android:textColor="@color/black_for_glavniy_text"
+                                android:text="Value of credit"
+                                android:layout_marginRight="10dp"
+                                />
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center">
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="2px"
+                                    android:background="@color/green_light_forline"/>
+                            </RelativeLayout>
+                        </LinearLayout>
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="2px"
-                            android:background="@color/green_light_forline" />
-                    </RelativeLayout>
-                </LinearLayout>
+                            android:layout_height="wrap_content">
+                            <EditText
+                                android:id="@+id/value_credit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:hint="how much you take?"
+                                android:textSize="14sp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_toStartOf="@+id/spinner"
+                                android:inputType="numberDecimal"/>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                            <Spinner
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"
+                                android:id="@+id/spinner"
+                                android:layout_marginTop="14dp"
 
-                    <EditText
-                        android:id="@+id/value_credit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginRight="6dp"
-                        android:layout_toLeftOf="@+id/spinner"
-                        android:layout_toStartOf="@+id/spinner"
-                        android:hint="how much you take?"
-                        android:inputType="numberDecimal"
-                        android:textSize="14sp" />
-
-                    <Spinner
-                        android:id="@+id/spinner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="14dp"
-
-                        ></Spinner>
-                </RelativeLayout>
+                                ></Spinner>
+                        </RelativeLayout>
 
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="16dp"
-                    android:orientation="horizontal">
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:layout_marginTop="16dp">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="18dp"
+                                    android:textColor="@color/black_for_glavniy_text"
+                                    android:text="Procent"
+                                    android:layout_marginRight="10dp"
+                                    />
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center">
+                                    <ImageView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="2px"
+                                        android:background="@color/green_light_forline"/>
+                                </RelativeLayout>
+                            </LinearLayout>
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <EditText
+                                    android:id="@+id/procent_credit"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:hint="how much your credit procent?"
+                                    android:textSize="14sp"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_alignParentStart="true"
+                                    android:layout_toLeftOf="@+id/spinner_procent"
+                                    android:layout_toStartOf="@+id/spinner_procent"
+                                    android:layout_marginRight="6dp"
+                                    android:inputType="numberDecimal"
+                                    android:elevation="0dp"
+                                    />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:text="Procent"
-                        android:textColor="@color/black_for_glavniy_text"
-                        android:textSize="18dp" />
+                                <Spinner
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_alignParentEnd="true"
+                                    android:id="@+id/spinner_procent"
+                                    android:layout_marginTop="14dp"
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center">
+                                    ></Spinner>
+                            </RelativeLayout>
 
-                        <ImageView
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="16dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="18dp"
+                                android:textColor="@color/black_for_glavniy_text"
+                                android:text="For period"
+                                android:layout_marginRight="10dp"
+                                />
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center">
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="2px"
+                                    android:background="@color/green_light_forline"/>
+                            </RelativeLayout>
+                        </LinearLayout>
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="2px"
-                            android:background="@color/green_light_forline" />
-                    </RelativeLayout>
-                </LinearLayout>
+                            android:layout_height="wrap_content">
+                            <EditText
+                                android:id="@+id/for_period_credit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:hint="how long time you should pay?"
+                                android:textSize="14sp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_toLeftOf="@+id/spinner_period"
+                                android:layout_toStartOf="@+id/spinner_period"
+                                android:layout_marginRight="6dp"
+                                android:inputType="number"/>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                            <Spinner
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"
+                                android:id="@+id/spinner_period"
+                                android:layout_marginTop="14dp"
 
-                    <EditText
-                        android:id="@+id/procent_credit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginRight="6dp"
-                        android:layout_toLeftOf="@+id/spinner_procent"
-                        android:layout_toStartOf="@+id/spinner_procent"
-                        android:elevation="0dp"
-                        android:hint="how much your credit procent?"
-                        android:inputType="numberDecimal"
-                        android:textSize="14sp" />
+                                ></Spinner>
+                        </RelativeLayout>
 
-                    <Spinner
-                        android:id="@+id/spinner_procent"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="14dp"
 
-                        ></Spinner>
-                </RelativeLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="16dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:text="For period"
-                        android:textColor="@color/black_for_glavniy_text"
-                        android:textSize="18dp" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center">
-
-                        <ImageView
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="16dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="18dp"
+                                android:textColor="@color/black_for_glavniy_text"
+                                android:text="Date"
+                                android:layout_marginRight="10dp"
+                                />
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center">
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="2px"
+                                    android:background="@color/green_light_forline"/>
+                            </RelativeLayout>
+                        </LinearLayout>
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="2px"
-                            android:background="@color/green_light_forline" />
-                    </RelativeLayout>
-                </LinearLayout>
+                            android:layout_height="wrap_content">
+                            <EditText
+                                android:id="@+id/date_pick_edit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:hint="when you take?"
+                                android:focusableInTouchMode="false"
+                                android:textSize="14sp"
+                                android:layout_marginRight="6dp"
+                                android:layout_toLeftOf="@+id/imageView2"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true" />
+                           <ImageView
+                               android:layout_width="30dp"
+                               android:layout_height="40dp"
+                               android:layout_centerHorizontal="true"
+                               android:src="@drawable/ikitar"
+                               android:padding="5dp"
+                               android:id="@+id/imageView2" />
+                            <EditText
+                                android:id="@+id/date_ends_edit"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:hint="when ends?"
+                                android:focusableInTouchMode="false"
+                                android:textSize="14sp"
+                                android:layout_marginLeft="6dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_toRightOf="@+id/imageView2"
+                                android:layout_toEndOf="@+id/imageView2" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/for_period_credit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginRight="6dp"
-                        android:layout_toLeftOf="@+id/spinner_period"
-                        android:layout_toStartOf="@+id/spinner_period"
-                        android:hint="how long time you should pay?"
-                        android:inputType="number"
-                        android:textSize="14sp" />
-
-                    <Spinner
-                        android:id="@+id/spinner_period"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="14dp"
-
-                        ></Spinner>
-                </RelativeLayout>
+                        </RelativeLayout>
 
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="16dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:text="Date"
-                        android:textColor="@color/black_for_glavniy_text"
-                        android:textSize="18dp" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center">
-
-                        <ImageView
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="16dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="18dp"
+                                android:textColor="@color/black_for_glavniy_text"
+                                android:text="Transactions"
+                                android:layout_marginRight="10dp"
+                                />
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:gravity="center">
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="2px"
+                                    android:background="@color/green_light_forline"/>
+                            </RelativeLayout>
+                        </LinearLayout>
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="2px"
-                            android:background="@color/green_light_forline" />
-                    </RelativeLayout>
-                </LinearLayout>
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Operations are included in the balance?"
+                                android:layout_marginTop="5dp"
+                                android:textColor="@color/black_for_glavniy_text"
+                                android:id="@+id/textView4" />
+                            <CheckBox
+                                android:id="@+id/key_for_balance"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignTop="@+id/textView4"
+                                android:layout_alignBottom="@+id/textView4"
+                                android:text=""
+                                android:checked="true"/>
+                        </RelativeLayout>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/date_pick_edit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginRight="6dp"
-                        android:layout_toLeftOf="@+id/imageView2"
-                        android:focusableInTouchMode="false"
-                        android:hint="when you take?"
-                        android:textSize="14sp" />
-
-                    <ImageView
-                        android:id="@+id/imageView2"
-                        android:layout_width="30dp"
-                        android:layout_height="40dp"
-                        android:layout_centerHorizontal="true"
-                        android:padding="5dp"
-                        android:src="@drawable/ikitar" />
-
-                    <EditText
-                        android:id="@+id/date_ends_edit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginLeft="6dp"
-                        android:layout_toEndOf="@+id/imageView2"
-                        android:layout_toRightOf="@+id/imageView2"
-                        android:focusableInTouchMode="false"
-                        android:hint="when ends?"
-                        android:textSize="14sp" />
-
-                </RelativeLayout>
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="16dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:text="Transactions"
-                        android:textColor="@color/black_for_glavniy_text"
-                        android:textSize="18dp" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center">
-
-                        <ImageView
+                        <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="2px"
-                            android:background="@color/green_light_forline" />
-                    </RelativeLayout>
-                </LinearLayout>
+                            android:layout_height="wrap_content">
+                            <EditText
+                                android:id="@+id/for_trasaction_credit"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="How much you paid?"
+                                android:textSize="14sp"
+                                android:layout_alignParentLeft="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_toLeftOf="@+id/spinner_sceta"
+                                android:layout_toStartOf="@+id/spinner_sceta"
+                                android:layout_marginRight="6dp"
+                                android:inputType="numberDecimal"
+                                />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp">
+                            <Spinner
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentRight="true"
+                                android:layout_alignParentEnd="true"
+                                android:id="@+id/spinner_sceta"
+                                android:layout_marginTop="14dp"
 
-                    <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="Operations are included in the balance?"
-                        android:textColor="@color/black_for_glavniy_text" />
-
-                    <CheckBox
-                        android:id="@+id/key_for_balance"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/textView4"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignTop="@+id/textView4"
-                        android:checked="true"
-                        android:text="" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/for_trasaction_credit"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginRight="6dp"
-                        android:layout_toLeftOf="@+id/spinner_sceta"
-                        android:layout_toStartOf="@+id/spinner_sceta"
-                        android:hint="How much you paid?"
-                        android:inputType="numberDecimal"
-                        android:textSize="14sp" />
-
-                    <Spinner
-                        android:id="@+id/spinner_sceta"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginTop="14dp"
-
-                        ></Spinner>
+                                ></Spinner>
 
 
-                </RelativeLayout>
+                        </RelativeLayout>
 
-            </LinearLayout>
+                    </LinearLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
+                android:gravity="center"
                 android:layout_marginTop="10dp"
-                android:gravity="center">
-
+                android:layout_marginRight="16dp"
+                android:layout_marginLeft="16dp">
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="2px"
-                    android:background="@color/green_light_forline" />
+                    android:background="@color/green_light_forline"/>
             </RelativeLayout>
         </LinearLayout>
 
     </ScrollView>
+
 
 
 </FrameLayout>
