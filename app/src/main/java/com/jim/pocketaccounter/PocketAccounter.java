@@ -77,21 +77,21 @@ public class PocketAccounter extends AppCompatActivity {
             subItem.setGroup(false);
             items.add(subItem);
         }
-        LeftMenuItem statistics = new LeftMenuItem(cats[2], R.drawable.drawer_statistics);
-        statistics.setGroup(true);
-        items.add(statistics);
-        for (int i=0; i<statisticsSubItemTitles.length; i++) {
-            int resId = getResources().getIdentifier(statisticsSubItemIcons[i], "drawable", getPackageName());
-            LeftMenuItem subItem = new LeftMenuItem(statisticsSubItemTitles[i], resId);
-            subItem.setGroup(false);
-            items.add(subItem);
-        }
         LeftMenuItem debts = new LeftMenuItem(cats[3], R.drawable.drawer_debts);
         debts.setGroup(true);
         items.add(debts);
         for (int i=0; i<debtSubItemTitles.length; i++) {
             int resId = getResources().getIdentifier(debtSubItemIcons[i], "drawable", getPackageName());
             LeftMenuItem subItem = new LeftMenuItem(debtSubItemTitles[i], resId);
+            subItem.setGroup(false);
+            items.add(subItem);
+        }
+        LeftMenuItem statistics = new LeftMenuItem(cats[2], R.drawable.drawer_statistics);
+        statistics.setGroup(true);
+        items.add(statistics);
+        for (int i=0; i<statisticsSubItemTitles.length; i++) {
+            int resId = getResources().getIdentifier(statisticsSubItemIcons[i], "drawable", getPackageName());
+            LeftMenuItem subItem = new LeftMenuItem(statisticsSubItemTitles[i], resId);
             subItem.setGroup(false);
             items.add(subItem);
         }

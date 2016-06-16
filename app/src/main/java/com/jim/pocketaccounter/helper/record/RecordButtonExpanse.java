@@ -27,11 +27,17 @@ public class RecordButtonExpanse {
 	private float radius, clearance;
 	private Context context;
 	private RootCategory category;
+	private float aLetterHeight;
 	public RecordButtonExpanse(Context context, int type) {
 		this.context = context;
 		clearance = context.getResources().getDimension(R.dimen.one_dp);
 		shape = new Path();
 		this.type = type;
+		Paint paint = new Paint();
+		paint.setTextSize(context.getResources().getDimension(R.dimen.ten_sp));
+		Rect bounds = new Rect();
+		paint.getTextBounds("A", 0, "A".length(), bounds);
+		aLetterHeight = bounds.height();
 	}
 	public void setBounds(float left, float top, float right, float bottom, float radius) {
 		container = new RectF(left, top, right, bottom);
@@ -312,7 +318,7 @@ public class RecordButtonExpanse {
 			textPaint.setAntiAlias(true);
 			Rect bounds = new Rect();
 			textPaint.getTextBounds(category.getName(), 0, category.getName().length(), bounds);
-			canvas.drawText(category.getName(), container.centerX()-bounds.width()/2, container.centerY()+2*bounds.height(), textPaint);
+			canvas.drawText(category.getName(), container.centerX()-bounds.width()/2, container.centerY()+2*aLetterHeight, textPaint);
 		} else {
 			temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.no_category);
 			scaled = Bitmap.createScaledBitmap(temp, (int)context.getResources().getDimension(R.dimen.thirty_dp), (int)context.getResources().getDimension(R.dimen.thirty_dp), false);
@@ -323,8 +329,9 @@ public class RecordButtonExpanse {
 			Rect bounds = new Rect();
 			String text = context.getResources().getString(R.string.add);
 			textPaint.setAntiAlias(true);
+			bounds = new Rect();
 			textPaint.getTextBounds(text, 0, text.length(), bounds);
-			canvas.drawText(text, container.centerX()-bounds.width()/2, container.centerY()+2*bounds.height(), textPaint);
+			canvas.drawText(text, container.centerX()-bounds.width()/2, container.centerY()+2*aLetterHeight, textPaint);
 		}
 	}
 	public void setPressed(boolean pressed) {
