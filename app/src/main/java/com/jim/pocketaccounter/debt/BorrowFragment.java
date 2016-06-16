@@ -127,11 +127,11 @@ public class BorrowFragment extends Fragment {
             for (DebtBorrow person : financeManager.getDebtBorrows()) {
                 if (!person.isTo_archive() && person.getType() == TYPE) {
                     persons.add(person);
-                } if (person.isTo_archive()){
+                }
+                if (person.isTo_archive() && person.getType() == TYPE)
                     persons.add(person);
                 }
             }
-        }
 
         public int getItemCount() {
             return persons.size();
@@ -254,8 +254,6 @@ public class BorrowFragment extends Fragment {
                             if (financeManager.getDebtBorrows().get(i).equals(person)) {
                                 financeManager.getDebtBorrows().get(i).setTo_archive(true);
                                 financeManager.getDebtBorrows().get(i).setType(2);
-                                persons.get(position).setTo_archive(true);
-                                persons.get(position).setType(2);
                                 persons.remove(position);
                                 break;
                             }
