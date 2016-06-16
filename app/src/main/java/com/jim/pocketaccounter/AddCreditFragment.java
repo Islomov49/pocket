@@ -643,10 +643,14 @@ public class AddCreditFragment extends Fragment {
                 boolean key=true;
                 key = isOpkey.isChecked();
 
-                CreditDetials A1=new CreditDetials(selectedIcon,nameCred.getText().toString(),new GregorianCalendar(argFirst[0],argFirst[1],argFirst[2]),
-                        Double.parseDouble(sb.toString()) ,procent_inter ,period_inter,period_tip,key,Double.parseDouble(valueCred.getText().toString()),
-                        currencies.get(spiner_forValut.getSelectedItemPosition()),Double.parseDouble(solution.getText().toString()),System.currentTimeMillis() );
-                String transactionCredString=transactionCred.getText().toString();
+                String sloution = solution.getText().toString();
+                sloution.replace(',', '.');
+
+                    CreditDetials A1 = new CreditDetials(selectedIcon, nameCred.getText().toString(), new GregorianCalendar(argFirst[0], argFirst[1], argFirst[2]),
+                            Double.parseDouble(sb.toString()), procent_inter, period_inter, period_tip, key, Double.parseDouble(valueCred.getText().toString()),
+                            currencies.get(spiner_forValut.getSelectedItemPosition()), Double.parseDouble(sloution), System.currentTimeMillis());
+
+                    String transactionCredString=transactionCred.getText().toString();
                 if(!transactionCredString.matches("")){
                     ReckingCredit first_pay;
                     if(key&&accounts.size()!=0) {
