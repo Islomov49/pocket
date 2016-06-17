@@ -110,6 +110,16 @@ public class FilterDialog extends Dialog implements AdapterView.OnItemSelectedLi
             @Override
             public void onClick(View v) {
                 // ----- Save -------
+                if(spinner.getSelectedItemPosition() == 0){
+                    beginDate = (Calendar) Calendar.getInstance().clone();
+                    endDate = (Calendar) Calendar.getInstance().clone();
+
+                    beginDate.set(Calendar.DAY_OF_MONTH, 1);
+                    beginDate.set(Calendar.HOUR_OF_DAY, 0);
+                    beginDate.set(Calendar.MINUTE, 0);
+                    beginDate.set(Calendar.SECOND, 0);
+                    beginDate.set(Calendar.MILLISECOND, 0);
+                }
                 filterSelectable.onDateSelected(beginDate, endDate);
                 dismiss();
             }
@@ -125,18 +135,28 @@ public class FilterDialog extends Dialog implements AdapterView.OnItemSelectedLi
 
         ArrayAdapter<String> yearAdapter = new ArrayAdapter<String>(
                 getContext(), android.R.layout.simple_spinner_item, year);
-
+        String [] months = getContext().getResources().getStringArray(R.array.months);
         ArrayAdapter<String> yearMonthAdapter = new ArrayAdapter<String>(
-                getContext(), android.R.layout.simple_spinner_item, getContext().getResources().getStringArray(R.array.months));
+                getContext(), android.R.layout.simple_spinner_item, months);
 
         yearFilter.setAdapter(yearAdapter);
-        yearFilter.setSelection(0);
         yilFilter.setAdapter(yearAdapter);
-        yilFilter.setSelection(0);
         monthFilter.setAdapter(yearMonthAdapter);
-        monthFilter.setSelection(0);
         spinner.setAdapter(arrayAdapter);
         spinner.setSelection(0);
+
+        for (int i = 0; i < year.length; i++) {
+            if (year[i].matches("" + Calendar.getInstance().get(Calendar.YEAR))) {
+                yearFilter.setSelection(i);
+                yilFilter.setSelection(i);
+            }
+        }
+
+        for (int i = 0; i < months.length; i++) {
+            if (i == Calendar.getInstance().get(Calendar.MONTH)) {
+                monthFilter.setSelection(i);
+            }
+        }
 
         spinner.setOnItemSelectedListener(this);
 

@@ -96,24 +96,24 @@
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\layout\\add_pay_debt_borrow_info_mod.xml"
     },
     {
-        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\currency_edit.xml",
-        "source": "D:\\DEV\\example\\app\\src\\main\\res\\layout\\currency_edit.xml"
-    },
-    {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\subcat_item.xml",
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\layout\\subcat_item.xml"
+    },
+    {
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\currency_edit.xml",
+        "source": "D:\\DEV\\example\\app\\src\\main\\res\\layout\\currency_edit.xml"
     },
     {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\fragment_info_credit_archive.xml",
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\layout\\fragment_info_credit_archive.xml"
     },
     {
-        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\curr_exchange_list_item.xml",
-        "source": "D:\\DEV\\example\\app\\src\\main\\res\\layout\\curr_exchange_list_item.xml"
-    },
-    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_dropdown_item_icons_2line.xml",
         "source": "C:\\shinauz\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_search_dropdown_item_icons_2line.xml"
+    },
+    {
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\curr_exchange_list_item.xml",
+        "source": "D:\\DEV\\example\\app\\src\\main\\res\\layout\\curr_exchange_list_item.xml"
     },
     {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_alert_dialog_button_bar_material.xml",

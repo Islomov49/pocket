@@ -38,32 +38,14 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
     private ImageView ivToolbarMostRight;
     private Spinner spToolbar;
     private String[] titles;
-    private int type;
+
     private Calendar begin, end;
-    private int pos_account = 0, pos_currency = 0;
+    private int pos_account = 0,
+                pos_currency = 0;
 
-    public Calendar getEnd() {
-        return end;
-    }
-
-    public void setEnd(Calendar end) {
-        this.end = end;
-    }
-
-    public Calendar getBegin() {
-        return begin;
-    }
-
-    public void setBegin(Calendar begin) {
-        this.begin = begin;
-    }
-
-    private Calendar date;
-    private RootCategory category;
     private Account account;
-    private SubCategory subCategory;
     private Currency currency;
-    private double amount;
+
     private TableView tbReportByAccount;
     private FinanceManager financeManager;
 
@@ -128,8 +110,7 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
                     public void onDateSelected(Calendar begin, Calendar end) {
                         account = PocketAccounter.financeManager.getAccounts().get(pos_account);
                         currency = PocketAccounter.financeManager.getCurrencies().get(pos_currency);
-                        Log.d("begin:", "" + begin);
-                        Log.d("end:", "" + end);
+
                         ReportByAccount reportByAccount = new ReportByAccount(getContext(), begin, end, account, currency);
                         ArrayList<AccountDataRow> sortReportByAccount = reportByAccount.makeAccountReport();
 
@@ -151,7 +132,6 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
                                 tables[i][4] = sortReportByAccount.get(i).getCategory().getName()
                                         + "," + sortReportByAccount.get(i).getSubCategory().getName();
                         }
-
                         tbReportByAccount.setTables(tables);
                     }
                 });
