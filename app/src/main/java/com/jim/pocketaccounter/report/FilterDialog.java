@@ -272,8 +272,8 @@ public class FilterDialog extends Dialog implements AdapterView.OnItemSelectedLi
                 startTimeFilter.setVisibility(View.INVISIBLE);
                 endTimeFilter.setVisibility(View.INVISIBLE);
 
-                beginDate = Calendar.getInstance();
-                endDate = Calendar.getInstance();
+                beginDate = (Calendar) Calendar.getInstance().clone();
+                endDate = (Calendar) Calendar.getInstance().clone();
 
                 beginDate.set(Calendar.DAY_OF_MONTH, 1);
                 beginDate.set(Calendar.HOUR_OF_DAY, 0);
@@ -290,8 +290,8 @@ public class FilterDialog extends Dialog implements AdapterView.OnItemSelectedLi
                 startTimeFilter.setVisibility(View.INVISIBLE);
                 endTimeFilter.setVisibility(View.INVISIBLE);
 
-                beginDate = Calendar.getInstance();
-                endDate = Calendar.getInstance();
+                beginDate = (Calendar) Calendar.getInstance().clone();
+                endDate = (Calendar) Calendar.getInstance().clone();
 
                 beginDate.set(Calendar.DAY_OF_YEAR, endDate.get(Calendar.DAY_OF_YEAR) - 2);
                 beginDate.set(Calendar.HOUR_OF_DAY, 0);
@@ -343,8 +343,8 @@ public class FilterDialog extends Dialog implements AdapterView.OnItemSelectedLi
                 yilFilter.setVisibility(View.INVISIBLE);
                 monthFilter.setVisibility(View.INVISIBLE);
                 yearFilter.setVisibility(View.INVISIBLE);
-                beginDate = Calendar.getInstance();
-                endDate = Calendar.getInstance();
+                beginDate = (Calendar) Calendar.getInstance().clone();
+                endDate = (Calendar) Calendar.getInstance().clone();
 
                 startTimeFilter.setText(dateFormat.format(beginDate.getTime()));
                 endTimeFilter.setText(dateFormat.format(endDate.getTime()));
