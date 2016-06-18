@@ -340,6 +340,12 @@ public class InfoCreditFragmentForArchive extends Fragment {
         super.onStop();
     }
 
+    @Override
+    public void onDetach(){
+        //   PocketAccounter.financeManager.saveCredits();
+        super.onDetach();
+        ivToolbarMostRight.setVisibility(View.GONE);
+    }
 
 
     private class PaysCreditAdapter extends RecyclerView.Adapter<InfoCreditFragmentForArchive.ViewHolder> {

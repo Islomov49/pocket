@@ -163,7 +163,7 @@ public class InfoCreditFragment extends Fragment {
         V.findViewById(R.id.frameLayout2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(toArcive){
+                if(toArcive&&!delete_flag){
 
                     A1.to_Archive(currentPOS);
                     ((PocketAccounter)context).getSupportFragmentManager().popBackStack ();
@@ -558,7 +558,12 @@ public class InfoCreditFragment extends Fragment {
         super.onStop();
     }
 
-
+    @Override
+    public void onDetach(){
+        //   PocketAccounter.financeManager.saveCredits();
+        super.onDetach();
+        ivToolbarMostRight.setVisibility(View.GONE);
+    }
 
     private class PaysCreditAdapter extends RecyclerView.Adapter<InfoCreditFragment.ViewHolder> {
         private ArrayList<ReckingCredit> list;

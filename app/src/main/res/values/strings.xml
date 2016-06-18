@@ -707,4 +707,6 @@
     <string name="debt_borrow_given_recking">Vernuli dolg</string>
     <string name="detail">Подробно</string>
     <string name="profit">Прибыль</string>
+    <string name="loading">Synchronization</string>
+    <string name="please_wait">Please wait</string>
 </resources>

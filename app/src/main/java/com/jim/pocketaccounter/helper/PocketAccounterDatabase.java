@@ -28,7 +28,7 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 	private Context context;
 	private SimpleDateFormat dateFormat = null;
 	public PocketAccounterDatabase(Context context) {
-		super(context, "PocketAccounterDatabase", null, 2);
+			super(context, "PocketAccounterDatabase", null, 2);
 		this.context = context;
 		dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 	}
