@@ -1214,9 +1214,6 @@
     <string name="diagram_no_data_text">Нет данных для отображения!</string>
     <string name="disconnect">Disconnect</string>
     <string name="divide_null">На ноль делить нельзя!</string>
-    <string name="dropbox">Dropbox</string>
-    <string name="dropbox_repair">Restore from Dropbox</string>
-    <string name="dropbox_save">Save to Dropbox</string>
     <string name="ends">Ends</string>
     <string name="enter_cat_name">Введите название категории</string>
     <string name="enter_exchange">Введите курс</string>

@@ -31,23 +31,26 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- * Created by ismoi on 6/15/2016.
+ * Created by ravshan on 6/15/2016.
  */
 
 public class ReportByAccountFragment extends Fragment implements View.OnClickListener {
     private ImageView ivToolbarMostRight;
     private Spinner spToolbar;
     private String[] titles;
+    private String[][] tables;
+    private int pos_account = 0,
+            pos_currency = 0;
 
     private Calendar begin, end;
-    private int pos_account = 0,
-                pos_currency = 0;
-
+    private SimpleDateFormat simpleDateFormat;
     private Account account;
     private Currency currency;
-
     private TableView tbReportByAccount;
     private FinanceManager financeManager;
+    private FilterDialog filterDialog;
+    private ReportByAccount reportByAccount;
+    private ArrayList<AccountDataRow> sortReportByAccount;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,11 +58,15 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
         rootView.setBackgroundColor(Color.WHITE);
 
         ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
-        ivToolbarMostRight.setImageResource(R.drawable.add_green);
+        ivToolbarMostRight.setImageResource(R.drawable.remove_red);
         ivToolbarMostRight.setOnClickListener(this);
 
         PocketAccounter.toolbar.setTitle("Account");
         PocketAccounter.toolbar.setSubtitle("");
+
+        filterDialog = new FilterDialog(getContext());
+        begin = (Calendar) Calendar.getInstance().clone();
+        end = (Calendar) Calendar.getInstance().clone();
 
         spToolbar = (Spinner) PocketAccounter.toolbar.findViewById(R.id.spToolbar);
         spToolbar.setVisibility(View.VISIBLE);
@@ -83,6 +90,39 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 pos_account = (int) (position / financeManager.getCurrencies().size());
                 pos_currency = position % financeManager.getCurrencies().size();
+
+                account = PocketAccounter.financeManager.getAccounts().get(pos_account);
+                currency = PocketAccounter.financeManager.getCurrencies().get(pos_currency);
+
+                begin.set(Calendar.DAY_OF_YEAR, end.get(Calendar.DAY_OF_YEAR) - 2);
+                begin.set(Calendar.HOUR_OF_DAY, 0);
+                begin.set(Calendar.MINUTE, 0);
+                begin.set(Calendar.SECOND, 0);
+                begin.set(Calendar.MILLISECOND, 0);
+
+                reportByAccount = new ReportByAccount(getContext(), begin, end, account, currency);
+                sortReportByAccount = reportByAccount.makeAccountReport();
+
+                tables = new String[sortReportByAccount.size()][titles.length];
+
+                simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+
+                for (int i = 0; i < sortReportByAccount.size(); i++) {
+                    tables[i][0] = String.valueOf(sortReportByAccount.get(i).getType());
+                    tables[i][1] = sortReportByAccount.get(i).getCurrency().getName();
+                    tables[i][2] = String.valueOf(sortReportByAccount.get(i).getAmount());
+
+                    tables[i][3] = simpleDateFormat.format(sortReportByAccount.get(i).getDate().getTime());
+
+                    if (!sortReportByAccount.get(i).getCategory().getName().equals(""))
+                        tables[i][4] = sortReportByAccount.get(i).getCategory().getName();
+                    if (!sortReportByAccount.get(i).getCategory().getName().equals("")
+                            && sortReportByAccount.get(i).getSubCategory() != null)
+                        tables[i][4] = sortReportByAccount.get(i).getCategory().getName()
+                                + "," + sortReportByAccount.get(i).getSubCategory().getName();
+                }
+
+                tbReportByAccount.setTables(tables);
             }
 
             @Override
@@ -103,20 +143,16 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.ivToolbarMostRight:
-                FilterDialog filterDialog = new FilterDialog(getContext());
                 filterDialog.show();
                 filterDialog.setOnDateSelectedListener(new FilterSelectable() {
                     @Override
                     public void onDateSelected(Calendar begin, Calendar end) {
-                        account = PocketAccounter.financeManager.getAccounts().get(pos_account);
-                        currency = PocketAccounter.financeManager.getCurrencies().get(pos_currency);
+                        reportByAccount = new ReportByAccount(getContext(), begin, end, account, currency);
+                        sortReportByAccount = reportByAccount.makeAccountReport();
 
-                        ReportByAccount reportByAccount = new ReportByAccount(getContext(), begin, end, account, currency);
-                        ArrayList<AccountDataRow> sortReportByAccount = reportByAccount.makeAccountReport();
+                        tables = new String[sortReportByAccount.size()][titles.length];
 
-                        String[][] tables = new String[sortReportByAccount.size()][titles.length];
-
-                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+                        simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
                         for (int i = 0; i < sortReportByAccount.size(); i++) {
                             tables[i][0] = String.valueOf(sortReportByAccount.get(i).getType());
@@ -132,6 +168,7 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
                                 tables[i][4] = sortReportByAccount.get(i).getCategory().getName()
                                         + "," + sortReportByAccount.get(i).getSubCategory().getName();
                         }
+
                         tbReportByAccount.setTables(tables);
                     }
                 });

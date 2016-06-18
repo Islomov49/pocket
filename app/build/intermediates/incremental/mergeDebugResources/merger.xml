@@ -2001,7 +2001,7 @@
         <item>Кефир</item>
         <item>Яйца</item>
         <item>Вода</item>
-    </string-array><string name="create">Создать</string><string name="announce">Report for the year</string><string name="credit">Кредит</string><string name="home">Дом</string><string name="loading">Synchronization</string><string name="report_announce_default">11</string><string name="weekly">Report for the week</string><string name="dropbox">Dropbox</string><string-array name="gaiety_icons">
+    </string-array><string name="create">Создать</string><string name="announce">Report for the year</string><string name="credit">Кредит</string><string name="home">Дом</string><string name="loading">Synchronization</string><string name="report_announce_default">11</string><string name="weekly">Report for the week</string><string-array name="gaiety_icons">
         <item>sign_3d</item>
         <item>p_full_hd</item>
         <item>ball</item>
@@ -2030,7 +2030,7 @@
         <item>black_1</item>
         <item>book</item>
         <item>book_1</item>
-    </string-array><string name="debt_statistics">Взял в долг</string><string name="dropbox_save">Save to Dropbox</string><string name="total_paid">Total paid:</string><string name="to_email">basicstepsdevelopment@gmail.com</string><string name="mont">Month</string><string name="ends">Ends</string><string name="currency_exchange_warning">Данные по курсам валют и записи будут утеряны, так как вы не выбрали ранее вами выбранную валюту!</string><string name="feedback_hint">Input feedback</string><string name="pay">PAY</string><string-array name="food_icons">
+    </string-array><string name="debt_statistics">Взял в долг</string><string name="total_paid">Total paid:</string><string name="to_email">basicstepsdevelopment@gmail.com</string><string name="mont">Month</string><string name="ends">Ends</string><string name="currency_exchange_warning">Данные по курсам валют и записи будут утеряны, так как вы не выбрали ранее вами выбранную валюту!</string><string name="feedback_hint">Input feedback</string><string name="pay">PAY</string><string-array name="food_icons">
         <item>sign_3d</item>
         <item>p_full_hd</item>
         <item>ball</item>
@@ -2107,7 +2107,7 @@
         <item>40</item>
         <item>50</item>
         <item>60</item>
-    </string-array><string name="clothes">Одежда</string><string name="dropbox_repair">Restore from Dropbox</string><string name="beauty">Красота</string><string name="language_default">default_lang</string><string-array name="account_icons">
+    </string-array><string name="clothes">Одежда</string><string name="beauty">Красота</string><string name="language_default">default_lang</string><string-array name="account_icons">
         <item>ic_category_1</item>
         <item>ic_category_2</item>
         <item>ic_category_3</item>
