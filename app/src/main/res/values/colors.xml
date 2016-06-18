@@ -12,7 +12,7 @@
     <color name="drawer_title_bg_color" type="color">#36434c</color>
     <color name="drawer_settings_selected_color" type="color">#4a5761</color>
     <color name="empty" type="color">#00000000</color>
-    <color name="drawer_listview_border" type="color">#36434c</color>
+    <color name="drawer_listview_border" type="color">#d4d4d4</color>
     <color name="main_app_name_text" type="color">#636363</color>
     <color name="message_text_bg" type="color">#9cba63</color>
     <color name="lv_border" type="color">#ebebeb</color>
@@ -45,4 +45,5 @@
     <color name="expp" type="color">#ffffff</color>
     <color name="balanse_expanse" type="color">#832e1c</color>
     <color name="belt_balanse" type="color">#dfdfdf</color>
+    <color name="drawer_bg" type="color">#f8f8f8</color>
 </resources>

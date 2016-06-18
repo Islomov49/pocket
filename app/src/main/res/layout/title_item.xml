@@ -25,7 +25,7 @@
             android:layout_marginTop="@dimen/twenty_dp"
             android:layout_weight="1"
             android:text="TextView"
-            android:textColor="@color/white"
+            android:textColor="@color/toolbar_text_color"
             android:textSize="@dimen/eighteen_sp" />
 
     </LinearLayout>
@@ -36,7 +36,7 @@
         android:layout_height="@dimen/one_dp"
         android:layout_marginLeft="@dimen/sixteen_dp"
         android:layout_marginRight="@dimen/sixteen_dp"
-        android:background="#58808c" />
+        android:background="@color/drawer_listview_border" />
 
     <LinearLayout
         android:id="@+id/llSubItems"

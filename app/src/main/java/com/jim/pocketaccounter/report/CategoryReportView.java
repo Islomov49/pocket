@@ -25,10 +25,11 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 
-public class CategoryReportView extends LinearLayout implements OnChartValueSelectedListener {
+public class CategoryReportView extends LinearLayout {
     private PieChart pieChart;
     private CategoryReportDatas categoryReportDatas;
     private int type;
+    private ArrayList<CategoryDataRow> datas;
     public CategoryReportView(Context context, int type) {
         super(context);
         this.type = type;
@@ -36,7 +37,6 @@ public class CategoryReportView extends LinearLayout implements OnChartValueSele
         pieChart.setUsePercentValues(true);
         pieChart.setDescription("");
         pieChart.setExtraOffsets(5, 10, 5, 5);
-        pieChart.setCenterText(getResources().getString(R.string.expanse));
         pieChart.setDrawHoleEnabled(true);
         pieChart.setHoleColor(Color.WHITE);
         pieChart.setTransparentCircleColor(Color.WHITE);
@@ -48,25 +48,30 @@ public class CategoryReportView extends LinearLayout implements OnChartValueSele
         pieChart.setRotationAngle(0);
         pieChart.setRotationEnabled(false);
         pieChart.setHighlightPerTapEnabled(true);
-        pieChart.setOnChartValueSelectedListener(this);
         pieChart.animateY(2500, Easing.EasingOption.EaseInOutQuad);
         Calendar begin = Calendar.getInstance();
         begin.set(1971, 0, 1);
         Calendar end = Calendar.getInstance();
         categoryReportDatas = new CategoryReportDatas(context, begin, end);
-        if (type == PocketAccounterGeneral.INCOME)
-            drawReport(categoryReportDatas.makeIncomeReport());
-        else
-            drawReport(categoryReportDatas.makeExpanseReport());
+        if (type == PocketAccounterGeneral.INCOME) {
+            pieChart.setCenterText(getResources().getString(R.string.income));
+            datas = categoryReportDatas.makeIncomeReport();
+        }
+        else {
+            pieChart.setCenterText(getResources().getString(R.string.expanse));
+            datas = categoryReportDatas.makeExpanseReport();
+        }
+        drawReport(datas);
         Legend l = pieChart.getLegend();
         l.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
         l.setXEntrySpace(7f);
-        l.setYEntrySpace(0f);
-        l.setYOffset(0f);
+        l.setYEntrySpace(7f);
+        l.setYOffset(15f);
         LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         pieChart.setLayoutParams(lp);
         addView(pieChart);
     }
+    public PieChart getPieChart() {return pieChart;}
     public CategoryReportView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -77,13 +82,14 @@ public class CategoryReportView extends LinearLayout implements OnChartValueSele
     public CategoryReportView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
+    public ArrayList<CategoryDataRow> getDatas() {return datas;}
     public void drawReport(ArrayList<CategoryDataRow> datas) {
         ArrayList<Entry> yVals = new ArrayList<Entry>();
-        for (int i = 0; i < datas.size() + 1; i++) {
+        for (int i = 0; i < datas.size(); i++) {
             yVals.add(new Entry((float) datas.get(i).getTotalAmount(), i));
         }
         ArrayList<String> xVals = new ArrayList<String>();
-        for (int i = 0; i < datas.size() + 1; i++)
+        for (int i = 0; i < datas.size(); i++)
             xVals.add(datas.get(i).getCategory().getName());
         PieDataSet dataSet = new PieDataSet(yVals, "");
         dataSet.setSliceSpace(3f);
@@ -105,12 +111,7 @@ public class CategoryReportView extends LinearLayout implements OnChartValueSele
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(11f);
         data.setValueTextColor(Color.WHITE);
+        pieChart.setData(data);
         pieChart.invalidate();
-    }
-    @Override
-    public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
-    }
-    @Override
-    public void onNothingSelected() {
     }
 }

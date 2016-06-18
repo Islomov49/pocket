@@ -18,7 +18,7 @@ import java.util.Calendar;
 
 public class CategoryReportDatas {
     private Calendar begin, end;
-    private ArrayList<FinanceRecord> periodDatas;
+    private ArrayList<FinanceRecord> periodDatas = new ArrayList<FinanceRecord>();
     private ArrayList<DebtBorrow> debtBorrows;
     private Context context;
     public CategoryReportDatas(Context context, Calendar begin, Calendar end) {

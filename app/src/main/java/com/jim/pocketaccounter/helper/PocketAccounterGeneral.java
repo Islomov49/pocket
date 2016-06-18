@@ -3,7 +3,9 @@ package com.jim.pocketaccounter.helper;
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.finance.Currency;
 import com.jim.pocketaccounter.finance.FinanceRecord;
+import com.jim.pocketaccounter.finance.RootCategory;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class PocketAccounterGeneral {
@@ -44,6 +46,36 @@ public class PocketAccounterGeneral {
 				koeff = currency.getCosts().get(i).getCost();
 		}
 		result = amount/koeff;
+		return result;
+	}
+	public static double calculateAction(RootCategory category, Calendar date) {
+		double result = 0.0;
+		if (category == null) return 0.0;
+		Calendar begin = (Calendar) date.clone();
+		begin.set(Calendar.HOUR_OF_DAY, 0);
+		begin.set(Calendar.MINUTE, 0);
+		begin.set(Calendar.SECOND, 0);
+		begin.set(Calendar.MILLISECOND, 0);
+		Calendar end = (Calendar) date.clone();
+		end.set(Calendar.HOUR_OF_DAY, 23);
+		end.set(Calendar.MINUTE, 59);
+		end.set(Calendar.SECOND, 59);
+		end.set(Calendar.MILLISECOND, 59);
+		for (int i=0; i<PocketAccounter.financeManager.getRecords().size(); i++) {
+			FinanceRecord record = PocketAccounter.financeManager.getRecords().get(i);
+			if (record.getDate().compareTo(begin) >= 0 && record.getDate().compareTo(end) <= 0 &&
+					record.getCategory().getId().matches(category.getId()))
+				result = result + getCost(record);
+		}
+		double totalAmount = 0.0;
+		for (int i=0; i<PocketAccounter.financeManager.getRecords().size(); i++) {
+			FinanceRecord record = PocketAccounter.financeManager.getRecords().get(i);
+			if (record.getDate().compareTo(begin) >= 0 && record.getDate().compareTo(end) <= 0
+					&& record.getCategory().getType() == category.getType())
+				totalAmount = totalAmount + getCost(record);
+		}
+		if (totalAmount == 0.0) return 0.0;
+		result = 100*result/totalAmount;
 		return result;
 	}
 }

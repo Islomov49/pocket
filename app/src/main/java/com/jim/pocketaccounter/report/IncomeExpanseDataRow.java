@@ -1,4 +1,6 @@
 package com.jim.pocketaccounter.report;
+import android.util.Log;
+
 import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
 import java.util.ArrayList;
@@ -21,15 +23,15 @@ public class IncomeExpanseDataRow {
     public void setTotalProfit(double totalProfit) {this.totalProfit = totalProfit;}
     public IncomeExpanseDataRow(Calendar date) {this.date = (Calendar) date.clone();}
     public void calculate() {
+        totalIncome = 0;
+        totalExpanse = 0;
+        totalProfit = 0;
         for (int i=0; i<details.size(); i++) {
-            totalIncome = 0;
-            totalExpanse = 0;
-            totalProfit = 0;
             if (details.get(i).getCategory().getType() == PocketAccounterGeneral.INCOME)
                 totalIncome = totalIncome + PocketAccounterGeneral.getCost(date, details.get(i).getCurrency(), details.get(i).getAmount());
             else
                 totalExpanse = totalExpanse + PocketAccounterGeneral.getCost(date, details.get(i).getCurrency(), details.get(i).getAmount());
-            totalProfit = totalIncome - totalExpanse;
         }
+        totalProfit = totalIncome - totalExpanse;
     }
 }

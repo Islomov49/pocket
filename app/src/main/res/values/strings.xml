@@ -705,4 +705,6 @@
     <string name="debt_borrow_given">Dal v dolg</string>
     <string name="debt_borrow_taken_recking">Zakril dolg</string>
     <string name="debt_borrow_given_recking">Vernuli dolg</string>
+    <string name="detail">Подробно</string>
+    <string name="profit">Прибыль</string>
 </resources>
