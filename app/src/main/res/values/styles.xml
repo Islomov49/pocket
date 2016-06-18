@@ -14,7 +14,7 @@
     <style name="leftBehindMenuScroll">
         <item name="android:layout_width">@dimen/left_drawer_width</item>
         <item name="android:layout_height">fill_parent</item>
-        <item name="android:background">@color/drawer_color</item>
+        <item name="android:background">@color/drawer_bg</item>
     </style>
     <style name="behindMenuScrollContent">
         <item name="android:layout_width">fill_parent</item>

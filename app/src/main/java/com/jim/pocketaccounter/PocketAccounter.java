@@ -4,6 +4,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -12,20 +14,19 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.jim.pocketaccounter.helper.FABIcon;
 import com.jim.pocketaccounter.report.FilterFragment;
 import com.jim.pocketaccounter.debt.DebtBorrowFragment;
 import com.jim.pocketaccounter.finance.FinanceManager;
 import com.jim.pocketaccounter.helper.LeftMenuAdapter;
 import com.jim.pocketaccounter.helper.LeftMenuItem;
 import com.jim.pocketaccounter.helper.LeftSideDrawer;
-import com.jim.pocketaccounter.report.TableBarFragment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -65,6 +66,10 @@ public class PocketAccounter extends AppCompatActivity {
         String[] debtSubItemTitles = getResources().getStringArray(R.array.debts_subitems);
         String[] debtSubItemIcons = getResources().getStringArray(R.array.debts_subitem_icons);
         ArrayList<LeftMenuItem> items = new ArrayList<LeftMenuItem>();
+        Bitmap temp = BitmapFactory.decodeResource(getResources(), R.drawable.cloud);
+        Bitmap bitmap = Bitmap.createScaledBitmap(temp, (int)getResources().getDimension(R.dimen.twentyfour_dp), (int)getResources().getDimension(R.dimen.twentyfour_dp), false);
+        FABIcon fabIcon = (FABIcon)findViewById(R.id.fabDrawerNavIcon);
+        fabIcon.setImageBitmap(bitmap);
         LeftMenuItem main = new LeftMenuItem(cats[0], R.drawable.drawer_home);
         main.setGroup(true);
         items.add(main);
@@ -77,21 +82,21 @@ public class PocketAccounter extends AppCompatActivity {
             subItem.setGroup(false);
             items.add(subItem);
         }
-        LeftMenuItem statistics = new LeftMenuItem(cats[2], R.drawable.drawer_statistics);
-        statistics.setGroup(true);
-        items.add(statistics);
-        for (int i=0; i<statisticsSubItemTitles.length; i++) {
-            int resId = getResources().getIdentifier(statisticsSubItemIcons[i], "drawable", getPackageName());
-            LeftMenuItem subItem = new LeftMenuItem(statisticsSubItemTitles[i], resId);
-            subItem.setGroup(false);
-            items.add(subItem);
-        }
         LeftMenuItem debts = new LeftMenuItem(cats[3], R.drawable.drawer_debts);
         debts.setGroup(true);
         items.add(debts);
         for (int i=0; i<debtSubItemTitles.length; i++) {
             int resId = getResources().getIdentifier(debtSubItemIcons[i], "drawable", getPackageName());
             LeftMenuItem subItem = new LeftMenuItem(debtSubItemTitles[i], resId);
+            subItem.setGroup(false);
+            items.add(subItem);
+        }
+        LeftMenuItem statistics = new LeftMenuItem(cats[2], R.drawable.drawer_statistics);
+        statistics.setGroup(true);
+        items.add(statistics);
+        for (int i=0; i<statisticsSubItemTitles.length; i++) {
+            int resId = getResources().getIdentifier(statisticsSubItemIcons[i], "drawable", getPackageName());
+            LeftMenuItem subItem = new LeftMenuItem(statisticsSubItemTitles[i], resId);
             subItem.setGroup(false);
             items.add(subItem);
         }
@@ -127,19 +132,23 @@ public class PocketAccounter extends AppCompatActivity {
                         break;
                     case 6:
                         //statistics by account
+                        replaceFragment(new ReportByAccountFragment());
                         break;
                     case 7:
                         //statistics by income/expanse
-                        replaceFragment(new TableBarFragment());
+                        replaceFragment(new CreditTabLay());
+
                         break;
                     case 8:
-                        replaceFragment(new ReportByCategory());
+                        replaceFragment(new DebtBorrowFragment());
+//                        replaceFragment(new ReportByCategory());
                         break;
                     case 10:
-                        replaceFragment(new CreditTabLay());
+                        replaceFragment(new TableBarFragment());
+                        //rep by account
                         break;
                     case 11:
-                        replaceFragment(new DebtBorrowFragment());
+                        replaceFragment(new ReportByCategory());
                         break;
                     case 12:
                         replaceFragment(new FilterFragment());

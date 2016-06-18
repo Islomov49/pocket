@@ -76,6 +76,11 @@
     <dimen name="hundred_and_twenty_dp">120dp</dimen>
     <dimen name="hunder_and_fourty_dp">140dp</dimen>
     <dimen name="hundred_and_twelve_dp">112dp</dimen>
+    <dimen name="two_hundred_fifty_dp">250dp</dimen>
+    <dimen name="twenty_sixty_two_dp">262dp</dimen>
+    <dimen name="one_hundred_fourty_two_dp">142dp</dimen>
+    <dimen name="two_hundred_sixty_four_dp">264dp</dimen>
+    <dimen name="two_hundred_eight_dp">208dp</dimen>
     <!-- distances end -->
 
     <!-- text sizes begin -->
@@ -90,4 +95,10 @@
     <dimen name="twelve_sp">12sp</dimen>
     <dimen name="ten_sp">10sp</dimen>
     <!-- text sizes end -->
+
+    <dimen name="margin_contetn">10dp</dimen>
+    <dimen name="stroke_width">1sp</dimen>
+    <dimen name="min_height">30dp</dimen>
+    <dimen name="text_height">12sp</dimen>
+    <dimen name="bitmap_size">20dp</dimen>
 </resources>

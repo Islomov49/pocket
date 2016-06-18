@@ -21,7 +21,7 @@
         android:layout_marginTop="@dimen/ten_dp"
         android:layout_weight="1"
         android:text="TextView"
-        android:textColor="@color/white"
+        android:textColor="@color/toolbar_text_color"
         android:textSize="@dimen/fourteen_sp" />
 
 </LinearLayout>

@@ -177,6 +177,7 @@ public class IncomeExpanseReport {
                     }
                 }
             }
+            row.setDetails(details);
             row.calculate();
             result.add(row);
             recordBegin.add(Calendar.DAY_OF_MONTH, 1);

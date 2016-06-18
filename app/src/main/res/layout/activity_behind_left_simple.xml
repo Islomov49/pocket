@@ -11,44 +11,76 @@
 	        style="@style/behindMenuScrollContent"
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent" >
-	
-	        <ImageView
-	            android:id="@+id/ivDrawerHead"
-	            android:layout_width="@dimen/left_drawer_width"
-	            android:layout_height="@dimen/drawer_header_height"
-	            android:src="@drawable/drawer_header" />
+			<RelativeLayout
+				android:id="@+id/rlDrawerHeader"
+				android:layout_width="wrap_content"
+				android:layout_height="@dimen/drawer_header_height">
+				<ImageView
+					android:id="@+id/ivDrawerHead"
+					android:layout_width="@dimen/left_drawer_width"
+					android:layout_height="@dimen/drawer_header_height"
+					android:src="@drawable/drawer_header" />
+				<LinearLayout
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginBottom="@dimen/ten_dp"
+					android:layout_marginLeft="@dimen/sixteen_dp"
+					android:orientation="vertical"
+					android:layout_alignParentBottom="true">
+					<LinearLayout
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:orientation="horizontal">
+						<com.jim.pocketaccounter.helper.CircleImageView
+							android:layout_width="@dimen/sixty_dp"
+							android:layout_height="@dimen/sixty_dp"
+							android:src="@drawable/no_photo" />
+						<LinearLayout
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:orientation="vertical"
+							android:layout_gravity="center_vertical">
+							<TextView
+								android:id="@+id/tvToolbarName"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:text="Johnatan Taylor"
+								android:textColor="#FFFFFF"
+								android:textSize="@dimen/twelve_sp"
+								android:textStyle="bold"
+								android:layout_marginLeft="@dimen/five_dp"/>
 
-	            <LinearLayout
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_marginTop="@dimen/sixteen_dp"
-	            android:orientation="vertical" >
-	
-	            <TextView
-	                android:id="@+id/tvToolbarName"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:text="Johnatan Taylor"
-	                android:textColor="#FFFFFF"
-	                android:textSize="@dimen/fourteen_sp"
-	                android:textStyle="bold" />
-	
-	            <TextView
-	                android:id="@+id/tvGoogleMail"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_marginTop="@dimen/four_dp"
-	                android:text="jonathantaylor@gmail.com"
-	                android:textColor="#FFFFFF"
-	                android:textSize="@dimen/fourteen_sp" />
-	
-	        </LinearLayout>
-	
+							<TextView
+								android:id="@+id/tvGoogleMail"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_marginTop="@dimen/four_dp"
+								android:text="jonathantaylor@gmail.com"
+								android:textColor="#FFFFFF"
+								android:layout_marginLeft="@dimen/five_dp"
+								android:textSize="@dimen/twelve_sp" />
+						</LinearLayout>
+
+					</LinearLayout>
+					<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="Google+"
+						android:layout_marginLeft="@dimen/five_dp"
+						android:textColor="@color/toolbar_text_color"/>
+				</LinearLayout>
+			</RelativeLayout>
+			<com.jim.pocketaccounter.helper.FABIcon
+				android:layout_width="@dimen/fiftysix_dp"
+				android:layout_height="@dimen/fiftysix_dp"
+				android:id="@+id/fabDrawerNavIcon"
+				android:layout_marginTop="@dimen/one_hundred_fourty_two_dp"
+				android:layout_marginLeft="@dimen/two_hundred_eight_dp"/>
 	        <LinearLayout
 	            android:id="@+id/llDrawerContent"
 	            android:layout_width="match_parent"
 	            android:layout_height="match_parent"
-	            android:layout_below="@+id/ivDrawerHead"
+	            android:layout_below="@+id/rlDrawerHeader"
 	            android:layout_marginBottom="@dimen/sixteen_dp"
 	            android:orientation="vertical" >
 

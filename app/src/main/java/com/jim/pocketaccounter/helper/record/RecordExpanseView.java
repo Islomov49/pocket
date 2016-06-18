@@ -99,7 +99,7 @@ public class RecordExpanseView extends View implements 	GestureDetector.OnGestur
 					type = RecordButtonExpanse.BOTTOM_RIGHT;
 					break;
 			}
-			button = new RecordButtonExpanse(getContext(), type);
+			button = new RecordButtonExpanse(getContext(), type, date);
 			if (PocketAccounter.financeManager.getExpanses().isEmpty())
 				button.setCategory(null);
 			else

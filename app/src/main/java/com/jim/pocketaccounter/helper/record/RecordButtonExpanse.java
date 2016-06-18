@@ -2,6 +2,7 @@ package com.jim.pocketaccounter.helper.record;
 
 import com.jim.pocketaccounter.R;
 import com.jim.pocketaccounter.finance.RootCategory;
+import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -16,6 +17,9 @@ import android.graphics.RectF;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
+import java.text.DecimalFormat;
+import java.util.Calendar;
+
 public class RecordButtonExpanse {
 	public static final int TOP_LEFT = 0, SIMPLE = 1, LEFT_SIMPLE = 2, LEFT_BOTTOM = 3, BOTTOM_SIMPLE = 4,
 							BOTTOM_RIGHT = 5, TOP_RIGHT = 6, TOP_SIMPLE = 7, RIGHT_SIMPLE = 8;
@@ -27,11 +31,19 @@ public class RecordButtonExpanse {
 	private float radius, clearance;
 	private Context context;
 	private RootCategory category;
-	public RecordButtonExpanse(Context context, int type) {
+	private float aLetterHeight;
+	private Calendar date;
+	public RecordButtonExpanse(Context context, int type, Calendar date) {
 		this.context = context;
+		this.date = (Calendar) date.clone();
 		clearance = context.getResources().getDimension(R.dimen.one_dp);
 		shape = new Path();
 		this.type = type;
+		Paint paint = new Paint();
+		paint.setTextSize(context.getResources().getDimension(R.dimen.ten_sp));
+		Rect bounds = new Rect();
+		paint.getTextBounds("A", 0, "A".length(), bounds);
+		aLetterHeight = bounds.height();
 	}
 	public void setBounds(float left, float top, float right, float bottom, float radius) {
 		container = new RectF(left, top, right, bottom);
@@ -312,7 +324,16 @@ public class RecordButtonExpanse {
 			textPaint.setAntiAlias(true);
 			Rect bounds = new Rect();
 			textPaint.getTextBounds(category.getName(), 0, category.getName().length(), bounds);
-			canvas.drawText(category.getName(), container.centerX()-bounds.width()/2, container.centerY()+2*bounds.height(), textPaint);
+			canvas.drawText(category.getName(), container.centerX()-bounds.width()/2, container.centerY()+2*aLetterHeight, textPaint);
+			double amount = PocketAccounterGeneral.calculateAction(category, date);
+			if (amount != 0) {
+				DecimalFormat format = new DecimalFormat("0.00");
+				String text = format.format(amount)+"%";
+				bounds = new Rect();
+				textPaint.setColor(ContextCompat.getColor(context, R.color.red));
+				textPaint.getTextBounds(text, 0, text.length(), bounds);
+				canvas.drawText(text, container.centerX()-bounds.width()/2, container.centerY()+4*aLetterHeight, textPaint);
+			}
 		} else {
 			temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.no_category);
 			scaled = Bitmap.createScaledBitmap(temp, (int)context.getResources().getDimension(R.dimen.thirty_dp), (int)context.getResources().getDimension(R.dimen.thirty_dp), false);
@@ -323,8 +344,9 @@ public class RecordButtonExpanse {
 			Rect bounds = new Rect();
 			String text = context.getResources().getString(R.string.add);
 			textPaint.setAntiAlias(true);
+			bounds = new Rect();
 			textPaint.getTextBounds(text, 0, text.length(), bounds);
-			canvas.drawText(text, container.centerX()-bounds.width()/2, container.centerY()+2*bounds.height(), textPaint);
+			canvas.drawText(text, container.centerX()-bounds.width()/2, container.centerY()+2*aLetterHeight, textPaint);
 		}
 	}
 	public void setPressed(boolean pressed) {

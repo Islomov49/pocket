@@ -1,4 +1,4 @@
-package com.jim.pocketaccounter.report;
+package com.jim.pocketaccounter;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

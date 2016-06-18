@@ -380,14 +380,14 @@ public final class R {
 		public static final int abc_text_size_subtitle_material_toolbar = 0x7f080003;
 		public static final int abc_text_size_title_material = 0x7f08004b;
 		public static final int abc_text_size_title_material_toolbar = 0x7f080004;
-		public static final int disabled_alpha_material_dark = 0x7f080065;
-		public static final int disabled_alpha_material_light = 0x7f080066;
-		public static final int highlight_alpha_material_colored = 0x7f08008a;
-		public static final int highlight_alpha_material_dark = 0x7f08008b;
-		public static final int highlight_alpha_material_light = 0x7f08008c;
-		public static final int notification_large_icon_height = 0x7f080098;
-		public static final int notification_large_icon_width = 0x7f080099;
-		public static final int notification_subtext_size = 0x7f08009a;
+		public static final int disabled_alpha_material_dark = 0x7f080066;
+		public static final int disabled_alpha_material_light = 0x7f080067;
+		public static final int highlight_alpha_material_colored = 0x7f08008b;
+		public static final int highlight_alpha_material_dark = 0x7f08008c;
+		public static final int highlight_alpha_material_light = 0x7f08008d;
+		public static final int notification_large_icon_height = 0x7f08009b;
+		public static final int notification_large_icon_width = 0x7f08009c;
+		public static final int notification_subtext_size = 0x7f08009d;
 	}
 	public static final class drawable {
 		public static final int abc_ab_share_pack_mtrl_alpha = 0x7f020000;
@@ -465,7 +465,7 @@ public final class R {
 		public static final int abc_textfield_search_activated_mtrl_alpha = 0x7f020048;
 		public static final int abc_textfield_search_default_mtrl_alpha = 0x7f020049;
 		public static final int abc_textfield_search_material = 0x7f02004a;
-		public static final int notification_template_icon_bg = 0x7f02012c;
+		public static final int notification_template_icon_bg = 0x7f02012d;
 	}
 	public static final class id {
 		public static final int action0 = 0x7f0d0130;
@@ -603,10 +603,10 @@ public final class R {
 		public static final int notification_template_media = 0x7f040053;
 		public static final int notification_template_part_chronometer = 0x7f040054;
 		public static final int notification_template_part_time = 0x7f040055;
-		public static final int select_dialog_item_material = 0x7f040062;
-		public static final int select_dialog_multichoice_material = 0x7f040063;
-		public static final int select_dialog_singlechoice_material = 0x7f040064;
-		public static final int support_simple_spinner_dropdown_item = 0x7f04006a;
+		public static final int select_dialog_item_material = 0x7f040063;
+		public static final int select_dialog_multichoice_material = 0x7f040064;
+		public static final int select_dialog_singlechoice_material = 0x7f040065;
+		public static final int support_simple_spinner_dropdown_item = 0x7f04006b;
 	}
 	public static final class string {
 		public static final int abc_action_bar_home_description = 0x7f060000;
