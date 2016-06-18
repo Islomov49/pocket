@@ -444,6 +444,10 @@
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\layout\\fragment_info_credit.xml"
     },
     {
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\time_preference.xml",
+        "source": "D:\\DEV\\example\\app\\src\\main\\res\\layout\\time_preference.xml"
+    },
+    {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\currency_choose_fragment.xml",
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\layout\\currency_choose_fragment.xml"
     },
@@ -594,6 +598,10 @@
     {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_search_view.xml",
         "source": "D:\\DEV\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\layout\\abc_search_view.xml"
+    },
+    {
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\settings.xml",
+        "source": "D:\\DEV\\example\\app\\src\\main\\res\\layout\\settings.xml"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_radio.xml",

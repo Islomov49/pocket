@@ -709,4 +709,128 @@
     <string name="profit">Прибыль</string>
     <string name="loading">Synchronization</string>
     <string name="please_wait">Please wait</string>
+
+    //settings
+    <string name="language_default">default_lang</string>
+    <string name="language">Language</string>
+    <string-array name="language_titles">
+        <item>РУССКИЙ (RU)</item>
+        <item>ENGLISH (EN)</item>
+        <item>DEUTSCH (DE)</item>
+        <item>FRANÇAIS (FR)</item>
+        <item>ESPAÑOL (ES)</item>
+        <item>ITALIANO (IT)</item>
+        <item>中文（繁體)（CN)</item>
+        <item>日本語（JP）</item>
+        <item>한국어(KR)</item>
+        <item>PORTUGUÊS (PT)</item>
+    </string-array>
+    <string-array name="language_values">
+        <item>ru</item>
+        <item>en</item>
+        <item>de</item>
+        <item>fr</item>
+        <item>es</item>
+        <item>it</item>
+        <item>zh</item>
+        <item>ja</item>
+        <item>ko</item>
+        <item>pt</item>
+    </string-array>
+    <string name="choose_language">Select language</string>
+    <string name="transfer_data">Transfer balance from last month</string>
+    <string name="notifications">Notice</string>
+    <bool name="notif_default">true</bool>
+    <string name="notifications_summary">Daily notice ON/OFF</string>
+    <string name="planning_before_default">10</string>
+    <string name="general_notif">general_notif</string>
+    <string-array name="planning_before_entries">
+        <item>10 min.</item>
+        <item>20 min.</item>
+        <item>30 min.</item>
+        <item>40 min.</item>
+        <item>50 min.</item>
+        <item>1 hour</item>
+    </string-array>
+    <string-array name="planning_before_values">
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+        <item>60</item>
+    </string-array>
+    <string name="planning_before_summary">Set value</string>
+    <string name="planning_before_title">Notice of event</string>
+    <string name="filters">Filters</string>
+    <string name="finance_record_default">3</string>
+    <string-array name="finance_record_filter_entries">
+        <item>Last 3 days</item>
+        <item>Week</item>
+        <item>All Period</item>
+    </string-array>
+    <string-array name="finance_record_values">
+        <item>0</item>
+        <item>1</item>
+        <item>3</item>
+    </string-array>
+    <string name="finance_record_key">finance_record_key</string>
+    <string name="record_filter_summary">Set value for records in Finance section</string>
+    <string name="finance">Finance</string>
+    <string name="report_daily_default">2</string>
+    <string-array name="report_daily_filter_entries">
+        <item>Last 3 days</item>
+        <item>Last 7 days</item>
+        <item>From beginning of this month</item>
+    </string-array>
+    <string-array name="report_daily_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string name="report_set_value">Set value for this filter</string>
+    <string name="daily">Report for the day</string>
+    <string name="report_weekly_default">5</string>
+    <string-array name="report_weekly_filter_entries">
+        <item>This week</item>
+        <item>Last 3 weeks</item>
+    </string-array>
+    <string-array name="report_weekly_values">
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    <string name="weekly">Report for the week</string>
+    <string name="report_monthly_default">7</string>
+    <string-array name="report_monthly_filter_entries">
+        <item>This month</item>
+        <item>Last 2 months</item>
+        <item>Last 3 months</item>
+    </string-array>
+    <string-array name="report_monthly_values">
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </string-array>
+    <string name="monthly">Report for the month</string>
+    <string name="report_announce_default">11</string>
+    <string-array name="report_announce_filter_entries">
+        <item>This year</item>
+        <item>From last year</item>
+    </string-array>
+    <string-array name="report_announce_values">
+        <item>11</item>
+        <item>12</item>
+    </string-array>
+    <string name="announce">Report for the year</string>
+    <string name="sync">Synchronization</string>
+    <string name="setting_save">Save database to root folder</string>
+    <string name="save">Save</string>
+    <string name="setting_repair">Restore database from root folder</string>
+    <string name="repair">Restore</string>
+    <string name="dropbox">Dropbox</string>
+    <string name="dropbox_save">Save to Dropbox</string>
+    <string name="dropbox_repair">Restore from Dropbox</string>
+    <string name="planning_notif_entry">hour</string>
+    <string name="planning_notif_summary">Set notice time</string>
+    <string name="planning_notif_title">Notice time</string>
 </resources>

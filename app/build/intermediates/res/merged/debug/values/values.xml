@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2">
     <string-array name="account_icons">
         <item>ic_category_1</item>
         <item>ic_category_2</item>
@@ -347,6 +347,16 @@
         <item>ball_1</item>
         <item>ball_2</item>
     </string-array>
+    <string-array name="finance_record_filter_entries">
+        <item>Last 3 days</item>
+        <item>Week</item>
+        <item>All Period</item>
+    </string-array>
+    <string-array name="finance_record_values">
+        <item>0</item>
+        <item>1</item>
+        <item>3</item>
+    </string-array>
     <string-array name="finance_subitem_icons">
         <item>drawer_currency</item>
         <item>drawer_category</item>
@@ -524,6 +534,30 @@
         <item>ic_category_99</item>
         <item>ic_category_100</item>
     </string-array>
+    <string-array name="language_titles">
+        <item>РУССКИЙ (RU)</item>
+        <item>ENGLISH (EN)</item>
+        <item>DEUTSCH (DE)</item>
+        <item>FRANÇAIS (FR)</item>
+        <item>ESPAÑOL (ES)</item>
+        <item>ITALIANO (IT)</item>
+        <item>中文（繁體)（CN)</item>
+        <item>日本語（JP）</item>
+        <item>한국어(KR)</item>
+        <item>PORTUGUÊS (PT)</item>
+    </string-array>
+    <string-array name="language_values">
+        <item>ru</item>
+        <item>en</item>
+        <item>de</item>
+        <item>fr</item>
+        <item>es</item>
+        <item>it</item>
+        <item>zh</item>
+        <item>ja</item>
+        <item>ko</item>
+        <item>pt</item>
+    </string-array>
     <string-array name="months">
         <item>Yanvar</item>
         <item>Fevral</item>
@@ -548,12 +582,64 @@
         <item>p_full_hd</item>
         <item>ball</item>
     </string-array>
+    <string-array name="planning_before_entries">
+        <item>10 min.</item>
+        <item>20 min.</item>
+        <item>30 min.</item>
+        <item>40 min.</item>
+        <item>50 min.</item>
+        <item>1 hour</item>
+    </string-array>
+    <string-array name="planning_before_values">
+        <item>10</item>
+        <item>20</item>
+        <item>30</item>
+        <item>40</item>
+        <item>50</item>
+        <item>60</item>
+    </string-array>
+    <string-array name="report_announce_filter_entries">
+        <item>This year</item>
+        <item>From last year</item>
+    </string-array>
+    <string-array name="report_announce_values">
+        <item>11</item>
+        <item>12</item>
+    </string-array>
     <string-array name="report_by_account_titles">
         <item>Operation</item>
         <item>Currency</item>
         <item>Amount</item>
         <item>Date</item>
         <item>Category</item>
+    </string-array>
+    <string-array name="report_daily_filter_entries">
+        <item>Last 3 days</item>
+        <item>Last 7 days</item>
+        <item>From beginning of this month</item>
+    </string-array>
+    <string-array name="report_daily_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="report_monthly_filter_entries">
+        <item>This month</item>
+        <item>Last 2 months</item>
+        <item>Last 3 months</item>
+    </string-array>
+    <string-array name="report_monthly_values">
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </string-array>
+    <string-array name="report_weekly_filter_entries">
+        <item>This week</item>
+        <item>Last 3 weeks</item>
+    </string-array>
+    <string-array name="report_weekly_values">
+        <item>4</item>
+        <item>5</item>
     </string-array>
     <string-array name="sport">
         <item>Тренажерный зал</item>
@@ -607,6 +693,7 @@
     <bool name="abc_config_allowActionMenuItemTextWithIcon">false</bool>
     <bool name="abc_config_closeDialogWhenTouchOutside">true</bool>
     <bool name="abc_config_showMenuShortcutsWhenKeyboardPresent">false</bool>
+    <bool name="notif_default">true</bool>
     <color name="abc_input_method_navigation_guard">@android:color/black</color>
     <color name="abc_search_url_text_normal">#7fa87f</color>
     <color name="abc_search_url_text_pressed">@android:color/black</color>
@@ -638,6 +725,23 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#494949</color>
+    <color name="common_action_bar_splitter">#d2d2d2</color>
+    <color name="common_google_signin_btn_text_dark_default">@android:color/white</color>
+    <color name="common_google_signin_btn_text_dark_disabled">#1F000000</color>
+    <color name="common_google_signin_btn_text_dark_focused">@android:color/black</color>
+    <color name="common_google_signin_btn_text_dark_pressed">@android:color/white</color>
+    <color name="common_google_signin_btn_text_light_default">#90000000</color>
+    <color name="common_google_signin_btn_text_light_disabled">#1F000000</color>
+    <color name="common_google_signin_btn_text_light_focused">#90000000</color>
+    <color name="common_google_signin_btn_text_light_pressed">#DE000000</color>
+    <color name="common_plus_signin_btn_text_dark_default">@android:color/white</color>
+    <color name="common_plus_signin_btn_text_dark_disabled">#FFAAAAAA</color>
+    <color name="common_plus_signin_btn_text_dark_focused">@android:color/white</color>
+    <color name="common_plus_signin_btn_text_dark_pressed">@android:color/white</color>
+    <color name="common_plus_signin_btn_text_light_default">#FF737373</color>
+    <color name="common_plus_signin_btn_text_light_disabled">#FFAAAAAA</color>
+    <color name="common_plus_signin_btn_text_light_focused">#FF737373</color>
+    <color name="common_plus_signin_btn_text_light_pressed">#DE000000</color>
     <color name="currency_chooser" type="color">#828282</color>
     <color name="currency_list_border" type="color">#ebebeb</color>
     <color name="deletecolor" type="color">#d8d8d8</color>
@@ -655,8 +759,9 @@
     <color name="dim_foreground_disabled_material_light">#80323232</color>
     <color name="dim_foreground_material_dark">#ffbebebe</color>
     <color name="dim_foreground_material_light">#ff323232</color>
+    <color name="drawer_bg" type="color">#f8f8f8</color>
     <color name="drawer_color" type="color">#166982</color>
-    <color name="drawer_listview_border" type="color">#36434c</color>
+    <color name="drawer_listview_border" type="color">#d4d4d4</color>
     <color name="drawer_settings_selected_color" type="color">#4a5761</color>
     <color name="drawer_title_bg_color" type="color">#36434c</color>
     <color name="empty" type="color">#00000000</color>
@@ -698,6 +803,9 @@
     <color name="material_grey_900">#ff212121</color>
     <color name="message_color" type="color">#ebebeb</color>
     <color name="message_text_bg" type="color">#9cba63</color>
+    <color name="new_for_line" type="color">#dfdfdf</color>
+    <color name="new_green" type="color">#028929</color>
+    <color name="new_red" type="color">#ff0000</color>
     <color name="primary_dark_material_dark">@android:color/black</color>
     <color name="primary_dark_material_light">@color/material_grey_600</color>
     <color name="primary_material_dark">@color/material_grey_900</color>
@@ -721,7 +829,7 @@
     <color name="switch_thumb_normal_material_light">#fff1f1f1</color>
     <color name="toolbar_color" type="color">#c9c8c8</color>
     <color name="toolbar_color_transparent" type="color">#BB2196f3</color>
-    <color name="toolbar_text_color" type="color">#414141</color>
+    <color name="toolbar_text_color" type="color">#212121</color>
     <color name="warning_color" type="color">#ababab</color>
     <color name="white" type="color">#ffffff</color>
     <declare-styleable name="ActionBar"><attr name="navigationMode"><enum name="normal" value="0"/><enum name="listMode" value="1"/><enum name="tabMode" value="2"/></attr><attr name="displayOptions"><flag name="none" value="0"/><flag name="useLogo" value="0x1"/><flag name="showHome" value="0x2"/><flag name="homeAsUp" value="0x4"/><flag name="showTitle" value="0x8"/><flag name="showCustom" value="0x10"/><flag name="disableHome" value="0x20"/></attr><attr name="title"/><attr format="string" name="subtitle"/><attr format="reference" name="titleTextStyle"/><attr format="reference" name="subtitleTextStyle"/><attr format="reference" name="icon"/><attr format="reference" name="logo"/><attr format="reference" name="divider"/><attr format="reference" name="background"/><attr format="reference|color" name="backgroundStacked"/><attr format="reference|color" name="backgroundSplit"/><attr format="reference" name="customNavigationLayout"/><attr name="height"/><attr format="reference" name="homeLayout"/><attr format="reference" name="progressBarStyle"/><attr format="reference" name="indeterminateProgressStyle"/><attr format="dimension" name="progressBarPadding"/><attr name="homeAsUpIndicator"/><attr format="dimension" name="itemPadding"/><attr format="boolean" name="hideOnContentScroll"/><attr format="dimension" name="contentInsetStart"/><attr format="dimension" name="contentInsetEnd"/><attr format="dimension" name="contentInsetLeft"/><attr format="dimension" name="contentInsetRight"/><attr format="dimension" name="elevation"/><attr format="reference" name="popupTheme"/></declare-styleable>
@@ -752,6 +860,7 @@
     <declare-styleable name="LinearLayoutCompat"><attr name="android:orientation"/><attr name="android:gravity"/><attr name="android:baselineAligned"/><attr name="android:baselineAlignedChildIndex"/><attr name="android:weightSum"/><attr format="boolean" name="measureWithLargestChild"/><attr name="divider"/><attr name="showDividers"><flag name="none" value="0"/><flag name="beginning" value="1"/><flag name="middle" value="2"/><flag name="end" value="4"/></attr><attr format="dimension" name="dividerPadding"/></declare-styleable>
     <declare-styleable name="LinearLayoutCompat_Layout"><attr name="android:layout_width"/><attr name="android:layout_height"/><attr name="android:layout_weight"/><attr name="android:layout_gravity"/></declare-styleable>
     <declare-styleable name="ListPopupWindow"><attr name="android:dropDownVerticalOffset"/><attr name="android:dropDownHorizontalOffset"/></declare-styleable>
+    <declare-styleable name="LoadingImageView"><attr format="enum" name="imageAspectRatioAdjust"><enum name="none" value="0"/><enum name="adjust_width" value="1"/><enum name="adjust_height" value="2"/></attr><attr format="float" name="imageAspectRatio"/><attr format="boolean" name="circleCrop"/></declare-styleable>
     <declare-styleable name="MenuGroup"><attr name="android:id"/><attr name="android:menuCategory"/><attr name="android:orderInCategory"/><attr name="android:checkableBehavior"/><attr name="android:visible"/><attr name="android:enabled"/></declare-styleable>
     <declare-styleable name="MenuItem"><attr name="android:id"/><attr name="android:menuCategory"/><attr name="android:orderInCategory"/><attr name="android:title"/><attr name="android:titleCondensed"/><attr name="android:icon"/><attr name="android:alphabeticShortcut"/><attr name="android:numericShortcut"/><attr name="android:checkable"/><attr name="android:checked"/><attr name="android:visible"/><attr name="android:enabled"/><attr name="android:onClick"/><attr name="showAsAction"><flag name="never" value="0"/><flag name="ifRoom" value="1"/><flag name="always" value="2"/><flag name="withText" value="4"/><flag name="collapseActionView" value="8"/></attr><attr format="reference" name="actionLayout"/><attr format="string" name="actionViewClass"/><attr format="string" name="actionProviderClass"/></declare-styleable>
     <declare-styleable name="MenuView"><attr name="android:itemTextAppearance"/><attr name="android:horizontalDivider"/><attr name="android:verticalDivider"/><attr name="android:headerBackground"/><attr name="android:itemBackground"/><attr name="android:windowAnimationStyle"/><attr name="android:itemIconDisabledAlpha"/><attr format="boolean" name="preserveIconSpacing"/></declare-styleable>
@@ -762,6 +871,7 @@
     <declare-styleable name="ScrimInsetsFrameLayout"><attr format="color|reference" name="insetForeground"/></declare-styleable>
     <declare-styleable name="ScrollingViewBehavior_Params"><attr format="dimension" name="behavior_overlapTop"/></declare-styleable>
     <declare-styleable name="SearchView"><attr format="reference" name="layout"/><attr format="boolean" name="iconifiedByDefault"/><attr name="android:maxWidth"/><attr format="string" name="queryHint"/><attr format="string" name="defaultQueryHint"/><attr name="android:imeOptions"/><attr name="android:inputType"/><attr format="reference" name="closeIcon"/><attr format="reference" name="goIcon"/><attr format="reference" name="searchIcon"/><attr format="reference" name="searchHintIcon"/><attr format="reference" name="voiceIcon"/><attr format="reference" name="commitIcon"/><attr format="reference" name="suggestionRowLayout"/><attr format="reference" name="queryBackground"/><attr format="reference" name="submitBackground"/><attr name="android:focusable"/></declare-styleable>
+    <declare-styleable name="SignInButton"><attr format="reference|enum" name="buttonSize"><enum name="standard" value="0"/><enum name="wide" value="1"/><enum name="icon_only" value="2"/></attr><attr format="reference|enum" name="colorScheme"><enum name="dark" value="0"/><enum name="light" value="1"/><enum name="auto" value="2"/></attr><attr format="reference|string" name="scopeUris"/></declare-styleable>
     <declare-styleable name="SnackbarLayout"><attr name="android:maxWidth"/><attr name="elevation"/><attr format="dimension" name="maxActionInlineWidth"/></declare-styleable>
     <declare-styleable name="Spinner"><attr name="android:prompt"/><attr name="popupTheme"/><attr name="android:popupBackground"/><attr name="android:dropDownWidth"/><attr name="android:entries"/></declare-styleable>
     <declare-styleable name="SwitchCompat"><attr name="android:thumb"/><attr format="reference" name="track"/><attr name="android:textOn"/><attr name="android:textOff"/><attr format="dimension" name="thumbTextPadding"/><attr format="reference" name="switchTextAppearance"/><attr format="dimension" name="switchMinWidth"/><attr format="dimension" name="switchPadding"/><attr format="boolean" name="splitTrack"/><attr format="boolean" name="showText"/></declare-styleable>
@@ -932,6 +1042,7 @@
     <dimen name="notification_large_icon_width">64dp</dimen>
     <dimen name="notification_subtext_size">12dp</dimen>
     <dimen name="one_dp">1dp</dimen>
+    <dimen name="one_hundred_fourty_two_dp">142dp</dimen>
     <dimen name="sevent_dp">7dp</dimen>
     <dimen name="seventeen_dp">17dp</dimen>
     <dimen name="seventy_dp">70dp</dimen>
@@ -958,6 +1069,7 @@
     <dimen name="twelve_dp">12dp</dimen>
     <dimen name="twelve_sp">12sp</dimen>
     <dimen name="twenty_dp">20dp</dimen>
+    <dimen name="twenty_sixty_two_dp">262dp</dimen>
     <dimen name="twenty_sp">20sp</dimen>
     <dimen name="twentyeight_dp">28dp</dimen>
     <dimen name="twentyfive_dp">25dp</dimen>
@@ -972,6 +1084,9 @@
     <dimen name="twentytwo_dp">22dp</dimen>
     <dimen name="twentytwo_sp">22sp</dimen>
     <dimen name="two_dp">2dp</dimen>
+    <dimen name="two_hundred_eight_dp">208dp</dimen>
+    <dimen name="two_hundred_fifty_dp">250dp</dimen>
+    <dimen name="two_hundred_sixty_four_dp">264dp</dimen>
     <drawable name="notification_template_icon_bg">#3333B5E5</drawable>
     <item name="action_bar_activity_content" type="id"/>
     <item name="action_bar_spinner" type="id"/>
@@ -990,6 +1105,7 @@
     <integer name="bottom_sheet_slide_duration">150</integer>
     <integer name="cancel_button_image_alpha">127</integer>
     <integer name="design_snackbar_text_max_lines">2</integer>
+    <integer name="google_play_services_version">9080000</integer>
     <integer name="status_bar_notification_info_maxnum">999</integer>
     <string name="abc_action_bar_home_description">Navigate home</string>
     <string name="abc_action_bar_home_description_format">%1$s, %2$s</string>
@@ -1015,6 +1131,7 @@
     <string name="active">Active</string>
     <string name="add">Добавить</string>
     <string name="always_remember">Always remember to add your payment on the loan, and we will be happy to help you keep a balance!</string>
+    <string name="announce">Report for the year</string>
     <string name="app_name">MoneyHolder</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
     <string name="archive">TO ARCHIVE</string>
@@ -1035,9 +1152,41 @@
     <string name="character_counter_pattern" translatable="false">%1$d / %2$d</string>
     <string name="choose_currencies">Выберите валюту</string>
     <string name="choose_date">Выберите дату</string>
+    <string name="choose_language">Select language</string>
     <string name="clear">Убрать</string>
     <string name="clothes">Одежда</string>
     <string name="comment">Comment</string>
+    <string name="common_google_play_services_api_unavailable_text"><ns1:g id="app_name">%1$s</ns1:g> requires one or more Google Play services that are not currently available. Please contact the developer for assistance.</string>
+    <string msgid="2523291102206661146" name="common_google_play_services_enable_button">Enable Google Play services</string>
+    <string msgid="227660514972886228" name="common_google_play_services_enable_text"><ns1:g id="app_name">%1$s</ns1:g> won\'t work unless you enable Google Play services.</string>
+    <string msgid="5122002158466380389" name="common_google_play_services_enable_title">Enable Google Play services</string>
+    <string msgid="7153882981874058840" name="common_google_play_services_install_button">Get Google Play services</string>
+    <string msgid="2122112764540849864" name="common_google_play_services_install_text_phone"><ns1:g id="app_name">%1$s</ns1:g> won\'t run without Google Play services, which are missing from your phone.</string>
+    <string msgid="7351599665250191022" name="common_google_play_services_install_text_tablet"><ns1:g id="app_name">%1$s</ns1:g> won\'t run without Google Play services, which are missing from your tablet.</string>
+    <string msgid="7215213145546190223" name="common_google_play_services_install_title">Get Google Play services</string>
+    <string name="common_google_play_services_invalid_account_text">The specified account does not exist on this device. Please choose a different account.</string>
+    <string name="common_google_play_services_invalid_account_title">Invalid Account</string>
+    <string name="common_google_play_services_network_error_text">A data connection is required to connect to Google Play services.</string>
+    <string name="common_google_play_services_network_error_title">Network Error</string>
+    <string name="common_google_play_services_notification_ticker">Google Play services error</string>
+    <string name="common_google_play_services_resolution_required_text">Please complete action required by <ns1:g id="app_name">%1$s</ns1:g>.</string>
+    <string name="common_google_play_services_resolution_required_title">Google Play services requires an action</string>
+    <string name="common_google_play_services_restricted_profile_text">Accessing accounts from a restricted profile is not supported.</string>
+    <string name="common_google_play_services_restricted_profile_title">Restricted Profile</string>
+    <string name="common_google_play_services_sign_in_failed_text">Error signing in the specified account. Please choose a different account.</string>
+    <string name="common_google_play_services_sign_in_failed_title">Sign in failed</string>
+    <string name="common_google_play_services_unknown_issue"><ns1:g id="app_name">%1$s</ns1:g> is having trouble with Google Play services. If the problem persists, please contact the developer for assistance.</string>
+    <string name="common_google_play_services_unsupported_text"><ns1:g id="app_name">%1$s</ns1:g> relies on Google Play services, which is not supported by your device. Contact the manufacturer for assistance.</string>
+    <string name="common_google_play_services_unsupported_title">Google Play services</string>
+    <string msgid="6556509956452265614" name="common_google_play_services_update_button">Update</string>
+    <string msgid="9053896323427875356" name="common_google_play_services_update_text"><ns1:g id="app_name">%1$s</ns1:g> won\'t run unless you update Google Play services.</string>
+    <string msgid="6006316683626838685" name="common_google_play_services_update_title">Update Google Play services</string>
+    <string name="common_google_play_services_updating_text"><ns1:g id="app_name">%1$s</ns1:g> won\'t run without Google Play services, which are currently updating.</string>
+    <string name="common_google_play_services_updating_title">Google Play services are updating</string>
+    <string name="common_google_play_services_wear_update_text">New version of Google Play services needed. It will update itself shortly.</string>
+    <string name="common_open_on_phone">Open on phone</string>
+    <string name="common_signin_button_text">Sign in</string>
+    <string name="common_signin_button_text_long">Sign in with Google</string>
     <string name="costs_selected_all_warning">В списке должно остаться хотябы один элемент</string>
     <string name="create">Создать</string>
     <string name="credit">Кредит</string>
@@ -1048,6 +1197,7 @@
     <string name="currency_empty_warning">Список валют не должен быть пустым!!!</string>
     <string name="currency_exchange">Курс валюты</string>
     <string name="currency_exchange_warning">Данные по курсам валют и записи будут утеряны, так как вы не выбрали ранее вами выбранную валюту!</string>
+    <string name="daily">Report for the day</string>
     <string name="date_of_pay">Date of pay</string>
     <string name="day">day</string>
     <string name="days">days</string>
@@ -1058,10 +1208,15 @@
     <string name="debt_borrow_taken_recking">Zakril dolg</string>
     <string name="debt_recking_statistics">Вернули долг</string>
     <string name="debt_statistics">Взял в долг</string>
+    <string name="default_web_client_id" translatable="false">913068431761-4gjl18s9mmen3pjjesi4ui3saaq73dlm.apps.googleusercontent.com</string>
     <string name="define_FloatingActionButton"/>
+    <string name="detail">Подробно</string>
     <string name="diagram_no_data_text">Нет данных для отображения!</string>
     <string name="disconnect">Disconnect</string>
     <string name="divide_null">На ноль делить нельзя!</string>
+    <string name="dropbox">Dropbox</string>
+    <string name="dropbox_repair">Restore from Dropbox</string>
+    <string name="dropbox_save">Save to Dropbox</string>
     <string name="ends">Ends</string>
     <string name="enter_cat_name">Введите название категории</string>
     <string name="enter_exchange">Введите курс</string>
@@ -1071,10 +1226,22 @@
     <string name="feedback_content">Content: </string>
     <string name="feedback_hint">Input feedback</string>
     <string name="feedback_subject">Subject: </string>
+    <string name="filters">Filters</string>
+    <string name="finance">Finance</string>
+    <string name="finance_record_default">3</string>
+    <string name="finance_record_key">finance_record_key</string>
+    <string name="firebase_database_url" translatable="false">https://pocket-accounter.firebaseio.com</string>
     <string name="food">Еда</string>
     <string name="from">From: </string>
     <string name="from_email">from_email</string>
+    <string name="ga_trackingId" translatable="false">UA-77213654-1</string>
     <string name="gaiety">Развлечения</string>
+    <string name="gcm_defaultSenderId" translatable="false">913068431761</string>
+    <string name="general_notif">general_notif</string>
+    <string name="google_api_key" translatable="false">AIzaSyDixGGbiWDuLNWXwz48pKOTZTPW_vdElEU</string>
+    <string name="google_app_id" translatable="false">1:913068431761:android:08ef934599a8de7e</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDixGGbiWDuLNWXwz48pKOTZTPW_vdElEU</string>
+    <string name="google_storage_bucket" translatable="false">pocket-accounter.appspot.com</string>
     <string name="health">Здоровье</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="home">Дом</string>
@@ -1082,6 +1249,8 @@
     <string name="in_this_period_paid">In this period paid:</string>
     <string name="income">Доход</string>
     <string name="initial_amount">Начальная сумма: </string>
+    <string name="language">Language</string>
+    <string name="language_default">default_lang</string>
     <string name="library_FloatingActionButton_author">Oleksandr Melnykov</string>
     <string name="library_FloatingActionButton_authorWebsite">https://github.com/makovkastar/FloatingActionButton</string>
     <string name="library_FloatingActionButton_isOpenSource">true</string>
@@ -1091,24 +1260,46 @@
     <string name="library_FloatingActionButton_libraryWebsite">https://github.com/makovkastar/FloatingActionButton</string>
     <string name="library_FloatingActionButton_licenseId">mit</string>
     <string name="library_FloatingActionButton_repositoryLink">https://github.com/makovkastar/FloatingActionButton</string>
+    <string name="loading">Synchronization</string>
     <string name="main_currency">Основная валюта: </string>
     <string name="main_currency_edit">Основная валюта</string>
     <string name="mont">Month</string>
+    <string name="monthly">Report for the month</string>
     <string name="moth">month</string>
     <string name="moths">months</string>
     <string name="network">Связь</string>
     <string name="no">Нет</string>
     <string name="no_category">no_category</string>
     <string name="no_category_name">Без подкатегории</string>
+    <string name="notifications">Notice</string>
+    <string name="notifications_summary">Daily notice ON/OFF</string>
     <string name="pay">PAY</string>
     <string name="per_day">Per day</string>
     <string name="per_month">Per month</string>
     <string name="per_week">Per week</string>
     <string name="per_year">Per year</string>
+    <string name="planning_before_default">10</string>
+    <string name="planning_before_summary">Set value</string>
+    <string name="planning_before_title">Notice of event</string>
+    <string name="planning_notif_entry">hour</string>
+    <string name="planning_notif_summary">Set notice time</string>
+    <string name="planning_notif_title">Notice time</string>
+    <string name="please_wait">Please wait</string>
+    <string name="profit">Прибыль</string>
     <string name="rate_app_web">https://play.google.com/store/apps/details?id=com.jim.pocketaccounter.lite</string>
+    <string name="record_filter_summary">Set value for records in Finance section</string>
     <string name="records">Записи</string>
     <string name="repaid">Repaid</string>
+    <string name="repair">Restore</string>
+    <string name="report_announce_default">11</string>
+    <string name="report_daily_default">2</string>
+    <string name="report_monthly_default">7</string>
+    <string name="report_set_value">Set value for this filter</string>
+    <string name="report_weekly_default">5</string>
+    <string name="save">Save</string>
     <string name="select_icon">Выберите иконку</string>
+    <string name="setting_repair">Restore database from root folder</string>
+    <string name="setting_save">Save database to root folder</string>
     <string name="share_app">Share app</string>
     <string name="share_app_text">Рекомендую "Мои деньги - учет лайт"
         https://play.google.com/store/apps/details?id=com.jim.pocketaccounter.lite</string>
@@ -1118,18 +1309,21 @@
     <string name="sub_cat">Подкатегория</string>
     <string name="sub_cats">Подкатегории</string>
     <string name="subcat_name">Название подкатегории</string>
+    <string name="sync">Synchronization</string>
     <string name="this_first_comment">This is piad before adding credit to aplication</string>
     <string name="this_period_ends">This period ends:</string>
     <string name="to">To: </string>
     <string name="to_email">basicstepsdevelopment@gmail.com</string>
     <string name="toritus">How do you understand the credit system is very flexible . A lot of options . Because of this, we have given the solution but this may not be accurate. Whatever it was all exactly Please enter your version of the course has obshim wallet .</string>
     <string name="total_paid">Total paid:</string>
+    <string name="transfer_data">Transfer balance from last month</string>
     <string name="transport">Транспорт</string>
     <string name="verall_debt">Оverall amount:</string>
     <string name="via">Via</string>
     <string name="warning">Предупреждение!!!</string>
     <string name="warning_subcat">Существует подкатегория с таким названием.</string>
     <string name="weekk">Week</string>
+    <string name="weekly">Report for the week</string>
     <string name="year">year</string>
     <string name="yearr">Year</string>
     <string name="years">years</string>
@@ -1148,9 +1342,9 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-        <!--<item name="colorControlNormal">@color/forlines</item>-->
-        <!--<item name="colorControlActivated">@color/green_light</item>-->
-        <!--<item name="colorControlHighlight">@color/colorAccent</item>-->
+        <item name="colorControlNormal">@color/forlines</item>
+        <item name="colorControlActivated">@color/green_light</item>
+        <item name="colorControlHighlight">@color/colorAccent</item>
     </style>
     <style name="Base.AlertDialog.AppCompat" parent="android:Widget">
         <item name="android:layout">@layout/abc_alert_dialog_material</item>
@@ -2581,6 +2775,6 @@
     <style name="leftBehindMenuScroll">
         <item name="android:layout_width">@dimen/left_drawer_width</item>
         <item name="android:layout_height">fill_parent</item>
-        <item name="android:background">@color/drawer_color</item>
+        <item name="android:background">@color/drawer_bg</item>
     </style>
 </resources>

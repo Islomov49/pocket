@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <PreferenceCategory android:title="@string/language">
+
+        <ListPreference
+            android:defaultValue='@string/language_default'
+            android:dialogIcon="@drawable/remove_red"
+            android:entries="@array/language_titles"
+            android:entryValues="@array/language_values"
+            android:key="language"
+            android:selectable="true"
+            android:summary="@string/choose_language" />
+
+    </PreferenceCategory>
+
+    <CheckBoxPreference
+        android:defaultValue="true"
+        android:key="transfer_datas"
+        android:summary="@string/transfer_data" />
+
+    <PreferenceCategory android:title="@string/notifications">
+
+        <CheckBoxPreference
+            android:defaultValue="@bool/notif_default"
+            android:key="general_notif"
+            android:summary="@string/notifications_summary"
+            android:title="@string/notifications" />
+
+        <com.jim.pocketaccounter.TimePreference
+            android:defaultValue="08:00"
+            android:summary="@string/planning_notif_summary"
+            android:showDefault="true"
+            android:dependency="@string/general_notif"
+            android:entries="@string/planning_notif_entry"
+            android:dialogLayout="@layout/time_preference"
+            android:title="@string/planning_notif_title"
+            android:key="planningNotifTime" />
+
+        <ListPreference
+            android:defaultValue="@string/planning_before_default"
+            android:dependency="@string/general_notif"
+            android:entries="@array/planning_before_entries"
+            android:entryValues="@array/planning_before_values"
+            android:key="planning_before"
+            android:summary="@string/planning_before_summary"
+            android:title="@string/planning_before_title" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/filters">
+
+        <ListPreference
+            android:defaultValue="@string/finance_record_default"
+            android:entries="@array/finance_record_filter_entries"
+            android:entryValues="@array/finance_record_values"
+            android:key="@string/finance_record_key"
+            android:summary="@string/record_filter_summary"
+            android:title="@string/finance" />
+
+        <ListPreference
+            android:defaultValue="@string/report_daily_default"
+            android:entries="@array/report_daily_filter_entries"
+            android:entryValues="@array/report_daily_values"
+            android:key="daily_filter"
+            android:summary="@string/report_set_value"
+            android:title="@string/daily" />
+
+        <ListPreference
+            android:defaultValue="@string/report_weekly_default"
+            android:entries="@array/report_weekly_filter_entries"
+            android:entryValues="@array/report_weekly_values"
+            android:key="weekly_filter"
+            android:summary="@string/report_set_value"
+            android:title="@string/weekly" />
+
+        <ListPreference
+            android:defaultValue="@string/report_monthly_default"
+            android:entries="@array/report_monthly_filter_entries"
+            android:entryValues="@array/report_monthly_values"
+            android:key="monthly_filter"
+            android:summary="@string/report_set_value"
+            android:title="@string/monthly" />
+
+        <ListPreference
+            android:defaultValue="@string/report_announce_default"
+            android:entries="@array/report_announce_filter_entries"
+            android:entryValues="@array/report_announce_values"
+            android:key="announce_filter"
+            android:summary="@string/report_set_value"
+            android:title="@string/announce" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/sync">
+
+        <Preference
+            android:key="save"
+            android:summary="@string/setting_save"
+            android:title="@string/save" />
+
+        <Preference
+            android:key="load"
+            android:summary="@string/setting_repair"
+            android:title="@string/repair" />
+
+
+    </PreferenceCategory>
+</PreferenceScreen>

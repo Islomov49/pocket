@@ -32,12 +32,12 @@
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\ic_category_5.png"
     },
     {
-        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\category_not_selected.png",
-        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\category_not_selected.png"
-    },
-    {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\branch.png",
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\branch.png"
+    },
+    {
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\category_not_selected.png",
+        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\category_not_selected.png"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_btn_colored_material.xml",
@@ -192,6 +192,10 @@
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\drawer_credit.png"
     },
     {
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cloud.png",
+        "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\cloud.png"
+    },
+    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\record_bg.jpg",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\record_bg.jpg"
     },
@@ -252,12 +256,16 @@
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\ic_category_54.png"
     },
     {
-        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\record_pressed_first.png",
-        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\record_pressed_first.png"
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_icon_light.xml",
+        "source": "D:\\DEV\\example\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.0.2\\res\\drawable\\common_google_signin_btn_icon_light.xml"
     },
     {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_80.png",
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\ic_category_80.png"
+    },
+    {
+        "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\record_pressed_first.png",
+        "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\record_pressed_first.png"
     },
     {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_switch_thumb_material.xml",
@@ -392,6 +400,10 @@
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\drawer_debts.png"
     },
     {
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_plus_signin_btn_text_dark.xml",
+        "source": "D:\\DEV\\example\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.0.2\\res\\drawable\\common_plus_signin_btn_text_dark.xml"
+    },
+    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\circle_unchecked.png",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\circle_unchecked.png"
     },
@@ -430,6 +442,10 @@
     {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_dialog_material_background_light.xml",
         "source": "D:\\DEV\\example\\app\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\23.4.0\\res\\drawable\\abc_dialog_material_background_light.xml"
+    },
+    {
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_plus_signin_btn_icon_dark.xml",
+        "source": "D:\\DEV\\example\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.0.2\\res\\drawable\\common_plus_signin_btn_icon_dark.xml"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_55.png",
@@ -514,6 +530,10 @@
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\cake.png",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\cake.png"
+    },
+    {
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_text_dark.xml",
+        "source": "D:\\DEV\\example\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.0.2\\res\\drawable\\common_google_signin_btn_text_dark.xml"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\subcat_delete.png",
@@ -686,6 +706,10 @@
     {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_back_button.png",
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\ic_back_button.png"
+    },
+    {
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_icon_dark.xml",
+        "source": "D:\\DEV\\example\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.0.2\\res\\drawable\\common_google_signin_btn_icon_dark.xml"
     },
     {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\abc_textfield_search_material.xml",
@@ -1812,6 +1836,10 @@
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\balloon.png"
     },
     {
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_google_signin_btn_text_light.xml",
+        "source": "D:\\DEV\\example\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.0.2\\res\\drawable\\common_google_signin_btn_text_light.xml"
+    },
+    {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_19.png",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\ic_category_19.png"
     },
@@ -1846,6 +1874,10 @@
     {
         "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_category_21.png",
         "source": "D:\\DEV\\example\\app\\src\\main\\res\\drawable\\ic_category_21.png"
+    },
+    {
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_plus_signin_btn_text_light.xml",
+        "source": "D:\\DEV\\example\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.0.2\\res\\drawable\\common_plus_signin_btn_text_light.xml"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\drawer_account.png",
@@ -1970,6 +2002,10 @@
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\unselected_icon.xml",
         "source": "C:\\shinauz\\example\\app\\src\\main\\res\\drawable\\unselected_icon.xml"
+    },
+    {
+        "merged": "D:\\DEV\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\common_plus_signin_btn_icon_light.xml",
+        "source": "D:\\DEV\\example\\app\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\9.0.2\\res\\drawable\\common_plus_signin_btn_icon_light.xml"
     },
     {
         "merged": "C:\\shinauz\\example\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\unchecked_sign.png",
