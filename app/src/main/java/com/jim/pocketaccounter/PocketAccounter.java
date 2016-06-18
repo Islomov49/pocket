@@ -4,12 +4,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -37,6 +40,7 @@ public class PocketAccounter extends AppCompatActivity {
     public static LeftSideDrawer drawer;
     private ListView lvLeftMenu;
     public static FinanceManager financeManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +51,7 @@ public class PocketAccounter extends AppCompatActivity {
         toolbar.setTitle(getResources().getString(R.string.app_name));
         toolbar.setTitleTextColor(ContextCompat.getColor(this, toolbar_text_color));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_drawer);
         drawer = new LeftSideDrawer(this);
         drawer.setLeftBehindContentView(R.layout.activity_behind_left_simple);
@@ -56,6 +61,7 @@ public class PocketAccounter extends AppCompatActivity {
             replaceFragment(new CurrencyChooseFragment());
         else
             replaceFragment(new RecordFragment(Calendar.getInstance()));
+
     }
     private void fillLeftMenu() {
         String[] cats = getResources().getStringArray(R.array.drawer_cats);
@@ -131,27 +137,21 @@ public class PocketAccounter extends AppCompatActivity {
                         replaceFragment(new AccountFragment());
                         break;
                     case 6:
-                        //statistics by account
-                        replaceFragment(new ReportByAccountFragment());
+                        replaceFragment(new CreditTabLay());
                         break;
                     case 7:
-                        //statistics by income/expanse
-                        replaceFragment(new CreditTabLay());
-
-                        break;
-                    case 8:
                         replaceFragment(new DebtBorrowFragment());
-//                        replaceFragment(new ReportByCategory());
+                        break;
+                    case 9:
+                        replaceFragment(new ReportByAccountFragment());
                         break;
                     case 10:
                         replaceFragment(new TableBarFragment());
-                        //rep by account
                         break;
                     case 11:
                         replaceFragment(new ReportByCategory());
                         break;
                     case 12:
-                        replaceFragment(new FilterFragment());
                         //settings
                         break;
                     case 13:
@@ -196,7 +196,6 @@ public class PocketAccounter extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         return super.onPrepareOptionsMenu(menu);
     }
-
     @Override
     public void onBackPressed(){
         android.support.v4.app.Fragment temp00 = getSupportFragmentManager().
@@ -223,16 +222,13 @@ public class PocketAccounter extends AppCompatActivity {
                 super.onBackPressed();
             } else{
                 super.onBackPressed();
-
             }
         }
         else{
             super.onBackPressed();
 
         }
-
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
@@ -240,6 +236,7 @@ public class PocketAccounter extends AppCompatActivity {
                 drawer.openLeftSide();
                 break;
         }
+
         return super.onOptionsItemSelected(item);
     }
     public void replaceFragment(Fragment fragment) {
