@@ -72,7 +72,7 @@ public class RecordIncomesView extends View implements 	GestureDetector.OnGestur
 					type = RecordButtonIncome.MOST_RIGHT;
 					break;
 			}
-			button = new RecordButtonIncome(getContext(), type);
+			button = new RecordButtonIncome(getContext(), type, date);
 			button.setCategory(PocketAccounter.financeManager.getIncomes().get(i));
 			buttons.add(button);
 		}

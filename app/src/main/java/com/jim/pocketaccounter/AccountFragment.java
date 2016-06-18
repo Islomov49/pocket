@@ -23,8 +23,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout.LayoutParams;
 
+import com.jim.pocketaccounter.credit.CreditDetials;
+import com.jim.pocketaccounter.credit.ReckingCredit;
+import com.jim.pocketaccounter.debt.DebtBorrow;
+import com.jim.pocketaccounter.debt.Recking;
 import com.jim.pocketaccounter.finance.Account;
 import com.jim.pocketaccounter.finance.AccountAdapter;
+import com.jim.pocketaccounter.finance.FinanceRecord;
 import com.jim.pocketaccounter.finance.IconAdapter;
 import com.jim.pocketaccounter.helper.FABIcon;
 import com.jim.pocketaccounter.helper.FloatingActionButton;
@@ -189,6 +194,72 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 			begPos = 1;
 		else
 			begPos = 0;
+		if (allSelected) {
+			for (int i=0; i<PocketAccounter.financeManager.getRecords().size(); i++) {
+				FinanceRecord record = PocketAccounter.financeManager.getRecords().get(i);
+				if (!record.getAccount().getId().matches(PocketAccounter.financeManager.getAccounts().get(0).getId())) {
+					PocketAccounter.financeManager.getRecords().remove(i);
+					i--;
+				}
+			}
+			for (int i=0; i<PocketAccounter.financeManager.getDebtBorrows().size(); i++) {
+				DebtBorrow debtBorrow = PocketAccounter.financeManager.getDebtBorrows().get(i);
+				if (!debtBorrow.getAccount().matches(PocketAccounter.financeManager.getAccounts().get(0).getId())) {
+					PocketAccounter.financeManager.getDebtBorrows().remove(i);
+					i--;
+					continue;
+				}
+				for (int j=0; j<PocketAccounter.financeManager.getDebtBorrows().get(i).getReckings().size(); j++) {
+					Recking recking = PocketAccounter.financeManager.getDebtBorrows().get(i).getReckings().get(j);
+					if (!recking.getAccountId().matches(PocketAccounter.financeManager.getAccounts().get(0).getId())) {
+						PocketAccounter.financeManager.getDebtBorrows().get(i).getReckings().remove(j);
+						j--;
+					}
+				}
+			}
+			for (int i=0; i<PocketAccounter.financeManager.getCredits().size(); i++) {
+				for (int j=0; j<PocketAccounter.financeManager.getCredits().get(i).getReckings().size(); j++) {
+					ReckingCredit recking = PocketAccounter.financeManager.getCredits().get(i).getReckings().get(j);
+					if (!recking.getAccountId().matches(PocketAccounter.financeManager.getAccounts().get(0).getId())) {
+						PocketAccounter.financeManager.getCredits().get(i).getReckings().remove(j);
+						j--;
+					}
+				}
+			}
+		}
+		else {
+			for (int i=0; i<selected.length; i++) {
+				Account account = PocketAccounter.financeManager.getAccounts().get(i);
+				for (int j=0; j<PocketAccounter.financeManager.getRecords().size(); j++) {
+					if (PocketAccounter.financeManager.getRecords().get(j).getAccount().getId().matches(account.getId())) {
+						PocketAccounter.financeManager.getRecords().remove(j);
+						j--;
+					}
+				}
+				for (int j=0; j<PocketAccounter.financeManager.getDebtBorrows().size(); j++) {
+					if(PocketAccounter.financeManager.getDebtBorrows().get(j).getAccount().matches(account.getId())) {
+						PocketAccounter.financeManager.getDebtBorrows().remove(j);
+						j--;
+						continue;
+					}
+					for (int k=0; k<PocketAccounter.financeManager.getDebtBorrows().get(j).getReckings().size(); k++) {
+						Recking recking = PocketAccounter.financeManager.getDebtBorrows().get(j).getReckings().get(k);
+						if (recking.getAccountId().matches(account.getId())) {
+							PocketAccounter.financeManager.getDebtBorrows().get(j).getReckings().remove(k);
+							k--;
+						}
+					}
+				}
+				for (int j=0; j<PocketAccounter.financeManager.getCredits().size(); j++) {
+					for (int k=0; k<PocketAccounter.financeManager.getCredits().get(j).getReckings().size(); k++) {
+						if (PocketAccounter.financeManager.getCredits().get(j).getReckings().get(k).getAccountId().matches(account.getId())) {
+							PocketAccounter.financeManager.getCredits().get(j).getReckings().remove(k);
+							k--;
+						}
+					}
+				}
+			}
+		}
 		for (int i=begPos; i<selected.length; i++) {
 			if (selected[i])
 				PocketAccounter.financeManager.getAccounts().set(i, null);

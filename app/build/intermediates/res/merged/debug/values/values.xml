@@ -1223,6 +1223,7 @@
     <string name="feedback_content">Content: </string>
     <string name="feedback_hint">Input feedback</string>
     <string name="feedback_subject">Subject: </string>
+    <string name="firebase_database_url" translatable="false">https://pocket-accounter.firebaseio.com</string>
     <string name="filters">Filters</string>
     <string name="finance">Finance</string>
     <string name="finance_record_default">3</string>
@@ -1234,6 +1235,10 @@
     <string name="ga_trackingId" translatable="false">UA-77213654-1</string>
     <string name="gaiety">Развлечения</string>
     <string name="gcm_defaultSenderId" translatable="false">913068431761</string>
+    <string name="google_api_key" translatable="false">AIzaSyDixGGbiWDuLNWXwz48pKOTZTPW_vdElEU</string>
+    <string name="google_app_id" translatable="false">1:913068431761:android:08ef934599a8de7e</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDixGGbiWDuLNWXwz48pKOTZTPW_vdElEU</string>
+    <string name="google_storage_bucket" translatable="false">pocket-accounter.appspot.com</string>
     <string name="general_notif">general_notif</string>
     <string name="google_api_key" translatable="false">AIzaSyDixGGbiWDuLNWXwz48pKOTZTPW_vdElEU</string>
     <string name="google_app_id" translatable="false">1:913068431761:android:08ef934599a8de7e</string>
@@ -1281,6 +1286,7 @@
     <string name="planning_notif_entry">hour</string>
     <string name="planning_notif_summary">Set notice time</string>
     <string name="planning_notif_title">Notice time</string>
+    <string name="per_year">Per year</string>
     <string name="please_wait">Please wait</string>
     <string name="profit">Прибыль</string>
     <string name="rate_app_web">https://play.google.com/store/apps/details?id=com.jim.pocketaccounter.lite</string>

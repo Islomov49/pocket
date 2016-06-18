@@ -709,7 +709,8 @@
     <string name="profit">Прибыль</string>
     <string name="loading">Synchronization</string>
     <string name="please_wait">Please wait</string>
-
+    <string name="total">Общая сумма:</string>
+    <string name="average">Средняя сумма:</string>
     //settings
     <string name="language_default">default_lang</string>
     <string name="language">Language</string>

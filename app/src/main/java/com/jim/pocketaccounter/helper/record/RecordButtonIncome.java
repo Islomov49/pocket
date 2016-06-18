@@ -3,6 +3,7 @@ package com.jim.pocketaccounter.helper.record;
 import com.jim.pocketaccounter.R;
 import com.jim.pocketaccounter.finance.Category;
 import com.jim.pocketaccounter.finance.RootCategory;
+import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -16,21 +17,32 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.support.v4.content.ContextCompat;
 
+import java.text.DecimalFormat;
+import java.util.Calendar;
+
 public class RecordButtonIncome {
 	public static final int MOST_LEFT = 0, SIMPLE = 1, MOST_RIGHT = 2;
 	private boolean pressed = false;
 	private RectF container;
 	private int type;
-	private Category category;
+	private RootCategory category;
 	private Path shape;
 	private Bitmap shadow;
 	private float radius, clearance;
+	private float aLetterHeight;
 	private Context context;
-	public RecordButtonIncome(Context context, int type) {
+	private Calendar date;
+	public RecordButtonIncome(Context context, int type, Calendar date) {
 		this.context = context;
 		clearance = context.getResources().getDimension(R.dimen.one_dp);
 		shape = new Path();
+		Paint paint = new Paint();
+		paint.setTextSize(context.getResources().getDimension(R.dimen.ten_sp));
+		Rect bounds = new Rect();
+		paint.getTextBounds("A", 0, "A".length(), bounds);
+		aLetterHeight = bounds.height();
 		this.type = type;
+		this.date = (Calendar) date.clone();
 	}
 	public void setBounds(float left, float top, float right, float bottom, float radius) {
 		container = new RectF(left, top, right, bottom);
@@ -98,7 +110,6 @@ public class RecordButtonIncome {
 		paint.setAntiAlias(true);
 		paint.setStyle(Paint.Style.FILL);
 		paint.setColor(Color.WHITE);
-
 		switch(type) {
 		case MOST_LEFT:
 			if (!pressed) 
@@ -143,6 +154,7 @@ public class RecordButtonIncome {
 			}
 			break;
 		}
+		bitmapPaint.setAlpha(0xFF);
 		if (category != null) {
 			temp = BitmapFactory.decodeResource(context.getResources(), category.getIcon());
 			scaled = Bitmap.createScaledBitmap(temp, (int)context.getResources().getDimension(R.dimen.thirty_dp), (int)context.getResources().getDimension(R.dimen.thirty_dp), false);
@@ -152,7 +164,16 @@ public class RecordButtonIncome {
 			textPaint.setTextSize(context.getResources().getDimension(R.dimen.ten_sp));
 			Rect bounds = new Rect();
 			textPaint.getTextBounds(category.getName(), 0, category.getName().length(), bounds);
-			canvas.drawText(category.getName(), container.centerX()-bounds.width()/2, container.centerY()+2*bounds.height(), textPaint);
+			canvas.drawText(category.getName(), container.centerX()-bounds.width()/2, container.centerY()+2*aLetterHeight, textPaint);
+			double amount = PocketAccounterGeneral.calculateAction(category, date);
+			if (amount != 0) {
+				DecimalFormat format = new DecimalFormat("0.00");
+				String text = format.format(amount)+"%";
+				bounds = new Rect();
+				textPaint.setColor(ContextCompat.getColor(context, R.color.green_just));
+				textPaint.getTextBounds(text, 0, text.length(), bounds);
+				canvas.drawText(text, container.centerX()-bounds.width()/2, container.centerY()+4*aLetterHeight, textPaint);
+			}
 		} else {
 			temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.no_category);
 			scaled = Bitmap.createScaledBitmap(temp, (int)context.getResources().getDimension(R.dimen.thirty_dp), (int)context.getResources().getDimension(R.dimen.thirty_dp), false);
@@ -163,7 +184,7 @@ public class RecordButtonIncome {
 			Rect bounds = new Rect();
 			String text = context.getResources().getString(R.string.add);
 			textPaint.getTextBounds(text, 0, text.length(), bounds);
-			canvas.drawText(text, container.centerX()-bounds.width()/2, container.centerY()+2*bounds.height(), textPaint);
+			canvas.drawText(text, container.centerX()-bounds.width()/2, container.centerY()+2*aLetterHeight, textPaint);
 		}
 	}
 	public void setPressed(boolean pressed) {

@@ -198,6 +198,24 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 							}
 						}
 						if (!foundNoneSelected) {
+							for (int i=0; i<PocketAccounter.financeManager.getRecords().size(); i++) {
+								if (PocketAccounter.financeManager.getRecords().get(i).getCurrency().getId().matches(PocketAccounter.financeManager.getMainCurrency().getId())) {
+									PocketAccounter.financeManager.getRecords().remove(i);
+									i--;
+								}
+							}
+							for (int i=0; i<PocketAccounter.financeManager.getDebtBorrows().size(); i++) {
+								if (PocketAccounter.financeManager.getDebtBorrows().get(i).getCurrency().getId().matches(PocketAccounter.financeManager.getMainCurrency().getId())) {
+									PocketAccounter.financeManager.getDebtBorrows().remove(i);
+									i--;
+								}
+							}
+							for (int i=0; i<PocketAccounter.financeManager.getCredits().size(); i++) {
+								if (PocketAccounter.financeManager.getCredits().get(i).getValyute_currency().getId().matches(PocketAccounter.financeManager.getMainCurrency().getId())) {
+									PocketAccounter.financeManager.getCredits().remove(i);
+									i--;
+								}
+							}
 							for (int i = 0; i< PocketAccounter.financeManager.getCurrencies().size(); i++) {
 								if (!PocketAccounter.financeManager.getCurrencies().get(i).getMain()) {
 									PocketAccounter.financeManager.getCurrencies().remove(i);
@@ -205,6 +223,27 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 								}
 							}
 						} else {
+							for (int i=0; i<selected.length; i++) {
+								if (!selected[i]) continue;
+								for (int j=0; j<PocketAccounter.financeManager.getRecords().size(); j++) {
+									if (PocketAccounter.financeManager.getRecords().get(j).getCurrency().getId().matches(PocketAccounter.financeManager.getCurrencies().get(i).getId())) {
+										PocketAccounter.financeManager.getRecords().remove(j);
+										j--;
+									}
+								}
+								for (int j=0; j<PocketAccounter.financeManager.getDebtBorrows().size(); j++) {
+									if (PocketAccounter.financeManager.getDebtBorrows().get(i).getCurrency().getId().matches(PocketAccounter.financeManager.getCurrencies().get(i).getId())) {
+										PocketAccounter.financeManager.getDebtBorrows().remove(j);
+										j--;
+									}
+								}
+								for (int j=0; j<PocketAccounter.financeManager.getCredits().size(); j++) {
+									if (PocketAccounter.financeManager.getCredits().get(j).getValyute_currency().getId().matches(PocketAccounter.financeManager.getCurrencies().get(i).getId())) {
+										PocketAccounter.financeManager.getCredits().remove(j);
+										j--;
+									}
+								}
+							}
 							for (int i=0; i<selected.length; i++) {
 								if (selected[i]) {
 									if (PocketAccounter.financeManager.getCurrencies().get(i).getMain()) {
