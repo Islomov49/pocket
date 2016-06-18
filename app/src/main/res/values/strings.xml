@@ -827,9 +827,6 @@
     <string name="save">Save</string>
     <string name="setting_repair">Restore database from root folder</string>
     <string name="repair">Restore</string>
-    <string name="dropbox">Dropbox</string>
-    <string name="dropbox_save">Save to Dropbox</string>
-    <string name="dropbox_repair">Restore from Dropbox</string>
     <string name="planning_notif_entry">hour</string>
     <string name="planning_notif_summary">Set notice time</string>
     <string name="planning_notif_title">Notice time</string>
