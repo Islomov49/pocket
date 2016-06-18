@@ -14,25 +14,6 @@ import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
-
-/**
- * <p>This class enables to add a NavDrawer simply.</p>
- * <p>How to use:</p>
- * <p>After calling setContentView method in onCreate method, call 2 methods bellow.</p>
- * <ul>
- *     <li>- New SimpleNavDrawer instance</li>
- *     <li>- Set a layout file which will be set in the NavDrawer.</li>
- * </ul> 
- * <pre class="prettyprint">
- * public void onCreate(Bundle data) {
- *     super.onCreate(data);
- *     setContentView(R.layout.main);
- *     SimpleNavDrawer nav = new SimpleNavDrawer(this);
- *     nav.setLeftBehindContentView(R.layout.manu);
- * }
- * </pre>
- * @author Masahiko Adachi
-  */
 public class LeftSideDrawer extends FrameLayout {
     private final Window mWindow;
     private final ViewGroup mAboveView;
@@ -40,20 +21,17 @@ public class LeftSideDrawer extends FrameLayout {
     private final LinearLayout mLeftBehindBase;
     private final LinearLayout mRightBehindBase;
     private final View mOverlay;
-    
     private Scroller mScroller;
     private int mDurationLeft;
     private int mDurationRight;
     private int mLeftBehindViewWidth;
     private int mRightBehindViewWidth;
-    
     private abstract class DragAction {
         private float mLastMotionX = 0f;
         private boolean mOpening = false;
         private boolean mDraggable = false;
         abstract public boolean onTouchEvent(MotionEvent event); 
     }
-
     private DragAction mLeftDragAction = new DragAction() {
         @Override
         public boolean onTouchEvent(MotionEvent ev) {
@@ -83,7 +61,6 @@ public class LeftSideDrawer extends FrameLayout {
             }
             case MotionEvent.ACTION_MOVE:
                 if (!mLeftDragAction.mDraggable) return false;
-            
                 float newX = ev.getX();
                 float diffX = -(newX - mLeftDragAction.mLastMotionX);
                 int x = mAboveView.getScrollX();
@@ -104,7 +81,6 @@ public class LeftSideDrawer extends FrameLayout {
             return false;
         }
     };
-    
     private DragAction mRightDragAction = new DragAction() {
         @Override
         public boolean onTouchEvent(MotionEvent ev) {
@@ -134,7 +110,6 @@ public class LeftSideDrawer extends FrameLayout {
             }
             case MotionEvent.ACTION_MOVE:
                 if (!mRightDragAction.mDraggable) return false;
-            
                 float newX = ev.getX();
                 float diffX = -(newX - mRightDragAction.mLastMotionX);
                 int x = mAboveView.getScrollX();
@@ -155,17 +130,9 @@ public class LeftSideDrawer extends FrameLayout {
             return false;
         }
     };
-    
-    /**
-     * <p>The default Interpolator of drawer animation is DecelerateInterpolator(9.9).</p>
-     * <p>The default animation duration is 230msec.</p>
-     * @see SimpleNavDrawer(Activity act, Interpolator ip, int duration);
-     * @param act
-     */
     public LeftSideDrawer(Activity act) {
         this(act, new DecelerateInterpolator(0.9f), 180);
     }
-    
     public LeftSideDrawer(Activity act, Interpolator ip, int duration) {
         super(act.getApplicationContext());
         final Context context = act.getApplicationContext();
@@ -173,7 +140,6 @@ public class LeftSideDrawer extends FrameLayout {
         mDurationRight = duration;
         mWindow = act.getWindow();
         mScroller = new Scroller(context, ip);
-        
         final int fp = LayoutParams.FILL_PARENT;
         final int wp = LayoutParams.WRAP_CONTENT;
         //behind
@@ -219,126 +185,51 @@ public class LeftSideDrawer extends FrameLayout {
         
         addView(mAboveView);
     }
-    
-    /**
-     * <p>Get the left behind view</p>
-     * @return The view which you set. Return null if you did not set the view.
-     */
     public View getLeftBehindView() {
         return mLeftBehindBase.getChildAt(0);
     }
-    
-    /**
-     * <p>Get the right behind view</p>
-     * @return The view which you set. Return null if you did not set the view.
-     */
     public View getRightBehindView() {
         return mRightBehindBase.getChildAt(0);
     }
-    
-    /**
-     * <p>Set the behind view layout.</p>
-     * <p>Call this method after setting the main content view by calling setContentView().</p>
-     * @param <p><b>leftBehindLayout</b>: The layout id, under the res/layout directory, which is displayed left side.</p>
-     * @return The view which will be created from the layout id.
-     * @deprecated You should use setLeftBehindContentView()
-     */
     public View setBehindContentView(int leftBehindLayout) {
         return setLeftBehindContentView(leftBehindLayout);
     }
-    
-    /**
-     * <p>Set the left behind view layout.</p>
-     * <p>Call this method after setting the main content view by calling setContentView().</p>
-     * @param <p><b>leftBehindLayout</b>: The layout id, under the res/layout directory, which is displayed left side.</p>
-     * @return The view which will be created from the layout id.
-     */
     public View setLeftBehindContentView(int leftBehindLayout) {
         final View content = ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(leftBehindLayout, mLeftBehindBase);
         return content;
     }
-
-    /**
-     * <p>Set the right behind view layout.</p>
-     * <p>Call this method after setting the main content view by calling setContentView().</p>
-     * @param <p><b>leftBehindLayout</b>: The layout id, under the res/layout directory, which is displayed left side.</p>
-     * @return The view which will be created from the layout id.
-     */
     public View setRightBehindContentView(int rightBehindLayout) {
         final View content = ((LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(rightBehindLayout, mRightBehindBase);
         return content;
     }
-
-    /**
-     * Change the side scroll interpolator
-     * @param ip Interpolator object
-     */
     public void setScrollInterpolator(Interpolator ip) {
         mScroller = new Scroller(getContext(), ip);
     }
-    
-    /**
-     * Change the duration time of scrolling
-     * @param msec The duration time should be milli-second
-     * @deprecated You should use setAnimationDurationLeft()
-     */
     public void setAnimationDuration(int msec) {
         setAnimationDurationLeft(msec);
     }
-    
-    /**
-     * Set the duration time of left sliding animation. 
-     * @param msec The duration time should be milli-second ( default = 180 )
-     */
     public void setAnimationDurationLeft(int msec) {
         mDurationLeft = msec;
     }
-    
-    /**
-     * Set the duration time of ringht sliding animation. 
-     * @param msec The duration time should be milli-second ( default = 180 )
-     */
     public void setAnimationDurationRight(int msec) {
         mDurationRight = msec;
     }
-    
-    /**
-     * Close the behind view by swiping left the front view.
-     * @deprecated You should use closeLeftSide()
-     */
     public void close() {
         closeLeftSide();
     }
-    
-    /**
-     * Close the left-side behind view
-     */
     public void closeLeftSide() {
         int curX = -mLeftBehindViewWidth;//mAboveView.getScrollX();
         mScroller.startScroll(curX, 0, -curX, 0, mDurationLeft);
         invalidate();
     }
-    
-    /**
-     * Close the right-side behide view 
-     */
     public void closeRightSide() {
         int curX = mRightBehindViewWidth;//mAboveView.getScrollX();
         mScroller.startScroll(curX, 0, -curX, 0, mDurationRight);
         invalidate();
     }
-    
-    /**
-     * Open the behind view by swiping the front view right
-     * @deprecated You should use openLeftSide()
-     */
     public void open() {
         openLeftSide();
     }
-    
-    /**
-     * Open the left behind view by swiping the front view right
-     */
     public void openLeftSide() {
         mLeftBehindBase.setVisibility( View.VISIBLE );
         mRightBehindBase.setVisibility( View.GONE );
@@ -356,18 +247,9 @@ public class LeftSideDrawer extends FrameLayout {
         mScroller.startScroll(curX, 0, mRightBehindViewWidth, 0, mDurationRight);
         invalidate();
     }
-    
-    /**
-     * If the behind view is opened, close it. If the behind view is closed, open it.
-     * @deprecated You should use toggleLeftDrawer()
-     */
     public void toggleDrawer() {
         toggleLeftDrawer();
     }
-    
-    /**
-     * If the left behind view is opened, close it. If the left behind view is closed, open it.
-     */
     public void toggleLeftDrawer() {
         if (isClosed()) {
             openLeftSide();
@@ -375,10 +257,6 @@ public class LeftSideDrawer extends FrameLayout {
             closeLeftSide();
         }
     }
-    
-    /**
-     * If the right behind view is opened, close it. If the left behind view is closed, open it.
-     */
     public void toggleRightDrawer() {
         if (isClosed()) {
             openRightSide();
@@ -386,15 +264,9 @@ public class LeftSideDrawer extends FrameLayout {
             closeRightSide();
         }
     }
-
-    /**
-     * Check the current status of the behind view
-     * @return
-     */
     public boolean isClosed() {
         return mAboveView != null && mAboveView.getScrollX() == 0;
     }
-    
     private boolean isLeftSideOpened() {
         return mLeftBehindBase.getVisibility() == View.VISIBLE && mRightBehindBase.getVisibility() == View.GONE;
     }
@@ -402,11 +274,6 @@ public class LeftSideDrawer extends FrameLayout {
     private boolean isRightSideOpened() {
         return mRightBehindBase.getVisibility() == View.VISIBLE && mLeftBehindBase.getVisibility() == View.GONE;
     }
-    
-    /**
-     * Need to adjust the behind view height
-     * {@hide}
-     */
     @Override
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -419,11 +286,6 @@ public class LeftSideDrawer extends FrameLayout {
         decor.getWindowVisibleDisplayFrame(rect);
         mBehindView.fitDisplay(rect);
     }
-    
-    /**
-     * Side scroll animation
-     * {@hide}
-     */
     @Override
     public void computeScroll() {
         if (mScroller.computeScrollOffset()) {
@@ -439,10 +301,6 @@ public class LeftSideDrawer extends FrameLayout {
             }
         }
     }
-    
-    /**
-     * {@hide}
-     */
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         if (isLeftSideOpened()) {
@@ -453,28 +311,15 @@ public class LeftSideDrawer extends FrameLayout {
             return true;
         }
     }
-
     private class BehindLinearLayout extends LinearLayout {
-
         public BehindLinearLayout(Context context) {
             super(context);
         }
-        
-        /**
-         * Adjust the behind view
-         * @param rect The display area
-         */
         public void fitDisplay(Rect rect) {
             mBehindView.setPadding(rect.left, rect.top, 0, 0);
             requestLayout();
         }
     }
-    
-    /**
-     * Overlay view only when the behind menu is appeared.
-     * This view control scrolling the above view  
-     * @author Masahiko Adachi
-     */
     private class OverlayView extends View {
         private static final float CLICK_RANGE = 3;
         private float mDownX;
