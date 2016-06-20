@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
- * Created by ravshan on 6/15/2016.
+ * Created by ismoi on 6/15/2016.
  */
 
 public class ReportByAccountFragment extends Fragment implements View.OnClickListener {
@@ -58,7 +58,7 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
         rootView.setBackgroundColor(Color.WHITE);
 
         ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
-        ivToolbarMostRight.setImageResource(R.drawable.remove_red);
+        ivToolbarMostRight.setImageResource(R.drawable.ic_filter);
         ivToolbarMostRight.setOnClickListener(this);
 
         PocketAccounter.toolbar.setTitle("Account");
@@ -168,7 +168,6 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
                                 tables[i][4] = sortReportByAccount.get(i).getCategory().getName()
                                         + "," + sortReportByAccount.get(i).getSubCategory().getName();
                         }
-
                         tbReportByAccount.setTables(tables);
                     }
                 });

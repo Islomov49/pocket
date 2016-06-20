@@ -299,7 +299,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 		if (subCategory != null)
 			subcatIcon = subCategory.getIcon();
 		else
-			subcatIcon = R.drawable.ic_category_1;
+			subcatIcon = R.drawable.ball;
 		temp = BitmapFactory.decodeResource(getResources(), subcatIcon);
 		scaled = Bitmap.createScaledBitmap(temp, (int) getResources().getDimension(R.dimen.twentyfive_dp), (int) getResources().getDimension(R.dimen.twentyfive_dp), false);
 		fabChooseIcon.setImageBitmap(scaled);
