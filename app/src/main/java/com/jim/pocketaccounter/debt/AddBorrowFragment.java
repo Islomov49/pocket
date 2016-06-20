@@ -30,6 +30,7 @@ import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
 import com.jim.pocketaccounter.finance.Currency;
 import com.jim.pocketaccounter.finance.FinanceManager;
+import com.jim.pocketaccounter.helper.PockerTag;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -173,7 +174,7 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((PocketAccounter) getContext()).replaceFragment(new DebtBorrowFragment());
+//                ((PocketAccounter) getContext()).replaceFragment(new DebtBorrowFragment());
             }
         });
         okBtn.setOnClickListener(new View.OnClickListener() {
@@ -215,7 +216,7 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
                             manager.setDebtBorrows(list);
                             manager.saveDebtBorrows();
                             manager.loadDebtBorrows();
-                            ((PocketAccounter) getContext()).replaceFragment(new DebtBorrowFragment());
+                            ((PocketAccounter) getContext()).replaceFragment(new DebtBorrowFragment(), PockerTag.DEBTS);
                         }
                     }
                 }

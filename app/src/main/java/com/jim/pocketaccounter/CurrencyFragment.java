@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.jim.pocketaccounter.finance.CurrencyAdapter;
 import com.jim.pocketaccounter.helper.FloatingActionButton;
+import com.jim.pocketaccounter.helper.PockerTag;
 import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 import com.jim.pocketaccounter.helper.ScrollDirectionListener;
 
@@ -46,9 +47,9 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 			public void onScrollUp() {
 				if (mode == PocketAccounterGeneral.EDIT_MODE) return;
 				if (fabCurrencyAdd.getVisibility() == View.GONE) return;
-            	Animation down = AnimationUtils.loadAnimation(getContext(), R.anim.fab_down);
-            	synchronized (down) {
-	                down.setAnimationListener(new AnimationListener() {
+				Animation down = AnimationUtils.loadAnimation(getContext(), R.anim.fab_down);
+				synchronized (down) {
+					down.setAnimationListener(new AnimationListener() {
 						@Override
 						public void onAnimationStart(Animation animation) {
 							fabCurrencyAdd.setVisibility(View.GONE);
@@ -59,17 +60,17 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 						@Override
 						public void onAnimationRepeat(Animation animation) {
 						}
-	                });
-	                fabCurrencyAdd.startAnimation(down);
+					});
+					fabCurrencyAdd.startAnimation(down);
 				}
 			}
 			@Override
 			public void onScrollDown() {
 				if (mode == PocketAccounterGeneral.EDIT_MODE) return;
 				if (fabCurrencyAdd.getVisibility() == View.VISIBLE) return;
-            	Animation up = AnimationUtils.loadAnimation(getActivity(), R.anim.fab_up);
-            	synchronized (up) {
-	            	up.setAnimationListener(new AnimationListener() {
+				Animation up = AnimationUtils.loadAnimation(getActivity(), R.anim.fab_up);
+				synchronized (up) {
+					up.setAnimationListener(new AnimationListener() {
 						@Override
 						public void onAnimationStart(Animation animation) {
 							fabCurrencyAdd.setVisibility(View.VISIBLE);
@@ -80,9 +81,9 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 						@Override
 						public void onAnimationRepeat(Animation animation) {
 						}
-	                });
-	            	fabCurrencyAdd.startAnimation(up);
-            	}
+					});
+					fabCurrencyAdd.startAnimation(up);
+				}
 			}
 		});
 		((PocketAccounter)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -156,131 +157,131 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()) {
-		case R.id.fabCurrencyAdd:
-			((PocketAccounter)getActivity()).replaceFragment(new CurrencyChooseFragment());
-			break;
-		case R.id.ivToolbarMostRight:
-			if (PocketAccounter.financeManager.getCurrencies().size() == 1) {
-				Toast.makeText(getActivity(), getResources().getString(R.string.currency_empty_warning), Toast.LENGTH_SHORT).show();
-				return;
-			}
-			if (mode == PocketAccounterGeneral.NORMAL_MODE) {
-				setEditMode();
-			}
-			else {
-				boolean selection = false;
-				for (int i=0; i<selected.length; i++) {
-					if (selected[i]) {
-						selection = true;
-						break;
-					}
-				}
-				if (!selection) {
-					setCurrencyListMode();
+			case R.id.fabCurrencyAdd:
+				((PocketAccounter)getActivity()).replaceFragment(new CurrencyChooseFragment());
+				break;
+			case R.id.ivToolbarMostRight:
+				if (PocketAccounter.financeManager.getCurrencies().size() == 1) {
+					Toast.makeText(getActivity(), getResources().getString(R.string.currency_empty_warning), Toast.LENGTH_SHORT).show();
 					return;
 				}
-				final Dialog dialog=new Dialog(getActivity());
-				View dialogView = getActivity().getLayoutInflater().inflate(R.layout.warning_dialog, null);
-				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-				dialog.setContentView(dialogView);
-				TextView tvWarningText = (TextView) dialogView.findViewById(R.id.tvWarningText);
-				tvWarningText.setText(getResources().getString(R.string.currency_delete_warning));
-				Button btnYes = (Button) dialogView.findViewById(R.id.btnWarningYes);
-				Button btnNo = (Button) dialogView.findViewById(R.id.btnWarningNo);
-				btnYes.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						boolean foundNoneSelected = false;
-						for (int i=0; i<selected.length; i++) {
-							if (!selected[i]) {
-								foundNoneSelected = true;
-								break;
-							}
+				if (mode == PocketAccounterGeneral.NORMAL_MODE) {
+					setEditMode();
+				}
+				else {
+					boolean selection = false;
+					for (int i=0; i<selected.length; i++) {
+						if (selected[i]) {
+							selection = true;
+							break;
 						}
-						if (!foundNoneSelected) {
-							for (int i=0; i<PocketAccounter.financeManager.getRecords().size(); i++) {
-								if (PocketAccounter.financeManager.getRecords().get(i).getCurrency().getId().matches(PocketAccounter.financeManager.getMainCurrency().getId())) {
-									PocketAccounter.financeManager.getRecords().remove(i);
-									i--;
-								}
-							}
-							for (int i=0; i<PocketAccounter.financeManager.getDebtBorrows().size(); i++) {
-								if (PocketAccounter.financeManager.getDebtBorrows().get(i).getCurrency().getId().matches(PocketAccounter.financeManager.getMainCurrency().getId())) {
-									PocketAccounter.financeManager.getDebtBorrows().remove(i);
-									i--;
-								}
-							}
-							for (int i=0; i<PocketAccounter.financeManager.getCredits().size(); i++) {
-								if (PocketAccounter.financeManager.getCredits().get(i).getValyute_currency().getId().matches(PocketAccounter.financeManager.getMainCurrency().getId())) {
-									PocketAccounter.financeManager.getCredits().remove(i);
-									i--;
-								}
-							}
-							for (int i = 0; i< PocketAccounter.financeManager.getCurrencies().size(); i++) {
-								if (!PocketAccounter.financeManager.getCurrencies().get(i).getMain()) {
-									PocketAccounter.financeManager.getCurrencies().remove(i);
-									i--;
-								}
-							}
-						} else {
+					}
+					if (!selection) {
+						setCurrencyListMode();
+						return;
+					}
+					final Dialog dialog=new Dialog(getActivity());
+					View dialogView = getActivity().getLayoutInflater().inflate(R.layout.warning_dialog, null);
+					dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+					dialog.setContentView(dialogView);
+					TextView tvWarningText = (TextView) dialogView.findViewById(R.id.tvWarningText);
+					tvWarningText.setText(getResources().getString(R.string.currency_delete_warning));
+					Button btnYes = (Button) dialogView.findViewById(R.id.btnWarningYes);
+					Button btnNo = (Button) dialogView.findViewById(R.id.btnWarningNo);
+					btnYes.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							boolean foundNoneSelected = false;
 							for (int i=0; i<selected.length; i++) {
-								if (!selected[i]) continue;
-								for (int j=0; j<PocketAccounter.financeManager.getRecords().size(); j++) {
-									if (PocketAccounter.financeManager.getRecords().get(j).getCurrency().getId().matches(PocketAccounter.financeManager.getCurrencies().get(i).getId())) {
-										PocketAccounter.financeManager.getRecords().remove(j);
-										j--;
-									}
-								}
-								for (int j=0; j<PocketAccounter.financeManager.getDebtBorrows().size(); j++) {
-									if (PocketAccounter.financeManager.getDebtBorrows().get(i).getCurrency().getId().matches(PocketAccounter.financeManager.getCurrencies().get(i).getId())) {
-										PocketAccounter.financeManager.getDebtBorrows().remove(j);
-										j--;
-									}
-								}
-								for (int j=0; j<PocketAccounter.financeManager.getCredits().size(); j++) {
-									if (PocketAccounter.financeManager.getCredits().get(j).getValyute_currency().getId().matches(PocketAccounter.financeManager.getCurrencies().get(i).getId())) {
-										PocketAccounter.financeManager.getCredits().remove(j);
-										j--;
-									}
+								if (!selected[i]) {
+									foundNoneSelected = true;
+									break;
 								}
 							}
-							for (int i=0; i<selected.length; i++) {
-								if (selected[i]) {
-									if (PocketAccounter.financeManager.getCurrencies().get(i).getMain()) {
-										if (i==selected.length-1) {
-											for (int j = 0; j< PocketAccounter.financeManager.getCurrencies().size(); j++) {
-												if (PocketAccounter.financeManager.getCurrencies().get(j) != null) {
-													PocketAccounter.financeManager.getCurrencies().get(j).setMain(true);
-													break;
-												}
-											}
-										} else {
-											PocketAccounter.financeManager.getCurrencies().get(i+1).setMain(true);
+							if (!foundNoneSelected) {
+								for (int i=0; i<PocketAccounter.financeManager.getRecords().size(); i++) {
+									if (PocketAccounter.financeManager.getRecords().get(i).getCurrency().getId().matches(PocketAccounter.financeManager.getMainCurrency().getId())) {
+										PocketAccounter.financeManager.getRecords().remove(i);
+										i--;
+									}
+								}
+								for (int i=0; i<PocketAccounter.financeManager.getDebtBorrows().size(); i++) {
+									if (PocketAccounter.financeManager.getDebtBorrows().get(i).getCurrency().getId().matches(PocketAccounter.financeManager.getMainCurrency().getId())) {
+										PocketAccounter.financeManager.getDebtBorrows().remove(i);
+										i--;
+									}
+								}
+								for (int i=0; i<PocketAccounter.financeManager.getCredits().size(); i++) {
+									if (PocketAccounter.financeManager.getCredits().get(i).getValyute_currency().getId().matches(PocketAccounter.financeManager.getMainCurrency().getId())) {
+										PocketAccounter.financeManager.getCredits().remove(i);
+										i--;
+									}
+								}
+								for (int i = 0; i< PocketAccounter.financeManager.getCurrencies().size(); i++) {
+									if (!PocketAccounter.financeManager.getCurrencies().get(i).getMain()) {
+										PocketAccounter.financeManager.getCurrencies().remove(i);
+										i--;
+									}
+								}
+							} else {
+								for (int i=0; i<selected.length; i++) {
+									if (!selected[i]) continue;
+									for (int j=0; j<PocketAccounter.financeManager.getRecords().size(); j++) {
+										if (PocketAccounter.financeManager.getRecords().get(j).getCurrency().getId().matches(PocketAccounter.financeManager.getCurrencies().get(i).getId())) {
+											PocketAccounter.financeManager.getRecords().remove(j);
+											j--;
 										}
 									}
-									PocketAccounter.financeManager.getCurrencies().set(i, null);
+									for (int j=0; j<PocketAccounter.financeManager.getDebtBorrows().size(); j++) {
+										if (PocketAccounter.financeManager.getDebtBorrows().get(i).getCurrency().getId().matches(PocketAccounter.financeManager.getCurrencies().get(i).getId())) {
+											PocketAccounter.financeManager.getDebtBorrows().remove(j);
+											j--;
+										}
+									}
+									for (int j=0; j<PocketAccounter.financeManager.getCredits().size(); j++) {
+										if (PocketAccounter.financeManager.getCredits().get(j).getValyute_currency().getId().matches(PocketAccounter.financeManager.getCurrencies().get(i).getId())) {
+											PocketAccounter.financeManager.getCredits().remove(j);
+											j--;
+										}
+									}
+								}
+								for (int i=0; i<selected.length; i++) {
+									if (selected[i]) {
+										if (PocketAccounter.financeManager.getCurrencies().get(i).getMain()) {
+											if (i==selected.length-1) {
+												for (int j = 0; j< PocketAccounter.financeManager.getCurrencies().size(); j++) {
+													if (PocketAccounter.financeManager.getCurrencies().get(j) != null) {
+														PocketAccounter.financeManager.getCurrencies().get(j).setMain(true);
+														break;
+													}
+												}
+											} else {
+												PocketAccounter.financeManager.getCurrencies().get(i+1).setMain(true);
+											}
+										}
+										PocketAccounter.financeManager.getCurrencies().set(i, null);
+									}
+								}
+								for (int i = 0; i< PocketAccounter.financeManager.getCurrencies().size(); i++) {
+									if (PocketAccounter.financeManager.getCurrencies().get(i) == null) {
+										PocketAccounter.financeManager.getCurrencies().remove(i);
+										i--;
+									}
 								}
 							}
-							for (int i = 0; i< PocketAccounter.financeManager.getCurrencies().size(); i++) {
-								if (PocketAccounter.financeManager.getCurrencies().get(i) == null) {
-									PocketAccounter.financeManager.getCurrencies().remove(i);
-									i--;
-								}
-							}
+							setCurrencyListMode();
+							dialog.dismiss();
 						}
-						setCurrencyListMode();
-						dialog.dismiss();
-					}
-				});
-				btnNo.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						dialog.dismiss();
-					}
-				});
-				dialog.show();
-			}
-			break;
+					});
+					btnNo.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							dialog.dismiss();
+						}
+					});
+					dialog.show();
+				}
+				break;
 		}
 	}
 	@Override

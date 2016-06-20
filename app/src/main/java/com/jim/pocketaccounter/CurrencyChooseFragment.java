@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.jim.pocketaccounter.finance.Currency;
 import com.jim.pocketaccounter.finance.CurrencyChooseAdapter;
 import com.jim.pocketaccounter.finance.CurrencyCost;
+import com.jim.pocketaccounter.helper.PockerTag;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,23 +30,23 @@ public class CurrencyChooseFragment extends Fragment {
 	private GridView gvCurrencyChoose;
 	private ArrayList<Currency> currencies;
 	private boolean[] chbs;
-    private ImageView ivToolbarMostRight;
+	private ImageView ivToolbarMostRight;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.currency_choose_fragment, container, false);
 		PocketAccounter.toolbar.setTitle(getResources().getString(R.string.choose_currencies));
-        PocketAccounter.toolbar.setSubtitle("");
-        ((PocketAccounter)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(!PocketAccounter.financeManager.getCurrencies().isEmpty());
+		PocketAccounter.toolbar.setSubtitle("");
+		((PocketAccounter)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(!PocketAccounter.financeManager.getCurrencies().isEmpty());
 		PocketAccounter.toolbar.setNavigationOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				((PocketAccounter)getContext()).replaceFragment(new CurrencyFragment());
 			}
 		});
-        ivToolbarMostRight = ((ImageView)PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight));
-        ivToolbarMostRight.setVisibility(View.VISIBLE);
-        ivToolbarMostRight.setImageResource(R.drawable.check_sign);
-        gvCurrencyChoose = (GridView) view.findViewById(R.id.gvCurrencyChoose);
+		ivToolbarMostRight = ((ImageView)PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight));
+		ivToolbarMostRight.setVisibility(View.VISIBLE);
+		ivToolbarMostRight.setImageResource(R.drawable.check_sign);
+		gvCurrencyChoose = (GridView) view.findViewById(R.id.gvCurrencyChoose);
 		final String[] baseCurrencies = getResources().getStringArray(R.array.base_currencies);
 		final String[] baseAbbrs = getResources().getStringArray(R.array.base_abbrs);
 		final String[] currIds = getResources().getStringArray(R.array.currency_ids);
@@ -87,12 +88,12 @@ public class CurrencyChooseFragment extends Fragment {
 				}
 			}
 		});
-        ivToolbarMostRight.setOnClickListener(new OnClickListener() {
+		ivToolbarMostRight.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				boolean checked = false;
 				for (int i=0; i<chbs.length; i++) {
-					if (chbs[i]) { 
+					if (chbs[i]) {
 						checked = true;
 						break;
 					}
@@ -102,17 +103,17 @@ public class CurrencyChooseFragment extends Fragment {
 						Toast.makeText(getActivity(), getResources().getString(R.string.curr_not_choosen), Toast.LENGTH_SHORT).show();
 						return;
 					} else {
-						((PocketAccounter)getActivity()).replaceFragment(new CurrencyFragment());
+						((PocketAccounter)getActivity()).replaceFragment(new CurrencyFragment(), PockerTag.CURRENCY);
 						return;
 					}
 				}
 				if (PocketAccounter.financeManager.getCurrencies().isEmpty()) {
 					for (int i=0; i<chbs.length; i++) {
-						if (chbs[i]) 
+						if (chbs[i])
 							PocketAccounter.financeManager.getCurrencies().add(currencies.get(i));
 					}
 					PocketAccounter.financeManager.getCurrencies().get(0).setMain(true);
-					((PocketAccounter)getActivity()).replaceFragment(new CurrencyFragment());
+					((PocketAccounter)getActivity()).replaceFragment(new CurrencyFragment(), PockerTag.CURRENCY);
 				}
 				else {
 					boolean isCurrencyListChanged = false;
@@ -163,7 +164,7 @@ public class CurrencyChooseFragment extends Fragment {
 										}
 									}
 								}
-								if (foundMainCurrency) 
+								if (foundMainCurrency)
 									temp.get(pos).setMain(true);
 								else
 									temp.get(0).setMain(true);
@@ -176,7 +177,7 @@ public class CurrencyChooseFragment extends Fragment {
 									}
 								}
 								PocketAccounter.financeManager.setCurrencies(temp);
-								((PocketAccounter)getActivity()).replaceFragment(new CurrencyFragment());
+								((PocketAccounter)getActivity()).replaceFragment(new CurrencyFragment(), PockerTag.CURRENCY);
 								dialog.dismiss();
 							}
 						});
@@ -206,7 +207,7 @@ public class CurrencyChooseFragment extends Fragment {
 								}
 							}
 						}
-						if (foundMainCurrency) 
+						if (foundMainCurrency)
 							temp.get(pos).setMain(true);
 						else
 							temp.get(0).setMain(true);
@@ -219,11 +220,12 @@ public class CurrencyChooseFragment extends Fragment {
 							}
 						}
 						PocketAccounter.financeManager.setCurrencies(temp);
-						((PocketAccounter)getActivity()).replaceFragment(new CurrencyFragment());
+						((PocketAccounter)getActivity()).replaceFragment(new CurrencyFragment(), PockerTag.CURRENCY);
+
 					}
 				}
 			}
 		});
-        return view;
+		return view;
 	}
 }

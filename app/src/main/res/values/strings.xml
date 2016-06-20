@@ -917,4 +917,10 @@
     <string name="planning_notif_entry">hour</string>
     <string name="planning_notif_summary">Set notice time</string>
     <string name="planning_notif_title">Notice time</string>
+    <string-array name="report_by_income_expanse_table_titles">
+        <item>Дата</item>
+        <item>Расходы</item>
+        <item>Доходы</item>
+        <item>Прибыль</item>
+    </string-array>
 </resources>

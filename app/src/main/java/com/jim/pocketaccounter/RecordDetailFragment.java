@@ -31,6 +31,7 @@ import com.jim.pocketaccounter.finance.RecordDetailAdapter;
 import com.jim.pocketaccounter.finance.RecordSubCategoryAdapter;
 import com.jim.pocketaccounter.finance.RootCategory;
 import com.jim.pocketaccounter.finance.SubCategory;
+import com.jim.pocketaccounter.helper.PockerTag;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;

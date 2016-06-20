@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.jim.pocketaccounter.helper.FloatingActionButton;
+import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
 
 public class CreditTabLay extends Fragment  implements View.OnClickListener, ViewPager.OnPageChangeListener{

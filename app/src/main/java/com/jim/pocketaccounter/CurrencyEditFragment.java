@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.jim.pocketaccounter.finance.Currency;
 import com.jim.pocketaccounter.finance.CurrencyCost;
 import com.jim.pocketaccounter.finance.CurrencyExchangeAdapter;
+import com.jim.pocketaccounter.helper.PockerTag;
 import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
 import java.text.DecimalFormat;
@@ -60,7 +61,7 @@ public class CurrencyEditFragment extends Fragment implements OnClickListener, O
 		PocketAccounter.toolbar.setNavigationOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				((PocketAccounter)getContext()).replaceFragment(new CurrencyFragment());
+				((PocketAccounter)getContext()).replaceFragment(new CurrencyFragment(), PockerTag.CURRENCY);
 			}
 		});
 		PocketAccounter.toolbar.setTitle(currency.getName()+", "+currency.getAbbr());
@@ -89,50 +90,50 @@ public class CurrencyEditFragment extends Fragment implements OnClickListener, O
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()) {
-		case R.id.ivExCurrencyAdd:
-			exchangeEditDialog(null);
-			break;
-		case R.id.ivExCurrencyDelete:
-			if (mode == PocketAccounterGeneral.NORMAL_MODE) {
-				selected = new boolean[currency.getCosts().size()];
-				mode = PocketAccounterGeneral.EDIT_MODE;
-				ivExCurrencyDelete.setImageDrawable(null);
-				ivExCurrencyDelete.setImageResource(R.drawable.ic_cat_trash);
-			}
-			else {
-				mode = PocketAccounterGeneral.NORMAL_MODE;
-				ivExCurrencyDelete.setImageDrawable(null);
-				ivExCurrencyDelete.setImageResource(R.drawable.subcat_delete);
-				deleteCosts();
-				selected = null;
-			}
-			refreshExchangeList();
-			break;
-		case R.id.ivToolbarMostRight:
-			if (chbCurrencyEditMainCurrency.isChecked()) {
-				if (!currency.getMain()) {
-					double cost = 0.0;
-					Calendar cal = Calendar.getInstance();
-					for (int i=0; i<currency.getCosts().size(); i++) {
-						if (i == 0)
-							cal = (Calendar) currency.getCosts().get(i).getDay().clone();
-						if (cal.compareTo(currency.getCosts().get(i).getDay()) <= 0) {
-							cal = (Calendar) currency.getCosts().get(i).getDay().clone();
-							cost = currency.getCosts().get(i).getCost();
-						}
-					}
-					for (int i = 0; i< PocketAccounter.financeManager.getCurrencies().size(); i++) {
-						PocketAccounter.financeManager.getCurrencies().get(i).setMain(false);
-						for (int j = 0; j< PocketAccounter.financeManager.getCurrencies().get(i).getCosts().size(); j++)
-							PocketAccounter.financeManager.getCurrencies().get(i).getCosts().get(j).setCost(PocketAccounter.financeManager.getCurrencies().get(i).getCosts().get(j).getCost()/cost);
-					}
-					for (int i=0; i <currency.getCosts().size(); i++) 
-						currency.getCosts().get(i).setCost(1.0);
-					currency.setMain(true);
+			case R.id.ivExCurrencyAdd:
+				exchangeEditDialog(null);
+				break;
+			case R.id.ivExCurrencyDelete:
+				if (mode == PocketAccounterGeneral.NORMAL_MODE) {
+					selected = new boolean[currency.getCosts().size()];
+					mode = PocketAccounterGeneral.EDIT_MODE;
+					ivExCurrencyDelete.setImageDrawable(null);
+					ivExCurrencyDelete.setImageResource(R.drawable.ic_cat_trash);
 				}
-			}
-			((PocketAccounter)getActivity()).replaceFragment(new CurrencyFragment());
-			break;
+				else {
+					mode = PocketAccounterGeneral.NORMAL_MODE;
+					ivExCurrencyDelete.setImageDrawable(null);
+					ivExCurrencyDelete.setImageResource(R.drawable.subcat_delete);
+					deleteCosts();
+					selected = null;
+				}
+				refreshExchangeList();
+				break;
+			case R.id.ivToolbarMostRight:
+				if (chbCurrencyEditMainCurrency.isChecked()) {
+					if (!currency.getMain()) {
+						double cost = 0.0;
+						Calendar cal = Calendar.getInstance();
+						for (int i=0; i<currency.getCosts().size(); i++) {
+							if (i == 0)
+								cal = (Calendar) currency.getCosts().get(i).getDay().clone();
+							if (cal.compareTo(currency.getCosts().get(i).getDay()) <= 0) {
+								cal = (Calendar) currency.getCosts().get(i).getDay().clone();
+								cost = currency.getCosts().get(i).getCost();
+							}
+						}
+						for (int i = 0; i< PocketAccounter.financeManager.getCurrencies().size(); i++) {
+							PocketAccounter.financeManager.getCurrencies().get(i).setMain(false);
+							for (int j = 0; j< PocketAccounter.financeManager.getCurrencies().get(i).getCosts().size(); j++)
+								PocketAccounter.financeManager.getCurrencies().get(i).getCosts().get(j).setCost(PocketAccounter.financeManager.getCurrencies().get(i).getCosts().get(j).getCost()/cost);
+						}
+						for (int i=0; i <currency.getCosts().size(); i++)
+							currency.getCosts().get(i).setCost(1.0);
+						currency.setMain(true);
+					}
+				}
+				((PocketAccounter)getActivity()).replaceFragment(new CurrencyFragment(), PockerTag.CURRENCY);
+				break;
 		}
 	}
 	private void exchangeEditDialog(final CurrencyCost currCost) {
@@ -171,7 +172,7 @@ public class CurrencyEditFragment extends Fragment implements OnClickListener, O
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 		DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols();
 		otherSymbols.setDecimalSeparator('.');
-		otherSymbols.setGroupingSeparator('.'); 
+		otherSymbols.setGroupingSeparator('.');
 		final DecimalFormat decFormat = new DecimalFormat("0.00", otherSymbols);
 		etExchange.setText(decFormat.format(0.0));
 		double cost = 1.0;

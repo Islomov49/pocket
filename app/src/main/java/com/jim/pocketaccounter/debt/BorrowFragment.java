@@ -150,7 +150,7 @@ public class BorrowFragment extends Fragment {
             view.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((PocketAccounter) getContext()).replaceFragment(InfoDebtBorrowFragment.getInstance(persons.get(Math.abs(t-position)).getId()));
+//                    ((PocketAccounter) getContext()).replaceFragment(InfoDebtBorrowFragment.getInstance(persons.get(Math.abs(t-position)).getId()));
                 }
             });
             view.pay.setOnClickListener(new View.OnClickListener() {

@@ -100,15 +100,15 @@ public class CreditFragment extends Fragment {
                         financeManager.saveCredits();
                         crAdap.notifyItemRemoved(position);
                     }
-                    });
+                });
                 openFragment(temp,"InfoFragment");
             }
 
             @Override
             public void change_item(CreditDetials current, int position) {
-                 crList.set(position,current);
+                crList.set(position,current);
                 crAdap.notifyItemChanged(position);
-                            }
+            }
 
             @Override
             public void item_delete(int position) {
@@ -118,7 +118,7 @@ public class CreditFragment extends Fragment {
 
             @Override
             public void item_to_archive(int position) {
-            //TODO to archive code
+                //TODO to archive code
                 CreditDetials toArc=crList.get(position);
                 if(toArc.isKey_for_include()){
                     toArc.setKey_for_archive(true);
@@ -161,31 +161,31 @@ public class CreditFragment extends Fragment {
     public void openFragment(Fragment fragment,String tag) {
         if (fragment != null) {
             if(tag.matches("Addcredit"))
-            ((AddCreditFragment)fragment).addEventLis(new EventFromAdding() {
-                @Override
-                public void addedCredit() {
-                    updateToFirst();
-                }
+                ((AddCreditFragment)fragment).addEventLis(new EventFromAdding() {
+                    @Override
+                    public void addedCredit() {
+                        updateToFirst();
+                    }
 
-                @Override
-                public void canceledAdding() {
-                    //some think when canceled
-                }
-            });
+                    @Override
+                    public void canceledAdding() {
+                        //some think when canceled
+                    }
+                });
             final android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(tag).setTransition(android.support.v4.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
             ft.add(R.id.flMain, fragment,tag);
             ft.commit();
         }
     }
     public void updateToFirst(){
-       // crList.add(0,creditDetialsesList.get(0));
+        // crList.add(0,creditDetialsesList.get(0));
         crList=PocketAccounter.financeManager.getCredits();
         crAdap.notifyItemInserted(0);
-       // financeManager.setCredits(crList);
+        // financeManager.setCredits(crList);
         crRV.scrollToPosition(0);
     }
     public void updateList(){
-     //   crList.clear();
+        //   crList.clear();
       /* creditDetialsesList=PocketAccounter.financeManager.getCredits();
         for (CreditDetials temp:creditDetialsesList){
             crList.add(temp);
@@ -200,7 +200,7 @@ public class CreditFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-      //  PocketAccounter.financeManager.setCredits(crList);
+        //  PocketAccounter.financeManager.setCredits(crList);
         PocketAccounter.financeManager.saveCredits();
 
     }

@@ -74,30 +74,30 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()) {
-		case R.id.ivToolbarMostRight:
-			if (mode == PocketAccounterGeneral.NORMAL_MODE) {
-				mode = PocketAccounterGeneral.EDIT_MODE;
-				ivToolbarMostRight.setImageDrawable(null);
-				ivToolbarMostRight.setImageResource(R.drawable.ic_trash);
-				selected = new boolean[PocketAccounter.financeManager.getAccounts().size()];
-				refreshList(mode);
-			}
-			else {
+			case R.id.ivToolbarMostRight:
+				if (mode == PocketAccounterGeneral.NORMAL_MODE) {
+					mode = PocketAccounterGeneral.EDIT_MODE;
+					ivToolbarMostRight.setImageDrawable(null);
+					ivToolbarMostRight.setImageResource(R.drawable.ic_trash);
+					selected = new boolean[PocketAccounter.financeManager.getAccounts().size()];
+					refreshList(mode);
+				}
+				else {
+					mode = PocketAccounterGeneral.NORMAL_MODE;
+					ivToolbarMostRight.setImageDrawable(null);
+					ivToolbarMostRight.setImageResource(R.drawable.pencil);
+					deleteAccounts();
+					refreshList(mode);
+					selected = null;
+				}
+				break;
+			case R.id.fabAccountAdd:
 				mode = PocketAccounterGeneral.NORMAL_MODE;
 				ivToolbarMostRight.setImageDrawable(null);
 				ivToolbarMostRight.setImageResource(R.drawable.pencil);
-				deleteAccounts();
 				refreshList(mode);
-				selected = null;
-			}
-			break;
-		case R.id.fabAccountAdd:
-			mode = PocketAccounterGeneral.NORMAL_MODE;
-			ivToolbarMostRight.setImageDrawable(null);
-			ivToolbarMostRight.setImageResource(R.drawable.pencil);
-			refreshList(mode);
-			openAccountsAddDialog(null);
-			break;
+				openAccountsAddDialog(null);
+				break;
 		}
 	}
 	private void openAccountsAddDialog(final Account account) {

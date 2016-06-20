@@ -33,7 +33,8 @@
                     android:id="@+id/tvReportByCategoryRootCatName"
                     android:textSize="@dimen/sixteen_sp"
                     android:textColor="@color/toolbar_text_color"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/ten_dp"/>
             </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
@@ -44,6 +45,7 @@
                 android:textColor="@color/info_header_text"/>
         </LinearLayout>
         <ImageView
+            android:id="@+id/ivReportByCategoryClose"
             android:layout_width="@dimen/twentyfour_dp"
             android:layout_height="@dimen/twentyfour_dp"
             android:src="@drawable/cancel_sign"

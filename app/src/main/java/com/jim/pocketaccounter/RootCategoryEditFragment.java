@@ -32,6 +32,7 @@ import com.jim.pocketaccounter.finance.RootCategory;
 import com.jim.pocketaccounter.finance.SubCategory;
 import com.jim.pocketaccounter.finance.SubCategoryAdapter;
 import com.jim.pocketaccounter.helper.FABIcon;
+import com.jim.pocketaccounter.helper.PockerTag;
 import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
 import java.util.ArrayList;
@@ -72,9 +73,9 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 			@Override
 			public void onClick(View v) {
 				if (edit_mode == PocketAccounterGeneral.NO_MODE)
-					((PocketAccounter)getContext()).replaceFragment(new CategoryFragment());
+					((PocketAccounter)getContext()).replaceFragment(new CategoryFragment(), PockerTag.CATEGORY);
 				else
-					((PocketAccounter)getContext()).replaceFragment(new RecordFragment(calendar));
+					((PocketAccounter)getContext()).replaceFragment(new RecordFragment(calendar), PockerTag.HOME);
 			}
 		});
 		ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
@@ -235,7 +236,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 					newCategory.setId("rootcategory_"+UUID.randomUUID().toString());
 					PocketAccounter.financeManager.getCategories().add(newCategory);
 				}
-				((PocketAccounter)getActivity()).replaceFragment(new CategoryFragment());
+				((PocketAccounter)getActivity()).replaceFragment(new CategoryFragment(), PockerTag.CATEGORY);
 			}
 			else if (type==PocketAccounterGeneral.INCOME) {
 				RootCategory newCategory = new RootCategory();
@@ -246,7 +247,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 				newCategory.setId(categoryId);
 				PocketAccounter.financeManager.getIncomes().set(pos, newCategory);
 				PocketAccounter.financeManager.getCategories().add(newCategory);
-				((PocketAccounter)getActivity()).replaceFragment(new RecordFragment(calendar));
+				((PocketAccounter)getContext()).replaceFragment(new RecordFragment(calendar), PockerTag.CATEGORY);
 			} else if (type==PocketAccounterGeneral.EXPANCE) {
 				RootCategory newCategory = new RootCategory();
 				newCategory.setName(etCatEditName.getText().toString());
@@ -256,7 +257,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 				newCategory.setId(categoryId);
 				PocketAccounter.financeManager.getExpanses().set(pos, newCategory);
 				PocketAccounter.financeManager.getCategories().add(newCategory);
-				((PocketAccounter)getActivity()).replaceFragment(new RecordFragment(calendar));
+				((PocketAccounter)getActivity()).replaceFragment(new RecordFragment(calendar), PockerTag.CATEGORY);
 			}
 			break;
 		}
@@ -285,6 +286,8 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 		dialog.getWindow().setLayout(8*width/9, LayoutParams.MATCH_PARENT);
 		dialog.show();
 	}
+
+
 	@SuppressLint("InflateParams")
 	private void openSubCatEditDialog(final SubCategory subCategory) {
 		final Dialog dialog=new Dialog(getActivity());

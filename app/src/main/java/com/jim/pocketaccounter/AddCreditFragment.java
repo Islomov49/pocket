@@ -101,7 +101,7 @@ public class AddCreditFragment extends Fragment {
         // Inflate the layout for this fragment
         View V=inflater.inflate(R.layout.fragment_add_credit, container, false);
         context=getActivity();
-     //   to_open_dialog=false;
+        //   to_open_dialog=false;
         Log.d("args",argFirst[0]+argFirst[1]+argFirst[2]+"");
         spiner_forValut=(Spinner) V.findViewById(R.id.spinner);
         spiner_procent=(Spinner) V.findViewById(R.id.spinner_procent);
@@ -135,7 +135,7 @@ public class AddCreditFragment extends Fragment {
                 }
                 else{
 
-                        to_open_dialog=true;
+                    to_open_dialog=true;
 
                 }
                 Log.d("somesome",""+to_open_dialog+" "+nameCred.getText().toString());
@@ -151,15 +151,15 @@ public class AddCreditFragment extends Fragment {
             public void onClick(View v) {
                 //name checking
                 boolean isMojno=true;
-                 if (nameCred.getText().toString().equals("")){
+                if (nameCred.getText().toString().equals("")){
                     nameCred.setError("Name should not empty!");
-                     isMojno=false;
-                 }
+                    isMojno=false;
+                }
                 else nameCred.setHintTextColor(ContextCompat.getColor(context,R.color.black_for_secondary_text));
 
                 //value cheking
                 if (valueCred.getText().toString().equals("")){
-                valueCred.setError("Value should not empty!");
+                    valueCred.setError("Value should not empty!");
                     isMojno=false;
                 }
 
@@ -177,12 +177,12 @@ public class AddCreditFragment extends Fragment {
                     isMojno=false;
                 }
 
-               //TODO first transaction
+                //TODO first transaction
 
 
                 if(isMojno){
 
-                   openDialog();
+                    openDialog();
                 }
 
 
@@ -445,7 +445,7 @@ public class AddCreditFragment extends Fragment {
             valyutes_symbols[i] = currencies.get(i).getAbbr();
         }
 
-       accounts = manager.getAccounts();
+        accounts = manager.getAccounts();
         accs = new String[accounts.size()];
         for (int i = 0; i < accounts.size(); i++) {
             accs[i] = accounts.get(i).getName();
@@ -460,7 +460,7 @@ public class AddCreditFragment extends Fragment {
 
 
         ArrayAdapter<String> adapter_valyuta = new ArrayAdapter<String>(getActivity(),
-               R.layout.adapter_spiner, valyutes );
+                R.layout.adapter_spiner, valyutes );
 
 
         ArrayAdapter<String> adapter_period = new ArrayAdapter<String>(getActivity(),
@@ -646,15 +646,15 @@ public class AddCreditFragment extends Fragment {
                 String sloution = solution.getText().toString();
                 sloution.replace(',', '.');
 
-                    CreditDetials A1 = new CreditDetials(selectedIcon, nameCred.getText().toString(), new GregorianCalendar(argFirst[0], argFirst[1], argFirst[2]),
-                            Double.parseDouble(sb.toString()), procent_inter, period_inter, period_tip, key, Double.parseDouble(valueCred.getText().toString()),
-                            currencies.get(spiner_forValut.getSelectedItemPosition()), Double.parseDouble(sloution), System.currentTimeMillis());
+                CreditDetials A1 = new CreditDetials(selectedIcon, nameCred.getText().toString(), new GregorianCalendar(argFirst[0], argFirst[1], argFirst[2]),
+                        Double.parseDouble(sb.toString()), procent_inter, period_inter, period_tip, key, Double.parseDouble(valueCred.getText().toString()),
+                        currencies.get(spiner_forValut.getSelectedItemPosition()), Double.parseDouble(sloution), System.currentTimeMillis());
 
-                    String transactionCredString=transactionCred.getText().toString();
+                String transactionCredString=transactionCred.getText().toString();
                 if(!transactionCredString.matches("")){
                     ReckingCredit first_pay;
                     if(key&&accounts.size()!=0) {
-                      first_pay = new ReckingCredit((new GregorianCalendar(argFirst[0], argFirst[1], argFirst[2])).getTimeInMillis(), Double.parseDouble(transactionCredString), accounts.get(spiner_trasnact.getSelectedItemPosition()).getId(),
+                        first_pay = new ReckingCredit((new GregorianCalendar(argFirst[0], argFirst[1], argFirst[2])).getTimeInMillis(), Double.parseDouble(transactionCredString), accounts.get(spiner_trasnact.getSelectedItemPosition()).getId(),
                                 A1.getMyCredit_id(),    getString(R.string.this_first_comment));
                     }
                     else {
@@ -720,7 +720,7 @@ public class AddCreditFragment extends Fragment {
         Log.d("Detached","true");
         ivToolbarMostRight.setVisibility(View.INVISIBLE);
         if(!onSucsessed)
-        eventLis.canceledAdding();
+            eventLis.canceledAdding();
         else{
             PocketAccounter.financeManager.saveCredits();
             eventLis.addedCredit();

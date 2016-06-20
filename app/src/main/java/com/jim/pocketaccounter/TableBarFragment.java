@@ -16,6 +16,7 @@ import com.jim.pocketaccounter.R;
 import com.jim.pocketaccounter.ReportByIncomeExpanseBarFragment;
 import com.jim.pocketaccounter.ReportByIncomeExpanseTableFragment;
 import com.jim.pocketaccounter.finance.FinanceRecord;
+import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
 import java.util.ArrayList;
 

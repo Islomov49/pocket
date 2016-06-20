@@ -10,6 +10,9 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
+
 import java.util.ArrayList;
 
 

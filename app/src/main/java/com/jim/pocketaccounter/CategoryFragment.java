@@ -18,6 +18,7 @@ import com.jim.pocketaccounter.finance.Category;
 import com.jim.pocketaccounter.finance.CategoryAdapter;
 import com.jim.pocketaccounter.finance.RootCategory;
 import com.jim.pocketaccounter.helper.FloatingActionButton;
+import com.jim.pocketaccounter.helper.PockerTag;
 import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
 import java.util.ArrayList;
@@ -74,18 +75,18 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()) {
-		case R.id.fabAccountAdd:
-			((PocketAccounter)getActivity()).replaceFragment(new RootCategoryEditFragment(null, PocketAccounterGeneral.NO_MODE, 0, null));
-			break;
-		case R.id.ivToolbarMostRight:
-			if (mode == PocketAccounterGeneral.NORMAL_MODE)
-				mode = PocketAccounterGeneral.EDIT_MODE;
-			else {
-				mode = PocketAccounterGeneral.NORMAL_MODE;
-				deleteCategories();
-			}
-			setMode(mode);
-			break;
+			case R.id.fabAccountAdd:
+				((PocketAccounter)getActivity()).replaceFragment(new RootCategoryEditFragment(null, PocketAccounterGeneral.NO_MODE, 0, null));
+				break;
+			case R.id.ivToolbarMostRight:
+				if (mode == PocketAccounterGeneral.NORMAL_MODE)
+					mode = PocketAccounterGeneral.EDIT_MODE;
+				else {
+					mode = PocketAccounterGeneral.NORMAL_MODE;
+					deleteCategories();
+				}
+				setMode(mode);
+				break;
 		}
 	}
 	@Override

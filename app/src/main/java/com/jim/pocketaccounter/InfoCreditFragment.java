@@ -97,7 +97,7 @@ public class InfoCreditFragment extends Fragment {
         expandablePanel=(FrameLayout) V.findViewById(R.id.shlyuzik);
         expandableLiniya=(FrameLayout) V.findViewById(R.id.with_wlyuzik);
         ifHaveItem=(FrameLayout) V.findViewById(R.id.ifListHave);
-         myCreditName=(TextView) V.findViewById(R.id.name_of_credit);
+        myCreditName=(TextView) V.findViewById(R.id.name_of_credit);
         myLefAmount=(TextView) V.findViewById(R.id.value_credit_all);
         myProcent=(TextView) V.findViewById(R.id.procentCredInfo);
         myLefDate=(TextView) V.findViewById(R.id.leftDateInfo);
@@ -154,7 +154,7 @@ public class InfoCreditFragment extends Fragment {
             ifHaveItem.setVisibility(View.VISIBLE);
 
         }
-            double total_paid=0;
+        double total_paid=0;
         for(ReckingCredit item:rcList){
             total_paid+=item.getAmount();
         }
@@ -195,7 +195,7 @@ public class InfoCreditFragment extends Fragment {
             toArcive=true;
             myPay.setText(getString(R.string.archive));
         } else
-        myLefAmount.setText(parseToWithoutNull(currentCredit.getValue_of_credit_with_procent()-total_paid)+currentCredit.getValyute_currency().getAbbr());
+            myLefAmount.setText(parseToWithoutNull(currentCredit.getValue_of_credit_with_procent()-total_paid)+currentCredit.getValyute_currency().getAbbr());
 
         String suffix="";
         if(currentCredit.getProcent_interval()==forDay){
@@ -218,12 +218,12 @@ public class InfoCreditFragment extends Fragment {
                 if(delete_flag){
                     delete_checked_items();
 
-            }
+                }
                 else{
                     delete_flag=true;
                     adapRecyc.notifyDataSetChanged();
                     myPay.setText(getString(R.string.cancel));
-                   //myDelete.setTextColor(getActivity().getColor(R.color.red));
+                    //myDelete.setTextColor(getActivity().getColor(R.color.red));
                 }
             }
         });
@@ -545,7 +545,7 @@ public class InfoCreditFragment extends Fragment {
                     dialog.cancel();
                     adapRecyc.notifyDataSetChanged();
                     updateDate();
-                              }
+                }
             });
             builder.create().show();
         }
@@ -553,11 +553,11 @@ public class InfoCreditFragment extends Fragment {
             adapRecyc.notifyDataSetChanged();
         }
 
-        }
+    }
 
     @Override
     public void onStop(){
-     //   PocketAccounter.financeManager.saveCredits();
+        //   PocketAccounter.financeManager.saveCredits();
         super.onStop();
     }
 
@@ -598,7 +598,7 @@ public class InfoCreditFragment extends Fragment {
 
             }
             if(!item.getComment().matches(""))
-            view.comment.setText(getString(R.string.comment)+": " + item.getComment());
+                view.comment.setText(getString(R.string.comment)+": " + item.getComment());
             else
                 view.comment.setVisibility(View.GONE);
             if(delete_flag){
@@ -607,7 +607,7 @@ public class InfoCreditFragment extends Fragment {
                     @Override
                     public void onClick(View v) {
                         if(view.forDelete.isChecked())
-                        view.forDelete.setChecked(false);
+                            view.forDelete.setChecked(false);
                         else view.forDelete.setChecked(true);
                     }
                 });

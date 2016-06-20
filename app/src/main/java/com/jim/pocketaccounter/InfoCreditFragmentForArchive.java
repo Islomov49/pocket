@@ -334,11 +334,7 @@ public class InfoCreditFragmentForArchive extends Fragment {
 
 
 
-    @Override
-    public void onStop(){
-     //   PocketAccounter.financeManager.saveCredits();
-        super.onStop();
-    }
+
 
     @Override
     public void onDetach(){

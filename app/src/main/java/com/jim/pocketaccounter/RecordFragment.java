@@ -95,7 +95,7 @@ public class RecordFragment extends Fragment {
 		int width = dm.widthPixels;
 		int height = dm.heightPixels;
 		int side = 0;
-		if (height*0.6 > width) 
+		if (height*0.6 > width)
 			side =  width;
 		else
 			side = (int)(height*0.6);
