@@ -50,7 +50,7 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     Context context;
     forListner A1;
     ArrayList<Account> accaunt_AC;
-    boolean toArcive=false;
+
     long forDay=1000L*60L*60L*24L;
     long forMoth=1000L*60L*60L*24L*30L;
     long forYear=1000L*60L*60L*24L*365L;
@@ -70,10 +70,11 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
          void item_to_archive(int position);
     }
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holdeer, final int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holdeer, final int position) {
         if(holdeer instanceof Fornull){
             return;
         }
+
         final myViewHolder holder=(myViewHolder) holdeer;
 
         final CreditDetials itemCr= cardDetials.get(position);
@@ -93,6 +94,7 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         holder.iconn.setImageResource(itemCr.getIcon_ID());
 
         Calendar to= (Calendar) itemCr.getTake_time().clone();
+
         long period_tip=itemCr.getPeriod_time_tip();
         long period_voqt=itemCr.getPeriod_time();
         int voqt_soni= (int) (period_voqt/period_tip);
@@ -160,10 +162,10 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             holder.overall_amount.setText(context.getString(R.string.repaid));
             holder.pay_or_archive.setText(R.string.archive);
 
-            toArcive=true;
+
         }
         else {
-            toArcive=false;
+
             holder.overall_amount.setText(parseToWithoutNull(itemCr.getValue_of_credit_with_procent()-total_paid)+itemCr.getValyute_currency().getAbbr());
         } holder.glav.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,7 +176,8 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         holder.pay_or_archive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              if(toArcive)
+              boolean toArcive=context.getString(R.string.archive).matches(holder.pay_or_archive.getText().toString());
+                if(toArcive)
               {
                 A1.item_to_archive(position);
               }

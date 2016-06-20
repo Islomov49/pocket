@@ -212,7 +212,6 @@ public class InfoCreditFragment extends Fragment {
         }
 
         myProcent.setText(parseToWithoutNull(currentCredit.getProcent())+"%"+" "+suffix);
-        Calendar to= (Calendar) currentCredit.getTake_time().clone();
         V.findViewById(R.id.frameLayout3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -228,8 +227,11 @@ public class InfoCreditFragment extends Fragment {
                 }
             }
         });
+
+        Calendar to= (Calendar) currentCredit.getTake_time().clone();
         long period_tip=currentCredit.getPeriod_time_tip();
         long period_voqt=currentCredit.getPeriod_time();
+
         int voqt_soni= (int) (period_voqt/period_tip);
 
         if(period_tip==forDay){
@@ -250,6 +252,7 @@ public class InfoCreditFragment extends Fragment {
             to.add(Calendar.YEAR, (int) voqt_soni);
 
         }
+
         myPeriodOfCredit.setText(Integer.toString(voqt_soni)+" "+suffix);
 
         V.findViewById(R.id.infoooc).setOnClickListener(new View.OnClickListener() {

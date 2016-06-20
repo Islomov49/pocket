@@ -396,7 +396,7 @@ public class AddCreditFragment extends Fragment {
 
         for (int i=0; i<tempIcons.length; i++)
             icons[i] = getResources().getIdentifier(tempIcons[i], "drawable", getActivity().getPackageName());
-        selectedIcon = icons[0];
+        selectedIcon = icons[29];
 
         icona.setOnClickListener(new View.OnClickListener() {
             @Override

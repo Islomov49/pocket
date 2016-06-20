@@ -14,12 +14,14 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.jim.pocketaccounter.credit.notificat.NotificationManagerCredit;
 import com.jim.pocketaccounter.helper.FABIcon;
 import com.jim.pocketaccounter.report.FilterFragment;
 import com.jim.pocketaccounter.debt.DebtBorrowFragment;
@@ -28,6 +30,7 @@ import com.jim.pocketaccounter.helper.LeftMenuAdapter;
 import com.jim.pocketaccounter.helper.LeftMenuItem;
 import com.jim.pocketaccounter.helper.LeftSideDrawer;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -37,6 +40,7 @@ public class PocketAccounter extends AppCompatActivity {
     public static LeftSideDrawer drawer;
     private ListView lvLeftMenu;
     public static FinanceManager financeManager;
+    NotificationManagerCredit notify;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,11 +56,15 @@ public class PocketAccounter extends AppCompatActivity {
         drawer.setLeftBehindContentView(R.layout.activity_behind_left_simple);
         lvLeftMenu = (ListView) findViewById(R.id.lvLeftMenu);
         fillLeftMenu();
+
+
+
         if (financeManager.getCurrencies().isEmpty())
             replaceFragment(new CurrencyChooseFragment());
         else
             replaceFragment(new RecordFragment(Calendar.getInstance()));
     }
+
     private void fillLeftMenu() {
         String[] cats = getResources().getStringArray(R.array.drawer_cats);
         String[] financeSubItemTitles = getResources().getStringArray(R.array.finance_subitems);
@@ -112,6 +120,7 @@ public class PocketAccounter extends AppCompatActivity {
         LeftMenuItem writeToUs = new LeftMenuItem(cats[7], R.drawable.drawer_letter_us);
         writeToUs.setGroup(true);
         items.add(writeToUs);
+
         LeftMenuAdapter adapter = new LeftMenuAdapter(this, items);
         lvLeftMenu.setAdapter(adapter);
         lvLeftMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
