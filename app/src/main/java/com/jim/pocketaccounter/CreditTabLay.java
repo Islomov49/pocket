@@ -95,14 +95,11 @@ public class CreditTabLay extends Fragment  implements View.OnClickListener, Vie
 
     @Override
     public void onPageScrollStateChanged(int state) {
-
     }
 
     @Override
     public void onClick(View v) {
-
     }
-
 
     public class PagerAdapter extends FragmentStatePagerAdapter {
 
@@ -146,6 +143,7 @@ public class CreditTabLay extends Fragment  implements View.OnClickListener, Vie
             return getResources().getString(R.string.archive);
         }
     }
+
     public interface ForFab{
         public void pressedFab();
     }

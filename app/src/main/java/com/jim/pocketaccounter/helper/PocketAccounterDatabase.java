@@ -181,10 +181,33 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 				+ "comment TEXT,"
 				+ "credit_id TEXT"
 				+ ");");
+		initCurrencies(db);
 		initDefault(db);
 		initIncomesAndExpanses(db);
 		initAccounts(db);
 	}
+
+	private void initCurrencies(SQLiteDatabase db) {
+		String [] CurrencyNames = context.getResources().getStringArray(R.array.base_currencies);
+		String [] Currency_id = context.getResources().getStringArray(R.array.currency_ids);
+		String [] Currency_cost = context.getResources().getStringArray(R.array.currency_costs);
+		String [] Currency_abbrs = context.getResources().getStringArray(R.array.base_abbrs);
+		ContentValues contentValues = new ContentValues();
+		for (int i = 0; i < 3; i++) {
+			contentValues.clear();
+			contentValues.put("currency_name", CurrencyNames[i]);
+			contentValues.put("currency_id", Currency_id[i]);
+			contentValues.put("currency_sign", Currency_abbrs[i]);
+			contentValues.put("currency_main", i==0);
+			db.insert("currency_table", null, contentValues);
+			contentValues.clear();
+			contentValues.put("currency_id", Currency_id[i]);
+			contentValues.put("cost", Double.parseDouble(Currency_cost[i]));
+			contentValues.put("date", dateFormat.format(Calendar.getInstance().getTime()));
+			db.insert("currency_costs_table", null, contentValues);
+		}
+	}
+
 	public void saveDebtBorrowsToTable(ArrayList<DebtBorrow> debtBorrows) {
 		SQLiteDatabase db = getWritableDatabase();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");

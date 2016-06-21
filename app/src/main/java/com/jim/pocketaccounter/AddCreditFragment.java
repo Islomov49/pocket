@@ -38,6 +38,7 @@ import android.widget.Toast;
 
 import com.jim.pocketaccounter.credit.CreditDetials;
 import com.jim.pocketaccounter.credit.ReckingCredit;
+import com.jim.pocketaccounter.debt.PockerTag;
 import com.jim.pocketaccounter.debt.Recking;
 import com.jim.pocketaccounter.finance.Account;
 import com.jim.pocketaccounter.finance.Currency;
@@ -433,7 +434,7 @@ public class AddCreditFragment extends Fragment {
             }
         });
 
-        FinanceManager manager = new FinanceManager(getContext());
+        FinanceManager manager = PocketAccounter.financeManager;
         currencies = manager.getCurrencies();
         valyutes = new String[currencies.size()];
         valyutes_symbols = new String[currencies.size()];

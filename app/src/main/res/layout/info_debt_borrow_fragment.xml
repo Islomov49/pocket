@@ -173,15 +173,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1840$"
-            android:textColor="@color/green_light"
-            android:textSize="16dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:id="@+id/total_summ_debt_borrow" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -193,6 +185,17 @@
             android:layout_toLeftOf="@+id/total_summ_debt_borrow"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1840$"
+            android:textColor="@color/green_light"
+            android:textSize="16dp"
+            android:id="@+id/total_summ_debt_borrow"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
 </RelativeLayout>

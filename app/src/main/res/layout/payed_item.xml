@@ -14,7 +14,7 @@
             android:layout_height="25dp"
             android:checked="false"
             android:text=""
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="6dp"
             android:layout_toRightOf="@+id/frameLayout6"

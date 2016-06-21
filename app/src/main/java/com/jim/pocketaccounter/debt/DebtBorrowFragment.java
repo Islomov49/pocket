@@ -14,12 +14,7 @@ import android.widget.Toast;
 
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
-import com.jim.pocketaccounter.report.FilterDialog;
 import com.jim.pocketaccounter.helper.FloatingActionButton;
-import com.jim.pocketaccounter.report.FilterSelectable;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 /**
  * Created by user on 6/4/2016.
@@ -34,6 +29,7 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
     private ViewPager viewPager;
     private FloatingActionButton fb;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -44,58 +40,65 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
         fb = (FloatingActionButton) view.findViewById(R.id.fbDebtBorrowFragment);
         fb.setOnClickListener(this);
 
-        viewPager.setAdapter(new MyAdapter(((PocketAccounter)getContext()).getSupportFragmentManager()));
+        return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        restartAdapter();
         tabLayout.setupWithViewPager(viewPager);
         viewPager.addOnPageChangeListener(this);
-        return view;
+    }
+
+    public void restartAdapter() {
+        viewPager.setAdapter(new MyAdapter(((PocketAccounter) getContext()).getSupportFragmentManager()));
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.fbDebtBorrowFragment) {
-//            switch (viewPager.getCurrentItem()) {
-//                case BORROW_FRAGMENT: {
-//                    ((PocketAccounter) getContext()).replaceFragment(AddBorrowFragment.getInstance(BORROW_FRAGMENT));
-//                    break;
-//                }
-//                case DEBT_FRAGMENT: {
-//                    ((PocketAccounter) getContext()).replaceFragment(AddBorrowFragment.getInstance(DEBT_FRAGMENT));
-//                    break;
-//                }
-//            }
-            FilterDialog filterDialog = new FilterDialog(getContext());
-            filterDialog.setOnDateSelectedListener(new FilterSelectable() {
-                @Override
-                public void onDateSelected(Calendar begin, Calendar end) {
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-                    Toast.makeText(getContext(), dateFormat.format(begin.getTime()) + "\n"
-                            + dateFormat.format(end.getTime() ), Toast.LENGTH_LONG).show();
+            switch (viewPager.getCurrentItem()) {
+                case BORROW_FRAGMENT: {
+                    ((PocketAccounter) getContext()).replaceFragment(AddBorrowFragment.getInstance(BORROW_FRAGMENT));
+                    break;
                 }
-            });
-            filterDialog.show();
-
+                case DEBT_FRAGMENT: {
+                    ((PocketAccounter) getContext()).replaceFragment(AddBorrowFragment.getInstance(DEBT_FRAGMENT));
+                    break;
+                }
+            }
         }
     }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         if (position == DEBT_FRAGMENT) {
-            fb.setAlpha(1-positionOffset);
+            fb.setAlpha(1 - positionOffset);
         }
     }
+
     @Override
-    public void onPageSelected(int position) {}
+    public void onPageSelected(int position) {
+    }
+
     @Override
-    public void onPageScrollStateChanged(int state) {}
+    public void onPageScrollStateChanged(int state) {
+    }
 
     private class MyAdapter extends FragmentStatePagerAdapter {
         public MyAdapter(FragmentManager fm) {
             super(fm);
         }
+
         public Fragment getItem(int position) {
             return BorrowFragment.getInstance(position);
         }
-        public int getCount() {return 3;}
+
+        public int getCount() {
+            return 3;
+        }
+
         public CharSequence getPageTitle(int position) {
             if (position == BORROW_FRAGMENT) {
                 return "Borrows";

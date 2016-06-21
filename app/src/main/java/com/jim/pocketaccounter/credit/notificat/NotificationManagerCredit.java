@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.Random;
 
 
+import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.credit.CreditDetials;
 import com.jim.pocketaccounter.debt.DebtBorrow;
 import com.jim.pocketaccounter.finance.FinanceManager;
@@ -35,7 +36,7 @@ public class NotificationManagerCredit {
 	final static long forWeek=1000L*60L*60L*24L*7L;
 	public NotificationManagerCredit(Context context) {
 		this.context = context;
-		myFinance=new FinanceManager(context);
+		myFinance= PocketAccounter.financeManager;
 		myCredits= myFinance.loadCredits();
 		myDebdbor=myFinance.loadDebtBorrows();
 		alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);

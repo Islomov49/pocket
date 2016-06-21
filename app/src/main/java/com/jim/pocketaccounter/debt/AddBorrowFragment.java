@@ -23,6 +23,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -30,8 +32,8 @@ import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
 import com.jim.pocketaccounter.finance.Currency;
 import com.jim.pocketaccounter.finance.FinanceManager;
-import com.jim.pocketaccounter.helper.PockerTag;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.UUID;
@@ -45,9 +47,7 @@ import static android.app.Activity.RESULT_OK;
  */
 
 public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSelectedListener {
-    private Button cancelBtn;
-    private Button okBtn;
-    private Button contactBtn;
+    private FrameLayout contactBtn;
     private CircleImageView imageView;
     private EditText PersonName;
     private EditText PersonNumber;
@@ -64,6 +64,8 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
     private static final int REQUEST_SELECT_CONTACT = 2;
     private FinanceManager manager;
     private int RESULT_LOAD_IMAGE = 1;
+    private ImageView ivToolbarMostRight;
+    private EditText firstPay;
 
     public static Fragment getInstance(int type) {
         AddBorrowFragment fragment = new AddBorrowFragment();
@@ -81,16 +83,16 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
 
     private DatePickerDialog.OnDateSetListener getDatesetListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-            arg2 = arg2 + 1;
-            PersonDataGet.setText(arg3 + "-" + arg2 + "-" + arg1);
+//            arg2 = arg2 + 1;
+            PersonDataGet.setText(arg3 + "." + (arg2 + 1) + "." + arg1);
             getDate = Calendar.getInstance();
             getDate.set(arg1, arg2, arg3);
         }
     };
     private DatePickerDialog.OnDateSetListener returnDatesetListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-            arg2 = arg2 + 1;
-            PersonDataRepeat.setText(arg3 + "-" + arg2 + "-" + arg1);
+//            arg2 = arg2 + 1;
+            PersonDataRepeat.setText(arg3 + "." + (arg2 + 1) +"." + arg1);
             returnDate = Calendar.getInstance();
             returnDate.set(arg1, arg2, arg3);
         }
@@ -99,19 +101,19 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.add_borrow_fragment_layout, container, false);
-        cancelBtn = (Button) view.findViewById(R.id.btBorrowAddPopupCancel);
-        okBtn = (Button) view.findViewById(R.id.btBorrowAddPopupOk);
-        contactBtn = (Button) view.findViewById(R.id.btBorrowAddPopupContact);
+        View view = inflater.inflate(R.layout.add_borrow_fragment_layout_mod, container, false);
+        contactBtn = (FrameLayout) view.findViewById(R.id.btBorrowAddPopupContact);
         imageView = (CircleImageView) view.findViewById(R.id.ivBorrowAddPopup);
         PersonName = (EditText) view.findViewById(R.id.etBorrowAddPopupName);
         PersonNumber = (EditText) view.findViewById(R.id.etBorrowAddPopupNumber);
         PersonDataGet = (EditText) view.findViewById(R.id.etBorrowAddPopupDataGet);
         PersonDataRepeat = (EditText) view.findViewById(R.id.etBorrowAddPopupDataRepeat);
         PersonSumm = (EditText) view.findViewById(R.id.etBorrowAddPopupSumm);
+        firstPay = (EditText) view.findViewById(R.id.etDebtBorrowFirstPay);
         PersonValyuta = (Spinner) view.findViewById(R.id.spBorrowAddPopupValyuta);
         PersonAccount = (Spinner) view.findViewById(R.id.spBorrowAddPopupAccount);
         calculate = (CheckBox) view.findViewById(R.id.chbAddDebtBorrowCalculate);
+
         manager = PocketAccounter.financeManager;
 
         for (int i = 0; i < manager.getDebtBorrows().size(); i++) {
@@ -129,7 +131,7 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
             valyuts[i] = manager.getCurrencies().get(i).getAbbr();
         }
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                 getContext(), android.R.layout.simple_spinner_item, accaounts);
 
         ArrayAdapter<String> arrayValyuAdapter = new ArrayAdapter<String>(
@@ -153,31 +155,32 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
                             calender.get(Calendar.MONTH), calender
                             .get(Calendar.DAY_OF_MONTH));
                     mDialog.show();
-                    Toast.makeText(getContext(), "sadas", Toast.LENGTH_LONG).show();
                 }
                 return true;
             }
         });
 
-        PersonDataRepeat.setOnClickListener(new View.OnClickListener() {
+        PersonDataRepeat.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                Calendar calender = Calendar.getInstance();
-                Dialog mDialog = new DatePickerDialog(getContext(),
-                        returnDatesetListener, calender.get(Calendar.YEAR),
-                        calender.get(Calendar.MONTH), calender
-                        .get(Calendar.DAY_OF_MONTH));
-                mDialog.show();
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    Calendar calender = Calendar.getInstance();
+                    Dialog mDialog = new DatePickerDialog(getContext(),
+                            returnDatesetListener, calender.get(Calendar.YEAR),
+                            calender.get(Calendar.MONTH), calender
+                            .get(Calendar.DAY_OF_MONTH));
+                    mDialog.show();
+                    return true;
+                }
+                return false;
             }
         });
 
-        cancelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                ((PocketAccounter) getContext()).replaceFragment(new DebtBorrowFragment());
-            }
-        });
-        okBtn.setOnClickListener(new View.OnClickListener() {
+        ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
+        ivToolbarMostRight.setImageResource(R.drawable.check_sign);
+        ivToolbarMostRight.setVisibility(View.VISIBLE);
+
+        ivToolbarMostRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (PersonName.getText().toString().equals("")) {
@@ -191,32 +194,45 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
                         } else {
                             ArrayList<DebtBorrow> list = manager.getDebtBorrows();
                             Currency currency = manager.getCurrencies().get(PersonValyuta.getSelectedItemPosition());
-                            if (returnDate == null) {
-                                list.add(new DebtBorrow(new Person(PersonName.getText().toString(), PersonNumber.getText().toString(), photoPath),
-                                        getDate,
-                                        returnDate,
-                                        "borrow_" + UUID.randomUUID().toString(),
-                                        PersonAccount.getSelectedItem().toString(),
-                                        currency,
-                                        Double.parseDouble(PersonSumm.getText().toString()),
-                                        TYPE, calculate.isChecked()));
-
-                            } else {
-                                list.add(new DebtBorrow(new Person(PersonName.getText().toString(), PersonNumber.getText().toString(), photoPath),
-                                        getDate,
-                                        returnDate,
-                                        "borrow_" + UUID.randomUUID().toString(),
-                                        PersonAccount.getSelectedItem().toString(),
-                                        currency,
-                                        Double.parseDouble(PersonSumm.getText().toString()),
-                                        TYPE, calculate.isChecked()));
+                            DebtBorrow debtBorrow = new DebtBorrow(new Person(PersonName.getText().toString(), PersonNumber.getText().toString(), photoPath),
+                                    getDate,
+                                    returnDate,
+                                    "borrow_" + UUID.randomUUID().toString(),
+                                    PersonAccount.getSelectedItem().toString(),
+                                    currency,
+                                    Double.parseDouble(PersonSumm.getText().toString()),
+                                    TYPE, calculate.isChecked()
+                            );
+                            if (!firstPay.getText().toString().isEmpty()) {
+                                SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+                                ArrayList<Recking> reckings = new ArrayList<Recking>();
+                                reckings.add(new Recking(
+                                        dateFormat.format(Calendar.getInstance().getTime()),
+                                        Double.parseDouble(firstPay.getText().toString()), debtBorrow.getId(),
+                                        debtBorrow.getAccount(), ""));
+                                  debtBorrow.setReckings(reckings);
                             }
-                            Toast.makeText(getContext(), "" +
-                                    "" + list.size(), Toast.LENGTH_SHORT).show();
+                            list.add(debtBorrow);
+//                            if (returnDate == null) {
+
+//                                list.add(new DebtBorrow(new Person(PersonName.getText().toString(), PersonNumber.getText().toString(), photoPath),
+//                                        getDate,
+//                                        returnDate,
+//                                        "borrow_" + UUID.randomUUID().toString(),
+//                                        PersonAccount.getSelectedItem().toString(),
+//                                        currency,
+//                                        Double.parseDouble(PersonSumm.getText().toString()),
+//                                        TYPE, calculate.isChecked()));
+//
+//                            } else {
+//                                list.add(new DebtBorrow());
+//                            }
+                            ivToolbarMostRight.setVisibility(View.INVISIBLE);
                             manager.setDebtBorrows(list);
                             manager.saveDebtBorrows();
                             manager.loadDebtBorrows();
                             ((PocketAccounter) getContext()).replaceFragment(new DebtBorrowFragment(), PockerTag.DEBTS);
+//                            getActivity().getSupportFragmentManager().popBackStack();
                         }
                     }
                 }
@@ -240,7 +256,7 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
             public void onClick(View v) {
                 Intent i = new Intent(
                         Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(i, RESULT_LOAD_IMAGE);
             }
         });
@@ -267,7 +283,6 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
                 String number = cursor.getString(numberIndex);
                 String name = cursor.getString(nameIndex);
                 photoPath = cursor.getString(photoIndex);
-                Toast.makeText(getContext(), number + "\n" + name, Toast.LENGTH_SHORT).show();
                 if (photoPath != null) {
                     imageView.setImageDrawable(Drawable.createFromPath(photoPath));
                 }

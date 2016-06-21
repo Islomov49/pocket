@@ -1,0 +1,472 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    tools:context="com.jim.pocketaccounter.InfoCreditFragment">
+
+    <RelativeLayout
+        android:id="@+id/pustooyy"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/realitver"
+            android:layout_alignParentTop="true"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/relativprosto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/name_of_borrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_toRightOf="@+id/iconDebtBorrowInfo"
+                    android:paddingRight="10dp"
+                    android:text="John debt"
+                    android:textColor="@color/black_for_glavniy_text"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/left_amuont"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/name_of_borrow"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_toRightOf="@+id/iconDebtBorrowInfo"
+                    android:text="Left amount :"
+                    android:textColor="@color/forlines"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tvAmountDebtBorrowInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@id/left_amuont"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/iconDebtBorrowInfo"
+                    android:paddingRight="10dp"
+                    android:text="360$"
+                    android:textColor="@color/red"
+                    android:textSize="26sp" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iconDebtBorrowInfo"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    app:border_color="@color/green_light_forline"
+                    app:border_overlay="true"
+                    app:border_width="2px"
+                    android:src="@drawable/iconforpr"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/infoooc"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/grey_light2">
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="2px"
+                        android:background="@color/green_light_forline"
+                        android:layout_marginBottom="10dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="16dp"
+                        android:text="Information"
+                        android:textColor="@color/black_for_glavniy_text"
+                        android:textSize="16sp" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="2px"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentStart="true"
+                        android:background="@color/green_light_forline" />
+
+                    <ImageView
+                        android:id="@+id/ivInfoDebtBorrowInfo"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginRight="13dp"
+                        android:src="@drawable/infoo"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="13dp" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <FrameLayout
+                android:id="@+id/flInfoDebtBorrowVisibl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/grey_light_backgr"
+                android:visibility="visible">
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+
+                    android:layout_marginRight="16dp"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/linearforline"
+                        android:layout_marginTop="8dp">
+
+                        <TextView
+                            android:id="@+id/tvInfoDebtBorrowPhoneNumber"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:gravity="right"
+                            android:paddingLeft="10dp"
+                            android:text="+998935298636"
+                            android:textColor="@color/black_for_glavniy_text"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/procentCredInfoText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:text="Number of person:"
+                            android:textColor="@color/forlines"
+                            android:textSize="12sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/linearforline"
+                        android:layout_marginTop="4dp">
+
+                        <TextView
+                            android:id="@+id/tvLeftDayDebtBorrowInfo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:gravity="right"
+                            android:paddingLeft="10dp"
+                            android:text="17 days"
+                            android:textColor="@color/black_for_glavniy_text"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/leftDateInfoText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:text="Left date :"
+                            android:textColor="@color/forlines"
+                            android:textSize="12sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp">
+
+                        <TextView
+                            android:id="@+id/tvInfoDebtBorrowTakeDate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:gravity="right"
+                            android:paddingLeft="10dp"
+                            android:text="01.02.2016"
+                            android:textColor="@color/black_for_glavniy_text"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/takedtimeInfoText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:text="Taked time :"
+                            android:textColor="@color/forlines"
+                            android:textSize="12sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp">
+
+                        <TextView
+                            android:id="@+id/tvInfoDebtBorrowTotalSumm"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:gravity="right"
+                            android:paddingLeft="10dp"
+                            android:text="1200$"
+                            android:textColor="@color/black_for_glavniy_text"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/takedValueInfoText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:text="Taked value :"
+                            android:textColor="@color/forlines"
+                            android:textSize="12sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="4dp">
+
+                        <TextView
+                            android:id="@+id/tvInfoDebtBorrowIsCalculate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentTop="true"
+                            android:gravity="right"
+                            android:paddingLeft="10dp"
+                            android:text="Calculetes"
+                            android:textColor="@color/black_for_glavniy_text"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/it_is_include_balance_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginBottom="8dp"
+                            android:text="In the balance:"
+                            android:textColor="@color/forlines"
+                            android:textSize="12sp" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/with_wlyuzik"
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:background="@color/green_light_forline"
+                android:visibility="visible" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/frameLayout3"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="20dp"
+                    android:gravity="bottom"
+                    android:text="Transactions"
+                    android:textColor="@color/black_for_secondary_text" />
+
+                <FrameLayout
+                    android:id="@+id/btPayDebtBorrowInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/knopka_zeleniy">
+
+                    <TextView
+                        android:id="@+id/paybut"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="3dp"
+                        android:text="PAY"
+                        android:textColor="@color/green_light"
+                        android:textSize="12sp" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/flInfoDebtBorrowDeleted"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@+id/btPayDebtBorrowInfo"
+                    android:layout_toStartOf="@+id/btPayDebtBorrowInfo"
+                    android:background="@drawable/knopka_seriy">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="3dp"
+                        android:text="DELETE"
+                        android:textColor="@color/deletecolor"
+                        android:textSize="12sp" />
+                </FrameLayout>
+            </RelativeLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@color/green_light_forline" />
+
+            <FrameLayout
+                android:id="@+id/ifListHave"
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/green_light_forline"
+                android:visibility="visible" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rvDebtBorrowInfo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                tools:listitem="@layout/payed_item" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/realitver"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="10dp"
+
+            >
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@color/green_light_forline" />
+
+            <TextView
+                android:id="@+id/total_summ_debt_borrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/textView13"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignTop="@+id/textView13"
+                android:layout_marginRight="20dp"
+                android:text="1840"
+                android:textColor="@color/green_light"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="6dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="6dp"
+                android:layout_toLeftOf="@+id/total_summ_debt_borrow"
+                android:gravity="right"
+                android:text="Total :"
+                android:textColor="@color/black_for_secondary_text"
+                android:textSize="14dp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

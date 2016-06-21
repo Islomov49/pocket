@@ -72,7 +72,12 @@ public class PocketAccounter extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pocket_accounter);
-        financeManager = new FinanceManager(this);
+        try {
+            financeManager = new FinanceManager(this);
+            Thread.sleep(300);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         fragmentManager = getSupportFragmentManager();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -260,9 +265,12 @@ public class PocketAccounter extends AppCompatActivity {
         lvLeftMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,final int position, long id) {
+                findViewById(R.id.change).setVisibility(View.INVISIBLE);
+                drawer.closeLeftSide();
                 drawer.postDelayed(new Runnable() {
                     @Override
                     public void run() {
+//                        findViewById(R.id.changel).setVisibility(View.INVISIBLE);
                         switch (position) {
                             case 2:
                                 replaceFragment(new CurrencyFragment(), PockerTag.CURRENCY);
@@ -292,7 +300,7 @@ public class PocketAccounter extends AppCompatActivity {
                                 replaceFragment(new TableBarFragment(), PockerTag.REPORT_INCOM_EXPENSE);
                                 break;
                             case 11:
-                                replaceFragment(new TableBarFragment(), PockerTag.REPORT_CATEGORY);
+                                replaceFragment(new ReportByCategory(), PockerTag.REPORT_CATEGORY);
                                 break;
                             case 12:
                                 Intent settings = new Intent(PocketAccounter.this, SettingsActivity.class);
@@ -316,8 +324,7 @@ public class PocketAccounter extends AppCompatActivity {
                         }
 
                     }
-                }, 150);
-                drawer.closeLeftSide();
+                }, 180);
             }
         });
     }
@@ -376,6 +383,7 @@ public class PocketAccounter extends AppCompatActivity {
                         case PockerTag.CURRENCY:
                         case PockerTag.CREDITS:
                         case PockerTag.DEBTS: {
+                            findViewById(R.id.change).setVisibility(View.VISIBLE);
                             initialize(date);
                             break;
                         }
@@ -387,6 +395,7 @@ public class PocketAccounter extends AppCompatActivity {
                     tek = true;
                     if (fragmentManager.findFragmentById(R.id.flMain).getTag() == null) return;
                     if (fragmentManager.findFragmentById(R.id.flMain).getTag().matches(PockerTag.HOME)) {
+                        findViewById(R.id.change).setVisibility(View.VISIBLE);
                         initialize(date);
                     } else if (fragmentManager.findFragmentById(R.id.flMain).getTag().matches(PockerTag.DEBTS)) {
                         replaceFragment(new DebtBorrowFragment(), PockerTag.DEBTS);
@@ -435,9 +444,15 @@ public class PocketAccounter extends AppCompatActivity {
             current = fragment;
             fragmentManager.beginTransaction()
                     .addToBackStack(null)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                     .add(R.id.flMain, fragment, tag)
                     .commit();
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        financeManager.loadSaveDatabase(1);
     }
 }
