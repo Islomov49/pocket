@@ -112,6 +112,9 @@ public class TableView extends View implements GestureDetector.OnGestureListener
         paint_text.setStyle(Paint.Style.FILL);
 
         for (int i = 0; i < count_colums; i++) {
+
+            if (titles[i].equals("Category")) pos_categ = i;
+
             titles_rects[i] = new RectF(
                     margin_content + i * min_width,
                     margin_content,
@@ -134,7 +137,7 @@ public class TableView extends View implements GestureDetector.OnGestureListener
 
     }
 
-    private int position_row, position_col;
+    private int position_row, position_col, pos_categ;
     private boolean single_tap = false;
 
     @Override
@@ -228,6 +231,18 @@ public class TableView extends View implements GestureDetector.OnGestureListener
                                 margin_content + j * min_width + min_width / 2 - bitmap_size / 2,
                                 margin_content + (1 + i) * min_height + min_height / 2 - bitmap_size / 2,
                                 paint_text);
+                } else if (j == pos_categ && tables[i][j].split(",").length == 2) {
+                    String[] cat = tables[i][j].split(",");
+                    textWidth = paint_text.measureText(cat[0]);
+                    canvas.drawText(cat[0],
+                            margin_content + j * min_width + min_width / 2 - textWidth / 2,
+                            margin_content + (i + 1) * min_height + min_height / 4 + textHeight / 2,
+                            paint_text);
+                    textWidth = paint_text.measureText(cat[1]);
+                    canvas.drawText(cat[1],
+                            margin_content + j * min_width + min_width / 2 - textWidth / 2,
+                            margin_content + (i + 1) * min_height + 3 * min_height / 4 + textHeight / 2,
+                            paint_text);
                 } else {
                     textWidth = paint_text.measureText(tables[i][j]);
                     canvas.drawText(tables[i][j],
@@ -256,10 +271,8 @@ public class TableView extends View implements GestureDetector.OnGestureListener
     public void setOnTableClickListener(ClickableTable clickableTable) {
         this.clickableTable = clickableTable;
     }
-    //        paint.setColor(Color.parseColor("#CD5C5C"));
 
     public interface ClickableTable {
         public void onTableClick(String string);
     }
-
 }
