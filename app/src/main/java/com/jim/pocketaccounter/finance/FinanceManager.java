@@ -35,19 +35,13 @@ public class FinanceManager {
 		creditsArchive=loadArchiveCredits();
 		debtBorrows = loadDebtBorrows();
 	}
-
-
 	public ArrayList<CreditDetials> loadCredits() {
 				return db.loadCredits();}
 	public ArrayList<CreditDetials> getCredits() {
 				return credits;}
 	public void saveCredits() {db.saveDatasToCreditTable(credits);}
-
-
-	public ArrayList<CreditDetials> loadArchiveCredits() {
-		return db.loadArchiveCredits();}
-	public ArrayList<CreditDetials> getArchiveCredits() {
-		return creditsArchive;}
+	public ArrayList<CreditDetials> loadArchiveCredits() {return db.loadArchiveCredits();}
+	public ArrayList<CreditDetials> getArchiveCredits() {return creditsArchive;}
 	public void saveArchiveCredits() {db.saveDatasToArchiveCreditTable(creditsArchive);}
 	public ArrayList<Currency> getCurrencies() {
 		return currencies;
@@ -70,7 +64,6 @@ public class FinanceManager {
 	public Currency getMainCurrency() {
 		for (int i=0; i<currencies.size(); i++) {
 			if (currencies.get(i).getMain())
-
 				return currencies.get(i);
 		}
 		return null;

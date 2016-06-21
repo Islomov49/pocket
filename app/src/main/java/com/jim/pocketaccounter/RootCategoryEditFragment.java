@@ -74,8 +74,11 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 			public void onClick(View v) {
 				if (edit_mode == PocketAccounterGeneral.NO_MODE)
 					((PocketAccounter)getContext()).replaceFragment(new CategoryFragment(), PockerTag.CATEGORY);
-				else
-					((PocketAccounter)getContext()).replaceFragment(new RecordFragment(calendar), PockerTag.HOME);
+				else {
+					((PocketAccounter)getContext()).initialize(calendar);
+					((PocketAccounter)getContext()).getSupportFragmentManager().popBackStack();
+				}
+
 			}
 		});
 		ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
@@ -247,7 +250,8 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 				newCategory.setId(categoryId);
 				PocketAccounter.financeManager.getIncomes().set(pos, newCategory);
 				PocketAccounter.financeManager.getCategories().add(newCategory);
-				((PocketAccounter)getContext()).replaceFragment(new RecordFragment(calendar), PockerTag.CATEGORY);
+				((PocketAccounter)getContext()).initialize(calendar);
+				((PocketAccounter)getContext()).getSupportFragmentManager().popBackStack();
 			} else if (type==PocketAccounterGeneral.EXPANCE) {
 				RootCategory newCategory = new RootCategory();
 				newCategory.setName(etCatEditName.getText().toString());
@@ -257,7 +261,8 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 				newCategory.setId(categoryId);
 				PocketAccounter.financeManager.getExpanses().set(pos, newCategory);
 				PocketAccounter.financeManager.getCategories().add(newCategory);
-				((PocketAccounter)getActivity()).replaceFragment(new RecordFragment(calendar), PockerTag.CATEGORY);
+				((PocketAccounter)getContext()).initialize(calendar);
+				((PocketAccounter)getContext()).getSupportFragmentManager().popBackStack();
 			}
 			break;
 		}

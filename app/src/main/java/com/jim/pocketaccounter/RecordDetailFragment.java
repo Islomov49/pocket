@@ -55,13 +55,13 @@ public class RecordDetailFragment extends Fragment implements OnClickListener {
         ((PocketAccounter)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((PocketAccounter)getContext()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_button);
         PocketAccounter.toolbar.setTitle(getResources().getString(R.string.records));
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd,LLL yyyy");
         PocketAccounter.toolbar.setSubtitle(dateFormat.format(date.getTime()));
         ((Spinner)PocketAccounter.toolbar.findViewById(R.id.spToolbar)).setVisibility(View.GONE);
         PocketAccounter.toolbar.setNavigationOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((PocketAccounter)getContext()).replaceFragment(new RecordFragment(date));
+                ((PocketAccounter)getContext()).initialize(date);
             }
         });
         rvRecordDetail = (RecyclerView) rootView.findViewById(R.id.rvRecordDetail);

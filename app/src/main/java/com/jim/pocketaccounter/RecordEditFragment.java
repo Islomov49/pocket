@@ -96,8 +96,10 @@ public class RecordEditFragment extends Fragment implements OnClickListener{
         PocketAccounter.toolbar.setNavigationOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (parent == PocketAccounterGeneral.MAIN)
-                    ((PocketAccounter)getContext()).replaceFragment(new RecordFragment(date));
+                if (parent == PocketAccounterGeneral.MAIN) {
+                    ((PocketAccounter) getContext()).initialize(date);
+                    ((PocketAccounter) getContext()).getSupportFragmentManager().popBackStack();
+                }
                 else
                     ((PocketAccounter)getContext()).replaceFragment(new RecordDetailFragment(date));
             }
@@ -234,7 +236,6 @@ public class RecordEditFragment extends Fragment implements OnClickListener{
             view.findViewById(id).setOnClickListener(listener);
     }
     private void setOperatorOnClickListener(View view) {
-        // Create a common OnClickListener for operators
         View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -383,28 +384,32 @@ public class RecordEditFragment extends Fragment implements OnClickListener{
         }
     }
     private void createNewRecord() {
-        if (record != null) {
-            record.setCategory(category);
-            record.setSubCategory(subCategory);
-            record.setDate(date);
-            record.setAccount(account);
-            record.setCurrency(currency);
-            record.setAmount(Double.parseDouble(tvRecordEditDisplay.getText().toString()));
-        } else {
-            FinanceRecord newRecord = new FinanceRecord();
-            newRecord.setCategory(category);
-            newRecord.setSubCategory(subCategory);
-            newRecord.setDate(date);
-            newRecord.setAccount(account);
-            newRecord.setCurrency(currency);
-            newRecord.setAmount(Double.parseDouble(tvRecordEditDisplay.getText().toString()));
-            newRecord.setRecordId("record_"+UUID.randomUUID().toString());
-            PocketAccounter.financeManager.getRecords().add(newRecord);
+        if (Double.parseDouble(tvRecordEditDisplay.getText().toString()) != 0) {
+            if (record != null) {
+                record.setCategory(category);
+                record.setSubCategory(subCategory);
+                record.setDate(date);
+                record.setAccount(account);
+                record.setCurrency(currency);
+                record.setAmount(Double.parseDouble(tvRecordEditDisplay.getText().toString()));
+            } else {
+                FinanceRecord newRecord = new FinanceRecord();
+                newRecord.setCategory(category);
+                newRecord.setSubCategory(subCategory);
+                newRecord.setDate(date);
+                newRecord.setAccount(account);
+                newRecord.setCurrency(currency);
+                newRecord.setAmount(Double.parseDouble(tvRecordEditDisplay.getText().toString()));
+                newRecord.setRecordId("record_"+UUID.randomUUID().toString());
+                PocketAccounter.financeManager.getRecords().add(newRecord);
+            }
         }
-        if (parent ==PocketAccounterGeneral.MAIN)
-            ((PocketAccounter) getContext()).replaceFragment(new RecordFragment(date));
-        else
+        if (parent != PocketAccounterGeneral.MAIN)
             ((PocketAccounter) getContext()).replaceFragment(new RecordDetailFragment(date));
+        else {
+            ((PocketAccounter)getContext()).initialize(date);
+            ((PocketAccounter)getContext()).getSupportFragmentManager().popBackStack();
+        }
     }
     private void openCategoryDialog(ArrayList<RootCategory> categories) {
         final Dialog dialog=new Dialog(getActivity());

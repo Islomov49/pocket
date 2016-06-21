@@ -1,5 +1,7 @@
 package com.jim.pocketaccounter;
+
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -16,26 +18,40 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 
+import com.jim.pocketaccounter.finance.FinanceRecord;
 import com.jim.pocketaccounter.helper.FABIcon;
 import com.jim.pocketaccounter.helper.PockerTag;
-import com.jim.pocketaccounter.report.FilterFragment;
+import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
+import com.jim.pocketaccounter.helper.record.RecordExpanseView;
+import com.jim.pocketaccounter.helper.record.RecordIncomesView;
 import com.jim.pocketaccounter.debt.DebtBorrowFragment;
 import com.jim.pocketaccounter.finance.FinanceManager;
 import com.jim.pocketaccounter.helper.LeftMenuAdapter;
 import com.jim.pocketaccounter.helper.LeftMenuItem;
 import com.jim.pocketaccounter.helper.LeftSideDrawer;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
 import static com.jim.pocketaccounter.R.color.toolbar_text_color;
+
 public class PocketAccounter extends AppCompatActivity {
     public static Toolbar toolbar;
     public static LeftSideDrawer drawer;
@@ -44,7 +60,14 @@ public class PocketAccounter extends AppCompatActivity {
     private boolean tek = false;
     private boolean first = false;
     private FragmentManager fragmentManager;
-
+    private Fragment current;
+    private RelativeLayout rlRecordsMain, rlRecordIncomes;
+    private TextView tvRecordIncome, tvRecordBalanse, tvRecordExpanse;
+    private ImageView ivToolbarMostRight;
+    private RecordExpanseView expanseView;
+    private RecordIncomesView incomeView;
+    private Calendar date;
+    private Spinner spToolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,21 +76,130 @@ public class PocketAccounter extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(getResources().getString(R.string.app_name));
         toolbar.setTitleTextColor(ContextCompat.getColor(this, toolbar_text_color));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_drawer);
         drawer = new LeftSideDrawer(this);
         drawer.setLeftBehindContentView(R.layout.activity_behind_left_simple);
         lvLeftMenu = (ListView) findViewById(R.id.lvLeftMenu);
         fillLeftMenu();
-        if (financeManager.getCurrencies().isEmpty()) {
-            replaceFragment(new CurrencyChooseFragment());
-            first = true;
-        }
-        else
-            replaceFragment(new RecordFragment(Calendar.getInstance()));
+        rlRecordsMain = (RelativeLayout) findViewById(R.id.rlRecordExpanses);
+        tvRecordIncome = (TextView) findViewById(R.id.tvRecordIncome);
+        tvRecordBalanse = (TextView) findViewById(R.id.tvRecordBalanse);
+        rlRecordIncomes = (RelativeLayout) findViewById(R.id.rlRecordIncomes);
+        ivToolbarMostRight = (ImageView) findViewById(R.id.ivToolbarMostRight);
+        spToolbar = (Spinner) toolbar.findViewById(R.id.spToolbar);
+        tvRecordBalanse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new RecordDetailFragment(date));
+            }
+        });
+        tvRecordExpanse = (TextView) findViewById(R.id.tvRecordExpanse);
+        date = Calendar.getInstance();
+        initialize(date);
     }
+    public Calendar getDate() {
+        return date;
+    }
+    public void initialize(Calendar date) {
+        toolbar.setTitle(getResources().getString(R.string.app_name));
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_drawer);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawer.openLeftSide();
+            }
+        });
+        spToolbar.setVisibility(View.GONE);
+        ivToolbarMostRight.setImageResource(R.drawable.finance_calendar);
+        ivToolbarMostRight.setVisibility(View.VISIBLE);
+        ivToolbarMostRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog dialog=new Dialog(PocketAccounter.this);
+                View dialogView = getLayoutInflater().inflate(R.layout.date_picker, null);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(dialogView);
+                final DatePicker dp = (DatePicker) dialogView.findViewById(R.id.dp);
+                ImageView ivDatePickOk = (ImageView) dialogView.findViewById(R.id.ivDatePickOk);
+                ivDatePickOk.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(Calendar.YEAR, dp.getYear());
+                        calendar.set(Calendar.MONTH, dp.getMonth());
+                        calendar.set(Calendar.DAY_OF_MONTH, dp.getDayOfMonth());
+                        PocketAccounter.this.date = (Calendar) calendar.clone();
+                        initialize(PocketAccounter.this.date);
+                        dialog.dismiss();
+                    }
+                });
+                ImageView ivDatePickCancel = (ImageView) dialogView.findViewById(R.id.ivDatePickCancel);
+                ivDatePickCancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
+            }
+        });
+        calclulateBalanse(date);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd,LLL yyyy");
+        toolbar.setSubtitle(dateFormat.format(date.getTime()));
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        int width = dm.widthPixels;
+        int height = dm.heightPixels;
+        int side = 0;
+        if (height*0.6 > width)
+            side =  width;
+        else
+            side = (int)(height*0.6);
+        expanseView = new RecordExpanseView(this, date);
+        RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(side, side);
+        lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        expanseView.setLayoutParams(lp);
+        rlRecordsMain.removeAllViews();
+        rlRecordsMain.addView(expanseView);
+        incomeView = new RecordIncomesView(this, date);
+        RelativeLayout.LayoutParams lpIncomes = new RelativeLayout.LayoutParams(width, width/4+(int)(getResources().getDimension(R.dimen.thirty_dp)));
+        lpIncomes.addRule(RelativeLayout.CENTER_HORIZONTAL);
+        incomeView.setLayoutParams(lpIncomes);
+        rlRecordIncomes.removeAllViews();
+        rlRecordIncomes.addView(incomeView);
+    }
+    private void calclulateBalanse(Calendar date) {
+        Calendar begTime = (Calendar)date.clone();
+        begTime.set(Calendar.HOUR_OF_DAY, 0);
+        begTime.set(Calendar.MINUTE, 0);
+        begTime.set(Calendar.SECOND, 0);
+        begTime.set(Calendar.MILLISECOND, 0);
+        Calendar endTime = (Calendar)date.clone();
+        endTime.set(Calendar.HOUR_OF_DAY, 23);
+        endTime.set(Calendar.MINUTE, 59);
+        endTime.set(Calendar.SECOND, 59);
+        endTime.set(Calendar.MILLISECOND, 59);
+        ArrayList<FinanceRecord> records = new ArrayList<FinanceRecord>();
+        for (int i=0; i<PocketAccounter.financeManager.getRecords().size(); i++) {
+            if (PocketAccounter.financeManager.getRecords().get(i).getDate().compareTo(begTime)>=0 &&
+                    PocketAccounter.financeManager.getRecords().get(i).getDate().compareTo(endTime)<=0)
+                records.add(PocketAccounter.financeManager.getRecords().get(i));
+        }
+        double income = 0.0, expanse = 0.0, balanse = 0.0;
+        for (int i=0; i<records.size(); i++) {
+            if (records.get(i).getCategory().getType() == PocketAccounterGeneral.INCOME)
+                income = income + PocketAccounterGeneral.getCost(records.get(i));
+            else
+                expanse = expanse + PocketAccounterGeneral.getCost(records.get(i));
+        }
+        balanse = income - expanse;
+        String mainCurrencyAbbr = PocketAccounter.financeManager.getMainCurrency().getAbbr();
+        DecimalFormat decFormat = new DecimalFormat("0.00");
+        tvRecordIncome.setText(decFormat.format(income)+mainCurrencyAbbr);
+        tvRecordExpanse.setText(decFormat.format(expanse)+mainCurrencyAbbr);
+        tvRecordBalanse.setText(decFormat.format(balanse)+mainCurrencyAbbr);
+    }
+
     private void fillLeftMenu() {
         String[] cats = getResources().getStringArray(R.array.drawer_cats);
         String[] financeSubItemTitles = getResources().getStringArray(R.array.finance_subitems);
@@ -78,8 +210,8 @@ public class PocketAccounter extends AppCompatActivity {
         String[] debtSubItemIcons = getResources().getStringArray(R.array.debts_subitem_icons);
         ArrayList<LeftMenuItem> items = new ArrayList<LeftMenuItem>();
         Bitmap temp = BitmapFactory.decodeResource(getResources(), R.drawable.cloud);
-        Bitmap bitmap = Bitmap.createScaledBitmap(temp, (int)getResources().getDimension(R.dimen.twentyfour_dp), (int)getResources().getDimension(R.dimen.twentyfour_dp), false);
-        FABIcon fabIcon = (FABIcon)findViewById(R.id.fabDrawerNavIcon);
+        Bitmap bitmap = Bitmap.createScaledBitmap(temp, (int) getResources().getDimension(R.dimen.twentyfour_dp), (int) getResources().getDimension(R.dimen.twentyfour_dp), false);
+        FABIcon fabIcon = (FABIcon) findViewById(R.id.fabDrawerNavIcon);
         fabIcon.setImageBitmap(bitmap);
         LeftMenuItem main = new LeftMenuItem(cats[0], R.drawable.drawer_home);
         main.setGroup(true);
@@ -87,27 +219,27 @@ public class PocketAccounter extends AppCompatActivity {
         LeftMenuItem finance = new LeftMenuItem(cats[1], R.drawable.drawer_finance);
         finance.setGroup(true);
         items.add(finance);
-        for (int i=0; i<financeSubItemTitles.length; i++) {
+        for (int i = 0; i < financeSubItemTitles.length; i++) {
             int resId = getResources().getIdentifier(financeSubItemIcons[i], "drawable", getPackageName());
             LeftMenuItem subItem = new LeftMenuItem(financeSubItemTitles[i], resId);
-            subItem.setGroup(false);
-            items.add(subItem);
-        }
-        LeftMenuItem statistics = new LeftMenuItem(cats[2], R.drawable.drawer_statistics);
-        statistics.setGroup(true);
-        items.add(statistics);
-        for (int i=0; i<statisticsSubItemTitles.length; i++) {
-            int resId = getResources().getIdentifier(statisticsSubItemIcons[i], "drawable", getPackageName());
-            LeftMenuItem subItem = new LeftMenuItem(statisticsSubItemTitles[i], resId);
             subItem.setGroup(false);
             items.add(subItem);
         }
         LeftMenuItem debts = new LeftMenuItem(cats[3], R.drawable.drawer_debts);
         debts.setGroup(true);
         items.add(debts);
-        for (int i=0; i<debtSubItemTitles.length; i++) {
+        for (int i = 0; i < debtSubItemTitles.length; i++) {
             int resId = getResources().getIdentifier(debtSubItemIcons[i], "drawable", getPackageName());
             LeftMenuItem subItem = new LeftMenuItem(debtSubItemTitles[i], resId);
+            subItem.setGroup(false);
+            items.add(subItem);
+        }
+        LeftMenuItem statistics = new LeftMenuItem(cats[2], R.drawable.drawer_statistics);
+        statistics.setGroup(true);
+        items.add(statistics);
+        for (int i = 0; i < statisticsSubItemTitles.length; i++) {
+            int resId = getResources().getIdentifier(statisticsSubItemIcons[i], "drawable", getPackageName());
+            LeftMenuItem subItem = new LeftMenuItem(statisticsSubItemTitles[i], resId);
             subItem.setGroup(false);
             items.add(subItem);
         }
@@ -127,69 +259,69 @@ public class PocketAccounter extends AppCompatActivity {
         lvLeftMenu.setAdapter(adapter);
         lvLeftMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String tag = null;
-                Fragment fragment = null;
-                switch (position) {
-                    case 0:
-                        tag = PockerTag.HOME;
-                        fragment = new RecordFragment(Calendar.getInstance());
-                        replaceFragment(fragment, tag);
-                        break;
-                    case 2:
-                        replaceFragment(new CurrencyFragment(), PockerTag.CURRENCY);
-                        //Currency management
-                        break;
-                    case 3:
-                        replaceFragment(new CategoryFragment(), PockerTag.CATEGORY);
-                        //Category management
-                        break;
-                    case 4:
-                        replaceFragment(new AccountFragment(), PockerTag.ACCOUNT);
-                        //Accounting management
-                        break;
-                    case 6:
-                        replaceFragment(new CreditTabLay(), PockerTag.CREDITS);
-                        //Statistics by account
-                        break;
-                    case 7:
-                        replaceFragment(new DebtBorrowFragment(), PockerTag.DEBTS);
-                        //Statistics by income/expanse
-                        break;
-                    case 9:
-                        replaceFragment(new ReportByAccountFragment(), PockerTag.REPORT_ACCOUNT);
-                        // accounting debt
-                        break;
-                    case 10:
-                        replaceFragment(new TableBarFragment(), PockerTag.REPORT_INCOM_EXPENSE);
-                        break;
-                    case 11:
-                        replaceFragment(new TableBarFragment(), PockerTag.REPORT_CATEGORY);
-                        break;
-                    case 12:
-                        Intent settings = new Intent(PocketAccounter.this, SettingsActivity.class);
-                        startActivity(settings);
-                        break;
-                    case 13:
-                        Intent rate_app_web = new Intent(Intent.ACTION_VIEW);
-                        rate_app_web.setData(Uri.parse(getString(R.string.rate_app_web)));
-                        startActivity(rate_app_web);
-                        break;
-                    case 14:
-                        Intent Email = new Intent(Intent.ACTION_SEND);
-                        Email.setType("text/email");
-                        Email.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_app));
-                        Email.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_app_text));
-                        startActivity(Intent.createChooser(Email, getString(R.string.share_app)));
-                        break;
-                    case 15:
-                        openGmail(PocketAccounter.this, new String[]{getString(R.string.to_email)}, getString(R.string.feedback_subject), getString(R.string.feedback_content));
-                        break;
-                }
+            public void onItemClick(AdapterView<?> parent, View view,final int position, long id) {
+                drawer.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        switch (position) {
+                            case 2:
+                                replaceFragment(new CurrencyFragment(), PockerTag.CURRENCY);
+                                //Currency management
+                                break;
+                            case 3:
+                                replaceFragment(new CategoryFragment(), PockerTag.CATEGORY);
+                                //Category management
+                                break;
+                            case 4:
+                                replaceFragment(new AccountFragment(), PockerTag.ACCOUNT);
+                                //Accounting management
+                                break;
+                            case 6:
+                                replaceFragment(new CreditTabLay(), PockerTag.CREDITS);
+                                //Statistics by account
+                                break;
+                            case 7:
+                                replaceFragment(new DebtBorrowFragment(), PockerTag.DEBTS);
+                                //Statistics by income/expanse
+                                break;
+                            case 9:
+                                replaceFragment(new ReportByAccountFragment(), PockerTag.REPORT_ACCOUNT);
+                                // accounting debt
+                                break;
+                            case 10:
+                                replaceFragment(new TableBarFragment(), PockerTag.REPORT_INCOM_EXPENSE);
+                                break;
+                            case 11:
+                                replaceFragment(new TableBarFragment(), PockerTag.REPORT_CATEGORY);
+                                break;
+                            case 12:
+                                Intent settings = new Intent(PocketAccounter.this, SettingsActivity.class);
+                                startActivity(settings);
+                                break;
+                            case 13:
+                                Intent rate_app_web = new Intent(Intent.ACTION_VIEW);
+                                rate_app_web.setData(Uri.parse(getString(R.string.rate_app_web)));
+                                startActivity(rate_app_web);
+                                break;
+                            case 14:
+                                Intent Email = new Intent(Intent.ACTION_SEND);
+                                Email.setType("text/email");
+                                Email.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_app));
+                                Email.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_app_text));
+                                startActivity(Intent.createChooser(Email, getString(R.string.share_app)));
+                                break;
+                            case 15:
+                                openGmail(PocketAccounter.this, new String[]{getString(R.string.to_email)}, getString(R.string.feedback_subject), getString(R.string.feedback_content));
+                                break;
+                        }
+
+                    }
+                }, 150);
                 drawer.closeLeftSide();
             }
         });
     }
+
     public static void openGmail(Activity activity, String[] email, String subject, String content) {
         Intent emailIntent = new Intent(Intent.ACTION_SEND);
         emailIntent.putExtra(Intent.EXTRA_EMAIL, email);
@@ -204,163 +336,107 @@ public class PocketAccounter extends AppCompatActivity {
                 best = info;
         if (best != null)
             emailIntent.setClassName(best.activityInfo.packageName, best.activityInfo.name);
-
         activity.startActivity(emailIntent);
     }
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         return super.onPrepareOptionsMenu(menu);
     }
-
     @Override
     public void onBackPressed() {
         android.support.v4.app.Fragment temp00 = getSupportFragmentManager().
                 findFragmentById(R.id.flMain);
+        initialize(date);
         if (!drawer.isClosed()) {
             drawer.closeLeftSide();
-        } else
-        if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
+        } else if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
             finish();
         } else {
-            if (getSupportFragmentManager().getBackStackEntryCount() > 1) {
-                if (temp00.getTag() != null) {
-                    if (temp00.getTag().equals(AddCreditFragment.OPENED_TAG) && AddCreditFragment.to_open_dialog) {
-                        Log.d("somethinkkk", "DIALOG OPENED IN ADDCREDIT");
-                        final AlertDialog.Builder builder = new AlertDialog.Builder(PocketAccounter.this);
-                        builder.setMessage("You have not added credit, just want to go out?")
-                                .setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                    }
-                                }).setNegativeButton("DISCARD", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                                getSupportFragmentManager().popBackStack();
-                            }
-                        });
-                        builder.create().show();
-                    } else {
-                        AddCreditFragment.to_open_dialog = true;
-                        getSupportFragmentManager().popBackStack();
-                        if (first) {
-                            replaceFragment(new RecordFragment(Calendar.getInstance()), PockerTag.HOME);
-                            first = !first;
+            if (temp00.getTag() != null) {
+                if (temp00.getTag().equals(AddCreditFragment.OPENED_TAG) && AddCreditFragment.to_open_dialog) {
+                    //Sardor
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(PocketAccounter.this);
+                    builder.setMessage("You have not added credit, just want to go out?")
+                            .setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                }
+                            }).setNegativeButton("DISCARD", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                            getSupportFragmentManager().popBackStack();
                         }
-                    }
+                    });
+                    builder.create().show();
                 } else {
+                    AddCreditFragment.to_open_dialog = true;
                     getSupportFragmentManager().popBackStack();
-                    if (getSupportFragmentManager().findFragmentById(R.id.flMain) != null) {
-                        tek = true;
-                        if (getSupportFragmentManager().findFragmentById(R.id.flMain).getTag() != null && getSupportFragmentManager().findFragmentById(R.id.flMain).getTag().matches(PockerTag.DEBTS))
-                            replaceFragment(new DebtBorrowFragment(), PockerTag.DEBTS);
+                    switch (getSupportFragmentManager().findFragmentById(R.id.flMain).getTag()) {
+                        case PockerTag.ACCOUNT:
+                        case PockerTag.CATEGORY:
+                        case PockerTag.CURRENCY:
+                        case PockerTag.CREDITS:
+                        case PockerTag.DEBTS: {
+                            initialize(date);
+                            break;
+                        }
                     }
                 }
             } else {
-                if (getSupportFragmentManager().getBackStackEntryCount() < 2) {
-                    finish();
-                } else {
-                    getSupportFragmentManager().popBackStack();
+                getSupportFragmentManager().popBackStack();
+                if (getSupportFragmentManager().findFragmentById(R.id.flMain) != null) {
+                    tek = true;
+                    if (fragmentManager.findFragmentById(R.id.flMain).getTag() == null) return;
+                    if (fragmentManager.findFragmentById(R.id.flMain).getTag().matches(PockerTag.HOME)) {
+                        initialize(date);
+                    } else if (fragmentManager.findFragmentById(R.id.flMain).getTag().matches(PockerTag.DEBTS)) {
+                        replaceFragment(new DebtBorrowFragment(), PockerTag.DEBTS);
+                    } else if (fragmentManager.findFragmentById(R.id.flMain).getTag().matches(PockerTag.CURRENCY)) {
+                        replaceFragment(new CurrencyFragment(), PockerTag.CURRENCY);
+                    } else if (fragmentManager.findFragmentById(R.id.flMain).getTag().matches(PockerTag.CATEGORY)) {
+                        replaceFragment(new CategoryFragment(), PockerTag.CATEGORY);
+                    } else if (fragmentManager.findFragmentById(R.id.flMain).getTag().matches(PockerTag.ACCOUNT)) {
+                        replaceFragment(new AccountFragment(), PockerTag.ACCOUNT);
+                    }
                 }
             }
         }
-
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case android.R.id.home:
                 drawer.openLeftSide();
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
+
     public void replaceFragment(Fragment fragment) {
         if (fragment != null) {
-            for (int i = 0; i < getSupportFragmentManager().getBackStackEntryCount() - 2; i++) {
-                getSupportFragmentManager().popBackStack();
-            }
             getSupportFragmentManager()
                     .beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .addToBackStack(null)
                     .add(R.id.flMain, fragment)
                     .commit();
         }
     }
-    public void replaceFragment(Fragment fragment, String tag) {
+
+    public void replaceFragment(final Fragment fragment, final String tag) {
         if (fragment != null) {
             int size = fragmentManager.getBackStackEntryCount();
-            for (int i = 0; i < size- 1 - (tek ? 1 : 0); i++) {
-                fragmentManager.popBackStack();
-            }
-
-//
-//            klass kl = new klass(getSupportFragmentManager(), tag, fragment);
-
-//            MyTask myTask = new MyTask();
-//            myTask.execute(kl);
-
+            if (fragmentManager.getFragments() != null)
+                Log.d("fm", ""+fragmentManager.getFragments().size()+" "+size);
+                for (int i = 0; i < size; i++) {
+                    fragmentManager.popBackStack();
+                }
             tek = false;
-            long start = System.currentTimeMillis()+1;
-
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction
+            current = fragment;
+            fragmentManager.beginTransaction()
                     .addToBackStack(null)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
                     .add(R.id.flMain, fragment, tag)
-                    .commit();
-
-            long end = System.currentTimeMillis();
-
-            Log.d("task", ""+ (end - start));
-        }
-    }
-
-    class klass {
-        private FragmentManager manager;
-        private String tag;
-        private Fragment fragment;
-
-        public klass(FragmentManager manager, String tag, Fragment fragment) {
-            this.manager = manager;
-            this.tag = tag;
-            this.fragment = fragment;
-        }
-
-        public FragmentManager getManager() {
-            return manager;
-        }
-
-        public String getTag() {
-            return tag;
-        }
-
-        public Fragment getFragment() {
-            return fragment;
-        }
-    }
-
-    private class MyTask extends AsyncTask<klass, Void, Void> {
-        klass ll;
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(klass... fragmentManagers) {
-            ll = fragmentManagers[0];
-            for (int i = 0; i < ll.getManager().getBackStackEntryCount() - 1 - (tek ? 1 : 0); i++) {
-                getSupportFragmentManager().popBackStack();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .addToBackStack(null)
-                    .replace(R.id.flMain, ll.getFragment(), ll.getTag())
                     .commit();
         }
     }
