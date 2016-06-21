@@ -220,7 +220,7 @@ public class CategoryReportDatas {
         return result;
     }
     public ArrayList<CategoryDataRow> makeExpanseReport() {
-        ArrayList<CategoryDataRow> result = new ArrayList<CategoryDataRow>();
+        ArrayList<CategoryDataRow> result = new ArrayList<>();
         ArrayList<CategoryDataRow> temp = makeWholeReport();
         for (int i=0; i<temp.size(); i++) {
             if (temp.get(i).getCategory().getType() == PocketAccounterGeneral.EXPANCE)
@@ -229,7 +229,7 @@ public class CategoryReportDatas {
         return result;
     }
     public ArrayList<CategoryDataRow> makeIncomeReport() {
-        ArrayList<CategoryDataRow> result = new ArrayList<CategoryDataRow>();
+        ArrayList<CategoryDataRow> result = new ArrayList<>();
         ArrayList<CategoryDataRow> temp = makeWholeReport();
         for (int i=0; i<temp.size(); i++) {
             if (temp.get(i).getCategory().getType() == PocketAccounterGeneral.INCOME)

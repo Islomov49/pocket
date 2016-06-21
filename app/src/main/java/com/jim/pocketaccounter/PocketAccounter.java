@@ -74,7 +74,7 @@ public class PocketAccounter extends AppCompatActivity {
         setContentView(R.layout.pocket_accounter);
         try {
             financeManager = new FinanceManager(this);
-            Thread.sleep(300);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -272,6 +272,13 @@ public class PocketAccounter extends AppCompatActivity {
                     public void run() {
 //                        findViewById(R.id.changel).setVisibility(View.INVISIBLE);
                         switch (position) {
+                            case 0:
+                                for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
+                                    fragmentManager.popBackStack();
+                                }
+                                findViewById(R.id.change).setVisibility(View.VISIBLE);
+                                initialize(date);
+                                break;
                             case 2:
                                 replaceFragment(new CurrencyFragment(), PockerTag.CURRENCY);
                                 //Currency management
