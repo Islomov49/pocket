@@ -1,13 +1,20 @@
 package com.jim.pocketaccounter;
 
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.components.Legend;
@@ -20,34 +27,107 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 import com.jim.pocketaccounter.report.BarReportView;
 import com.jim.pocketaccounter.report.IncomeExpanseDataRow;
+import com.jim.pocketaccounter.report.IncomeExpanseDayDetails;
 import com.jim.pocketaccounter.report.IncomeExpanseReport;
+import com.jim.pocketaccounter.report.ReportByIncomeExpanseDialogAdapter;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class ReportByIncomeExpanseBarFragment extends Fragment implements OnChartValueSelectedListener {
     private LinearLayout llReportBarMain;
+    private BarReportView reportView;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.report_bar, container, false);
         llReportBarMain = (LinearLayout) rootView.findViewById(R.id.llReportBarMain);
-        BarReportView reportView = new BarReportView(getContext());
+        reportView = new BarReportView(getContext());
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         reportView.setLayoutParams(lp);
+        reportView.getBarChart().setOnChartValueSelectedListener(this);
         llReportBarMain.addView(reportView);
         return rootView;
     }
 
     @Override
     public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
-
+        ArrayList<IncomeExpanseDayDetails> result = new ArrayList<>();
+        ArrayList<IncomeExpanseDataRow> rows = reportView.getDatas();
+        IncomeExpanseDataRow row = rows.get(e.getXIndex());
+        if (row.getTotalExpanse() == 0 && row.getTotalIncome() == 0) return;
+        switch (dataSetIndex) {
+            case 0:
+                for (int i=0; i<row.getDetails().size(); i++) {
+                    if (row.getDetails().get(i).getCategory().getType() == PocketAccounterGeneral.INCOME)
+                        result.add(row.getDetails().get(i));
+                }
+                openDialog(row.getDate(), result, row.getTotalIncome(), dataSetIndex);
+                break;
+            case 1:
+                for (int i=0; i<row.getDetails().size(); i++) {
+                    if (row.getDetails().get(i).getCategory().getType() == PocketAccounterGeneral.EXPANCE)
+                        result.add(row.getDetails().get(i));
+                }
+                openDialog(row.getDate(), result, row.getTotalExpanse(), dataSetIndex);
+                //expanse
+                break;
+            case 2:
+                openDialog(row.getDate(), row.getDetails(), row.getTotalProfit(), dataSetIndex);
+                //income
+                break;
+        }
     }
 
     @Override
     public void onNothingSelected() {
 
+    }
+    private void openDialog(Calendar date, ArrayList<IncomeExpanseDayDetails> dataRow, double amount, int type) {
+        final Dialog dialog=new Dialog(getActivity());
+        View dialogView = getActivity().getLayoutInflater().inflate(R.layout.report_by_income_expanse_bar_info, null);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(dialogView);
+        TextView tvReportByIncomeExpanseDate = (TextView) dialogView.findViewById(R.id.tvReportByIncomeExpanseDate);
+        SimpleDateFormat format = new SimpleDateFormat("dd LLL, yyyy");
+        tvReportByIncomeExpanseDate.setText(format.format(date.getTime()));
+        ListView lvReportByIncomeExpanseInfo = (ListView) dialogView.findViewById(R.id.lvReportByIncomeExpanseInfo);
+        ImageView ivReportByCategoryClose = (ImageView) dialogView.findViewById(R.id.ivReportByCategoryClose);
+        ivReportByCategoryClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        ReportByIncomeExpanseDialogAdapter adapter = new ReportByIncomeExpanseDialogAdapter(getContext(), dataRow);
+        lvReportByIncomeExpanseInfo.setAdapter(adapter);
+        DecimalFormat decimalFormat = new DecimalFormat("0.00##");
+        String title = "";
+        int color = 0;
+        switch (type) {
+            case 0:
+                title = getResources().getString(R.string.report_income_expanse_total_income);
+                color = ContextCompat.getColor(getContext(), R.color.green_just);
+                break;
+            case 1:
+                title = getResources().getString(R.string.report_income_expanse_total_expanse);
+                color = ContextCompat.getColor(getContext(), R.color.red);
+                break;
+            case 2:
+                title = getResources().getString(R.string.report_income_expanse_total_profit);
+                color = ContextCompat.getColor(getContext(), R.color.profit_color);
+                break;
+        }
+        TextView tvReportIncomeExpanseTitle = (TextView) dialogView.findViewById(R.id.tvReportIncomeExpanseTitle);
+        tvReportIncomeExpanseTitle.setText(title);
+        TextView tvReportByIncomeExpanseBar = (TextView) dialogView.findViewById(R.id.tvReportByIncomeExpanseBar);
+        tvReportByIncomeExpanseBar.setTextColor(color);
+        tvReportByIncomeExpanseBar.setText(decimalFormat.format(amount)+PocketAccounter.financeManager.getMainCurrency().getAbbr());
+        dialog.show();
     }
 }

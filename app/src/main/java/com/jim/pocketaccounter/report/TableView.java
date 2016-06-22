@@ -211,11 +211,10 @@ public class TableView extends View implements GestureDetector.OnGestureListener
         for (int i = 0; i < count_rows; i++) {
             for (int j = 0; j < count_colums; j++) {
                 if (single_tap && position_row == i) {
-                    String string_full = tables[position_row][0];
                     for (int z = 0; z < count_colums; z++) {
                         canvas.drawRect(tables_rect[position_row][z], paint_fill);
                     }
-                    clickableTable.onTableClick(string_full);
+                    clickableTable.onTableClick(position_row);
                     single_tap = false;
                 }
                 canvas.drawRect(tables_rect[i][j], paint_border);
@@ -273,6 +272,6 @@ public class TableView extends View implements GestureDetector.OnGestureListener
     }
 
     public interface ClickableTable {
-        public void onTableClick(String string);
+        public void onTableClick(int row);
     }
 }

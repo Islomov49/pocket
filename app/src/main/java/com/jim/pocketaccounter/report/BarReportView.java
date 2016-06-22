@@ -38,8 +38,7 @@ import java.util.Calendar;
 
 public class BarReportView extends LinearLayout {
     private HorizontalBarChart barChart;
-    private CategoryReportDatas categoryReportDatas;
-    private ArrayList<CategoryDataRow> datas;
+    private ArrayList<IncomeExpanseDataRow> datas;
     public BarReportView(Context context) {
         super(context);
         barChart = new HorizontalBarChart(context);
@@ -61,7 +60,7 @@ public class BarReportView extends LinearLayout {
         begin.set(2016, Calendar.JUNE, 15);
         Calendar end = Calendar.getInstance();
         IncomeExpanseReport report = new IncomeExpanseReport(getContext(), begin, end);
-        ArrayList<IncomeExpanseDataRow> datas = report.makeReport();
+        datas = report.makeReport();
         LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         barChart.setLayoutParams(lp);
         addView(barChart);
@@ -78,7 +77,7 @@ public class BarReportView extends LinearLayout {
     public BarReportView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
-    public ArrayList<CategoryDataRow> getDatas() {return datas;}
+    public ArrayList<IncomeExpanseDataRow> getDatas() {return datas;}
     public void drawReport(ArrayList<IncomeExpanseDataRow> datas) {
         ArrayList<String> xVals = new ArrayList<String>();
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");

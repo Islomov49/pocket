@@ -923,4 +923,7 @@
         <item>Доходы</item>
         <item>Прибыль</item>
     </string-array>
+    <string name="report_income_expanse_total_income">Общий доход:</string>
+    <string name="report_income_expanse_total_expanse">Общий расход:</string>
+    <string name="report_income_expanse_total_profit">Общая прибыль:</string>
 </resources>
