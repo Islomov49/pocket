@@ -782,7 +782,6 @@
     </string-array>
     <string-array name="report_by_account_titles">
         <item>Operation</item>
-        <item>Currency</item>
         <item>Amount</item>
         <item>Date</item>
         <item>Category</item>

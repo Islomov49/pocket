@@ -1,5 +1,6 @@
 package com.jim.pocketaccounter;
 
+import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,10 +8,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jim.pocketaccounter.finance.Account;
@@ -22,6 +26,7 @@ import com.jim.pocketaccounter.report.AccountDataRow;
 import com.jim.pocketaccounter.report.FilterDialog;
 import com.jim.pocketaccounter.report.FilterSelectable;
 import com.jim.pocketaccounter.report.ReportByAccount;
+import com.jim.pocketaccounter.report.ReportByCategoryDialogAdapter;
 import com.jim.pocketaccounter.report.TableView;
 
 import net.objecthunter.exp4j.Expression;
@@ -128,7 +133,48 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
         titles = rootView.getResources().getStringArray(R.array.report_by_account_titles);
 
         tbReportByAccount = (TableView) rootView.findViewById(R.id.tbReportByAccount);
-        tbReportByAccount.setClickable(false);
+        tbReportByAccount.setOnTableClickListener(new TableView.ClickableTable() {
+            @Override
+            public void onTableClick(int row) {
+                Log.d("row","" + row);
+                final Dialog dialog=new Dialog(getActivity());
+                View dialogView = getActivity().getLayoutInflater().inflate(R.layout.report_by_account_info, null);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(dialogView);
+//                TextView tvReportByCategoryRootCatName = (TextView) dialogView.findViewById(R.id.tvReportByCategoryRootCatName);
+//                tvReportByCategoryRootCatName.setText(row.getCategory().getName());
+//                ImageView ivReportByCategoryRootCat = (ImageView) dialogView.findViewById(R.id.ivReportByCategoryRootCat);
+//                ivReportByCategoryRootCat.setImageResource(row.getCategory().getIcon());
+//                ListView lvReportByCategoryInfo = (ListView) dialogView.findViewById(R.id.lvReportByCategoryInfo);
+                ImageView ivReportByCategoryClose = (ImageView) dialogView.findViewById(R.id.ivReportByAccountClose);
+                ivReportByCategoryClose.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+//                TextView tvReportByCategoryPeriod = (TextView) dialogView.findViewById(R.id.tvReportByCategoryPeriod);
+//                Calendar begin = (Calendar)categoryReportView.getBeginTime().clone();
+//                Calendar end = (Calendar)categoryReportView.getEndTime().clone();
+//                SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+//                String text = format.format(begin.getTime())+" - "+format.format(end.getTime());
+//                tvReportByCategoryPeriod.setText(text);
+//                if (row.getSubCats().size() == 1 && row.getSubCats().get(0).getSubCategory().getId().matches(getResources().getString(R.string.no_category)))
+//                    lvReportByCategoryInfo.setVisibility(View.GONE);
+//                else {
+//                    ReportByCategoryDialogAdapter adapter = new ReportByCategoryDialogAdapter(getContext(), row.getSubCats());
+//                    lvReportByCategoryInfo.setAdapter(adapter);
+//                }
+//                TextView tvReportByCategoryInfoTotal = (TextView) dialogView.findViewById(R.id.tvReportByCategoryInfoTotal);
+//                DecimalFormat decimalFormat = new DecimalFormat("0.00##");
+//                tvReportByCategoryInfoTotal.setText(decimalFormat.format(row.getTotalAmount())+PocketAccounter.financeManager.getMainCurrency().getAbbr());
+//                TextView tvReportByCategoryInfoAverage = (TextView) dialogView.findViewById(R.id.tvReportByCategoryInfoAverage);
+//                long countOfDays = (end.getTimeInMillis()-begin.getTimeInMillis())/(1000*60*60*24);
+//                double average = row.getTotalAmount()/countOfDays;
+//                tvReportByCategoryInfoAverage.setText(decimalFormat.format(average));
+                dialog.show();
+            }
+        });
 
         tbReportByAccount.setTitles(titles);
         return rootView;

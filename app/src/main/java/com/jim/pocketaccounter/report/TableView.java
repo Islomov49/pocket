@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
@@ -78,7 +79,8 @@ public class TableView extends View implements GestureDetector.OnGestureListener
         super.onDraw(canvas);
         height = getHeight();
         width = getWidth();
-
+        pos_categ = (int) height;
+        pos_cur = (int) width;
         if (titles == null) {
             titles = new String[0];
         } else {
@@ -114,6 +116,10 @@ public class TableView extends View implements GestureDetector.OnGestureListener
         for (int i = 0; i < count_colums; i++) {
 
             if (titles[i].equals("Category")) pos_categ = i;
+            if (titles[i].equals("Amount")) {
+                Log.d("amount", "" + tables[i]);
+                pos_cur = i;
+            }
 
             titles_rects[i] = new RectF(
                     margin_content + i * min_width,
@@ -137,7 +143,7 @@ public class TableView extends View implements GestureDetector.OnGestureListener
 
     }
 
-    private int position_row, position_col, pos_categ;
+    private int position_row, position_col, pos_categ, pos_cur;
     private boolean single_tap = false;
 
     @Override
@@ -210,6 +216,16 @@ public class TableView extends View implements GestureDetector.OnGestureListener
         }
         for (int i = 0; i < count_rows; i++) {
             for (int j = 0; j < count_colums; j++) {
+                if (pos_cur == j && 10 <= tables[i][j].length()) {
+                    StringBuilder string = new StringBuilder();
+                    char[] chars = tables[i][j].toCharArray();
+                    for (int k = 0; k < chars.length; k++) {
+                        string.append(chars[k]);
+                        if (k == 10) break;
+                    }
+                    tables[i][j] = string + "...";
+                }
+
                 if (single_tap && position_row == i) {
                     for (int z = 0; z < count_colums; z++) {
                         canvas.drawRect(tables_rect[position_row][z], paint_fill);
