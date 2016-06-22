@@ -21,12 +21,31 @@ public class CreditDetials {
 
     public CreditDetials getObj(){
         CreditDetials backGA=new CreditDetials(getIcon_ID(),getCredit_name(),getTake_time(),getProcent(),getProcent_interval(),getPeriod_time(),getPeriod_time_tip(),
-                isKey_for_include(),getValue_of_credit(),getValyute_currency(),getValue_of_credit_with_procent(),getMyCredit_id());
+                isKey_for_include(),getValue_of_credit(),getValyute_currency(),getValue_of_credit_with_procent(),getMyCredit_id(),getReckings());
 
       return  backGA;
     };
     public CreditDetials(){
 
+    }
+    public CreditDetials(int icon_ID, String credit_name, Calendar take_time,
+                         double procent, long procent_interval, long period_time,long period_time_tip,boolean key_for_include,
+                         double value_of_credit, com.jim.pocketaccounter.finance.Currency valyute_currency,
+                         double value_of_credit_with_procent, long myCredit_id,ArrayList<ReckingCredit> reckingCredits) {
+        this.icon_ID=icon_ID;
+        this.credit_name = credit_name;
+        this.take_time = take_time;
+        this.procent = procent;
+        this.procent_interval = procent_interval;
+        this.period_time = period_time;
+        this.value_of_credit = value_of_credit;
+        this.valyute_currency = valyute_currency;
+        this.value_of_credit_with_procent=value_of_credit_with_procent;
+        this.period_time_tip=period_time_tip;
+        this.myCredit_id=myCredit_id;
+        this.key_for_include=key_for_include;
+        key_for_archive=false;
+        this.reckings = reckingCredits;
     }
     public CreditDetials(int icon_ID, String credit_name, Calendar take_time,
                          double procent, long procent_interval, long period_time,long period_time_tip,boolean key_for_include,

@@ -242,6 +242,7 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
               {
                   CreditDetials toArc=cardDetials.get(position);
                   toArc.setKey_for_archive(true);
+
                   toArc=toArc.getObj();
 
                   if(toArc.isKey_for_include()){
