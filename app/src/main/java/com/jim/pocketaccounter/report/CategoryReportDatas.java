@@ -1,6 +1,7 @@
 package com.jim.pocketaccounter.report;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
@@ -145,9 +146,11 @@ public class CategoryReportDatas {
                 RootCategory creditCategory = new RootCategory();
                 creditCategory.setType(PocketAccounterGeneral.EXPANCE);
                 creditCategory.setName(credits.get(i).getCredit_name());
+                creditDataRow.setCategory(creditCategory);
                 creditDataRow.setTotalAmount(creditTotalPaid);
                 result.add(creditDataRow);
             }
+            creditTotalPaid = 0.0;
         }
         //credit end
         //debt borrows begin
@@ -171,6 +174,7 @@ public class CategoryReportDatas {
             CategoryDataRow categoryDataRow = new CategoryDataRow();
             categoryDataRow.setTotalAmount(PocketAccounterGeneral.getCost(debtBorrows.get(i).getTakenDate(), debtBorrows.get(i).getCurrency(), debtBorrows.get(i).getAmount()));
             categoryDataRow.setCategory(category);
+            result.add(categoryDataRow);
         }
         debtBorrows.clear();
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
@@ -223,6 +227,7 @@ public class CategoryReportDatas {
         ArrayList<CategoryDataRow> result = new ArrayList<>();
         ArrayList<CategoryDataRow> temp = makeWholeReport();
         for (int i=0; i<temp.size(); i++) {
+            Log.d("sss", ""+temp.get(i).getCategory().getName());
             if (temp.get(i).getCategory().getType() == PocketAccounterGeneral.EXPANCE)
                 result.add(temp.get(i));
         }

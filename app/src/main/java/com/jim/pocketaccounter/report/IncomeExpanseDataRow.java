@@ -16,11 +16,8 @@ public class IncomeExpanseDataRow {
     public ArrayList<IncomeExpanseDayDetails> getDetails() {return details;}
     public void setDetails(ArrayList<IncomeExpanseDayDetails> details) {this.details = details;}
     public double getTotalIncome() {return totalIncome;}
-    public void setTotalIncome(double totalIncome) {this.totalIncome = totalIncome;}
     public double getTotalExpanse() {return totalExpanse;}
-    public void setTotalExpanse(double totalExpanse) {this.totalExpanse = totalExpanse;}
     public double getTotalProfit() {return totalProfit;}
-    public void setTotalProfit(double totalProfit) {this.totalProfit = totalProfit;}
     public IncomeExpanseDataRow(Calendar date) {this.date = (Calendar) date.clone();}
     public void calculate() {
         totalIncome = 0;

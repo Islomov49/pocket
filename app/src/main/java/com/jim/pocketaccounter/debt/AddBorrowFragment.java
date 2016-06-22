@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -13,6 +14,7 @@ import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -30,6 +32,7 @@ import android.widget.Toast;
 
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
+import com.jim.pocketaccounter.finance.Account;
 import com.jim.pocketaccounter.finance.Currency;
 import com.jim.pocketaccounter.finance.FinanceManager;
 
@@ -66,7 +69,7 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
     private int RESULT_LOAD_IMAGE = 1;
     private ImageView ivToolbarMostRight;
     private EditText firstPay;
-
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
     public static Fragment getInstance(int type) {
         AddBorrowFragment fragment = new AddBorrowFragment();
         Bundle bundle = new Bundle();
@@ -83,18 +86,23 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
 
     private DatePickerDialog.OnDateSetListener getDatesetListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-//            arg2 = arg2 + 1;
-            PersonDataGet.setText(arg3 + "." + (arg2 + 1) + "." + arg1);
             getDate = Calendar.getInstance();
             getDate.set(arg1, arg2, arg3);
+            if (returnDate != null && getDate.compareTo(returnDate)>0 ) {
+                returnDate = getDate;
+                PersonDataRepeat.setText(simpleDateFormat.format(returnDate.getTime()));
+            }
+            PersonDataGet.setText(simpleDateFormat.format(getDate.getTime()));
         }
     };
     private DatePickerDialog.OnDateSetListener returnDatesetListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-//            arg2 = arg2 + 1;
-            PersonDataRepeat.setText(arg3 + "." + (arg2 + 1) +"." + arg1);
             returnDate = Calendar.getInstance();
             returnDate.set(arg1, arg2, arg3);
+            if (returnDate.compareTo(getDate) < 0) {
+                returnDate = getDate;
+            }
+            PersonDataRepeat.setText(simpleDateFormat.format(returnDate.getTime()));
         }
     };
 
@@ -194,11 +202,12 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
                         } else {
                             ArrayList<DebtBorrow> list = manager.getDebtBorrows();
                             Currency currency = manager.getCurrencies().get(PersonValyuta.getSelectedItemPosition());
+                            Account account = manager.getAccounts().get(PersonAccount.getSelectedItemPosition());
                             DebtBorrow debtBorrow = new DebtBorrow(new Person(PersonName.getText().toString(), PersonNumber.getText().toString(), photoPath),
                                     getDate,
                                     returnDate,
                                     "borrow_" + UUID.randomUUID().toString(),
-                                    PersonAccount.getSelectedItem().toString(),
+                                    account,
                                     currency,
                                     Double.parseDouble(PersonSumm.getText().toString()),
                                     TYPE, calculate.isChecked()
@@ -209,30 +218,15 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
                                 reckings.add(new Recking(
                                         dateFormat.format(Calendar.getInstance().getTime()),
                                         Double.parseDouble(firstPay.getText().toString()), debtBorrow.getId(),
-                                        debtBorrow.getAccount(), ""));
+                                        debtBorrow.getAccount().getId(), ""));
                                   debtBorrow.setReckings(reckings);
                             }
                             list.add(debtBorrow);
-//                            if (returnDate == null) {
-
-//                                list.add(new DebtBorrow(new Person(PersonName.getText().toString(), PersonNumber.getText().toString(), photoPath),
-//                                        getDate,
-//                                        returnDate,
-//                                        "borrow_" + UUID.randomUUID().toString(),
-//                                        PersonAccount.getSelectedItem().toString(),
-//                                        currency,
-//                                        Double.parseDouble(PersonSumm.getText().toString()),
-//                                        TYPE, calculate.isChecked()));
-//
-//                            } else {
-//                                list.add(new DebtBorrow());
-//                            }
                             ivToolbarMostRight.setVisibility(View.INVISIBLE);
                             manager.setDebtBorrows(list);
                             manager.saveDebtBorrows();
                             manager.loadDebtBorrows();
                             ((PocketAccounter) getContext()).replaceFragment(new DebtBorrowFragment(), PockerTag.DEBTS);
-//                            getActivity().getSupportFragmentManager().popBackStack();
                         }
                     }
                 }
@@ -272,20 +266,20 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
             Uri contactUri = data.getData();
             String[] projection = new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER,
                     ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME,
-                    ContactsContract.CommonDataKinds.Phone.PHOTO_THUMBNAIL_URI
+                    ContactsContract.CommonDataKinds.Phone.PHOTO_ID
             };
             Cursor cursor = getContext().getContentResolver().query(contactUri, projection,
                     null, null, null);
             if (cursor != null && cursor.moveToFirst()) {
                 int numberIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
                 int nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
-                int photoIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_THUMBNAIL_URI);
+                int photoIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_ID);
                 String number = cursor.getString(numberIndex);
                 String name = cursor.getString(nameIndex);
-                photoPath = cursor.getString(photoIndex);
-                if (photoPath != null) {
-                    imageView.setImageDrawable(Drawable.createFromPath(photoPath));
-                }
+                if (queryContactImage(cursor.getInt(photoIndex)) != null)
+                    imageView.setImageBitmap(queryContactImage(cursor.getInt(photoIndex)));
+                else
+                    imageView.setImageResource(R.drawable.no_photo);
                 PersonName.setText(name);
                 PersonNumber.setText(number);
             }
@@ -306,7 +300,25 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-
+    private Bitmap queryContactImage(int imageDataRow) {
+        Cursor c = getContext().getContentResolver().query(ContactsContract.Data.CONTENT_URI, new String[] {
+                ContactsContract.CommonDataKinds.Photo.PHOTO
+        }, ContactsContract.Data._ID + "=?", new String[] {
+                Integer.toString(imageDataRow)
+        }, null);
+        byte[] imageBytes = null;
+        if (c != null) {
+            if (c.moveToFirst()) {
+                imageBytes = c.getBlob(0);
+            }
+            c.close();
+        }
+        if (imageBytes != null) {
+            return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+        } else {
+            return null;
+        }
+    }
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
     }

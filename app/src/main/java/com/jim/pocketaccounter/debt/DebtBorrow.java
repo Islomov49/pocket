@@ -1,5 +1,6 @@
 package com.jim.pocketaccounter.debt;
 
+import com.jim.pocketaccounter.finance.Account;
 import com.jim.pocketaccounter.finance.Currency;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -8,7 +9,7 @@ public class DebtBorrow {
     private Person person;
     private Calendar takenDate, returnDate;
     private int type;
-    private String account;
+    private Account account;
     private Currency currency;
     private boolean calculate;
     private boolean to_archive = false;
@@ -18,7 +19,7 @@ public class DebtBorrow {
     private String id; //"debt_"+UUID.randowUUID().toString();
 
     public DebtBorrow(Person person, Calendar takenDate, Calendar returnDate,
-                      String id, String account, Currency currency,
+                      String id, Account account, Currency currency,
                       double amount, int type, boolean calculate) {
         this.person = person;
         this.takenDate = takenDate;
@@ -33,7 +34,7 @@ public class DebtBorrow {
     }
 
     public DebtBorrow(Person person, Calendar takenDate,
-                      String id, String account, Currency currency,
+                      String id, Account account, Currency currency,
                       double amount, int type, boolean calculate) {
         this.person = person;
         this.takenDate = takenDate;
@@ -61,8 +62,8 @@ public class DebtBorrow {
     public void setTakenDate(Calendar takenDate) {this.takenDate = (Calendar)takenDate.clone();}
     public Calendar getReturnDate() {return returnDate;}
     public void setReturnDate(Calendar returnDate) {this.returnDate = (Calendar)returnDate.clone();}
-    public String getAccount() {return account;}
-    public void setAccount(String account) {this.account = account;}
+    public Account getAccount() {return account;}
+    public void setAccount(Account account) {this.account = account;}
     public Currency getCurrency() {return currency;}
     public void setCurrency(Currency currency) {this.currency = currency;}
     public double getAmount() {return amount;}

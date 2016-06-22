@@ -52,6 +52,7 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 					down.setAnimationListener(new AnimationListener() {
 						@Override
 						public void onAnimationStart(Animation animation) {
+							fabCurrencyAdd.setClickable(false);
 							fabCurrencyAdd.setVisibility(View.GONE);
 						}
 						@Override
@@ -74,6 +75,7 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 						@Override
 						public void onAnimationStart(Animation animation) {
 							fabCurrencyAdd.setVisibility(View.VISIBLE);
+							fabCurrencyAdd.setClickable(true);
 						}
 						@Override
 						public void onAnimationEnd(Animation animation) {
@@ -233,7 +235,7 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 										}
 									}
 									for (int j=0; j<PocketAccounter.financeManager.getDebtBorrows().size(); j++) {
-										if (PocketAccounter.financeManager.getDebtBorrows().get(i).getCurrency().getId().matches(PocketAccounter.financeManager.getCurrencies().get(i).getId())) {
+										if (PocketAccounter.financeManager.getDebtBorrows().get(j).getCurrency().getId().matches(PocketAccounter.financeManager.getCurrencies().get(i).getId())) {
 											PocketAccounter.financeManager.getDebtBorrows().remove(j);
 											j--;
 										}

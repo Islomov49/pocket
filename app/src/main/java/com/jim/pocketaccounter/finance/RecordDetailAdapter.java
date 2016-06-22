@@ -1,10 +1,13 @@
 package com.jim.pocketaccounter.finance;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,16 +23,21 @@ import java.util.List;
 public class RecordDetailAdapter extends RecyclerView.Adapter<RecordDetailAdapter.DetailViewHolder>{
     List<FinanceRecord> result;
     Context context;
+    int mode = PocketAccounterGeneral.NORMAL_MODE;
     public RecordDetailAdapter(Context context, List<FinanceRecord> result){
         this.context = context;
         this.result = result;
     }
     @Override
-    public void onBindViewHolder(DetailViewHolder holder, final int position) {
+    public void onBindViewHolder(final DetailViewHolder holder, final int position) {
         holder.ivRecordDetail.setImageResource(result.get(position).getCategory().getIcon());
         holder.tvRecordDetailCategoryName.setText(result.get(position).getCategory().getName());
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
-        holder.tvRecordDetailCategoryAmount.setText(decimalFormat.format(PocketAccounterGeneral.getCost(result.get(position))));
+        if (result.get(position).getCategory().getType() == PocketAccounterGeneral.EXPANCE)
+            holder.tvRecordDetailCategoryAmount.setTextColor(ContextCompat.getColor(context, R.color.red));
+        else
+            holder.tvRecordDetailCategoryAmount.setTextColor(ContextCompat.getColor(context, R.color.green_just));
+        holder.tvRecordDetailCategoryAmount.setText(decimalFormat.format(PocketAccounterGeneral.getCost(result.get(position)))+result.get(position).getCurrency().getAbbr());
         boolean subCatIsNull = (result.get(position).getSubCategory() == null);
         if (subCatIsNull) {
             holder.llSubCategories.setVisibility(View.GONE);
@@ -47,7 +55,11 @@ public class RecordDetailAdapter extends RecyclerView.Adapter<RecordDetailAdapte
         holder.root.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                ((PocketAccounter)context).replaceFragment(new RecordEditFragment(null, financeRecord.getDate(), financeRecord, PocketAccounterGeneral.DETAIL));
+                if (mode == PocketAccounterGeneral.NORMAL_MODE)
+                    ((PocketAccounter)context).replaceFragment(new RecordEditFragment(null, financeRecord.getDate(), financeRecord, PocketAccounterGeneral.DETAIL));
+                else {
+                    holder.chbRecordDetail.setChecked(!holder.chbRecordDetail.isChecked());
+                }
             }
         });
     }
@@ -71,7 +83,9 @@ public class RecordDetailAdapter extends RecyclerView.Adapter<RecordDetailAdapte
         public ImageView ivRecordDetailBorder;
         public TextView tvRecordDetailSubCategory;
         public ImageView ivRecordDetailSubCategory;
+        public CheckBox chbRecordDetail;
         public View root;
+
         public DetailViewHolder(View view) {
             super(view);
             ivRecordDetail = (ImageView) view.findViewById(R.id.ivRecordDetail);
@@ -81,9 +95,17 @@ public class RecordDetailAdapter extends RecyclerView.Adapter<RecordDetailAdapte
             ivRecordDetailBorder = (ImageView) view.findViewById(R.id.ivRecordDetailBorder);
             tvRecordDetailSubCategory = (TextView) view.findViewById(R.id.tvRecordDetailSubCategory);
             ivRecordDetailSubCategory = (ImageView) view.findViewById(R.id.ivRecordDetailSubCategory);
+            chbRecordDetail = (CheckBox) view.findViewById(R.id.chbRecordFragmentDetail);
             root = view;
         }
 
     }
-
+    public void removingItem(FinanceRecord record) {
+        notifyItemRemoved(result.indexOf(record));
+        PocketAccounter.financeManager.getRecords().remove(record);
+        result.remove(record);
+    }
+    public void setMode(int mode) {
+        this.mode = mode;
+    }
 }

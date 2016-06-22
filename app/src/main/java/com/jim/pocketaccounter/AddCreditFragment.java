@@ -397,7 +397,7 @@ public class AddCreditFragment extends Fragment {
 
         for (int i=0; i<tempIcons.length; i++)
             icons[i] = getResources().getIdentifier(tempIcons[i], "drawable", getActivity().getPackageName());
-        selectedIcon = icons[29];
+        selectedIcon = icons[28];
 
         icona.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -644,9 +644,10 @@ public class AddCreditFragment extends Fragment {
                 boolean key=true;
                 key = isOpkey.isChecked();
 
-                String sloution = solution.getText().toString();
-                sloution.replace(',', '.');
 
+                String sloution = solution.getText().toString();
+                if (sloution.indexOf(',') != -1)
+                    sloution = sloution.substring(0, sloution.indexOf(','))+"."+sloution.substring(sloution.indexOf(',')+1, sloution.length());
                 CreditDetials A1 = new CreditDetials(selectedIcon, nameCred.getText().toString(), new GregorianCalendar(argFirst[0], argFirst[1], argFirst[2]),
                         Double.parseDouble(sb.toString()), procent_inter, period_inter, period_tip, key, Double.parseDouble(valueCred.getText().toString()),
                         currencies.get(spiner_forValut.getSelectedItemPosition()), Double.parseDouble(sloution), System.currentTimeMillis());

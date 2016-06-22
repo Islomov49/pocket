@@ -221,7 +221,7 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 			values.put("taken_date", dateFormat.format(debtBorrow.getTakenDate().getTime()));
 			values.put("return_date", dateFormat.format(debtBorrow.getReturnDate().getTime()));
 			values.put("type", debtBorrow.getType());
-			values.put("account_id", debtBorrow.getAccount());
+			values.put("account_id", debtBorrow.getAccount().getId());
 			values.put("currency_id", debtBorrow.getCurrency().getId());
 			values.put("amount", debtBorrow.getAmount());
 			values.put("id", debtBorrow.getId());
@@ -864,6 +864,7 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 	}
 	public ArrayList<DebtBorrow> loadDebtBorrows() {
 		ArrayList<DebtBorrow> result = new ArrayList();
+		ArrayList<Account> accounts = loadAccounts();
 		SQLiteDatabase db = getReadableDatabase();
 		Cursor dbCursor = db.query("debt_borrow_table", null, null, null, null, null, null);
 		Cursor reckCursor = db.query("debtborrow_recking_table", null, null, null, null, null, null);
@@ -891,11 +892,14 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 			}
 			String accountId = dbCursor.getString(dbCursor.getColumnIndex("account_id"));
 			String currencyId = dbCursor.getString(dbCursor.getColumnIndex("currency_id"));
-			newDebtBorrow.setAccount(accountId);
+			for (int i=0; i<accounts.size(); i++) {
+				if (accounts.get(i).getId().matches(accountId)) {
+					newDebtBorrow.setAccount(accounts.get(i));
+					break;
+				}
+			}
 			newDebtBorrow.setCalculate(dbCursor.getInt(dbCursor.getColumnIndex("calculate")) == 0 ? false : true);
-
 			ArrayList<Currency> currencies = loadCurrencies();
-
 			for (Currency cr : currencies) {
 				if (cr.getId().equals(currencyId)) {
 					newDebtBorrow.setCurrency(cr);

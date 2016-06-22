@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    tools:context="com.jim.pocketaccounter.InfoCreditFragment">
+    tools:context="com.jim.pocketaccounter.InfoCreditFragment"
+    android:clickable="true">
 
     <RelativeLayout
         android:id="@+id/pustooyy"

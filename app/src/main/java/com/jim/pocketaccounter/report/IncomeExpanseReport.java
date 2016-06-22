@@ -120,7 +120,6 @@ public class IncomeExpanseReport {
                         category.setName(context.getResources().getString(R.string.debt_statistics));
                         category.setType(PocketAccounterGeneral.INCOME);
                     }
-
                     detail.setCategory(category);
                     detail.setSubCategory(null);
                     detail.setAmount(debtBorrowMain.get(i).getAmount());
@@ -144,11 +143,11 @@ public class IncomeExpanseReport {
                         RootCategory category = new RootCategory();
                         if (debtBorrowMain.get(i).getType() == DebtBorrow.BORROW) {
                             category.setName(context.getResources().getString(R.string.borrow_recking_statistics));
-                            category.setType(PocketAccounterGeneral.EXPANCE);
+                            category.setType(PocketAccounterGeneral.INCOME);
                         }
                         else {
                             category.setName(context.getResources().getString(R.string.debt_recking_statistics));
-                            category.setType(PocketAccounterGeneral.INCOME);
+                            category.setType(PocketAccounterGeneral.EXPANCE);
                         }
                         detail.setCategory(category);
                         detail.setSubCategory(null);

@@ -34,6 +34,7 @@ import com.jim.pocketaccounter.finance.IconAdapter;
 import com.jim.pocketaccounter.helper.FABIcon;
 import com.jim.pocketaccounter.helper.FloatingActionButton;
 import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
+import com.jim.pocketaccounter.helper.ScrollDirectionListener;
 
 import java.util.UUID;
 
@@ -50,6 +51,52 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 		fabAccountAdd.setOnClickListener(this);
 		lvAccounts = (ListView) rootView.findViewById(R.id.lvAccounts);
 		lvAccounts.setOnItemClickListener(this);
+		fabAccountAdd.attachToListView(lvAccounts, new ScrollDirectionListener() {
+			@Override
+			public void onScrollUp() {
+				if (mode == PocketAccounterGeneral.EDIT_MODE) return;
+				if (fabAccountAdd.getVisibility() == View.GONE) return;
+				Animation down = AnimationUtils.loadAnimation(getContext(), R.anim.fab_down);
+				synchronized (down) {
+					down.setAnimationListener(new Animation.AnimationListener() {
+						@Override
+						public void onAnimationStart(Animation animation) {
+							fabAccountAdd.setClickable(false);
+							fabAccountAdd.setVisibility(View.GONE);
+						}
+						@Override
+						public void onAnimationEnd(Animation animation) {
+						}
+						@Override
+						public void onAnimationRepeat(Animation animation) {
+						}
+					});
+					fabAccountAdd.startAnimation(down);
+				}
+			}
+			@Override
+			public void onScrollDown() {
+				if (mode == PocketAccounterGeneral.EDIT_MODE) return;
+				if (fabAccountAdd.getVisibility() == View.VISIBLE) return;
+				Animation up = AnimationUtils.loadAnimation(getActivity(), R.anim.fab_up);
+				synchronized (up) {
+					up.setAnimationListener(new Animation.AnimationListener() {
+						@Override
+						public void onAnimationStart(Animation animation) {
+							fabAccountAdd.setVisibility(View.VISIBLE);
+							fabAccountAdd.setClickable(true);
+						}
+						@Override
+						public void onAnimationEnd(Animation animation) {
+						}
+						@Override
+						public void onAnimationRepeat(Animation animation) {
+						}
+					});
+					fabAccountAdd.startAnimation(up);
+				}
+			}
+		});
 		((PocketAccounter)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
 		ivToolbarMostRight.setImageResource(R.drawable.pencil);
@@ -204,7 +251,7 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 			}
 			for (int i=0; i<PocketAccounter.financeManager.getDebtBorrows().size(); i++) {
 				DebtBorrow debtBorrow = PocketAccounter.financeManager.getDebtBorrows().get(i);
-				if (!debtBorrow.getAccount().matches(PocketAccounter.financeManager.getAccounts().get(0).getId())) {
+				if (!debtBorrow.getAccount().getId().matches(PocketAccounter.financeManager.getAccounts().get(0).getId())) {
 					PocketAccounter.financeManager.getDebtBorrows().remove(i);
 					i--;
 					continue;
@@ -237,7 +284,7 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 					}
 				}
 				for (int j=0; j<PocketAccounter.financeManager.getDebtBorrows().size(); j++) {
-					if(PocketAccounter.financeManager.getDebtBorrows().get(j).getAccount().matches(account.getId())) {
+					if(PocketAccounter.financeManager.getDebtBorrows().get(j).getAccount().getId().matches(account.getId())) {
 						PocketAccounter.financeManager.getDebtBorrows().remove(j);
 						j--;
 						continue;

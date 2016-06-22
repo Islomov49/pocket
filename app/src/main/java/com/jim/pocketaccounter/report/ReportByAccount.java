@@ -1,6 +1,7 @@
 package com.jim.pocketaccounter.report;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
@@ -43,6 +44,7 @@ public class ReportByAccount {
         this.end.set(Calendar.MILLISECOND, 59);
         this.account = account;
         this.currency = currency;
+        this.context = context;
     }
 
     public ArrayList<AccountDataRow> makeAccountReport() {
@@ -72,8 +74,9 @@ public class ReportByAccount {
         }
         //acumulating taken amounts
         ArrayList<DebtBorrow> temp_debt_borrow = PocketAccounter.financeManager.getDebtBorrows();
-        ArrayList<DebtBorrow> debt_borrow = PocketAccounter.financeManager.getDebtBorrows();
-        for (int i = 0; i < debt_borrow.size(); i++) {
+        ArrayList<DebtBorrow> debt_borrow = new ArrayList<DebtBorrow>();
+
+        for (int i = 0; i < temp_debt_borrow.size(); i++) {
             if (begin.compareTo(temp_debt_borrow.get(i).getTakenDate()) <= 0
                     && end.compareTo(temp_debt_borrow.get(i).getTakenDate()) >= 0
                     && temp_debt_borrow.get(i).isCalculate()) {
@@ -81,7 +84,8 @@ public class ReportByAccount {
             }
         }
         for (int i = 0; i < debt_borrow.size(); i++) {
-            if (debt_borrow.get(i).getAccount().matches(account.getId())
+            Log.d("sss", "size: "+account.getId() + " "+debt_borrow.get(i).getAccount());
+            if (debt_borrow.get(i).getAccount().getId().matches(account.getId())
                     && currency.getId().matches(debt_borrow.get(i).getCurrency().getId())) {
                 AccountDataRow row = new AccountDataRow();
                 if (debt_borrow.get(i).getType() == DebtBorrow.BORROW)
@@ -114,7 +118,7 @@ public class ReportByAccount {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                if (cal.compareTo(begin) <= 0 && cal.compareTo(end) >= 0
+                if (cal.compareTo(begin) >= 0 && cal.compareTo(end) <= 0
                         && account.getId().matches(recking.getAccountId())
                         && temp_debt_borrow.get(i).getCurrency().getId().matches(currency.getId())) {
                     debt_borrow.add(temp_debt_borrow.get(i));
@@ -131,7 +135,7 @@ public class ReportByAccount {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                if (cal.compareTo(begin) <= 0 && cal.compareTo(end) >= 0) {
+                if (cal.compareTo(begin) >= 0 && cal.compareTo(end) <= 0) {
                     AccountDataRow row = new AccountDataRow();
                     if (debt_borrow.get(i).getType() == DebtBorrow.BORROW)
                         row.setType(PocketAccounterGeneral.INCOME);
@@ -160,7 +164,7 @@ public class ReportByAccount {
                 ReckingCredit recking = temp_credit.get(i).getReckings().get(j);
                 Calendar cal = Calendar.getInstance();
                 cal.setTimeInMillis(recking.getPayDate());
-                if (cal.compareTo(begin) <= 0 && cal.compareTo(end) >= 0
+                if (cal.compareTo(begin) >= 0 && cal.compareTo(end) <= 0
                         && account.getId().matches(recking.getAccountId())
                         && temp_credit.get(i).getValyute_currency().getId().matches(currency.getId())) {
                     credit.add(temp_credit.get(i));
@@ -173,7 +177,7 @@ public class ReportByAccount {
                 ReckingCredit recking = credit.get(i).getReckings().get(j);
                 Calendar cal = Calendar.getInstance();
                 cal.setTimeInMillis(recking.getPayDate());
-                if (cal.compareTo(begin) <= 0 && cal.compareTo(end) >= 0) {
+                if (cal.compareTo(begin) >= 0 && cal.compareTo(end) <= 0) {
                     AccountDataRow row = new AccountDataRow();
                     row.setType(PocketAccounterGeneral.EXPANCE);
                     row.setDate(cal);

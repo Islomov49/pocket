@@ -28,6 +28,14 @@
                 android:layout_marginRight="@dimen/sixteen_dp"
                 android:layout_marginTop="@dimen/fifteen_dp"
                 android:layout_marginBottom="@dimen/ten_dp">
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/chbRecordFragmentDetail"
+                    android:button="@drawable/blue_bg_checkbox"
+                    android:layout_marginRight="@dimen/ten_dp"
+                    android:visibility="gone"/>
                 <ImageView
                     android:layout_width="@dimen/thirty_dp"
                     android:layout_height="@dimen/thirty_dp"

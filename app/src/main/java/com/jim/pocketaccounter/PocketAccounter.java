@@ -68,17 +68,13 @@ public class PocketAccounter extends AppCompatActivity {
     private RecordIncomesView incomeView;
     private Calendar date;
     private Spinner spToolbar;
+    private RelativeLayout rlRecordTable;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pocket_accounter);
-        try {
-            financeManager = new FinanceManager(this);
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         fragmentManager = getSupportFragmentManager();
+        financeManager = new FinanceManager(this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(ContextCompat.getColor(this, toolbar_text_color));
@@ -93,7 +89,8 @@ public class PocketAccounter extends AppCompatActivity {
         rlRecordIncomes = (RelativeLayout) findViewById(R.id.rlRecordIncomes);
         ivToolbarMostRight = (ImageView) findViewById(R.id.ivToolbarMostRight);
         spToolbar = (Spinner) toolbar.findViewById(R.id.spToolbar);
-        tvRecordBalanse.setOnClickListener(new View.OnClickListener() {
+        rlRecordTable = (RelativeLayout) findViewById(R.id.rlRecordTable);
+        rlRecordTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 replaceFragment(new RecordDetailFragment(date));
@@ -265,7 +262,7 @@ public class PocketAccounter extends AppCompatActivity {
         lvLeftMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,final int position, long id) {
-                findViewById(R.id.change).setVisibility(View.INVISIBLE);
+                findViewById(R.id.change).setVisibility(View.GONE);
                 drawer.closeLeftSide();
                 drawer.postDelayed(new Runnable() {
                     @Override
@@ -273,10 +270,10 @@ public class PocketAccounter extends AppCompatActivity {
 //                        findViewById(R.id.changel).setVisibility(View.INVISIBLE);
                         switch (position) {
                             case 0:
-                                for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
-                                    fragmentManager.popBackStack();
-                                }
                                 findViewById(R.id.change).setVisibility(View.VISIBLE);
+                                FragmentManager fm = getSupportFragmentManager();
+                                for (int i=0; i<fm.getBackStackEntryCount(); i++)
+                                    fm.popBackStack();
                                 initialize(date);
                                 break;
                             case 2:
@@ -389,6 +386,9 @@ public class PocketAccounter extends AppCompatActivity {
                         case PockerTag.CATEGORY:
                         case PockerTag.CURRENCY:
                         case PockerTag.CREDITS:
+                        case PockerTag.REPORT_ACCOUNT:
+                        case PockerTag.REPORT_INCOM_EXPENSE:
+                        case PockerTag.REPORT_CATEGORY:
                         case PockerTag.DEBTS: {
                             findViewById(R.id.change).setVisibility(View.VISIBLE);
                             initialize(date);
@@ -460,6 +460,13 @@ public class PocketAccounter extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        financeManager.loadSaveDatabase(1);
+        financeManager.saveAllDatas();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        findViewById(R.id.change).setVisibility(View.VISIBLE);
+
     }
 }

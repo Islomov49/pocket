@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
@@ -20,6 +22,7 @@ import com.jim.pocketaccounter.finance.RootCategory;
 import com.jim.pocketaccounter.helper.FloatingActionButton;
 import com.jim.pocketaccounter.helper.PockerTag;
 import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
+import com.jim.pocketaccounter.helper.ScrollDirectionListener;
 
 import java.util.ArrayList;
 
@@ -49,6 +52,52 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 		fabCategoryAdd.setOnClickListener(this);
 		lvCategories = (ListView) rootView.findViewById(R.id.lvAccounts);
 		lvCategories.setOnItemClickListener(this);
+		fabCategoryAdd.attachToListView(lvCategories, new ScrollDirectionListener() {
+			@Override
+			public void onScrollUp() {
+				if (mode == PocketAccounterGeneral.EDIT_MODE) return;
+				if (fabCategoryAdd.getVisibility() == View.GONE) return;
+				Animation down = AnimationUtils.loadAnimation(getContext(), R.anim.fab_down);
+				synchronized (down) {
+					down.setAnimationListener(new Animation.AnimationListener() {
+						@Override
+						public void onAnimationStart(Animation animation) {
+							fabCategoryAdd.setClickable(false);
+							fabCategoryAdd.setVisibility(View.GONE);
+						}
+						@Override
+						public void onAnimationEnd(Animation animation) {
+						}
+						@Override
+						public void onAnimationRepeat(Animation animation) {
+						}
+					});
+					fabCategoryAdd.startAnimation(down);
+				}
+			}
+			@Override
+			public void onScrollDown() {
+				if (mode == PocketAccounterGeneral.EDIT_MODE) return;
+				if (fabCategoryAdd.getVisibility() == View.VISIBLE) return;
+				Animation up = AnimationUtils.loadAnimation(getActivity(), R.anim.fab_up);
+				synchronized (up) {
+					up.setAnimationListener(new Animation.AnimationListener() {
+						@Override
+						public void onAnimationStart(Animation animation) {
+							fabCategoryAdd.setVisibility(View.VISIBLE);
+							fabCategoryAdd.setClickable(true);
+						}
+						@Override
+						public void onAnimationEnd(Animation animation) {
+						}
+						@Override
+						public void onAnimationRepeat(Animation animation) {
+						}
+					});
+					fabCategoryAdd.startAnimation(up);
+				}
+			}
+		});
 		chbCatIncomes = (CheckBox) rootView.findViewById(R.id.chbCatIncomes);
 		chbCatIncomes.setOnCheckedChangeListener(this);
 		chbCatExpanses = (CheckBox) rootView.findViewById(R.id.chbCatExpanses);

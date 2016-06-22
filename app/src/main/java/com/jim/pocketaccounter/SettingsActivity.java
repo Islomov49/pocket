@@ -64,8 +64,6 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, PocketAccounter.class);
-        startActivity(intent);
         super.onBackPressed();
     }
 
@@ -83,12 +81,9 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
             ListPreference preference = (ListPreference) findPreference("language");
             CharSequence entry = ((ListPreference) preference).getEntry();
             preference.setTitle(entry);
-
-
         }
         if (key.matches("planningNotif")) {
             final ListPreference planningNotif = (ListPreference) findPreference("planningNotif");
-
             planningNotif.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 
                 @Override

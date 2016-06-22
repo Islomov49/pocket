@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +60,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
     private ImageView info;
     private FrameLayout infoFrame;
     private FrameLayout isHaveReking;
-
+    private TextView tvInfoDebtBorrowTakeDate;
     public static Fragment getInstance(String id) {
         InfoDebtBorrowFragment fragment = new InfoDebtBorrowFragment();
         Bundle bundle = new Bundle();
@@ -83,6 +84,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
         recyclerView = (RecyclerView) view.findViewById(R.id.rvDebtBorrowInfo);
         info = (ImageView) view.findViewById(R.id.ivInfoDebtBorrowInfo);
         infoFrame = (FrameLayout) view.findViewById(R.id.flInfoDebtBorrowVisibl);
+        tvInfoDebtBorrowTakeDate = (TextView) view.findViewById(R.id.tvInfoDebtBorrowTakeDate);
         infoFrame.setVisibility(View.GONE);
         calculate = (TextView) view.findViewById(R.id.tvInfoDebtBorrowIsCalculate);
         id = getArguments().getString("id");
@@ -97,7 +99,8 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
                 }
             }
         }
-
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        tvInfoDebtBorrowTakeDate.setText(format.format(debtBorrow.getTakenDate().getTime()));
         calculate.setText(debtBorrow.isCalculate() ? "calculate" : "no calculate");
         view.findViewById(R.id.infoooc).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,7 +187,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
         } else {
             circleImageView.setImageResource(R.drawable.credit_icon);
         }
-
+        Log.d("sss", debtBorrow.getCurrency().getAbbr());
         tvTotalsummInfo.setText("" + (debtBorrow.getAmount() == ((int) debtBorrow.getAmount())
                 ? ((int) debtBorrow.getAmount()) : debtBorrow.getAmount()) + debtBorrow.getCurrency().getAbbr());
 

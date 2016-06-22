@@ -58,24 +58,18 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.report_by_account, container, false);
         rootView.setBackgroundColor(Color.WHITE);
-
         ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
         ivToolbarMostRight.setImageResource(R.drawable.ic_filter);
         ivToolbarMostRight.setOnClickListener(this);
-
-        PocketAccounter.toolbar.setTitle("Account");
+        PocketAccounter.toolbar.setTitle("");
         PocketAccounter.toolbar.setSubtitle("");
-
         filterDialog = new FilterDialog(getContext());
         begin = (Calendar) Calendar.getInstance().clone();
         end = (Calendar) Calendar.getInstance().clone();
-
         spToolbar = (Spinner) PocketAccounter.toolbar.findViewById(R.id.spToolbar);
         spToolbar.setVisibility(View.VISIBLE);
-
         final ArrayList<String> result = new ArrayList<>();
         financeManager = PocketAccounter.financeManager;
-
         for (int i = 0; i < financeManager.getAccounts().size(); i++) {
             for (int j = 0; j < financeManager.getCurrencies().size(); j++) {
                 result.add(financeManager.getAccounts().get(i).getName() + ", " + financeManager.getCurrencies().get(j).getAbbr());

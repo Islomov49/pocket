@@ -291,8 +291,6 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 		dialog.getWindow().setLayout(8*width/9, LayoutParams.MATCH_PARENT);
 		dialog.show();
 	}
-
-
 	@SuppressLint("InflateParams")
 	private void openSubCatEditDialog(final SubCategory subCategory) {
 		final Dialog dialog=new Dialog(getActivity());
