@@ -16,7 +16,6 @@
         android:id="@+id/rlRecordBalance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="@dimen/two_dp"
         android:background="@color/belt_balanse">
 
         <LinearLayout

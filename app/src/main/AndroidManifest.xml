@@ -16,6 +16,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <application
         android:allowBackup="true"
@@ -40,6 +42,9 @@
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".intropage.IntroIndicator">
+
         </activity>
     </application>
 </manifest>

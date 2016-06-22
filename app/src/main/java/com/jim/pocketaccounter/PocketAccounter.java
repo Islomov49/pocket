@@ -1,9 +1,9 @@
 package com.jim.pocketaccounter;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
@@ -14,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,6 +39,8 @@ import com.jim.pocketaccounter.helper.PockerTag;
 import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 import com.jim.pocketaccounter.helper.record.RecordExpanseView;
 import com.jim.pocketaccounter.helper.record.RecordIncomesView;
+import com.jim.pocketaccounter.intropage.IntroIndicator;
+import com.jim.pocketaccounter.report.FilterFragment;
 import com.jim.pocketaccounter.debt.DebtBorrowFragment;
 import com.jim.pocketaccounter.finance.FinanceManager;
 import com.jim.pocketaccounter.helper.LeftMenuAdapter;
@@ -60,6 +63,8 @@ public class PocketAccounter extends AppCompatActivity {
     private boolean tek = false;
     private boolean first = false;
     private FragmentManager fragmentManager;
+    SharedPreferences spref;
+    SharedPreferences.Editor ed  ;
     private Fragment current;
     private RelativeLayout rlRecordsMain, rlRecordIncomes;
     private TextView tvRecordIncome, tvRecordBalanse, tvRecordExpanse;
@@ -73,8 +78,21 @@ public class PocketAccounter extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pocket_accounter);
-        fragmentManager = getSupportFragmentManager();
+        spref=getSharedPreferences("infoFirst",MODE_PRIVATE);
+        ed=spref.edit();
+        if (spref.getBoolean("FIRST_KEY",true)){
+            try {
+                Intent first=new Intent(this, IntroIndicator.class);
+                startActivity(first);
+                finish();
+            }
+            finally {
+
+            }
+        }
         financeManager = new FinanceManager(this);
+        fragmentManager = getSupportFragmentManager();
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(ContextCompat.getColor(this, toolbar_text_color));
@@ -427,7 +445,6 @@ public class PocketAccounter extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
     public void replaceFragment(Fragment fragment) {
         if (fragment != null) {
             getSupportFragmentManager()
@@ -454,6 +471,7 @@ public class PocketAccounter extends AppCompatActivity {
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                     .add(R.id.flMain, fragment, tag)
                     .commit();
+
         }
     }
 

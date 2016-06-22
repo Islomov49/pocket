@@ -29,6 +29,8 @@ import com.jim.pocketaccounter.credit.CreditDetials;
 import com.jim.pocketaccounter.credit.ReckingCredit;
 import com.jim.pocketaccounter.finance.Account;
 import com.jim.pocketaccounter.finance.FinanceManager;
+
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -71,7 +73,10 @@ public class InfoCreditFragment extends Fragment {
     boolean isExpandOpen=false;
     private FinanceManager manager;
     private Context context;
+    DecimalFormat formater;
+    CreditDetials eskisi;
     TextView myPay,myDelete;
+
     public InfoCreditFragment() {
         // Required empty public constructor
     }
@@ -85,6 +90,8 @@ public class InfoCreditFragment extends Fragment {
         super.onCreate(savedInstanceState);
         manager = PocketAccounter.financeManager;
         dateformarter=new SimpleDateFormat("dd.MM.yyyy");
+        formater=new DecimalFormat("0.##");
+
         context=getActivity();
     }
     ImageView ivToolbarMostRight;
@@ -330,7 +337,7 @@ public class InfoCreditFragment extends Fragment {
         if(A==(int)A)
             return Integer.toString((int)A);
         else
-            return Double.toString(A);
+            return formater.format(A);
 
     }
     public static int [] getDateDifferenceInDDMMYYYY(Date from, Date to) {
@@ -361,7 +368,7 @@ public class InfoCreditFragment extends Fragment {
         year = toDate.get(Calendar.YEAR) - (fromDate.get(Calendar.YEAR) + increment);
         return   new int[]{year, month, day};
     }
-    interface ConWithFragments{
+    public interface ConWithFragments{
         void change_item(CreditDetials changed_item,int position);
         void to_Archive(int position);
         void delete_item(int position);
@@ -449,6 +456,8 @@ public class InfoCreditFragment extends Fragment {
                                                     currentCredit.getMyCredit_id(),comment.getText().toString());
                                         rcList.add(rec);
                                         currentCredit.setReckings(rcList);
+                                        Log.d("objectTest","Info Object :"+currentCredit);
+                                        Log.d("objectTest", "Test: "+(new CreditDetials()));
                                         A1.change_item(currentCredit,currentPOS);
                                         updateDate();
                                         dialog.dismiss();
@@ -469,7 +478,8 @@ public class InfoCreditFragment extends Fragment {
                         else
                             rec=new ReckingCredit(date.getTimeInMillis(),Double.parseDouble(amount),"",currentCredit.getMyCredit_id(),comment.getText().toString());
                         currentCredit.getReckings().add(rec);
-                        A1.change_item(currentCredit,currentPOS);
+                        Log.d("objectTest","Info Object :"+currentCredit);
+                       A1.change_item(currentCredit,currentPOS);
                         updateDate();
                         dialog.dismiss();
                     }
@@ -507,8 +517,15 @@ public class InfoCreditFragment extends Fragment {
     public void delete_checked_items(){
         boolean keyfor=false;
         final int lenght=rcList.size()-1;
+        Log.d("itemTest","Curpos : " +currentPOS+" lenth"+lenght);
+        for (int i = lenght; i >=0 ; i--) {
+            Log.d("itemTest", rcList.get(i).getMyCredit_id()+" "+rcList.get(i).getAmount());
+        }
         for(int t=lenght;t>=0;t--){
             View item=tranact_recyc.getChildAt(t);
+            if(item==null){
+                continue;
+            }
             boolean forCheck=((CheckBox)item.findViewById(R.id.for_delete_check_box)).isChecked();
             Log.d("Itemmmm",""+forCheck);
             if(forCheck){
@@ -522,6 +539,9 @@ public class InfoCreditFragment extends Fragment {
                         public void onClick(DialogInterface dialog, int id) {
                             for(int t=lenght;t>=0;t--){
                                 View item=tranact_recyc.getChildAt(t);
+                                if(item==null){
+                                    continue;
+                                }
                                 boolean forCheck=((CheckBox)item.findViewById(R.id.for_delete_check_box)).isChecked();
                                 Log.d("Itemmmm",""+forCheck);
                                 if(forCheck){
@@ -531,6 +551,9 @@ public class InfoCreditFragment extends Fragment {
                                 adapRecyc.notifyDataSetChanged();
                                 delete_flag=false;
                                 myPay.setText(getString(R.string.pay));
+
+                                Log.d("testtt","GO TO DELETE  "+currentPOS);
+
                                 A1.change_item(currentCredit,currentPOS);
                                 updateDate();
                             }

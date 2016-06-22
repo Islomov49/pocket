@@ -25,6 +25,7 @@ import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
 import com.jim.pocketaccounter.finance.Account;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -49,11 +50,13 @@ public class AdapterCridetArchive extends RecyclerView.Adapter<AdapterCridetArch
     long forMoth=1000L*60L*60L*24L*30L;
     long forYear=1000L*60L*60L*24L*365L;
     final static long forWeek=1000L*60L*60L*24L*7L;
-
+    DecimalFormat formater;
     public AdapterCridetArchive(List<CreditDetials> cardDetials, Context This, forListnerArchive A1){
         this.cardDetials=cardDetials;
         this.context=This;
         dateformarter=new SimpleDateFormat("dd.MM.yyyy");
+        formater=new DecimalFormat("0.##");
+
         this.A1=A1;
     }
 
@@ -192,7 +195,7 @@ public class AdapterCridetArchive extends RecyclerView.Adapter<AdapterCridetArch
         if(A==(int)A)
             return Integer.toString((int)A);
         else
-            return Double.toString(A);
+            return formater.format(A);
 
     }
     @Override

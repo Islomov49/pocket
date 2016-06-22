@@ -19,6 +19,12 @@ public class CreditDetials {
     private boolean key_for_include;
     private boolean key_for_archive;
 
+    public CreditDetials getObj(){
+        CreditDetials backGA=new CreditDetials(getIcon_ID(),getCredit_name(),getTake_time(),getProcent(),getProcent_interval(),getPeriod_time(),getPeriod_time_tip(),
+                isKey_for_include(),getValue_of_credit(),getValyute_currency(),getValue_of_credit_with_procent(),getMyCredit_id());
+
+      return  backGA;
+    };
     public CreditDetials(){
 
     }

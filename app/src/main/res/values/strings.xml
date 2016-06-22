@@ -926,4 +926,21 @@
     <string name="report_income_expanse_total_income">Общий доход:</string>
     <string name="report_income_expanse_total_expanse">Общий расход:</string>
     <string name="report_income_expanse_total_profit">Общая прибыль:</string>
+    <string name="please_sign">Please sign</string>
+    <string name="and_sync_your_data">and sync your data</string>
+    <string name="introAppInfo">The program takes into account the daily income and expenses. For those who like to plan and keep records. We are glad to help you with this!</string>
+    <string name="quickInfo">Shortcut keys to help you save your time. Just click on the desired category, and enter your expenses the rest we will do for you</string>
+    <string name="clear_desgn">Simple but very intuitive interface will be clear to all. Our goal in the design of beauty is not profit or colorful. We tried to make everything convenient and intuitive interface</string>
+    <string name="appInfoTitel">MONEY HOLDER</string>
+    <string name="quickInfp">QUICK ACCESS</string>
+    <string name="designInfo">CLEAR DESIGN</string>
+    <string name="secureInfo">You are using a Google account can synchronize your application and data. In any ustroysva you can recover your data! Your data are stored under very reliable google servers</string>
+    <string name="safeInfo">SAFE SYNC</string>
+    <string name="flexInfo">FLEXIBLE REPORT</string>
+    <string name="flexinfo">The program will show statistics, and remember all of your expenses as. It gives you a report of all the information understandable way and if you can save it as a table</string>
+    <string name="let_s_go">LET’S GO</string>
+    <string name="paythan">" Are you sure of the fact that you have to pay more than "</string>
+    <string name="payza">"Your payment balance is "</string>
+    <string name="imsure">I\'m sure</string>
+    <string name="cancel1">Cancel</string>
 </resources>

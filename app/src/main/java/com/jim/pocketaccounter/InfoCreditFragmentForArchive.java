@@ -31,6 +31,7 @@ import com.jim.pocketaccounter.credit.ReckingCredit;
 import com.jim.pocketaccounter.finance.Account;
 import com.jim.pocketaccounter.finance.FinanceManager;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -69,6 +70,7 @@ public class InfoCreditFragmentForArchive extends Fragment {
     private FinanceManager manager;
     private Context context;
     TextView myPay,myDelete;
+    DecimalFormat  formater;
     CreditArchiveFragment.ListnerDel A1;
     int POSITIOn;
     public InfoCreditFragmentForArchive() {
@@ -77,6 +79,7 @@ public class InfoCreditFragmentForArchive extends Fragment {
     public void setConteent(CreditDetials temp,int position, CreditArchiveFragment.ListnerDel A1){
         currentCredit=temp;
         this.A1=A1;
+        formater=new DecimalFormat("0.##");
         POSITIOn=position;
     }
     @Override
@@ -293,7 +296,7 @@ public class InfoCreditFragmentForArchive extends Fragment {
         if(A==(int)A)
             return Integer.toString((int)A);
         else
-            return Double.toString(A);
+            return formater.format(A);
 
     }
     public static int [] getDateDifferenceInDDMMYYYY(Date from, Date to) {

@@ -16,6 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -26,17 +27,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jim.pocketaccounter.AddCreditFragment;
+import com.jim.pocketaccounter.CreditFragment;
+import com.jim.pocketaccounter.CreditTabLay;
 import com.jim.pocketaccounter.InfoCreditFragment;
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
 import com.jim.pocketaccounter.finance.Account;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.logging.Handler;
+
+import static java.security.AccessController.getContext;
 
 /**
  * Created by developer on 02.06.2016.
@@ -46,37 +53,37 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
    List<CreditDetials> cardDetials;
    List<CreditDetials> allDetials;
     int S = 0;
+    CreditTabLay.SvyazkaFragmentov svyaz;
     SimpleDateFormat dateformarter;
     Context context;
-    forListner A1;
     ArrayList<Account> accaunt_AC;
+    DecimalFormat formater;
 
     long forDay=1000L*60L*60L*24L;
     long forMoth=1000L*60L*60L*24L*30L;
     long forYear=1000L*60L*60L*24L*365L;
     final static long forWeek=1000L*60L*60L*24L*7L;
-
-    public AdapterCridet(List<CreditDetials> cardDetials, Context This, forListner A1){
-        this.cardDetials=cardDetials;
+    String TAG="testtt";
+    public AdapterCridet( Context This,CreditTabLay.SvyazkaFragmentov svyaz){
+        Log.d("objectTest","LIST :"+cardDetials);
+        this.cardDetials=PocketAccounter.financeManager.getCredits();
         this.context=This;
         dateformarter=new SimpleDateFormat("dd.MM.yyyy");
-        this.A1=A1;
+        formater=new DecimalFormat("0.##");
+        this.svyaz=svyaz;
+        Log.d("objectTest", ""+cardDetials.size());
     }
 
-    public interface forListner{
-         void togoInfo(CreditDetials current,int position);
-         void change_item(CreditDetials current,int position);
-         void item_delete(int position);
-         void item_to_archive(int position);
-    }
+
+
+
+
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holdeer, final int position) {
         if(holdeer instanceof Fornull){
             return;
         }
-
         final myViewHolder holder=(myViewHolder) holdeer;
-
         final CreditDetials itemCr= cardDetials.get(position);
             holder.credit_procent.setText(parseToWithoutNull(itemCr.getProcent())+"%");
         holder.total_value.setText(parseToWithoutNull(itemCr.getValue_of_credit_with_procent())+itemCr.getValyute_currency().getAbbr());
@@ -158,34 +165,113 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             holder.left_date.setText(left_date_string);
         }
         if(itemCr.getValue_of_credit_with_procent()-total_paid<=0){
-
+            Log.d(TAG, "to arch "+itemCr.getCredit_name());
             holder.overall_amount.setText(context.getString(R.string.repaid));
             holder.pay_or_archive.setText(R.string.archive);
-
-
         }
         else {
+            holder.pay_or_archive.setText(R.string.pay);
 
             holder.overall_amount.setText(parseToWithoutNull(itemCr.getValue_of_credit_with_procent()-total_paid)+itemCr.getValyute_currency().getAbbr());
         } holder.glav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               A1.togoInfo(itemCr,position);
+                int pos=cardDetials.indexOf(itemCr);
+                Log.d("testtt","GO TO INFO "+pos);
+
+                Log.d("objectTest","Info Object :"+itemCr);
+
+           //     A1.togoInfo(itemCr,position);
+                InfoCreditFragment temp=new InfoCreditFragment();
+                temp.setConteent(itemCr, pos, new InfoCreditFragment.ConWithFragments() {
+                    @Override
+                    public void change_item(CreditDetials changed_item, int position) {
+                        Log.d("objectTest","Info Object :"+changed_item);
+                        notifyItemChanged(position);
+                   }
+
+                    @Override
+                    public void to_Archive(int position) {
+                        CreditDetials toArc=cardDetials.get(position);
+                        toArc.setKey_for_archive(true);
+                        toArc=toArc.getObj();
+
+                        if(toArc.isKey_for_include()){
+                            notifyItemChanged(position);
+                        }
+                        else{
+                            cardDetials.remove(position);
+                            notifyItemRemoved(position);
+                        }
+
+                        long toArchiveID=System.currentTimeMillis();
+                        toArc.setMyCredit_id(toArchiveID);
+
+                        for(ReckingCredit mycr:toArc.getReckings()){
+                            mycr.setMyCredit_id(toArchiveID);
+                        }
+
+                        PocketAccounter.financeManager.getArchiveCredits().add(0,toArc);
+                        PocketAccounter.financeManager.saveArchiveCredits();
+
+                        svyaz.itemInsertedToArchive();
+
+
+                    }
+                    @Override
+                    public void delete_item(int position) {
+                        cardDetials.remove(position);
+                        notifyItemRemoved(position);
+                        PocketAccounter.financeManager.saveCredits();
+                    }
+                });
+
+                openFragment(temp,"InfoFragment");
+
+
             }
         });
         holder.pay_or_archive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
               boolean toArcive=context.getString(R.string.archive).matches(holder.pay_or_archive.getText().toString());
+                int pos=cardDetials.indexOf(itemCr);
+                Log.d(TAG, "onClick: "+itemCr.getCredit_name()+" "+pos);
+
                 if(toArcive)
               {
-                A1.item_to_archive(position);
+                  CreditDetials toArc=cardDetials.get(position);
+                  toArc.setKey_for_archive(true);
+                  toArc=toArc.getObj();
+
+                  if(toArc.isKey_for_include()){
+                      notifyItemChanged(position);
+                  }
+                  else{
+                      cardDetials.remove(position);
+                      notifyItemRemoved(position);
+                  }
+
+                  long toArchiveID=System.currentTimeMillis();
+                  toArc.setMyCredit_id(toArchiveID);
+
+                  for(ReckingCredit mycr:toArc.getReckings()){
+                      mycr.setMyCredit_id(toArchiveID);
+                  }
+
+                  PocketAccounter.financeManager.getArchiveCredits().add(0,toArc);
+                  PocketAccounter.financeManager.saveArchiveCredits();
+                  svyaz.itemInsertedToArchive();
+
+
               }
                 else
-                openDialog(itemCr,position);
+                openDialog(itemCr,pos);
             }
         });
+
     }
+
     public static int [] getDateDifferenceInDDMMYYYY(Date from, Date to) {
         Calendar fromDate=Calendar.getInstance();
         Calendar toDate=Calendar.getInstance();
@@ -228,10 +314,12 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public String parseToWithoutNull(double A){
-        if(A==(int)A)
+        if(A==(int)A){
+
             return Integer.toString((int)A);
+        }
         else
-            return Double.toString(A);
+            return formater.format(A);
     }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -286,10 +374,29 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
 
     }
+    public void openFragment(Fragment fragment,String tag) {
+        if (fragment != null) {
+            if(tag.matches("Addcredit"))
+                ((AddCreditFragment)fragment).addEventLis(new CreditFragment.EventFromAdding() {
+                    @Override
+                    public void addedCredit() {
+                    notifyItemInserted(0);
+                    }
+
+                    @Override
+                    public void canceledAdding() {
+                        //some think when canceled
+                    }
+                });
+                final android.support.v4.app.FragmentTransaction ft = ((PocketAccounter)context).getSupportFragmentManager().beginTransaction().addToBackStack(tag).setTransition(android.support.v4.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            ft.add(R.id.flMain, fragment,tag);
+            ft.commit();
+        }
+    }
 
     private void openDialog(final CreditDetials current, final int position) {
         final Dialog dialog = new Dialog(context);
-        View dialogView = ((PocketAccounter)context).getLayoutInflater().inflate(R.layout.add_pay_debt_borrow_info_mod, null);
+        final View dialogView = ((PocketAccounter)context).getLayoutInflater().inflate(R.layout.add_pay_debt_borrow_info_mod, null);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(dialogView);
         final EditText enterDate = (EditText) dialogView.findViewById(R.id.etInfoDebtBorrowDate);
@@ -314,7 +421,7 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         final Calendar date = Calendar.getInstance();
         enterDate.setText(dateformarter.format(date.getTime()));
         ImageView cancel = (ImageView) dialogView.findViewById(R.id.ivInfoDebtBorrowCancel);
-        ImageView save = (ImageView) dialogView.findViewById(R.id.ivInfoDebtBorrowSave);
+        final ImageView save = (ImageView) dialogView.findViewById(R.id.ivInfoDebtBorrowSave);
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -343,10 +450,19 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                /*InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(dialogView.getWindowToken(), 0);
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }*/
                 final String amount=enterPay.getText().toString();
                 double total_paid=0;
                 for(ReckingCredit item:current.getReckings())
                     total_paid+=item.getAmount();
+
                 if(!amount.matches("")){
                     if(Double.parseDouble(amount)>current.getValue_of_credit_with_procent()-total_paid){
 
@@ -363,8 +479,12 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                                         rec=new ReckingCredit(date.getTimeInMillis(),Double.parseDouble(amount),accaunt_AC.get(accountSp.getSelectedItemPosition()).getId(),current.getMyCredit_id(),comment.getText().toString());
                                         else
                                         rec=new ReckingCredit(date.getTimeInMillis(),Double.parseDouble(amount),"",current.getMyCredit_id(),comment.getText().toString());
+                                        int pos=cardDetials.indexOf(current);
                                         current.getReckings().add(rec);
-                                        A1.change_item(current,position);
+                                     //   current.setCredit_name("exxxxOOO");
+                                        Log.d(TAG, "onClick: "+current.getCredit_name() +" "+pos);
+                                      //  A1.change_item(current,pos);
+                                        notifyItemChanged(position);
                                         dialog.dismiss();
                                                             }
                                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -382,8 +502,11 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                             rec=new ReckingCredit(date.getTimeInMillis(),Double.parseDouble(amount),accaunt_AC.get(accountSp.getSelectedItemPosition()).getId(),current.getMyCredit_id(),comment.getText().toString());
                         else
                             rec=new ReckingCredit(date.getTimeInMillis(),Double.parseDouble(amount),"",current.getMyCredit_id(),comment.getText().toString());
+                        int pos=cardDetials.indexOf(current);
                         current.getReckings().add(rec);
-                        A1.change_item(current,position);
+                        notifyItemChanged(position);
+                        Log.d(TAG, "onClick: "+current+" "+pos);
+                       // A1.change_item(current,pos);
                         dialog.dismiss();
                     }
                 }
@@ -395,4 +518,7 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         dialog.getWindow().setLayout(7 * width / 8, RelativeLayout.LayoutParams.WRAP_CONTENT);
         dialog.show();
     }
+
+
+
 }

@@ -77,13 +77,7 @@ public class CreditArchiveFragment extends Fragment {
         });
 
         crRV.setAdapter(crAdap);
-        V.post(new Runnable() {
-            @Override
-            public void run() {
 
-                updateList();
-            }
-        });
 
 
         return V;
@@ -97,8 +91,7 @@ public class CreditArchiveFragment extends Fragment {
         }
     }
     public void updateList(){
-        crList=PocketAccounter.financeManager.getArchiveCredits();
-        crAdap.notifyDataSetChanged();
+        crAdap.notifyItemInserted(0);
     }
     @Override
     public void onAttach(Context context) {
