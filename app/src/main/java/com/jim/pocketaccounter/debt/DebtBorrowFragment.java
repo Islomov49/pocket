@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,12 +24,9 @@ import com.jim.pocketaccounter.helper.FloatingActionButton;
 public class DebtBorrowFragment extends Fragment implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private final int BORROW_FRAGMENT = 0;
     private final int DEBT_FRAGMENT = 1;
-    private final int DEBT_BORROW_ARHIV = 2;
-
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private FloatingActionButton fb;
-
 
     @Nullable
     @Override
@@ -39,7 +37,7 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
         viewPager = (ViewPager) view.findViewById(R.id.vpDebtBorrowFragment);
         fb = (FloatingActionButton) view.findViewById(R.id.fbDebtBorrowFragment);
         fb.setOnClickListener(this);
-
+        PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight).setVisibility(View.GONE);
         return view;
     }
 
@@ -53,6 +51,9 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
 
     public void restartAdapter() {
         viewPager.setAdapter(new MyAdapter(((PocketAccounter) getContext()).getSupportFragmentManager()));
+        if (getArguments() != null) {
+            viewPager.setCurrentItem(getArguments().getInt("pos", 0));
+        }
     }
 
     @Override

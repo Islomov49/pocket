@@ -4,9 +4,13 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -129,11 +133,17 @@ public class BorrowFragment extends Fragment {
             if (person.getPerson().getPhoto().equals("")) {
                 view.BorrowPersonPhotoPath.setImageResource(R.drawable.credit_icon);
             } else {
-                view.BorrowPersonPhotoPath.setImageDrawable(Drawable.createFromPath(person.getPerson().getPhoto()));
+                try {
+                    view.BorrowPersonPhotoPath.setImageBitmap(queryContactImage(Integer.parseInt(person.getPerson().getPhoto())));
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getContext(), "format", Toast.LENGTH_SHORT).show();
+                    view.BorrowPersonPhotoPath.setImageDrawable(Drawable.createFromPath(person.getPerson().getPhoto()));
+                }
             }
             view.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (((PocketAccounter) getContext()).getSupportFragmentManager().findFragmentById(R.id.flMain).getTag() != null)
                     ((PocketAccounter) getContext()).replaceFragment(InfoDebtBorrowFragment.getInstance(persons.get(Math.abs(t - position)).getId()));
                 }
             });
@@ -256,6 +266,27 @@ public class BorrowFragment extends Fragment {
                 }
             });
         }
+
+        private Bitmap queryContactImage(int imageDataRow) {
+            Cursor c = getContext().getContentResolver().query(ContactsContract.Data.CONTENT_URI, new String[] {
+                    ContactsContract.CommonDataKinds.Photo.PHOTO
+            }, ContactsContract.Data._ID + "=?", new String[] {
+                    Integer.toString(imageDataRow)
+            }, null);
+            byte[] imageBytes = null;
+            if (c != null) {
+                if (c.moveToFirst()) {
+                    imageBytes = c.getBlob(0);
+                }
+                c.close();
+            }
+            if (imageBytes != null) {
+                return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+            } else {
+                return null;
+            }
+        }
+
 
         public ViewHolder onCreateViewHolder(ViewGroup parent, int var2) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_borrow_fragment_mod, parent, false);

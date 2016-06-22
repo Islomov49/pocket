@@ -1,24 +1,34 @@
 package com.jim.pocketaccounter.debt;
 
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -36,6 +46,7 @@ import com.jim.pocketaccounter.finance.Account;
 import com.jim.pocketaccounter.finance.Currency;
 import com.jim.pocketaccounter.finance.FinanceManager;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -70,6 +81,10 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
     private ImageView ivToolbarMostRight;
     private EditText firstPay;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+    private final int PERMISSION_REQUEST_CONTACT = 5;
+    private int PICK_CONTACT = 10;
+    private final int PERMISSION_READ_STORAGE = 6;
+
     public static Fragment getInstance(int type) {
         AddBorrowFragment fragment = new AddBorrowFragment();
         Bundle bundle = new Bundle();
@@ -109,7 +124,7 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.add_borrow_fragment_layout_mod, container, false);
+        final View view = inflater.inflate(R.layout.add_borrow_fragment_layout_mod, container, false);
         contactBtn = (FrameLayout) view.findViewById(R.id.btBorrowAddPopupContact);
         imageView = (CircleImageView) view.findViewById(R.id.ivBorrowAddPopup);
         PersonName = (EditText) view.findViewById(R.id.etBorrowAddPopupName);
@@ -123,10 +138,6 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
         calculate = (CheckBox) view.findViewById(R.id.chbAddDebtBorrowCalculate);
 
         manager = PocketAccounter.financeManager;
-
-        for (int i = 0; i < manager.getDebtBorrows().size(); i++) {
-            Toast.makeText(getContext(), "" + i, Toast.LENGTH_SHORT).show();
-        }
 
         PersonAccount.setOnItemSelectedListener(this);
         PersonValyuta.setOnItemSelectedListener(this);
@@ -192,13 +203,13 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
             @Override
             public void onClick(View v) {
                 if (PersonName.getText().toString().equals("")) {
-                    PersonName.setHintTextColor(Color.RED);
+                    PersonName.setError("Enter name");
                 } else {
                     if (PersonSumm.getText().toString().equals("")) {
-                        PersonName.setHintTextColor(Color.RED);
+                        PersonSumm.setError("Enter amount");
                     } else {
                         if (PersonDataGet.getText().toString().matches("")) {
-                            PersonDataGet.setHintTextColor(Color.RED);
+                            PersonDataGet.setError("Enter taken date");
                         } else {
                             ArrayList<DebtBorrow> list = manager.getDebtBorrows();
                             Currency currency = manager.getCurrencies().get(PersonValyuta.getSelectedItemPosition());
@@ -221,12 +232,16 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
                                         debtBorrow.getAccount().getId(), ""));
                                   debtBorrow.setReckings(reckings);
                             }
-                            list.add(debtBorrow);
                             ivToolbarMostRight.setVisibility(View.INVISIBLE);
+                            list.add(0, debtBorrow);
                             manager.setDebtBorrows(list);
-                            manager.saveDebtBorrows();
-                            manager.loadDebtBorrows();
-                            ((PocketAccounter) getContext()).replaceFragment(new DebtBorrowFragment(), PockerTag.DEBTS);
+                            DebtBorrowFragment fragment = new DebtBorrowFragment();
+                            Bundle bundle = new Bundle();
+                            bundle.putInt("pos", debtBorrow.getType());
+                            fragment.setArguments(bundle);
+                            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                            ((PocketAccounter) getContext()).replaceFragment(fragment, PockerTag.DEBTS);
                         }
                     }
                 }
@@ -236,22 +251,40 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
         contactBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
-                intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
-                if (intent.resolveActivity(getContext().getPackageManager()) != null) {
-                    startActivityForResult(intent, REQUEST_SELECT_CONTACT);
-                }
+                askForContactPermission();
             }
         });
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(
-                        Intent.ACTION_PICK,
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(i, RESULT_LOAD_IMAGE);
+                int permission = ContextCompat.checkSelfPermission(getContext(),
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                if (permission != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(((PocketAccounter) getContext()),
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder.setMessage("Permission to access the SD-CARD is required for this app to Download PDF.")
+                                .setTitle("Permission required");
+
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                ActivityCompat.requestPermissions((PocketAccounter)getContext(),
+                                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                        PERMISSION_READ_STORAGE);
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+
+                    } else {
+                        ActivityCompat.requestPermissions((PocketAccounter)getContext(),
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                            PERMISSION_READ_STORAGE);
+                    }
+                } else {
+                    getPhoto();
+                }
             }
         });
 
@@ -261,7 +294,7 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_SELECT_CONTACT && resultCode == RESULT_OK) {
+        if (requestCode == PICK_CONTACT && resultCode == RESULT_OK) {
 //             Get the URI and query the content provider for the phone number
             Uri contactUri = data.getData();
             String[] projection = new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER,
@@ -276,6 +309,7 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
                 int photoIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_ID);
                 String number = cursor.getString(numberIndex);
                 String name = cursor.getString(nameIndex);
+                photoPath = String.valueOf(cursor.getInt(photoIndex));
                 if (queryContactImage(cursor.getInt(photoIndex)) != null)
                     imageView.setImageBitmap(queryContactImage(cursor.getInt(photoIndex)));
                 else
@@ -296,7 +330,8 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
             String picturePath = cursor.getString(columnIndex);
             cursor.close();
             photoPath = picturePath;
-            imageView.setImageBitmap(BitmapFactory.decodeFile(picturePath));
+            Toast.makeText(getContext(), "" + picturePath, Toast.LENGTH_SHORT).show();
+            imageView.setImageURI(Uri.fromFile(new File(photoPath)));
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -319,11 +354,79 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
             return null;
         }
     }
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    public void askForContactPermission(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                        Manifest.permission.READ_CONTACTS)) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    builder.setTitle("Contacts access needed");
+                    builder.setPositiveButton(android.R.string.ok, null);
+                    builder.setMessage("please confirm Contacts access");//TODO put real question
+                    builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @TargetApi(Build.VERSION_CODES.M)
+                        @Override
+                        public void onDismiss(DialogInterface dialog) {
+                            requestPermissions(
+                                    new String[]
+                                            {Manifest.permission.READ_CONTACTS}
+                                    , PERMISSION_REQUEST_CONTACT);
+                        }
+                    });
+                    builder.show();
+                } else {
+                    ActivityCompat.requestPermissions(getActivity(),
+                            new String[]{Manifest.permission.READ_CONTACTS},
+                            PERMISSION_REQUEST_CONTACT);
+                }
+            }else{
+                getContact();
+            }
+        }
+        else{
+            getContact();
+        }
+    }
+
+    private void getContact(){
+        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+        intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
+        intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
+        startActivityForResult(intent, PICK_CONTACT);
+    }
+
+    private void getPhoto() {
+        Intent i = new Intent(
+                Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(i, RESULT_LOAD_IMAGE);
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CONTACT: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    getContact();
+                } else {
+                }
+                return;
+            }
+            case PERMISSION_READ_STORAGE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    getPhoto();
+                }
+                break;
+            }
+        }
     }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {}
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {}
 }

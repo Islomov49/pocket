@@ -219,7 +219,11 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 			values.put("person_number", debtBorrow.getPerson().getPhoneNumber());
 			values.put("photo_id", debtBorrow.getPerson().getPhoto());
 			values.put("taken_date", dateFormat.format(debtBorrow.getTakenDate().getTime()));
-			values.put("return_date", dateFormat.format(debtBorrow.getReturnDate().getTime()));
+			if (debtBorrow.getReturnDate() != null) {
+				values.put("return_date", dateFormat.format(debtBorrow.getReturnDate().getTime()));
+			} else {
+				values.put("return_date", "");
+			}
 			values.put("type", debtBorrow.getType());
 			values.put("account_id", debtBorrow.getAccount().getId());
 			values.put("currency_id", debtBorrow.getCurrency().getId());

@@ -1,8 +1,5 @@
 package com.jim.pocketaccounter.credit;
 
-import com.jim.pocketaccounter.debt.Recking;
-import com.jim.pocketaccounter.finance.Currency;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -17,7 +14,7 @@ public class CreditDetials {
     private long myCredit_id;
     private double value_of_credit;
     private double value_of_credit_with_procent;
-    private Currency valyute_currency;
+    private com.jim.pocketaccounter.finance.Currency valyute_currency;
     private ArrayList<ReckingCredit> reckings;
     private boolean key_for_include;
     private boolean key_for_archive;
@@ -27,7 +24,7 @@ public class CreditDetials {
     }
     public CreditDetials(int icon_ID, String credit_name, Calendar take_time,
                          double procent, long procent_interval, long period_time,long period_time_tip,boolean key_for_include,
-                         double value_of_credit, Currency valyute_currency,
+                         double value_of_credit, com.jim.pocketaccounter.finance.Currency valyute_currency,
                          double value_of_credit_with_procent, long myCredit_id) {
         this.icon_ID=icon_ID;
         this.credit_name = credit_name;
@@ -123,10 +120,10 @@ public class CreditDetials {
     public void setValue_of_credit(double value_of_credit) {
         this.value_of_credit = value_of_credit;
     }
-    public Currency getValyute_currency() {
+    public com.jim.pocketaccounter.finance.Currency getValyute_currency() {
         return valyute_currency;
     }
-    public void setValyute_currency(Currency valyute_currency) {
+    public void setValyute_currency(com.jim.pocketaccounter.finance.Currency valyute_currency) {
         this.valyute_currency = valyute_currency;
     }
 }

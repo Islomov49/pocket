@@ -61,7 +61,7 @@ public class DebtBorrow {
     public Calendar getTakenDate() {return takenDate;}
     public void setTakenDate(Calendar takenDate) {this.takenDate = (Calendar)takenDate.clone();}
     public Calendar getReturnDate() {return returnDate;}
-    public void setReturnDate(Calendar returnDate) {this.returnDate = (Calendar)returnDate.clone();}
+    public void setReturnDate(Calendar returnDate) {this.returnDate = returnDate;}
     public Account getAccount() {return account;}
     public void setAccount(Account account) {this.account = account;}
     public Currency getCurrency() {return currency;}

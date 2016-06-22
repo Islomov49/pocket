@@ -467,6 +467,5 @@ public class PocketAccounter extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         findViewById(R.id.change).setVisibility(View.VISIBLE);
-
     }
 }

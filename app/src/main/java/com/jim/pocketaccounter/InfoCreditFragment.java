@@ -129,10 +129,8 @@ public class InfoCreditFragment extends Fragment {
                 builder.setMessage("Do you realize what you want to delete this post? Then you can not restore!")
                         .setPositiveButton("DELETE ANYWAY", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialoge, int id) {
-
                                 A1.delete_item(currentPOS);
                                 getActivity().getSupportFragmentManager().popBackStack ();
-
                             }
                         }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -141,9 +139,6 @@ public class InfoCreditFragment extends Fragment {
                     }
                 });
                 builder.create().show();
-
-
-
             }
         });
 
