@@ -165,7 +165,6 @@ public class FilterDialog extends Dialog implements AdapterView.OnItemSelectedLi
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 try {
                     beginDate.setTime(dateFormat.parse("01."+"01."+yearFilter.getSelectedItem()));
-                    Toast.makeText(getContext(), "" + yearFilter.getSelectedItem(), Toast.LENGTH_SHORT).show();
                     beginDate.set(Calendar.HOUR_OF_DAY, 0);
                     beginDate.set(Calendar.MINUTE, 0);
                     beginDate.set(Calendar.SECOND, 0);

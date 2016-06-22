@@ -105,16 +105,16 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
 
                 for (int i = 0; i < sortReportByAccount.size(); i++) {
                     tables[i][0] = Integer.toString(sortReportByAccount.get(i).getType());
-                    tables[i][1] = sortReportByAccount.get(i).getCurrency().getAbbr();
-                    tables[i][2] = decimalFormat.format(sortReportByAccount.get(i).getAmount());
+                    tables[i][1] = sortReportByAccount.get(i).getCurrency().getAbbr() + " " +
+                            decimalFormat.format(sortReportByAccount.get(i).getAmount());
 
-                    tables[i][3] = simpleDateFormat.format(sortReportByAccount.get(i).getDate().getTime());
+                    tables[i][2] = simpleDateFormat.format(sortReportByAccount.get(i).getDate().getTime());
 
                     if (!sortReportByAccount.get(i).getCategory().getName().equals(""))
-                        tables[i][4] = sortReportByAccount.get(i).getCategory().getName();
+                        tables[i][3] = sortReportByAccount.get(i).getCategory().getName();
                     if (!sortReportByAccount.get(i).getCategory().getName().equals("")
                             && sortReportByAccount.get(i).getSubCategory() != null)
-                        tables[i][4] = sortReportByAccount.get(i).getCategory().getName()
+                        tables[i][3] = sortReportByAccount.get(i).getCategory().getName()
                                 + "," + sortReportByAccount.get(i).getSubCategory().getName();
                 }
                 tbReportByAccount.setTables(tables);
@@ -152,16 +152,16 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
 
                         for (int i = 0; i < sortReportByAccount.size(); i++) {
                             tables[i][0] = Integer.toString(sortReportByAccount.get(i).getType());
-                            tables[i][1] = sortReportByAccount.get(i).getCurrency().getAbbr();
-                            tables[i][2] = decimalFormat.format(sortReportByAccount.get(i).getAmount());
+                            tables[i][1] = sortReportByAccount.get(i).getCurrency().getAbbr() + " " +
+                                    decimalFormat.format(sortReportByAccount.get(i).getAmount());
 
-                            tables[i][3] = simpleDateFormat.format(sortReportByAccount.get(i).getDate().getTime());
+                            tables[i][2] = simpleDateFormat.format(sortReportByAccount.get(i).getDate().getTime());
 
                             if (!sortReportByAccount.get(i).getCategory().getName().equals(""))
-                                tables[i][4] = sortReportByAccount.get(i).getCategory().getName();
+                                tables[i][3] = sortReportByAccount.get(i).getCategory().getName();
                             if (!sortReportByAccount.get(i).getCategory().getName().equals("")
                                     && sortReportByAccount.get(i).getSubCategory() != null)
-                                tables[i][4] = sortReportByAccount.get(i).getCategory().getName()
+                                tables[i][3] = sortReportByAccount.get(i).getCategory().getName()
                                         + "," + sortReportByAccount.get(i).getSubCategory().getName();
                         }
                         tbReportByAccount.setTables(tables);
