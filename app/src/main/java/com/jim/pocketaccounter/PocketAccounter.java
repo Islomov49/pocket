@@ -74,6 +74,7 @@ public class PocketAccounter extends AppCompatActivity {
     private Calendar date;
     private Spinner spToolbar;
     private RelativeLayout rlRecordTable;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -118,9 +119,11 @@ public class PocketAccounter extends AppCompatActivity {
         date = Calendar.getInstance();
         initialize(date);
     }
+
     public Calendar getDate() {
         return date;
     }
+
     public void initialize(Calendar date) {
         toolbar.setTitle(getResources().getString(R.string.app_name));
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_drawer);
@@ -136,7 +139,7 @@ public class PocketAccounter extends AppCompatActivity {
         ivToolbarMostRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final Dialog dialog=new Dialog(PocketAccounter.this);
+                final Dialog dialog = new Dialog(PocketAccounter.this);
                 View dialogView = getLayoutInflater().inflate(R.layout.date_picker, null);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
                 dialog.setContentView(dialogView);
@@ -171,10 +174,10 @@ public class PocketAccounter extends AppCompatActivity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
         int side = 0;
-        if (height*0.6 > width)
-            side =  width;
+        if (height * 0.6 > width)
+            side = width;
         else
-            side = (int)(height*0.6);
+            side = (int) (height * 0.6);
         expanseView = new RecordExpanseView(this, date);
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(side, side);
         lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
@@ -182,31 +185,32 @@ public class PocketAccounter extends AppCompatActivity {
         rlRecordsMain.removeAllViews();
         rlRecordsMain.addView(expanseView);
         incomeView = new RecordIncomesView(this, date);
-        RelativeLayout.LayoutParams lpIncomes = new RelativeLayout.LayoutParams(width, width/4+(int)(getResources().getDimension(R.dimen.thirty_dp)));
+        RelativeLayout.LayoutParams lpIncomes = new RelativeLayout.LayoutParams(width, width / 4 + (int) (getResources().getDimension(R.dimen.thirty_dp)));
         lpIncomes.addRule(RelativeLayout.CENTER_HORIZONTAL);
         incomeView.setLayoutParams(lpIncomes);
         rlRecordIncomes.removeAllViews();
         rlRecordIncomes.addView(incomeView);
     }
+
     private void calclulateBalanse(Calendar date) {
-        Calendar begTime = (Calendar)date.clone();
+        Calendar begTime = (Calendar) date.clone();
         begTime.set(Calendar.HOUR_OF_DAY, 0);
         begTime.set(Calendar.MINUTE, 0);
         begTime.set(Calendar.SECOND, 0);
         begTime.set(Calendar.MILLISECOND, 0);
-        Calendar endTime = (Calendar)date.clone();
+        Calendar endTime = (Calendar) date.clone();
         endTime.set(Calendar.HOUR_OF_DAY, 23);
         endTime.set(Calendar.MINUTE, 59);
         endTime.set(Calendar.SECOND, 59);
         endTime.set(Calendar.MILLISECOND, 59);
         ArrayList<FinanceRecord> records = new ArrayList<FinanceRecord>();
-        for (int i=0; i<PocketAccounter.financeManager.getRecords().size(); i++) {
-            if (PocketAccounter.financeManager.getRecords().get(i).getDate().compareTo(begTime)>=0 &&
-                    PocketAccounter.financeManager.getRecords().get(i).getDate().compareTo(endTime)<=0)
+        for (int i = 0; i < PocketAccounter.financeManager.getRecords().size(); i++) {
+            if (PocketAccounter.financeManager.getRecords().get(i).getDate().compareTo(begTime) >= 0 &&
+                    PocketAccounter.financeManager.getRecords().get(i).getDate().compareTo(endTime) <= 0)
                 records.add(PocketAccounter.financeManager.getRecords().get(i));
         }
         double income = 0.0, expanse = 0.0, balanse = 0.0;
-        for (int i=0; i<records.size(); i++) {
+        for (int i = 0; i < records.size(); i++) {
             if (records.get(i).getCategory().getType() == PocketAccounterGeneral.INCOME)
                 income = income + PocketAccounterGeneral.getCost(records.get(i));
             else
@@ -215,9 +219,9 @@ public class PocketAccounter extends AppCompatActivity {
         balanse = income - expanse;
         String mainCurrencyAbbr = PocketAccounter.financeManager.getMainCurrency().getAbbr();
         DecimalFormat decFormat = new DecimalFormat("0.00");
-        tvRecordIncome.setText(decFormat.format(income)+mainCurrencyAbbr);
-        tvRecordExpanse.setText(decFormat.format(expanse)+mainCurrencyAbbr);
-        tvRecordBalanse.setText(decFormat.format(balanse)+mainCurrencyAbbr);
+        tvRecordIncome.setText(decFormat.format(income) + mainCurrencyAbbr);
+        tvRecordExpanse.setText(decFormat.format(expanse) + mainCurrencyAbbr);
+        tvRecordBalanse.setText(decFormat.format(balanse) + mainCurrencyAbbr);
     }
 
     private void fillLeftMenu() {
@@ -279,7 +283,7 @@ public class PocketAccounter extends AppCompatActivity {
         lvLeftMenu.setAdapter(adapter);
         lvLeftMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,final int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 findViewById(R.id.change).setVisibility(View.GONE);
                 drawer.closeLeftSide();
                 drawer.postDelayed(new Runnable() {
@@ -290,7 +294,7 @@ public class PocketAccounter extends AppCompatActivity {
                             case 0:
                                 findViewById(R.id.change).setVisibility(View.VISIBLE);
                                 FragmentManager fm = getSupportFragmentManager();
-                                for (int i=0; i<fm.getBackStackEntryCount(); i++)
+                                for (int i = 0; i < fm.getBackStackEntryCount(); i++)
                                     fm.popBackStack();
                                 initialize(date);
                                 break;
@@ -367,10 +371,12 @@ public class PocketAccounter extends AppCompatActivity {
             emailIntent.setClassName(best.activityInfo.packageName, best.activityInfo.name);
         activity.startActivity(emailIntent);
     }
+
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         return super.onPrepareOptionsMenu(menu);
     }
+
     @Override
     public void onBackPressed() {
         android.support.v4.app.Fragment temp00 = getSupportFragmentManager().
@@ -418,18 +424,29 @@ public class PocketAccounter extends AppCompatActivity {
                 getSupportFragmentManager().popBackStack();
                 if (getSupportFragmentManager().findFragmentById(R.id.flMain) != null) {
                     tek = true;
-                    if (fragmentManager.findFragmentById(R.id.flMain).getTag() == null) return;
-                    if (fragmentManager.findFragmentById(R.id.flMain).getTag().matches(PockerTag.HOME)) {
-                        findViewById(R.id.change).setVisibility(View.VISIBLE);
-                        initialize(date);
+                    if (fragmentManager.findFragmentById(R.id.flMain).getTag() == null) {
+                        Log.d("sss", "" + fragmentManager.findFragmentById(R.id.flMain).getClass().getName());
+                        switch (fragmentManager.findFragmentById(R.id.flMain).getClass().getName()) {
+                            case "com.jim.pocketaccounter.CurrencyEditFragment":
+                            case "com.jim.pocketaccounter.CurrencyChooseFragment":
+                                findViewById(R.id.change).setVisibility(View.VISIBLE);
+                                replaceFragment(new CurrencyFragment(), PockerTag.CURRENCY);
+                                break;
+                            case "com.jim.pocketaccounter.RootCategoryEditFragment": {
+                                replaceFragment(new CategoryFragment(), PockerTag.CATEGORY);
+                                break;
+                            }
+                        }
+                        return;
+                    }
+                    if (fragmentManager.findFragmentById(R.id.flMain).getTag().matches(PockerTag.ACCOUNT)) {
+                        replaceFragment(new AccountFragment(), PockerTag.ACCOUNT);
                     } else if (fragmentManager.findFragmentById(R.id.flMain).getTag().matches(PockerTag.DEBTS)) {
                         replaceFragment(new DebtBorrowFragment(), PockerTag.DEBTS);
                     } else if (fragmentManager.findFragmentById(R.id.flMain).getTag().matches(PockerTag.CURRENCY)) {
                         replaceFragment(new CurrencyFragment(), PockerTag.CURRENCY);
                     } else if (fragmentManager.findFragmentById(R.id.flMain).getTag().matches(PockerTag.CATEGORY)) {
                         replaceFragment(new CategoryFragment(), PockerTag.CATEGORY);
-                    } else if (fragmentManager.findFragmentById(R.id.flMain).getTag().matches(PockerTag.ACCOUNT)) {
-                        replaceFragment(new AccountFragment(), PockerTag.ACCOUNT);
                     }
                 }
             }
@@ -460,10 +477,10 @@ public class PocketAccounter extends AppCompatActivity {
         if (fragment != null) {
             int size = fragmentManager.getBackStackEntryCount();
             if (fragmentManager.getFragments() != null)
-                Log.d("fm", ""+fragmentManager.getFragments().size()+" "+size);
-                for (int i = 0; i < size; i++) {
-                    fragmentManager.popBackStack();
-                }
+                Log.d("fm", "" + fragmentManager.getFragments().size() + " " + size);
+            for (int i = 0; i < size; i++) {
+                fragmentManager.popBackStack();
+            }
             tek = false;
             current = fragment;
             fragmentManager.beginTransaction()
