@@ -2,6 +2,7 @@ package com.jim.pocketaccounter;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SlidingPaneLayout.LayoutParams;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
@@ -110,6 +112,8 @@ public class CurrencyEditFragment extends Fragment implements OnClickListener, O
 				refreshExchangeList();
 				break;
 			case R.id.ivToolbarMostRight:
+				InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 				if (chbCurrencyEditMainCurrency.isChecked()) {
 					if (!currency.getMain()) {
 						double cost = 0.0;
@@ -193,10 +197,27 @@ public class CurrencyEditFragment extends Fragment implements OnClickListener, O
 					currCost.setDay(day);
 				}
 				else {
-					CurrencyCost newCurrencyCost = new CurrencyCost();
-					newCurrencyCost.setCost(Double.parseDouble(etExchange.getText().toString()));
-					newCurrencyCost.setDay(day);
-					currency.getCosts().add(newCurrencyCost);
+					boolean dayFound = false;
+					int position = 0;
+					for (int i=0; i<currency.getCosts().size(); i++) {
+						Calendar cal = currency.getCosts().get(i).getDay();
+						if (cal.get(Calendar.YEAR) == day.get(Calendar.YEAR) &&
+								cal.get(Calendar.MONTH) == day.get(Calendar.MONTH) &&
+								cal.get(Calendar.DAY_OF_MONTH) == day.get(Calendar.DAY_OF_MONTH)) {
+							dayFound = true;
+							position = i;
+							break;
+						}
+					}
+					if (dayFound)
+						currency.getCosts().get(position).setCost(Double.parseDouble(etExchange.getText().toString()));
+					else {
+						CurrencyCost newCurrencyCost = new CurrencyCost();
+						newCurrencyCost.setCost(Double.parseDouble(etExchange.getText().toString()));
+						newCurrencyCost.setDay(day);
+						currency.getCosts().add(newCurrencyCost);
+					}
+
 				}
 				refreshExchangeList();
 				dialog.dismiss();

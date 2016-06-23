@@ -286,7 +286,6 @@ public class PocketAccounter extends AppCompatActivity {
                 drawer.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-//                        findViewById(R.id.changel).setVisibility(View.INVISIBLE);
                         switch (position) {
                             case 0:
                                 findViewById(R.id.change).setVisibility(View.VISIBLE);
@@ -294,6 +293,9 @@ public class PocketAccounter extends AppCompatActivity {
                                 for (int i = 0; i < fm.getBackStackEntryCount(); i++)
                                     fm.popBackStack();
                                 initialize(date);
+                                break;
+                            case 1:
+                                replaceFragment(new CurrencyFragment(), PockerTag.CURRENCY);
                                 break;
                             case 2:
                                 replaceFragment(new CurrencyFragment(), PockerTag.CURRENCY);
@@ -307,6 +309,9 @@ public class PocketAccounter extends AppCompatActivity {
                                 replaceFragment(new AccountFragment(), PockerTag.ACCOUNT);
                                 //Accounting management
                                 break;
+                            case 5:
+                                replaceFragment(new CreditTabLay(), PockerTag.CREDITS);
+                                break;
                             case 6:
                                 replaceFragment(new CreditTabLay(), PockerTag.CREDITS);
                                 //Statistics by account
@@ -314,6 +319,9 @@ public class PocketAccounter extends AppCompatActivity {
                             case 7:
                                 replaceFragment(new DebtBorrowFragment(), PockerTag.DEBTS);
                                 //Statistics by income/expanse
+                                break;
+                            case 8:
+                                replaceFragment(new ReportByAccountFragment(), PockerTag.REPORT_ACCOUNT);
                                 break;
                             case 9:
                                 replaceFragment(new ReportByAccountFragment(), PockerTag.REPORT_ACCOUNT);
