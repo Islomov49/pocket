@@ -29,7 +29,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
@@ -65,6 +64,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
     private FrameLayout infoFrame;
     private FrameLayout isHaveReking;
     private TextView tvInfoDebtBorrowTakeDate;
+
     public static Fragment getInstance(String id) {
         InfoDebtBorrowFragment fragment = new InfoDebtBorrowFragment();
         Bundle bundle = new Bundle();
@@ -112,7 +112,6 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
                 manager.getDebtBorrows().remove(debtBorrow);
                 manager.saveDebtBorrows();
                 manager.loadDebtBorrows();
-                Toast.makeText(getContext(), "das", Toast.LENGTH_SHORT).show();
                 ((PocketAccounter) getContext()).getSupportFragmentManager().popBackStack();
                 DebtBorrowFragment fragment = new DebtBorrowFragment();
                 Bundle bundle = new Bundle();
@@ -124,6 +123,8 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
         tvInfoDebtBorrowTakeDate.setText(format.format(debtBorrow.getTakenDate().getTime()));
         calculate.setText(debtBorrow.isCalculate() ? "calculate" : "no calculate");
+        infoFrame.setVisibility(View.GONE);
+        view.findViewById(R.id.with_wlyuzik).setVisibility(view.GONE);
         view.findViewById(R.id.infoooc).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -211,7 +212,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
                 circleImageView.setImageDrawable(Drawable.createFromPath(debtBorrow.getPerson().getPhoto()));
             }
         } else {
-            circleImageView.setImageResource(R.drawable.credit_icon);
+            circleImageView.setImageResource(R.drawable.no_photo);
         }
         Log.d("sss", debtBorrow.getCurrency().getAbbr());
         tvTotalsummInfo.setText("" + (debtBorrow.getAmount() == ((int) debtBorrow.getAmount())
@@ -242,9 +243,9 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
     }
 
     private Bitmap queryContactImage(int imageDataRow) {
-        Cursor c = getContext().getContentResolver().query(ContactsContract.Data.CONTENT_URI, new String[] {
+        Cursor c = getContext().getContentResolver().query(ContactsContract.Data.CONTENT_URI, new String[]{
                 ContactsContract.CommonDataKinds.Photo.PHOTO
-        }, ContactsContract.Data._ID + "=?", new String[] {
+        }, ContactsContract.Data._ID + "=?", new String[]{
                 Integer.toString(imageDataRow)
         }, null);
         byte[] imageBytes = null;
@@ -261,6 +262,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
         }
     }
 
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
     private void openDialog() {
         final Dialog dialog = new Dialog(getActivity());
@@ -282,9 +284,14 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
 
         accountSp.setAdapter(arrayAdapter);
 
+        if (!debtBorrow.isCalculate()) {
+            dialogView.findViewById(R.id.is_calc).setVisibility(View.GONE);
+        }
+
         ImageView cancel = (ImageView) dialogView.findViewById(R.id.ivInfoDebtBorrowCancel);
         ImageView save = (ImageView) dialogView.findViewById(R.id.ivInfoDebtBorrowSave);
         final Calendar date = Calendar.getInstance();
+        enterDate.setText(simpleDateFormat.format(date.getTime()));
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -293,7 +300,6 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
         });
         final DatePickerDialog.OnDateSetListener getDatesetListener = new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
                 date.set(arg1, arg2, arg3);
                 enterDate.setText(simpleDateFormat.format(date.getTime()));
             }
@@ -360,6 +366,14 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
                 view.comment.setVisibility(View.GONE);
             }
             view.checkBox.setVisibility(View.GONE);
+            view.checkBox.setChecked(false);
+            view.rootView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (view.checkBox.getVisibility() == View.VISIBLE)
+                    view.checkBox.setChecked(!view.checkBox.isChecked());
+                }
+            });
         }
 
         public InfoDebtBorrowFragment.ViewHolder onCreateViewHolder(ViewGroup parent, int var2) {
@@ -378,7 +392,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
             totalPayAmount.setText(total == ((int) total) ? "" + ((int) total) : "" + total + debtBorrow.getCurrency().getAbbr());
             String qq = ((int) (debtBorrow.getAmount() - total)) == (debtBorrow.getAmount() - total)
                     ? "" + ((int) (debtBorrow.getAmount() - total)) : "" + (debtBorrow.getAmount() - total);
-            leftAmount.setText(qq + "/" + debtBorrow.getCurrency().getAbbr());
+            leftAmount.setText(qq + "" + debtBorrow.getCurrency().getAbbr());
             if (debtBorrow.getReckings().isEmpty()) {
                 isHaveReking.setVisibility(View.GONE);
             }
@@ -408,6 +422,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
         public TextView infoAccount;
         public TextView comment;
         public CheckBox checkBox;
+        public View rootView;
 
         public ViewHolder(View view) {
             super(view);
@@ -416,6 +431,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
             comment = (TextView) view.findViewById(R.id.comment_trans);
             infoSumm = (TextView) view.findViewById(R.id.paid_value);
             checkBox = (CheckBox) view.findViewById(R.id.for_delete_check_box);
+            rootView = view.findViewById(R.id.rlRootView);
         }
     }
 

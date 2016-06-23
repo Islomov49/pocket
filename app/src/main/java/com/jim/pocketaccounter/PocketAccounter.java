@@ -403,13 +403,13 @@ public class PocketAccounter extends AppCompatActivity {
                             }).setNegativeButton("DISCARD", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
-                            getSupportFragmentManager().popBackStack();
+                            getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                         }
                     });
                     builder.create().show();
                 } else {
                     AddCreditFragment.to_open_dialog = true;
-                    getSupportFragmentManager().popBackStack();
+                    getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                     switch (getSupportFragmentManager().findFragmentById(R.id.flMain).getTag()) {
                         case PockerTag.ACCOUNT:
                         case PockerTag.CATEGORY:
@@ -426,10 +426,9 @@ public class PocketAccounter extends AppCompatActivity {
                     }
                 }
             } else {
-                getSupportFragmentManager().popBackStack();
+                getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 if (getSupportFragmentManager().findFragmentById(R.id.flMain) != null) {
                     if (fragmentManager.findFragmentById(R.id.flMain).getTag() == null) {
-                        Log.d("sss", "" + fragmentManager.findFragmentById(R.id.flMain).getClass().getName());
                         switch (fragmentManager.findFragmentById(R.id.flMain).getClass().getName()) {
                             case "com.jim.pocketaccounter.CurrencyEditFragment":
                             case "com.jim.pocketaccounter.CurrencyChooseFragment":
@@ -438,6 +437,11 @@ public class PocketAccounter extends AppCompatActivity {
                                 break;
                             case "com.jim.pocketaccounter.RootCategoryEditFragment": {
                                 replaceFragment(new CategoryFragment(), PockerTag.CATEGORY);
+                                break;
+                            }
+                            case "com.jim.pocketaccounter.debt.InfoDebtBorrowFragment":
+                            case "com.jim.pocketaccounter.debt.AddBorrowFragment": {
+                                replaceFragment(new DebtBorrowFragment(), PockerTag.DEBTS);
                                 break;
                             }
                         }

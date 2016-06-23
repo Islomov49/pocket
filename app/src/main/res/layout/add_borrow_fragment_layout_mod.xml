@@ -66,6 +66,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true"
+                        android:background="@drawable/rounded_rectangle_1"
                         android:layout_alignBottom="@+id/name_text_view"
                         android:layout_marginBottom="2dp">
                         <TextView
@@ -73,6 +74,8 @@
                             android:layout_height="wrap_content"
                             android:text="FROM CONTACT"
                             android:textSize="8dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
                             android:textColor="@color/green_light"
                             android:layout_marginRight="8dp"
                             android:layout_marginLeft="8dp"/>

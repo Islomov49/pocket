@@ -38,7 +38,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
@@ -101,7 +100,6 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
 
     private DatePickerDialog.OnDateSetListener getDatesetListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-            getDate = Calendar.getInstance();
             getDate.set(arg1, arg2, arg3);
             if (returnDate != null && getDate.compareTo(returnDate)>0 ) {
                 returnDate = getDate;
@@ -112,7 +110,6 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
     };
     private DatePickerDialog.OnDateSetListener returnDatesetListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-            returnDate = Calendar.getInstance();
             returnDate.set(arg1, arg2, arg3);
             if (returnDate.compareTo(getDate) < 0) {
                 returnDate = getDate;
@@ -136,6 +133,7 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
         PersonValyuta = (Spinner) view.findViewById(R.id.spBorrowAddPopupValyuta);
         PersonAccount = (Spinner) view.findViewById(R.id.spBorrowAddPopupAccount);
         calculate = (CheckBox) view.findViewById(R.id.chbAddDebtBorrowCalculate);
+        getDate = Calendar.getInstance();
 
         manager = PocketAccounter.financeManager;
 
@@ -163,7 +161,7 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
         arrayValyuAdapter.setDropDownViewResource(
                 android.R.layout.simple_spinner_dropdown_item);
         PersonValyuta.setAdapter(arrayValyuAdapter);
-
+        PersonDataGet.setText(simpleDateFormat.format(getDate.getTime()));
         PersonDataGet.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -198,6 +196,17 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
         ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
         ivToolbarMostRight.setImageResource(R.drawable.check_sign);
         ivToolbarMostRight.setVisibility(View.VISIBLE);
+
+        calculate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (calculate.isChecked()) {
+                    PersonAccount.setVisibility(View.VISIBLE);
+                } else {
+                    PersonAccount.setVisibility(View.GONE);
+                }
+            }
+        });
 
         ivToolbarMostRight.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -254,6 +263,8 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
                 askForContactPermission();
             }
         });
+
+        imageView.setImageResource(R.drawable.no_photo);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -330,7 +341,6 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
             String picturePath = cursor.getString(columnIndex);
             cursor.close();
             photoPath = picturePath;
-            Toast.makeText(getContext(), "" + picturePath, Toast.LENGTH_SHORT).show();
             imageView.setImageURI(Uri.fromFile(new File(photoPath)));
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -380,11 +390,11 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
                             new String[]{Manifest.permission.READ_CONTACTS},
                             PERMISSION_REQUEST_CONTACT);
                 }
-            }else{
+            } else {
                 getContact();
             }
         }
-        else{
+        else {
             getContact();
         }
     }
@@ -424,7 +434,6 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
             }
         }
     }
-
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {}
     @Override

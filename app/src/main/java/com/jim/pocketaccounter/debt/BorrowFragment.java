@@ -16,6 +16,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,13 +28,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
 import com.jim.pocketaccounter.finance.FinanceManager;
-
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -128,15 +126,20 @@ public class BorrowFragment extends Fragment {
                                 + " " + (person.getReturnDate().get(Calendar.MONTH)+1)
                                 + " " + person.getReturnDate().get(Calendar.YEAR));
             }
-            String ss = person.getAmount()==(int)person.getAmount() ? ""+(int)person.getAmount() : ""+person.getAmount();
+            double qq = 0;
+            if (person.getReckings() != null) {
+                for (Recking rk: person.getReckings()) {
+                    qq += rk.getAmount();
+                }
+            }
+            String ss = (person.getAmount() - qq) ==(int)(person.getAmount() - qq) ? ""+(int)(person.getAmount() - qq) : "" + (person.getAmount() - qq);
             view.BorrowPersonSumm.setText(ss + person.getCurrency().getAbbr());
             if (person.getPerson().getPhoto().equals("")) {
-                view.BorrowPersonPhotoPath.setImageResource(R.drawable.credit_icon);
+                view.BorrowPersonPhotoPath.setImageResource(R.drawable.no_photo);
             } else {
                 try {
                     view.BorrowPersonPhotoPath.setImageBitmap(queryContactImage(Integer.parseInt(person.getPerson().getPhoto())));
                 } catch (NumberFormatException e) {
-                    Toast.makeText(getContext(), "format", Toast.LENGTH_SHORT).show();
                     view.BorrowPersonPhotoPath.setImageDrawable(Drawable.createFromPath(person.getPerson().getPhoto()));
                 }
             }
