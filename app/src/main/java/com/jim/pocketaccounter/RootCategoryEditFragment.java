@@ -2,6 +2,7 @@ package com.jim.pocketaccounter;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
@@ -187,6 +189,8 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 	}
 	@Override
 	public void onClick(View v) {
+		InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 		switch(v.getId()) {
 		case R.id.fabAccountIcon:
 			openIconsDialog();
@@ -207,6 +211,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 			}
 			break;
 		case R.id.ivToolbarMostRight:
+
 			if (etCatEditName.getText().toString().matches("")) {
 				Toast.makeText(getActivity(), getResources().getString(R.string.enter_cat_name), Toast.LENGTH_SHORT).show();
 				Animation wobble = AnimationUtils.loadAnimation(getActivity(), R.anim.wobble);

@@ -179,6 +179,7 @@ public class RecordExpanseView extends View implements 	GestureDetector.OnGestur
 	public void onShowPress(MotionEvent e) {}
 	@Override
 	public boolean onSingleTapUp(MotionEvent e) {
+		if (PocketAccounter.PRESSED) return false;
 		int size = buttons.size();
 		float x = e.getX();
 		float y = e.getY();
@@ -204,6 +205,7 @@ public class RecordExpanseView extends View implements 	GestureDetector.OnGestur
 				break;
 			}
 		}
+		PocketAccounter.PRESSED = true;
 		return false;
 	}
 
@@ -298,8 +300,19 @@ public class RecordExpanseView extends View implements 	GestureDetector.OnGestur
 		lvDialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				if (position == 0)
-					openCategoryChooseDialog(pos);
+				if (position == 0) {
+					boolean expanseCategoryFound = false;
+					for (int i = 0; i < PocketAccounter.financeManager.getCategories().size(); i++) {
+						if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.EXPANCE) {
+							expanseCategoryFound = true;
+							break;
+						}
+					}
+					if (expanseCategoryFound)
+						openCategoryChooseDialog(pos);
+					else
+						((PocketAccounter)getContext()).replaceFragment(new RootCategoryEditFragment(null, PocketAccounterGeneral.EXPANSE_MODE, pos, date));
+				}
 				else
 					((PocketAccounter)getContext()).replaceFragment(new RootCategoryEditFragment(null, PocketAccounterGeneral.EXPANSE_MODE, pos, date));
 				dialog.dismiss();
@@ -311,6 +324,7 @@ public class RecordExpanseView extends View implements 	GestureDetector.OnGestur
 				for (int i=0; i<buttons.size(); i++)
 					buttons.get(i).setPressed(false);
 				invalidate();
+				PocketAccounter.PRESSED = false;
 			}
 		});
 		dialog.show();

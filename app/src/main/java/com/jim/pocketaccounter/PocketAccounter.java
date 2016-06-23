@@ -60,12 +60,9 @@ public class PocketAccounter extends AppCompatActivity {
     public static LeftSideDrawer drawer;
     private ListView lvLeftMenu;
     public static FinanceManager financeManager;
-    private boolean tek = false;
-    private boolean first = false;
     private FragmentManager fragmentManager;
     SharedPreferences spref;
     SharedPreferences.Editor ed  ;
-    private Fragment current;
     private RelativeLayout rlRecordsMain, rlRecordIncomes;
     private TextView tvRecordIncome, tvRecordBalanse, tvRecordExpanse;
     private ImageView ivToolbarMostRight;
@@ -74,7 +71,7 @@ public class PocketAccounter extends AppCompatActivity {
     private Calendar date;
     private Spinner spToolbar;
     private RelativeLayout rlRecordTable;
-
+    public static boolean PRESSED;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,7 +90,6 @@ public class PocketAccounter extends AppCompatActivity {
         }
         financeManager = new FinanceManager(this);
         fragmentManager = getSupportFragmentManager();
-
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(ContextCompat.getColor(this, toolbar_text_color));
@@ -112,19 +108,20 @@ public class PocketAccounter extends AppCompatActivity {
         rlRecordTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (PRESSED) return;
                 replaceFragment(new RecordDetailFragment(date));
+                PRESSED = true;
             }
         });
         tvRecordExpanse = (TextView) findViewById(R.id.tvRecordExpanse);
         date = Calendar.getInstance();
         initialize(date);
     }
-
     public Calendar getDate() {
         return date;
     }
-
     public void initialize(Calendar date) {
+        PRESSED = false;
         toolbar.setTitle(getResources().getString(R.string.app_name));
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_drawer);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -423,7 +420,6 @@ public class PocketAccounter extends AppCompatActivity {
             } else {
                 getSupportFragmentManager().popBackStack();
                 if (getSupportFragmentManager().findFragmentById(R.id.flMain) != null) {
-                    tek = true;
                     if (fragmentManager.findFragmentById(R.id.flMain).getTag() == null) {
                         Log.d("sss", "" + fragmentManager.findFragmentById(R.id.flMain).getClass().getName());
                         switch (fragmentManager.findFragmentById(R.id.flMain).getClass().getName()) {
@@ -481,8 +477,6 @@ public class PocketAccounter extends AppCompatActivity {
             for (int i = 0; i < size; i++) {
                 fragmentManager.popBackStack();
             }
-            tek = false;
-            current = fragment;
             fragmentManager.beginTransaction()
                     .addToBackStack(null)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
