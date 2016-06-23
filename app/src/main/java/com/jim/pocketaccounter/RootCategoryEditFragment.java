@@ -211,11 +211,8 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 			}
 			break;
 		case R.id.ivToolbarMostRight:
-
 			if (etCatEditName.getText().toString().matches("")) {
-				Toast.makeText(getActivity(), getResources().getString(R.string.enter_cat_name), Toast.LENGTH_SHORT).show();
-				Animation wobble = AnimationUtils.loadAnimation(getActivity(), R.anim.wobble);
-				etCatEditName.startAnimation(wobble);
+				etCatEditName.setError(getResources().getString(R.string.category_name_error));
 				return;
 			}
 			if (!chbCatEditIncome.isChecked() && !chbCatEditExpanse.isChecked()) {
@@ -304,7 +301,6 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 		dialog.setContentView(dialogView);
 		mode = PocketAccounterGeneral.NORMAL_MODE;
 		setMode(mode);
-
 		final FABIcon fabChooseIcon = (FABIcon) dialogView.findViewById(R.id.fabChooseIcon);
 		Bitmap temp, scaled;
 		if (subCategory != null)
@@ -327,7 +323,6 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 				gvCategoryIcons.setOnItemClickListener(new OnItemClickListener() {
 					@Override
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-						subCategory.setIcon(icons[position]);
 						Bitmap temp  = BitmapFactory.decodeResource(getResources(), icons[position]);
 						Bitmap scaled = Bitmap.createScaledBitmap(temp, (int)getResources().getDimension(R.dimen.twentyfive_dp), (int)getResources().getDimension(R.dimen.twentyfive_dp), false);
 						fabChooseIcon.setImageBitmap(scaled);
@@ -350,8 +345,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 			@Override
 			public void onClick(View v) {
 				if (etSubCategoryName.getText().toString().matches("")) {
-					Animation wobble = AnimationUtils.loadAnimation(getActivity(), R.anim.wobble);
-					etSubCategoryName.startAnimation(wobble);
+					etSubCategoryName.setError(getResources().getString(R.string.sub_cat_name_error));
 					return;
 				}
 				if (subCategory != null) {

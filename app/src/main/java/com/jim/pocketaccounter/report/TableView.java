@@ -234,7 +234,6 @@ public class TableView extends View implements GestureDetector.OnGestureListener
                     single_tap = false;
                 }
                 canvas.drawRect(tables_rect[i][j], paint_border);
-
                 if (tables[i][j].equals("1") || tables[i][j].equals("0") && j == 0) {
                     if (tables[i][j].equals("1"))
                         canvas.drawBitmap(minus,

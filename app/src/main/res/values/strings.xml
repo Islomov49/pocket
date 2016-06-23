@@ -942,4 +942,7 @@
     <string name="payza">"Your payment balance is "</string>
     <string name="imsure">I\'m sure</string>
     <string name="cancel1">Cancel</string>
+    <string name="category_name_error">Назвение категории не введено!</string>
+    <string name="sub_cat_name_error">Назвение подкатегории не введено!</string>
+    <string name="account_name_error">Название счета не введено!</string>
 </resources>

@@ -19,7 +19,7 @@
             android:layout_marginBottom="@dimen/ten_dp"
             android:layout_marginLeft="@dimen/sixteen_dp"
             android:layout_marginRight="@dimen/sixteen_dp"
-            android:layout_marginTop="@dimen/twenty_dp"
+            android:layout_marginTop="@dimen/ten_dp"
             android:orientation="horizontal" >
 
             <TextView
@@ -36,10 +36,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@drawable/white_edittext"
                 android:ems="10"
                 android:maxLength="25"
-                android:padding="@dimen/two_dp"
                 android:textColor="@color/toolbar_text_color"
                 android:textSize="@dimen/sixteen_dp" >
 

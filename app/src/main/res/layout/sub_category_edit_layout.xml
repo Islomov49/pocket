@@ -58,13 +58,10 @@
             android:layout_marginLeft="@dimen/twentyfour_dp"
             android:layout_marginRight="@dimen/twentyfour_dp"
             android:layout_marginTop="@dimen/twenty_dp"
-            android:background="@drawable/edittext_with_toolbarcolor"
             android:ems="10"
             android:hint="@string/subcat_name"
             android:maxLength="25"
-            android:padding="@dimen/four_dp"
             android:textColor="@color/toolbar_text_color"
-            android:textColorHint="@color/toolbar_text_color"
             android:textSize="@dimen/sixteen_sp"
             android:layout_weight="1"
             android:layout_gravity="center_vertical">

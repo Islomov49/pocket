@@ -13,15 +13,13 @@
         android:layout_marginBottom="@dimen/twentyfour_dp"
         android:layout_marginTop="@dimen/twentyfour_dp"
         android:text="@string/select_icon"
-        android:textColor="@color/toolbar_color"
+        android:textColor="@color/toolbar_text_color"
         android:textSize="@dimen/sixteen_sp" />
-
     <ImageView
         android:id="@+id/ivSelectIcon"
         android:layout_width="match_parent"
         android:layout_height="@dimen/one_dp"
         android:background="@color/warning_color" />
-
     <GridView
         android:id="@+id/gvCategoryIcons"
         android:layout_width="match_parent"

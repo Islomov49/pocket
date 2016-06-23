@@ -201,8 +201,7 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 				InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 				if (etAccountEditName.getText().toString().matches("")) {
-					Animation wooble = AnimationUtils.loadAnimation(getActivity(), R.anim.wobble);
-					etAccountEditName.startAnimation(wooble);
+					etAccountEditName.setError(getResources().getString(R.string.account_name_error));
 					return;
 				}
 				if (account != null) {
