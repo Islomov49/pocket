@@ -7,7 +7,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PointF;
+import android.graphics.Rect;
 import android.graphics.RectF;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -17,16 +20,14 @@ import android.view.View;
 
 import com.jim.pocketaccounter.R;
 
-/**
- * Created by ismoi on 6/13/2016.
- */
+import java.util.ArrayList;
+
 
 public class TableView extends View implements GestureDetector.OnGestureListener {
 
-    private float height, width;
     private int count_rows;
     private int count_colums;
-    private float min_height = getResources().getDimension(R.dimen.min_height);
+    private float min_height;
     private float min_width;
     private float margin_content = getResources().getDimension(R.dimen.margin_contetn);
     private float stroke_width = getResources().getDimension(R.dimen.stroke_width);
@@ -35,34 +36,61 @@ public class TableView extends View implements GestureDetector.OnGestureListener
     private Bitmap plus, minus;
     private RectF[][] tables_rect;
     private RectF[] titles_rects;
-
     private GestureDetectorCompat gestureDetector;
-
     private String[] titles;
     private String[][] tables;
-
+    private int position_row = -1, pos_categ, pos_cur;
+    private boolean single_tap = false;
+    private ClickableTable clickableTable = null;
+    private RectF container = new RectF();
     public void setTitles(String[] titles) {
-        this.titles = new String[titles.length];
         this.titles = titles;
+        titles_rects = new RectF[titles.length];
+        for (int i=0; i<titles_rects.length; i++) {
+            titles_rects[i] = new RectF();
+        }
     }
 
     public void setTables(String[][] tables) {
-        this.tables = new String[titles.length][tables.length];
         this.tables = tables;
+        tables_rect = new RectF[tables.length][titles.length];
+        for (int i=0; i < tables.length; i++) {
+            for (int j = 0; j<titles.length; j++) {
+                tables_rect[i][j] = new RectF();
+            }
+        }
     }
-
-    private ClickableTable clickableTable = null;
 
     public TableView(Context context) {
         super(context);
         gestureDetector = new GestureDetectorCompat(getContext(), this);
         setClickable(true);
+        plus = BitmapFactory.decodeResource(getResources(), R.drawable.add_green);
+        plus = Bitmap.createScaledBitmap(plus,
+                (int) bitmap_size,
+                (int) bitmap_size,
+                true);
+        minus = BitmapFactory.decodeResource(getResources(), R.drawable.remove_red);
+        minus = Bitmap.createScaledBitmap(minus,
+                (int) bitmap_size,
+                (int) bitmap_size,
+                true);
     }
 
     public TableView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         gestureDetector = new GestureDetectorCompat(getContext(), this);
         setClickable(true);
+        plus = BitmapFactory.decodeResource(getResources(), R.drawable.add_green);
+        plus = Bitmap.createScaledBitmap(plus,
+                (int) bitmap_size,
+                (int) bitmap_size,
+                true);
+        minus = BitmapFactory.decodeResource(getResources(), R.drawable.remove_red);
+        minus = Bitmap.createScaledBitmap(minus,
+                (int) bitmap_size,
+                (int) bitmap_size,
+                true);
     }
 
 
@@ -70,70 +98,230 @@ public class TableView extends View implements GestureDetector.OnGestureListener
         super(context, attrs);
         gestureDetector = new GestureDetectorCompat(getContext(), this);
         setClickable(true);
+        plus = BitmapFactory.decodeResource(getResources(), R.drawable.add_green);
+        plus = Bitmap.createScaledBitmap(plus,
+                (int) bitmap_size,
+                (int) bitmap_size,
+                true);
+        minus = BitmapFactory.decodeResource(getResources(), R.drawable.remove_red);
+        minus = Bitmap.createScaledBitmap(minus,
+                (int) bitmap_size,
+                (int) bitmap_size,
+                true);
     }
-
-    private boolean create_title = false, create_table = false;
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        height = getHeight();
-        width = getWidth();
-        pos_categ = (int) height;
-        pos_cur = (int) width;
-        if (titles == null) {
-            titles = new String[0];
-        } else {
-            onDrawTitles(canvas, titles);
+        min_height = getResources().getDimension(R.dimen.thirty_dp);
+        container.set(margin_content, margin_content, getWidth()-margin_content, min_height*count_rows+2*margin_content);
+        setMinimumHeight((int)(container.height()+getResources().getDimension(R.dimen.fourty_dp)+4*margin_content));
+        pos_categ = -1;
+        pos_cur = -1;
+        if (titles != null) {
+            min_height = getResources().getDimension(R.dimen.fifty_dp);
+            onDrawTitles(canvas);
         }
-
-        if (tables == null) {
-            tables = new String[0][count_colums];
-        } else {
+        if (tables != null) {
             onDrawTables(canvas, tables);
         }
-
-        setMinimumHeight((int) min_height * (2 + count_rows));
+    }
+    private void onDrawTitles(Canvas canvas) {
+        count_colums = titles_rects.length;
+        min_width = container.width()/count_colums;
+        Paint paint = new Paint();
+        paint.setFlags(Paint.ANTI_ALIAS_FLAG);
+        paint.setStyle(Paint.Style.FILL);
+        paint.setTextSize(textHeight);
+        for (int i = 0; i < count_colums; i++) {
+            if (titles[i].matches("Category")) pos_categ = i;
+            if (titles[i].matches("Amount")) pos_cur = i;
+            titles_rects[i].set(
+                    container.left + i * min_width,
+                    container.top,
+                    container.left + (i + 1) * min_width,
+                    container.top + min_height);
+            paint.setColor(ContextCompat.getColor(getContext(), R.color.table_title));
+            canvas.drawRect(titles_rects[i], paint);
+            paint.setColor(Color.WHITE);
+            textWidth = paint.measureText(titles[i]);
+            canvas.drawText(titles[i], container.left + i * min_width + min_width / 2 - textWidth / 2,
+                    container.top + min_height / 2 + textHeight / 2, paint);
+        }
+        container.top = margin_content + min_height;
     }
 
-    private void onDrawTitles(Canvas canvas, String[] tables) {
-        count_colums = titles.length;
-        titles_rects = new RectF[count_colums];
-        min_width = (width - 2 * margin_content) / count_colums;
-
-        Paint paint_border = new Paint();
-        paint_border.setFlags(Paint.ANTI_ALIAS_FLAG);
-        paint_border.setStyle(Paint.Style.STROKE);
-        paint_border.setStrokeWidth(stroke_width);
-        paint_border.setColor(Color.BLACK);
-
-        Paint paint_text = new Paint();
-        paint_text.setFlags(Paint.ANTI_ALIAS_FLAG);
-        paint_text.setTextSize(textHeight);
-        paint_text.setColor(Color.BLACK);
-        paint_text.setStyle(Paint.Style.FILL);
-
-        for (int i = 0; i < count_colums; i++) {
-
-            if (titles[i].equals("Category")) pos_categ = i;
-            if (titles[i].equals("Amount")) {
-                Log.d("amount", "" + tables[i]);
-                pos_cur = i;
+    private void onDrawTables(Canvas canvas, String[][] tables) {
+        count_rows = tables.length;
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setStyle(Paint.Style.FILL);
+        for (int i = 0; i < count_rows; i++) {
+            if (i == position_row)
+                min_height = getResources().getDimension(R.dimen.fifty_dp);
+            else
+                min_height = getResources().getDimension(R.dimen.thirty_dp);
+            for (int j = 0; j < count_colums; j++) {
+                tables_rect[i][j].set(container.left + j * min_width, container.top,
+                        container.left + (j + 1) * min_width, container.top + min_height);
+                if (i % 2 == 0) {
+                    paint.setColor(ContextCompat.getColor(getContext(), R.color.table_odd));
+                }
+                else {
+                    paint.setColor(ContextCompat.getColor(getContext(), R.color.table_double));
+                }
+                canvas.drawRect(tables_rect[i][j], paint);
+                if (i == position_row) {
+                    paint.setColor(ContextCompat.getColor(getContext(), R.color.table_selected));
+                    canvas.drawRect(tables_rect[i][j], paint);
+                }
             }
+            container = new RectF(container.left, container.top + min_height, container.right, container.bottom);
+        }
+        paint.setTextSize(getResources().getDimension(R.dimen.ten_sp));
+        paint.setColor(ContextCompat.getColor(getContext(), R.color.toolbar_text_color));
+        for (int i = 0; i < count_rows; i++) {
+            for (int j = 0; j < count_colums; j++) {
+                String text = tables[i][j];
+                Rect bound = new Rect();
+                paint.getTextBounds(text, 0, text.length(), bound);
+                if (i != position_row) {
+                    if (bound.width() >= tables_rect[i][j].width()) {
+                        for (int k=5; k<tables[i][j].length(); k++) {
+                            text = tables[i][j].substring(0, k);
+                            paint.getTextBounds(text, 0, text.length(), bound);
+                            if (bound.width() >= tables_rect[i][j].width()) {
+                                text = text.substring(0, text.length()-3) + "...";
+                                break;
+                            }
+                        }
+                    }
+                    paint.getTextBounds(text, 0, text.length(), bound);
+                    RectF temp = tables_rect[i][j];
+                    boolean isBitmap =  (tables[i][j].matches("0") || tables[i][j].matches("1"));
+                    if (isBitmap) {
+                        Bitmap sign = null;
+                        if (tables[i][j].matches("0")) {
+                            Bitmap temp1 = BitmapFactory.decodeResource(getResources(), R.drawable.add_green);
+                            sign = Bitmap.createScaledBitmap(temp1, (int)getResources().getDimension(R.dimen.twenty_dp), (int)getResources().getDimension(R.dimen.twenty_dp), false);
+                        } else {
+                            Bitmap temp1 = BitmapFactory.decodeResource(getResources(), R.drawable.remove_red);
+                            sign = Bitmap.createScaledBitmap(temp1, (int)getResources().getDimension(R.dimen.twenty_dp), (int)getResources().getDimension(R.dimen.twenty_dp), false);
+                        }
+                        canvas.drawBitmap(sign, temp.left+temp.width()/2-sign.getWidth()/2, temp.top+temp.height()/2-sign.getHeight()/2,paint);
+                    }
+                    else
+                        canvas.drawText(text, temp.left+temp.width()/2-bound.width()/2, temp.top + temp.height()/2+bound.height()/2, paint);
+                }
+                else {
+                    ArrayList<String> texts = new ArrayList<>();
+                    if (tables[i][j].indexOf(':') == -1) {
+                        if (bound.width() >= tables_rect[i][j].width()) {
+                            int pos = 0;
+                            boolean entered = false;
+                            for (int k=5; k<tables[i][j].length()+1; k++) {
+                                text = tables[i][j].substring(pos, k);
+                                paint.getTextBounds(text, 0, text.length(), bound);
+                                if (bound.width() >= tables_rect[i][j].width()) {
+                                    k -= 2;
+                                    String temp = tables[i][j].substring(pos, k);
+                                    texts.add(temp);
+                                    entered = true;
+                                    pos = k;
+                                }
+                                if (k == tables[i][j].length()-1 && entered) {
+                                    String temp = tables[i][j].substring(pos, k+1);
+                                    texts.add(temp);
+                                }
+                            }
+                        }
+                        else {
+                            texts.add(tables[i][j]);
+                        }
+                    }
+                    else {
+                        String first = tables[i][j].substring(0, tables[i][j].indexOf(':'));
+                        paint.getTextBounds(first, 0, first.length(), bound);
 
-            titles_rects[i] = new RectF(
-                    margin_content + i * min_width,
-                    margin_content,
-                    margin_content + (i + 1) * min_width,
-                    margin_content + min_height);
+                        if (bound.width() >= tables_rect[i][j].width()) {
+                            int pos = 0;
+                            boolean entered = false;
+                            for (int k=5; k<first.length(); k++) {
+                                text = first.substring(pos, k);
+                                paint.getTextBounds(text, 0, text.length(), bound);
+                                if (bound.width() >= tables_rect[i][j].width()) {
+                                    k -= 2;
+                                    String temp = first.substring(pos, k);
+                                    texts.add(temp);
+                                    entered = true;
+                                    pos = k;
+                                }
+                                if (k == first.length()-1 && entered) {
+                                    String temp = first.substring(pos, k+1);
+                                    texts.add(temp);
+                                }
+                            }
+                        }
+                        else {
+                            texts.add(first);
+                        }
+                        String second = tables[i][j].substring(tables[i][j].indexOf(':')+1, tables[i][j].length());
+                        paint.getTextBounds(second, 0, second.length(), bound);
+                        if (bound.width() >= tables_rect[i][j].width()) {
+                            int pos = 0;
+                            boolean entered = false;
+                            for (int k=5; k<second.length(); k++) {
+                                text = second.substring(pos, k);
+                                paint.getTextBounds(text, 0, text.length(), bound);
+                                if (bound.width() >= tables_rect[i][j].width()) {
+                                    k -= 2;
+                                    String temp = second.substring(pos, k);
+                                    texts.add(temp);
+                                    entered = true;
+                                    pos = k;
+                                }
+                                if (k == second.length()-1 && entered) {
+                                    String temp = second.substring(pos, k+1);
+                                    texts.add(temp);
+                                }
+                            }
+                        }
+                        else {
+                            texts.add(second);
+                        }
+                    }
+                    int size = texts.size();
+                    if (size == 1) {
+                        RectF temp = tables_rect[i][j];
+                        boolean isBitmap =  (tables[i][j].matches("0") || tables[i][j].matches("1"));
+                        if (isBitmap) {
+                            Bitmap sign = null;
+                            if (tables[i][j].matches("0")) {
+                                Bitmap temp1 = BitmapFactory.decodeResource(getResources(), R.drawable.add_green);
+                                sign = Bitmap.createScaledBitmap(temp1, (int)getResources().getDimension(R.dimen.twenty_dp), (int)getResources().getDimension(R.dimen.twenty_dp), false);
+                            } else {
+                                Bitmap temp1 = BitmapFactory.decodeResource(getResources(), R.drawable.remove_red);
+                                sign = Bitmap.createScaledBitmap(temp1, (int)getResources().getDimension(R.dimen.twenty_dp), (int)getResources().getDimension(R.dimen.twenty_dp), false);
+                            }
+                            canvas.drawBitmap(sign, temp.left+temp.width()/2-sign.getWidth()/2, temp.top+temp.height()/2-sign.getHeight()/2,paint);
+                        }
+                        else
+                            canvas.drawText(texts.get(0), temp.left+temp.width()/2-bound.width()/2, temp.top + temp.height()/2+bound.height()/2, paint);
+                    }
+                    else {
+                        float rectHeight = tables_rect[i][j].height();
+                        for (int k=0; k<size; k++) {
+                            paint.getTextBounds(texts.get(k), 0, texts.get(k).length(), bound);
+                            int height = bound.height();
+                            int width = bound.width();
+                            canvas.drawText(texts.get(k), tables_rect[i][j].left+tables_rect[i][j].width()/2-width/2, tables_rect[i][j].top + rectHeight/size+ k*(height+rectHeight/30),paint);
+                        }
+                    }
 
-            canvas.drawRect(titles_rects[i], paint_border);
-
-            textWidth = paint_text.measureText(titles[i]);
-            canvas.drawText(titles[i], margin_content + i * min_width + min_width / 2 - textWidth / 2,
-                    margin_content + min_height / 2 + textHeight / 2, paint_text);
+                }
+            }
         }
     }
+
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -142,9 +330,6 @@ public class TableView extends View implements GestureDetector.OnGestureListener
         return super.onTouchEvent(event);
 
     }
-
-    private int position_row, position_col, pos_categ, pos_cur;
-    private boolean single_tap = false;
 
     @Override
     public boolean onDown(MotionEvent e) {
@@ -164,108 +349,12 @@ public class TableView extends View implements GestureDetector.OnGestureListener
                 if (tables_rect[i][j].contains(x, y)) {
                     single_tap = true;
                     position_row = i;
-                    position_col = j;
                     invalidate();
                     break;
                 }
             }
         }
         return false;
-    }
-
-    private void onDrawTables(Canvas canvas, String[][] tables) {
-        count_rows = tables.length;
-
-        plus = BitmapFactory.decodeResource(getResources(), R.drawable.add_green);
-        plus = Bitmap.createScaledBitmap(plus,
-                (int) bitmap_size,
-                (int) bitmap_size,
-                true);
-
-        minus = BitmapFactory.decodeResource(getResources(), R.drawable.remove_red);
-        minus = Bitmap.createScaledBitmap(minus,
-                (int) bitmap_size,
-                (int) bitmap_size,
-                true);
-
-        Paint paint_border = new Paint();
-        paint_border.setFlags(Paint.ANTI_ALIAS_FLAG);
-        paint_border.setStyle(Paint.Style.STROKE);
-        paint_border.setStrokeWidth(stroke_width);
-        paint_border.setColor(Color.BLACK);
-
-        Paint paint_text = new Paint();
-        paint_text.setFlags(Paint.ANTI_ALIAS_FLAG);
-        paint_text.setTextSize(textHeight);
-        paint_text.setColor(Color.BLACK);
-        paint_text.setStyle(Paint.Style.FILL);
-
-        Paint paint_fill = new Paint();
-        paint_fill.setFlags(Paint.ANTI_ALIAS_FLAG);
-        paint_fill.setStyle(Paint.Style.FILL);
-        paint_fill.setColor(Color.BLUE);
-
-        min_width = (width - 2 * margin_content) / count_colums;
-        tables_rect = new RectF[count_rows][count_colums];
-
-        for (int i = 0; i < count_rows; i++) {
-            for (int j = 0; j < count_colums; j++) {
-                tables_rect[i][j] = new RectF(margin_content + j * min_width, margin_content + (i + 1) * min_height,
-                        margin_content + (j + 1) * min_width, margin_content + (i + 2) * min_height);
-            }
-        }
-        for (int i = 0; i < count_rows; i++) {
-            for (int j = 0; j < count_colums; j++) {
-                if (pos_cur == j && 10 <= tables[i][j].length()) {
-                    StringBuilder string = new StringBuilder();
-                    char[] chars = tables[i][j].toCharArray();
-                    for (int k = 0; k < chars.length; k++) {
-                        string.append(chars[k]);
-                        if (k == 10) break;
-                    }
-                    tables[i][j] = string + "...";
-                }
-
-                if (single_tap && position_row == i) {
-                    for (int z = 0; z < count_colums; z++) {
-                        canvas.drawRect(tables_rect[position_row][z], paint_fill);
-                    }
-                    clickableTable.onTableClick(position_row);
-                    single_tap = false;
-                }
-                canvas.drawRect(tables_rect[i][j], paint_border);
-                if (tables[i][j].equals("1") || tables[i][j].equals("0") && j == 0) {
-                    if (tables[i][j].equals("1"))
-                        canvas.drawBitmap(minus,
-                                margin_content + j * min_width + min_width / 2 - bitmap_size / 2,
-                                margin_content + (1 + i) * min_height + min_height / 2 - bitmap_size / 2,
-                                paint_text);
-                    if (tables[i][j].equals("0"))
-                        canvas.drawBitmap(plus,
-                                margin_content + j * min_width + min_width / 2 - bitmap_size / 2,
-                                margin_content + (1 + i) * min_height + min_height / 2 - bitmap_size / 2,
-                                paint_text);
-                } else if (j == pos_categ && tables[i][j].split(",").length == 2) {
-                    String[] cat = tables[i][j].split(",");
-                    textWidth = paint_text.measureText(cat[0]);
-                    canvas.drawText(cat[0],
-                            margin_content + j * min_width + min_width / 2 - textWidth / 2,
-                            margin_content + (i + 1) * min_height + min_height / 4 + textHeight / 2,
-                            paint_text);
-                    textWidth = paint_text.measureText(cat[1]);
-                    canvas.drawText(cat[1],
-                            margin_content + j * min_width + min_width / 2 - textWidth / 2,
-                            margin_content + (i + 1) * min_height + 3 * min_height / 4 + textHeight / 2,
-                            paint_text);
-                } else {
-                    textWidth = paint_text.measureText(tables[i][j]);
-                    canvas.drawText(tables[i][j],
-                            margin_content + j * min_width + min_width / 2 - textWidth / 2,
-                            margin_content + (i + 1) * min_height + min_height / 2 + textHeight / 2,
-                            paint_text);
-                }
-            }
-        }
     }
 
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {

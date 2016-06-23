@@ -945,4 +945,7 @@
     <string name="category_name_error">Назвение категории не введено!</string>
     <string name="sub_cat_name_error">Назвение подкатегории не введено!</string>
     <string name="account_name_error">Название счета не введено!</string>
+    <string name="info">Инфо</string>
+    <string name="save_to_excel">Сохранить в EXCEL</string>
+    <string name="no_datas_for_show">Нет данных для отображения!</string>
 </resources>

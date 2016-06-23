@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:maxLength="25"
+                android:maxLength="22"
                 android:textColor="@color/toolbar_text_color"
                 android:textSize="@dimen/sixteen_dp" >
 

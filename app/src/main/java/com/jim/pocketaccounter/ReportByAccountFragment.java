@@ -58,7 +58,7 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
     private FilterDialog filterDialog;
     private ReportByAccount reportByAccount;
     private ArrayList<AccountDataRow> sortReportByAccount;
-
+    private TextView tvReportByAccountNoDatas;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.report_by_account, container, false);
@@ -85,7 +85,8 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
                 getContext(), android.R.layout.simple_spinner_item, result);
 
         spToolbar.setAdapter(arrayAdapter);
-
+        tbReportByAccount = (TableView) rootView.findViewById(R.id.tbReportByAccount);
+        tvReportByAccountNoDatas = (TextView) rootView.findViewById(R.id.tvReportByAccountNoDatas);
         spToolbar.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -102,7 +103,15 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
 
                 reportByAccount = new ReportByAccount(getContext(), begin, end, account, currency);
                 sortReportByAccount = reportByAccount.makeAccountReport();
-
+                if (sortReportByAccount.isEmpty()) {
+                    tbReportByAccount.setVisibility(View.GONE);
+                    tvReportByAccountNoDatas.setVisibility(View.VISIBLE);
+                    return;
+                }
+                else {
+                    tbReportByAccount.setVisibility(View.VISIBLE);
+                    tvReportByAccountNoDatas.setVisibility(View.GONE);
+                }
                 tables = new String[sortReportByAccount.size()][titles.length];
 
                 simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
@@ -120,7 +129,7 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
                     if (!sortReportByAccount.get(i).getCategory().getName().equals("")
                             && sortReportByAccount.get(i).getSubCategory() != null)
                         tables[i][3] = sortReportByAccount.get(i).getCategory().getName()
-                                + "," + sortReportByAccount.get(i).getSubCategory().getName();
+                                + ":" + sortReportByAccount.get(i).getSubCategory().getName();
                 }
                 tbReportByAccount.setTables(tables);
             }
@@ -132,7 +141,7 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
 
         titles = rootView.getResources().getStringArray(R.array.report_by_account_titles);
 
-        tbReportByAccount = (TableView) rootView.findViewById(R.id.tbReportByAccount);
+
         tbReportByAccount.setOnTableClickListener(new TableView.ClickableTable() {
             @Override
             public void onTableClick(int row) {
@@ -208,7 +217,7 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
                             if (!sortReportByAccount.get(i).getCategory().getName().equals("")
                                     && sortReportByAccount.get(i).getSubCategory() != null)
                                 tables[i][3] = sortReportByAccount.get(i).getCategory().getName()
-                                        + "," + sortReportByAccount.get(i).getSubCategory().getName();
+                                        + ":" + sortReportByAccount.get(i).getSubCategory().getName();
                         }
                         tbReportByAccount.setTables(tables);
                     }

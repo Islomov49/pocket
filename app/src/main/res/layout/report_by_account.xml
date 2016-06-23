@@ -3,15 +3,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
-
-        <com.jim.pocketaccounter.report.TableView
-            android:id="@+id/tbReportByAccount"
+        android:fillViewport="true"
+        android:layout_weight="1">
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+            <com.jim.pocketaccounter.report.TableView
+                android:id="@+id/tbReportByAccount"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/tvReportByAccountNoDatas"
+                android:text="@string/no_datas_for_show"
+                android:gravity="center"
+                android:textColor="@color/toolbar_text_color"/>
+        </RelativeLayout>
     </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnReportByAccountShow"
+            android:text="@string/info"
+            android:layout_weight="1"
+            android:visibility="gone"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnReportByAccountSaveToExcel"
+            android:text="@string/save_to_excel"
+            android:layout_weight="1"/>
+    </LinearLayout>
 </LinearLayout>

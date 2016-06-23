@@ -60,7 +60,7 @@
             android:layout_marginTop="@dimen/twenty_dp"
             android:ems="10"
             android:hint="@string/subcat_name"
-            android:maxLength="25"
+            android:maxLength="22"
             android:textColor="@color/toolbar_text_color"
             android:textSize="@dimen/sixteen_sp"
             android:layout_weight="1"
