@@ -912,6 +912,7 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 			}
 			newDebtBorrow.setAmount(dbCursor.getDouble(dbCursor.getColumnIndex("amount")));
 			newDebtBorrow.setType(dbCursor.getInt(dbCursor.getColumnIndex("type")));
+			newDebtBorrow.setTo_archive(dbCursor.getInt(dbCursor.getColumnIndex("to_archive")) == 0 ? false : true);
 			String id = dbCursor.getString(dbCursor.getColumnIndex("id"));
 			newDebtBorrow.setId(id);
 			reckCursor.moveToFirst();

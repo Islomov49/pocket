@@ -288,7 +288,6 @@ public class BorrowFragment extends Fragment {
                                 break;
                             }
                         }
-                        con.notifyChangeList();
                         financeManager.saveDebtBorrows();
                         financeManager.loadDebtBorrows();
                         notifyItemRemoved(position);
@@ -321,16 +320,6 @@ public class BorrowFragment extends Fragment {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_borrow_fragment_mod, parent, false);
             return new ViewHolder(view);
         }
-
-        public void setRemoveItem(int id) {
-            persons.remove(id);
-            notifyItemRemoved(id);
-        }
-
-        public void setDataChanged(DebtBorrow person) {
-            persons.add(0, person);
-            notifyItemInserted(0);
-        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -360,22 +349,8 @@ public class BorrowFragment extends Fragment {
         }
     }
 
-    public interface connectDebt {
-        void notifyChangeList();
-    }
-
-    public connectDebt getConnection() {
-        return new connectDebt() {
-            @Override
-            public void notifyChangeList() {
-                myAdapter.notifyDataSetChanged();
-            }
-        };
-    }
-
-    private connectDebt con;
-
-    public void setConnection(connectDebt con) {
-        this.con = con;
+    public void changeList () {
+        MyAdapter adapter = new MyAdapter();
+        recyclerView.setAdapter(adapter);
     }
 }

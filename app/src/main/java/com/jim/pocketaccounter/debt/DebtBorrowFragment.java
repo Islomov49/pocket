@@ -29,6 +29,7 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private FloatingActionButton fb;
+    private BorrowFragment archiv;
 
     @Nullable
     @Override
@@ -53,13 +54,9 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
 
     public void restartAdapter() {
         ArrayList<BorrowFragment> borrowFragments = new ArrayList<>();
-        BorrowFragment archiv = BorrowFragment.getInstance(2);
+        archiv = BorrowFragment.getInstance(2);
         BorrowFragment debt = BorrowFragment.getInstance(1);
         BorrowFragment borrow = BorrowFragment.getInstance(0);
-        BorrowFragment.connectDebt cc = archiv.getConnection();
-        debt.setConnection(cc);
-        borrow.setConnection(cc);
-
         borrowFragments.add(archiv);
         borrowFragments.add(debt);
         borrowFragments.add(borrow);
@@ -109,6 +106,9 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onPageSelected(int position) {
+        if (position == 2) {
+            archiv.changeList();
+        }
     }
 
     @Override
