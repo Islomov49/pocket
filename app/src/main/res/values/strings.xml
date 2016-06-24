@@ -850,64 +850,21 @@
     <string name="planning_before_title">Notice of event</string>
     <string name="filters">Filters</string>
     <string name="finance_record_default">3</string>
-    <string-array name="finance_record_filter_entries">
-        <item>Last 3 days</item>
-        <item>Week</item>
-        <item>All Period</item>
-    </string-array>
-    <string-array name="finance_record_values">
-        <item>0</item>
-        <item>1</item>
-        <item>3</item>
-    </string-array>
-    <string name="finance_record_key">finance_record_key</string>
     <string name="record_filter_summary">Set value for records in Finance section</string>
     <string name="finance">Finance</string>
     <string name="report_daily_default">2</string>
-    <string-array name="report_daily_filter_entries">
-        <item>Last 3 days</item>
-        <item>Last 7 days</item>
-        <item>From beginning of this month</item>
+    <string name="filter_title">Фильтр</string>
+    <string name="filter_subtitle">С помощью данного пункта можно установить значение для фильтра отчета</string>
+    <string-array name="filter_titles">
+        <item>Текущий месяц</item>
+        <item>Посл. 3 дня</item>
+        <item>Посл. 7 дней</item>
     </string-array>
-    <string-array name="report_daily_values">
+    <string-array name="filter_value">
         <item>0</item>
         <item>1</item>
         <item>2</item>
     </string-array>
-    <string name="report_set_value">Set value for this filter</string>
-    <string name="daily">Report for the day</string>
-    <string name="report_weekly_default">5</string>
-    <string-array name="report_weekly_filter_entries">
-        <item>This week</item>
-        <item>Last 3 weeks</item>
-    </string-array>
-    <string-array name="report_weekly_values">
-        <item>4</item>
-        <item>5</item>
-    </string-array>
-    <string name="weekly">Report for the week</string>
-    <string name="report_monthly_default">7</string>
-    <string-array name="report_monthly_filter_entries">
-        <item>This month</item>
-        <item>Last 2 months</item>
-        <item>Last 3 months</item>
-    </string-array>
-    <string-array name="report_monthly_values">
-        <item>7</item>
-        <item>8</item>
-        <item>9</item>
-    </string-array>
-    <string name="monthly">Report for the month</string>
-    <string name="report_announce_default">11</string>
-    <string-array name="report_announce_filter_entries">
-        <item>This year</item>
-        <item>From last year</item>
-    </string-array>
-    <string-array name="report_announce_values">
-        <item>11</item>
-        <item>12</item>
-    </string-array>
-    <string name="announce">Report for the year</string>
     <string name="sync">Synchronization</string>
     <string name="setting_save">Save database to root folder</string>
     <string name="save">Save</string>
@@ -925,6 +882,9 @@
     <string name="report_income_expanse_total_income">Общий доход:</string>
     <string name="report_income_expanse_total_expanse">Общий расход:</string>
     <string name="report_income_expanse_total_profit">Общая прибыль:</string>
+    <string name="report_income_expanse_aver_income">Средний доход:</string>
+    <string name="report_income_expanse_aver_expanse">Средний расход:</string>
+    <string name="report_income_expanse_aver_profit">Средняя прибыль:</string>
     <string name="please_sign">Please sign</string>
     <string name="and_sync_your_data">and sync your data</string>
     <string name="introAppInfo">The program takes into account the daily income and expenses. For those who like to plan and keep records. We are glad to help you with this!</string>

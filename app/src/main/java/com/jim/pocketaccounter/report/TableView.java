@@ -92,8 +92,6 @@ public class TableView extends View implements GestureDetector.OnGestureListener
                 (int) bitmap_size,
                 true);
     }
-
-
     public TableView(Context context, AttributeSet attrs) {
         super(context, attrs);
         gestureDetector = new GestureDetectorCompat(getContext(), this);
@@ -316,7 +314,6 @@ public class TableView extends View implements GestureDetector.OnGestureListener
                             canvas.drawText(texts.get(k), tables_rect[i][j].left+tables_rect[i][j].width()/2-width/2, tables_rect[i][j].top + rectHeight/size+ k*(height+rectHeight/30),paint);
                         }
                     }
-
                 }
             }
         }

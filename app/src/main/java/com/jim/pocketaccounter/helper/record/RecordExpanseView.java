@@ -1,18 +1,13 @@
 package com.jim.pocketaccounter.helper.record;
-
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import com.jim.pocketaccounter.CurrencyFragment;
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
 import com.jim.pocketaccounter.RecordEditFragment;
 import com.jim.pocketaccounter.RootCategoryEditFragment;
-import com.jim.pocketaccounter.finance.CategoryAdapter;
 import com.jim.pocketaccounter.finance.CategoryAdapterForDialog;
 import com.jim.pocketaccounter.finance.RootCategory;
 import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
-
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
@@ -27,11 +22,8 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Vibrator;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GestureDetectorCompat;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -196,7 +188,7 @@ public class RecordExpanseView extends View implements 	GestureDetector.OnGestur
 						else
 							category = PocketAccounter.financeManager.getExpanses().get(position);
 						if (category != null)
-							((PocketAccounter)getContext()).replaceFragment(new RecordEditFragment(category, Calendar.getInstance(), null, PocketAccounterGeneral.MAIN));
+							((PocketAccounter)getContext()).replaceFragment(new RecordEditFragment(category, date, null, PocketAccounterGeneral.MAIN));
 						else
 							openChooseDialog(position);
 				}

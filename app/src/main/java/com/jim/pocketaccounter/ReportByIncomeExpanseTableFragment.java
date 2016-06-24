@@ -2,7 +2,9 @@ package com.jim.pocketaccounter;
 
 
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -14,11 +16,16 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.jim.pocketaccounter.report.FilterDialog;
+import com.jim.pocketaccounter.report.FilterSelectable;
 import com.jim.pocketaccounter.report.IncomeExpanseDataRow;
 import com.jim.pocketaccounter.report.IncomeExpanseReport;
 import com.jim.pocketaccounter.report.ReportByCategoryDialogAdapter;
 import com.jim.pocketaccounter.report.ReportByIncomeExpanseDialogAdapter;
 import com.jim.pocketaccounter.report.TableView;
+
+import org.w3c.dom.Text;
+
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,6 +35,12 @@ public class ReportByIncomeExpanseTableFragment extends Fragment {
     private TableView table;
     private IncomeExpanseReport data;
     private ArrayList<IncomeExpanseDataRow> dataRows;
+    private ImageView ivToolbarMostRight;
+    private FilterDialog filterDialog;
+    private Calendar begin, end;
+    private TextView tvTotalIncome, tvAverageIncome,
+                     tvTotalExpanse, tvAverageExpanse,
+                     tvTotalProfit, tvAverageProfit;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -36,9 +49,34 @@ public class ReportByIncomeExpanseTableFragment extends Fragment {
         table = (TableView) rootView.findViewById(R.id.tvReportByIncomeExpanse);
         table.setClickable(true);
         table.setTitles(titles);
-        Calendar begin = Calendar.getInstance();
-        begin.set(2016, Calendar.JUNE, 1);
-        Calendar end = Calendar.getInstance();
+        ivToolbarMostRight = (ImageView)PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
+        ivToolbarMostRight.setImageResource(R.drawable.ic_filter);
+        tvTotalIncome = (TextView) rootView.findViewById(R.id.tvTotalIncome);
+        tvAverageIncome = (TextView) rootView.findViewById(R.id.tvAverageIncome);
+        tvTotalExpanse = (TextView) rootView.findViewById(R.id.tvTotalExpanse);
+        tvAverageExpanse = (TextView) rootView.findViewById(R.id.tvAverageExpanse);
+        tvTotalProfit = (TextView) rootView.findViewById(R.id.tvTotalProfit);
+        tvAverageProfit = (TextView) rootView.findViewById(R.id.tvAverageProfit);
+        filterDialog = new FilterDialog(getContext());
+        filterDialog.setOnDateSelectedListener(new FilterSelectable() {
+            @Override
+            public void onDateSelected(Calendar begin, Calendar end) {
+                ReportByIncomeExpanseTableFragment.this.begin = (Calendar) begin.clone();
+                ReportByIncomeExpanseTableFragment.this.end = (Calendar) end.clone();
+                data = new IncomeExpanseReport(getContext(), begin, end);
+                dataRows = data.makeReport();
+                drawTable(dataRows);
+                ReportByIncomeExpanseTableFragment.this.table.invalidate();
+                calculateDatas();
+            }
+        });
+        ivToolbarMostRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                filterDialog.show();
+            }
+        });
+        init();
         data = new IncomeExpanseReport(getContext(), begin, end);
         dataRows = data.makeReport();
         drawTable(dataRows);
@@ -62,7 +100,6 @@ public class ReportByIncomeExpanseTableFragment extends Fragment {
                         dialog.dismiss();
                     }
                 });
-
                 ReportByIncomeExpanseDialogAdapter adapter = new ReportByIncomeExpanseDialogAdapter(getContext(), dataRow.getDetails());
                 lvReportByIncomeExpanseInfo.setAdapter(adapter);
                 TextView tvReportByIncomeExpanseTotalIncome = (TextView) dialogView.findViewById(R.id.tvReportByIncomeExpanseTotalIncome);
@@ -75,7 +112,55 @@ public class ReportByIncomeExpanseTableFragment extends Fragment {
                 dialog.show();
             }
         });
+        calculateDatas();
         return rootView;
+    }
+    private void calculateDatas() {
+        long aDay = 1000*60*60*24;
+        long countOfDays = (end.getTimeInMillis()-begin.getTimeInMillis())/aDay;
+        DecimalFormat format = new DecimalFormat("0.00##");
+        String abbr = PocketAccounter.financeManager.getMainCurrency().getAbbr();
+        double totalIncome = 0.0, totalExpanse = 0.0, totalProfit = 0.0,
+                averageIncome = 0.0, averageExpanse = 0.0, averageProfit = 0.0;
+        for (int i=0; i<dataRows.size(); i++) {
+            totalIncome = totalIncome + dataRows.get(i).getTotalIncome();
+            totalExpanse = totalExpanse + dataRows.get(i).getTotalExpanse();
+            totalProfit = totalProfit + dataRows.get(i).getTotalProfit();
+        }
+        averageIncome = totalIncome/countOfDays;
+        averageExpanse = totalExpanse/countOfDays;
+        averageProfit = totalProfit/countOfDays;
+        tvTotalIncome.setText(getString(R.string.report_income_expanse_total_income)+format.format(totalIncome)+abbr);
+        tvAverageIncome.setText(getString(R.string.report_income_expanse_aver_income)+format.format(averageIncome)+abbr);
+        tvTotalExpanse.setText(getString(R.string.report_income_expanse_total_expanse)+format.format(totalExpanse)+abbr);
+        tvAverageExpanse.setText(getString(R.string.report_income_expanse_aver_expanse)+format.format(averageExpanse)+abbr);
+        tvTotalProfit.setText(getString(R.string.report_income_expanse_total_profit)+format.format(totalProfit)+abbr);
+        tvAverageProfit.setText(getString(R.string.report_income_expanse_aver_profit)+format.format(averageProfit)+abbr);
+    }
+    private void init() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String setting = sharedPreferences.getString("report_filter", "0");
+        begin = Calendar.getInstance();
+        end = Calendar.getInstance();
+        switch (setting) {
+            case "0":
+                begin.set(Calendar.DAY_OF_MONTH, 1);
+                break;
+            case "1":
+                begin.add(Calendar.DAY_OF_MONTH, -2);
+                break;
+            case "2":
+                begin.add(Calendar.DAY_OF_MONTH, -6);
+                break;
+        }
+        begin.set(Calendar.HOUR_OF_DAY, 0);
+        begin.set(Calendar.MINUTE, 0);
+        begin.set(Calendar.SECOND, 0);
+        begin.set(Calendar.MILLISECOND, 0);
+        end.set(Calendar.HOUR_OF_DAY, 23);
+        end.set(Calendar.MINUTE, 59);
+        end.set(Calendar.SECOND, 59);
+        end.set(Calendar.MILLISECOND, 59);
     }
     private void drawTable(ArrayList<IncomeExpanseDataRow> datas) {
         String[][] table = new String[datas.size()][4];
@@ -89,6 +174,5 @@ public class ReportByIncomeExpanseTableFragment extends Fragment {
             table[i][3] = decimalFormat.format(datas.get(i).getTotalProfit())+abbr;
         }
         this.table.setTables(table);
-
     }
 }
