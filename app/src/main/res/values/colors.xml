@@ -27,6 +27,7 @@
     <color name="record_outline" type="color">#88acacac</color>
     <color name="blue_color_drakness" type="color">#2c7fe2</color>
     <color name="grey_light" type="color">#f5f5f5</color>
+    <color name="grey_light_red" type="color">#fdfbf9</color>
     <color name="green_light" type="color">#1c835d</color>
     <color name="green_light_monoxrom" type="color">#4E987C</color>
     <color name="green_light_forline" type="color">#efefef</color>

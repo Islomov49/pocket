@@ -17,6 +17,8 @@ import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
 import com.jim.pocketaccounter.helper.FloatingActionButton;
 
+import java.util.ArrayList;
+
 /**
  * Created by user on 6/4/2016.
  */
@@ -50,9 +52,35 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
     }
 
     public void restartAdapter() {
-        viewPager.setAdapter(new MyAdapter(((PocketAccounter) getContext()).getSupportFragmentManager()));
+        ArrayList<BorrowFragment> borrowFragments = new ArrayList<>();
+        BorrowFragment archiv = BorrowFragment.getInstance(2);
+        BorrowFragment debt = BorrowFragment.getInstance(1);
+        BorrowFragment borrow = BorrowFragment.getInstance(0);
+        BorrowFragment.connectDebt cc = archiv.getConnection();
+        debt.setConnection(cc);
+        borrow.setConnection(cc);
+
+        borrowFragments.add(archiv);
+        borrowFragments.add(debt);
+        borrowFragments.add(borrow);
+        viewPager.setAdapter(new MyAdapter(borrowFragments, ((PocketAccounter) getContext()).getSupportFragmentManager()));
         if (getArguments() != null) {
-            viewPager.setCurrentItem(getArguments().getInt("pos", 0));
+            if (getArguments().getInt("type", -1) != -1) {
+                viewPager.setCurrentItem(getArguments().getInt("type", 0));
+            } else {
+                if (getArguments().getInt("pos", -1) != -1) {
+                    viewPager.setCurrentItem(getArguments().getInt("pos", 0));
+                } else {
+                    if (getArguments().getString("id") != null) {
+                        for (DebtBorrow db : PocketAccounter.financeManager.getDebtBorrows()) {
+                            if (db.getId().matches(getArguments().getString("id"))) {
+                                viewPager.setCurrentItem(db.getType());
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -88,12 +116,15 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
     }
 
     private class MyAdapter extends FragmentStatePagerAdapter {
-        public MyAdapter(FragmentManager fm) {
+        ArrayList<BorrowFragment> list;
+
+        public MyAdapter(ArrayList<BorrowFragment> list, FragmentManager fm) {
             super(fm);
+            this.list = list;
         }
 
         public Fragment getItem(int position) {
-            return BorrowFragment.getInstance(position);
+            return list.get(list.size() - 1 - position);
         }
 
         public int getCount() {

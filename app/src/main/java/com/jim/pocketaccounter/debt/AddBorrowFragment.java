@@ -110,6 +110,7 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
     };
     private DatePickerDialog.OnDateSetListener returnDatesetListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+            returnDate = (Calendar) getDate.clone();
             returnDate.set(arg1, arg2, arg3);
             if (returnDate.compareTo(getDate) < 0) {
                 returnDate = getDate;

@@ -77,7 +77,7 @@
                         android:layout_below="@+id/tvBorrowPersonName" />
 
                 </RelativeLayout>
-               </LinearLayout>
+            </LinearLayout>
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="2px"
@@ -91,6 +91,7 @@
                 android:paddingRight="16dp"
                 android:paddingBottom="10dp"
                 android:paddingTop="6dp"
+                android:id="@+id/rlDebtBorrowTop"
                 android:background="@color/grey_light2">
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -227,7 +228,7 @@
                     android:layout_marginRight="5dp"
                     android:textColor="@color/green_light"
                     android:textSize="12sp"
-                 />
+                    />
                 <TextView
                     android:id="@+id/btBorrowPersonPay"
                     android:layout_width="0dp"

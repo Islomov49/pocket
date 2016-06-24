@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,10 +25,13 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
@@ -89,8 +93,8 @@ public class BorrowFragment extends Fragment {
     }
 
     private class MyAdapter extends RecyclerView.Adapter<ViewHolder> {
-        private List<DebtBorrow> persons;
-        private List<DebtBorrow> allPersons;
+        private ArrayList<DebtBorrow> persons;
+        private ArrayList<DebtBorrow> allPersons;
 
         public MyAdapter() {
             allPersons = financeManager.getDebtBorrows();
@@ -98,9 +102,11 @@ public class BorrowFragment extends Fragment {
             for (DebtBorrow person : financeManager.getDebtBorrows()) {
                 if (!person.isTo_archive() && person.getType() == TYPE) {
                     persons.add(person);
+                } else {
+                    if (person.isTo_archive() && TYPE == 2) {
+                        persons.add(person);
+                    }
                 }
-                if (person.isTo_archive() && person.getType() == TYPE)
-                    persons.add(person);
             }
         }
 
@@ -109,32 +115,36 @@ public class BorrowFragment extends Fragment {
         }
 
         public void onBindViewHolder(final ViewHolder view, final int position) {
-            final int t = TYPE == 2 ? persons.size() - 1 : 0;
+            final int t = 0;
             final DebtBorrow person = persons.get(Math.abs(t - position));
-
+            if (person.getType() == DebtBorrow.DEBT) {
+                view.rl.setBackgroundResource(R.color.grey_light_red);
+                view.fl.setBackgroundResource(R.color.grey_light_red);
+            }
             view.BorrowPersonName.setText(person.getPerson().getName());
             view.BorrowPersonNumber.setText(person.getPerson().getPhoneNumber());
             view.BorrowPersonDateGet.setText(
                     " " + person.getTakenDate().get(Calendar.DAY_OF_MONTH)
-                            + " " + (person.getTakenDate().get(Calendar.MONTH)+1)
+                            + " " + (person.getTakenDate().get(Calendar.MONTH) + 1)
                             + " " + person.getTakenDate().get(Calendar.YEAR));
             if (person.getReturnDate() == null) {
                 view.BorrowPersonDateRepeat.setText("no date");
             } else {
                 view.BorrowPersonDateRepeat.setText(
                         " " + person.getReturnDate().get(Calendar.DAY_OF_MONTH)
-                                + " " + (person.getReturnDate().get(Calendar.MONTH)+1)
+                                + " " + (person.getReturnDate().get(Calendar.MONTH) + 1)
                                 + " " + person.getReturnDate().get(Calendar.YEAR));
             }
             double qq = 0;
             if (person.getReckings() != null) {
-                for (Recking rk: person.getReckings()) {
+                for (Recking rk : person.getReckings()) {
                     qq += rk.getAmount();
                 }
             }
-            String ss = (person.getAmount() - qq) ==(int)(person.getAmount() - qq) ? ""+(int)(person.getAmount() - qq) : "" + (person.getAmount() - qq);
+            PreferenceManager.getDefaultSharedPreferences(getContext());
+            String ss = (person.getAmount() - qq) == (int) (person.getAmount() - qq) ? "" + (int) (person.getAmount() - qq) : "" + (person.getAmount() - qq);
             view.BorrowPersonSumm.setText(ss + person.getCurrency().getAbbr());
-            if (person.getPerson().getPhoto().equals("")) {
+            if (person.getPerson().getPhoto().equals("") || person.getPerson().getPhoto().matches("0")) {
                 view.BorrowPersonPhotoPath.setImageResource(R.drawable.no_photo);
             } else {
                 try {
@@ -146,8 +156,10 @@ public class BorrowFragment extends Fragment {
             view.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (((PocketAccounter) getContext()).getSupportFragmentManager().findFragmentById(R.id.flMain).getTag() != null)
-                    ((PocketAccounter) getContext()).replaceFragment(InfoDebtBorrowFragment.getInstance(persons.get(Math.abs(t - position)).getId()));
+                    if (((PocketAccounter) getContext()).getSupportFragmentManager().findFragmentById(R.id.flMain).getTag() != null) {
+                        Fragment fragment = InfoDebtBorrowFragment.getInstance(persons.get(Math.abs(t - position)).getId(), TYPE);
+                        ((PocketAccounter) getContext()).replaceFragment(fragment);
+                    }
                 }
             });
             if (TYPE == 2) {
@@ -167,6 +179,7 @@ public class BorrowFragment extends Fragment {
                 view.call.setVisibility(View.INVISIBLE);
             }
 
+
             view.call.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -181,7 +194,7 @@ public class BorrowFragment extends Fragment {
             view.pay.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!view.pay.getText().toString().matches("send Archive")) {
+                    if (!view.pay.getText().toString().matches(getString(R.string.archive))) {
                         final Dialog dialog = new Dialog(getActivity());
                         View dialogView = getActivity().getLayoutInflater().inflate(R.layout.add_pay_debt_borrow_info_mod, null);
                         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -204,6 +217,8 @@ public class BorrowFragment extends Fragment {
                         ImageView cancel = (ImageView) dialogView.findViewById(R.id.ivInfoDebtBorrowCancel);
                         ImageView save = (ImageView) dialogView.findViewById(R.id.ivInfoDebtBorrowSave);
                         final Calendar date = Calendar.getInstance();
+                        final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
+                        enterDate.setText(simpleDateFormat.format(date.getTime()));
                         cancel.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -212,7 +227,6 @@ public class BorrowFragment extends Fragment {
                         });
                         final DatePickerDialog.OnDateSetListener getDatesetListener = new DatePickerDialog.OnDateSetListener() {
                             public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
                                 date.set(arg1, arg2, arg3);
                                 enterDate.setText(simpleDateFormat.format(date.getTime()));
                             }
@@ -238,14 +252,17 @@ public class BorrowFragment extends Fragment {
                                         comment.getText().toString());
 
                                 persons.get(position).getReckings().add(recking);
-                                allPersons.get(position).getReckings().add(recking);
                                 double total = 0;
                                 for (Recking recking1 : persons.get(position).getReckings()) {
                                     total += recking1.getAmount();
                                 }
                                 if (persons.get(position).getAmount() <= total) {
-                                    view.pay.setText("send Archive");
+                                    view.pay.setText(getString(R.string.archive));
                                 }
+                                view.BorrowPersonSumm.setText("" + ((persons.get(position).getAmount() - total) ==
+                                        ((int) (persons.get(position).getAmount() - total)) ?
+                                        ("" + (int) (persons.get(position).getAmount() - total)) :
+                                        ("" + (persons.get(position).getAmount() - total))) + person.getCurrency().getAbbr());
                                 dialog.dismiss();
                             }
                         });
@@ -255,13 +272,15 @@ public class BorrowFragment extends Fragment {
                         dialog.show();
                     } else {
                         for (int i = 0; i < financeManager.getDebtBorrows().size(); i++) {
-                            if (financeManager.getDebtBorrows().get(i).equals(person)) {
+                            if (financeManager.getDebtBorrows().get(i).getId().matches(person.getId())) {
                                 financeManager.getDebtBorrows().get(i).setTo_archive(true);
-                                financeManager.getDebtBorrows().get(i).setType(2);
+                                allPersons.get(i).setTo_archive(true);
                                 persons.remove(position);
+                                Log.d("123", "" + allPersons.get(i).isTo_archive() + "\n" + financeManager.getDebtBorrows().get(i).isTo_archive());
                                 break;
                             }
                         }
+                        con.notifyChangeList();
                         financeManager.saveDebtBorrows();
                         financeManager.loadDebtBorrows();
                         notifyItemRemoved(position);
@@ -271,9 +290,9 @@ public class BorrowFragment extends Fragment {
         }
 
         private Bitmap queryContactImage(int imageDataRow) {
-            Cursor c = getContext().getContentResolver().query(ContactsContract.Data.CONTENT_URI, new String[] {
+            Cursor c = getContext().getContentResolver().query(ContactsContract.Data.CONTENT_URI, new String[]{
                     ContactsContract.CommonDataKinds.Photo.PHOTO
-            }, ContactsContract.Data._ID + "=?", new String[] {
+            }, ContactsContract.Data._ID + "=?", new String[]{
                     Integer.toString(imageDataRow)
             }, null);
             byte[] imageBytes = null;
@@ -289,7 +308,6 @@ public class BorrowFragment extends Fragment {
                 return null;
             }
         }
-
 
         public ViewHolder onCreateViewHolder(ViewGroup parent, int var2) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_borrow_fragment_mod, parent, false);
@@ -316,6 +334,8 @@ public class BorrowFragment extends Fragment {
         public CircleImageView BorrowPersonPhotoPath;
         public TextView pay;
         public TextView call;
+        public RelativeLayout rl;
+        public LinearLayout fl;
 
         public ViewHolder(View view) {
             super(view);
@@ -327,11 +347,27 @@ public class BorrowFragment extends Fragment {
             BorrowPersonPhotoPath = (CircleImageView) view.findViewById(R.id.imBorrowPerson);
             pay = (TextView) view.findViewById(R.id.btBorrowPersonPay);
             call = (TextView) view.findViewById(R.id.call_person_debt_borrow);
+            rl = (RelativeLayout) view.findViewById(R.id.rlDebtBorrowTop);
+            fl = (LinearLayout) view.findViewById(R.id.frameLayout);
         }
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
+    public interface connectDebt {
+        void notifyChangeList();
+    }
+
+    public connectDebt getConnection() {
+        return new connectDebt() {
+            @Override
+            public void notifyChangeList() {
+                myAdapter.notifyDataSetChanged();
+            }
+        };
+    }
+
+    private connectDebt con;
+
+    public void setConnection(connectDebt con) {
+        this.con = con;
     }
 }
