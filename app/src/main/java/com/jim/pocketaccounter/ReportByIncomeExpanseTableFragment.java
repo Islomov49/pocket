@@ -35,8 +35,6 @@ public class ReportByIncomeExpanseTableFragment extends Fragment {
     private TableView table;
     private IncomeExpanseReport data;
     private ArrayList<IncomeExpanseDataRow> dataRows;
-    private ImageView ivToolbarMostRight;
-    private FilterDialog filterDialog;
     private Calendar begin, end;
     private TextView tvTotalIncome, tvAverageIncome,
                      tvTotalExpanse, tvAverageExpanse,
@@ -49,33 +47,12 @@ public class ReportByIncomeExpanseTableFragment extends Fragment {
         table = (TableView) rootView.findViewById(R.id.tvReportByIncomeExpanse);
         table.setClickable(true);
         table.setTitles(titles);
-        ivToolbarMostRight = (ImageView)PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
-        ivToolbarMostRight.setImageResource(R.drawable.ic_filter);
         tvTotalIncome = (TextView) rootView.findViewById(R.id.tvTotalIncome);
         tvAverageIncome = (TextView) rootView.findViewById(R.id.tvAverageIncome);
         tvTotalExpanse = (TextView) rootView.findViewById(R.id.tvTotalExpanse);
         tvAverageExpanse = (TextView) rootView.findViewById(R.id.tvAverageExpanse);
         tvTotalProfit = (TextView) rootView.findViewById(R.id.tvTotalProfit);
         tvAverageProfit = (TextView) rootView.findViewById(R.id.tvAverageProfit);
-        filterDialog = new FilterDialog(getContext());
-        filterDialog.setOnDateSelectedListener(new FilterSelectable() {
-            @Override
-            public void onDateSelected(Calendar begin, Calendar end) {
-                ReportByIncomeExpanseTableFragment.this.begin = (Calendar) begin.clone();
-                ReportByIncomeExpanseTableFragment.this.end = (Calendar) end.clone();
-                data = new IncomeExpanseReport(getContext(), begin, end);
-                dataRows = data.makeReport();
-                drawTable(dataRows);
-                ReportByIncomeExpanseTableFragment.this.table.invalidate();
-                calculateDatas();
-            }
-        });
-        ivToolbarMostRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                filterDialog.show();
-            }
-        });
         init();
         data = new IncomeExpanseReport(getContext(), begin, end);
         dataRows = data.makeReport();
@@ -114,6 +91,15 @@ public class ReportByIncomeExpanseTableFragment extends Fragment {
         });
         calculateDatas();
         return rootView;
+    }
+    public void invalidate(Calendar begin, Calendar end) {
+        this.begin = (Calendar) begin.clone();
+        this.end = (Calendar) end.clone();
+        data = new IncomeExpanseReport(getContext(), this.begin, this.end);
+        dataRows = data.makeReport();
+        drawTable(dataRows);
+        this.table.invalidate();
+        calculateDatas();
     }
     private void calculateDatas() {
         long aDay = 1000*60*60*24;

@@ -347,6 +347,7 @@ public class TableView extends View implements GestureDetector.OnGestureListener
                     single_tap = true;
                     position_row = i;
                     invalidate();
+                    clickableTable.onTableClick(position_row);
                     break;
                 }
             }

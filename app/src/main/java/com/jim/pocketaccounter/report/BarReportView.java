@@ -39,8 +39,12 @@ import java.util.Calendar;
 public class BarReportView extends LinearLayout {
     private HorizontalBarChart barChart;
     private ArrayList<IncomeExpanseDataRow> datas;
-    public BarReportView(Context context) {
+    private Calendar begin, end;
+
+    public BarReportView(Context context, Calendar begin, Calendar end) {
         super(context);
+        this.begin = (Calendar)begin.clone();
+        this.end = (Calendar)end.clone();
         barChart = new HorizontalBarChart(context);
         barChart.setDescription("");
         barChart.setPinchZoom(false);
@@ -56,15 +60,22 @@ public class BarReportView extends LinearLayout {
         leftAxis.setDrawGridLines(true);
         leftAxis.setSpaceTop(30f);
         barChart.getAxisRight().setEnabled(false);
-        Calendar begin = Calendar.getInstance();
-        begin.set(2016, Calendar.JUNE, 15);
-        Calendar end = Calendar.getInstance();
         IncomeExpanseReport report = new IncomeExpanseReport(getContext(), begin, end);
         datas = report.makeReport();
         LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         barChart.setLayoutParams(lp);
         addView(barChart);
-        drawReport(datas);
+        drawReport();
+    }
+    public void setBeginTime(Calendar begin) {
+        this.begin = (Calendar) begin.clone();
+    }
+    public void setEndTime(Calendar end) {
+        this.end = (Calendar) end.clone();
+    }
+    public void makeReport() {
+        IncomeExpanseReport report = new IncomeExpanseReport(getContext(), begin, end);
+        datas = report.makeReport();
     }
     public BarChart getBarChart() {return barChart;}
     public BarReportView(Context context, AttributeSet attrs) {
@@ -78,7 +89,7 @@ public class BarReportView extends LinearLayout {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
     public ArrayList<IncomeExpanseDataRow> getDatas() {return datas;}
-    public void drawReport(ArrayList<IncomeExpanseDataRow> datas) {
+    public void drawReport() {
         ArrayList<String> xVals = new ArrayList<String>();
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
         for (int i=0; i<datas.size(); i++) {
@@ -93,10 +104,7 @@ public class BarReportView extends LinearLayout {
             yVals3.add(new BarEntry((float) datas.get(i).getTotalProfit(), i));
         }
         BarDataSet set1, set2, set3;
-         // create 3 datasets with different types
         set1 = new BarDataSet(yVals1, getResources().getString(R.string.income));
-        // set1.setColors(ColorTemplate.createColors(getApplicationContext(),
-        // ColorTemplate.FRESH_COLORS));
         set1.setColor(Color.rgb(104, 241, 175));
         set2 = new BarDataSet(yVals2, getResources().getString(R.string.expanse));
         set2.setColor(Color.rgb(164, 228, 251));
@@ -108,9 +116,9 @@ public class BarReportView extends LinearLayout {
         dataSets.add(set3);
         BarData data = new BarData(xVals, dataSets);
         data.setValueFormatter(new LargeValueFormatter());
-        // add space between the dataset groups in percent of bar-width
         data.setGroupSpace(80f);
         barChart.setData(data);
         barChart.invalidate();
+        Log.d("sss", "drawer");
     }
 }
