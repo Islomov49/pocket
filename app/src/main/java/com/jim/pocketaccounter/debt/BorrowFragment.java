@@ -35,6 +35,7 @@ import android.widget.Toast;
 
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
+import com.jim.pocketaccounter.finance.Account;
 import com.jim.pocketaccounter.finance.FinanceManager;
 
 import java.text.SimpleDateFormat;
@@ -246,9 +247,16 @@ public class BorrowFragment extends Fragment {
                             @Override
                             public void onClick(View v) {
                                 SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+                                String ac = "";
+                                for (Account account : financeManager.getAccounts()) {
+                                    if (account.getName().matches(accountSp.getSelectedItem().toString())) {
+                                        ac = account.getId();
+                                        break;
+                                    }
+                                }
                                 Recking recking = new Recking(format.format(date.getTime()),
                                         Double.parseDouble(enterPay.getText().toString()),
-                                        persons.get(position).getId(), "" + accountSp.getSelectedItem(),
+                                        persons.get(position).getId(), ac,
                                         comment.getText().toString());
 
                                 persons.get(position).getReckings().add(recking);

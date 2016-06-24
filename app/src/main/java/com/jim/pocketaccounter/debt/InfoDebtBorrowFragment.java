@@ -113,7 +113,8 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
             @Override
             public void onClick(View view) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setMessage("You want deleting ?")
+                builder.setMessage((getArguments().getInt("type", 0) == 2 && debtBorrow.isCalculate()) ?
+                        "balansdan o'chirishni hohlaysizmi ?" : "Delete ?")
                         .setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                             }
@@ -217,7 +218,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
         } else {
             borrowLeftDate.setText(sana);
         }
-        totalPayAmount.setText(""+ (total == ((int) total) ? (int) total : total) + debtBorrow.getCurrency().getAbbr());
+        totalPayAmount.setText("" + (total == ((int) total) ? (int) total : total) + debtBorrow.getCurrency().getAbbr());
 
         if (!debtBorrow.getPerson().getPhoto().equals("") && !debtBorrow.getPerson().getPhoto().matches("0")) {
             try {
@@ -247,8 +248,8 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
                         item.findViewById(R.id.rlRootView).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                ((CheckBox)item.findViewById(R.id.for_delete_check_box)).setChecked(
-                                        !((CheckBox)item.findViewById(R.id.for_delete_check_box)).isChecked());
+                                ((CheckBox) item.findViewById(R.id.for_delete_check_box)).setChecked(
+                                        !((CheckBox) item.findViewById(R.id.for_delete_check_box)).isChecked());
                             }
                         });
                     } else {
@@ -399,13 +400,6 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
             }
             view.checkBox.setVisibility(View.GONE);
             view.checkBox.setChecked(false);
-//            view.rootView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (view.checkBox.getVisibility() == View.VISIBLE)
-//                    view.checkBox.setChecked(!view.checkBox.isChecked());
-//                }
-//            });
         }
 
         public InfoDebtBorrowFragment.ViewHolder onCreateViewHolder(ViewGroup parent, int var2) {
@@ -448,7 +442,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
 
             leftAmount.setText(qq + "" + debtBorrow.getCurrency().getAbbr());
 
-            totalPayAmount.setText("" + ((qoldiq == (int) qoldiq) ? (""+(int) qoldiq) : (""+qoldiq)) + "" + debtBorrow.getCurrency().getAbbr());
+            totalPayAmount.setText("" + ((qoldiq == (int) qoldiq) ? ("" + (int) qoldiq) : ("" + qoldiq)) + "" + debtBorrow.getCurrency().getAbbr());
             debtBorrow.setReckings(list);
             manager.setDebtBorrows(manager.getDebtBorrows());
             isHaveReking.setVisibility(View.VISIBLE);

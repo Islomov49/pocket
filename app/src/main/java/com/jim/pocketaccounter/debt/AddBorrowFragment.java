@@ -223,6 +223,7 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
                         } else {
                             ArrayList<DebtBorrow> list = manager.getDebtBorrows();
                             Currency currency = manager.getCurrencies().get(PersonValyuta.getSelectedItemPosition());
+                            ArrayList<Recking> reckings = new ArrayList<Recking>();
                             Account account = manager.getAccounts().get(PersonAccount.getSelectedItemPosition());
                             DebtBorrow debtBorrow = new DebtBorrow(new Person(PersonName.getText().toString(), PersonNumber.getText().toString(), photoPath),
                                     getDate,
@@ -235,13 +236,12 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
                             );
                             if (!firstPay.getText().toString().isEmpty()) {
                                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
-                                ArrayList<Recking> reckings = new ArrayList<Recking>();
                                 reckings.add(new Recking(
                                         dateFormat.format(Calendar.getInstance().getTime()),
                                         Double.parseDouble(firstPay.getText().toString()), debtBorrow.getId(),
                                         debtBorrow.getAccount().getId(), ""));
-                                  debtBorrow.setReckings(reckings);
                             }
+                            debtBorrow.setReckings(reckings);
                             ivToolbarMostRight.setVisibility(View.INVISIBLE);
                             list.add(0, debtBorrow);
                             manager.setDebtBorrows(list);

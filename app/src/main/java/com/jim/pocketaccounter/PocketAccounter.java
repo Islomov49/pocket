@@ -441,7 +441,9 @@ public class PocketAccounter extends AppCompatActivity {
                             }
                             case "com.jim.pocketaccounter.debt.InfoDebtBorrowFragment":
                             case "com.jim.pocketaccounter.debt.AddBorrowFragment": {
-                                replaceFragment(new DebtBorrowFragment(), PockerTag.DEBTS);
+                                DebtBorrowFragment fragment = new DebtBorrowFragment();
+                                fragment.setArguments(fragmentManager.findFragmentById(R.id.flMain).getArguments());
+                                replaceFragment(fragment, PockerTag.DEBTS);
                                 break;
                             }
                         }
