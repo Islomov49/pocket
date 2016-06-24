@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -87,6 +88,7 @@ public class FilterDialog extends Dialog implements AdapterView.OnItemSelectedLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.filter_statistic_layout);
         yearFilter = (Spinner) findViewById(R.id.etFilterStatisticYear);
 

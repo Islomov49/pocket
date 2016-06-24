@@ -3,7 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
     >
 
     <LinearLayout
@@ -34,63 +33,116 @@
 
     </LinearLayout>
 
-    <Spinner
-        android:id="@+id/spFilerStatistic"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_below="@+id/llFilterStatistic"
-        android:layout_centerHorizontal="true" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/spFilerStatistic"
-        android:orientation="horizontal">
+        android:layout_centerHorizontal="true"
+        android:id="@+id/llFilterStatistic2"
+        android:paddingBottom="10dp"
+        >
 
         <Spinner
-            android:id="@+id/spFilterStatisticMonth"
+            android:id="@+id/spFilerStatistic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="oy" />
+            />
 
-        <Spinner
-            android:id="@+id/spFilterStatisticYearMont"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="yil" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#000"
+            android:layout_marginRight="20dp"
+            />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/spFilerStatistic"
+        android:layout_below="@+id/llFilterStatistic2"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            >
+            <Spinner
+                android:id="@+id/spFilterStatisticMonth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="oy"
+                android:layout_centerInParent="true"
+                />
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            >
+
+            <Spinner
+                android:id="@+id/spFilterStatisticYearMont"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_weight="1"
+                android:text="yil" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/llFilterStatistic2"
         android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/etFilterStatisticStartTime"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="start day"
-            android:visibility="invisible" />
+            >
 
-        <EditText
-            android:id="@+id/etFilterStatisticEndTime"
-            android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/etFilterStatisticStartTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="start day"
+                android:layout_centerInParent="true"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="end day"
-            android:visibility="invisible" />
+            >
+
+            <EditText
+                android:id="@+id/etFilterStatisticEndTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="end day"
+                android:visibility="invisible" />
+
+        </RelativeLayout>
+
     </LinearLayout>
 
     <Spinner
         android:id="@+id/etFilterStatisticYear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/spFilerStatistic"
+        android:layout_below="@+id/llFilterStatistic2"
         android:layout_centerHorizontal="true"
         android:text="yil"
         android:visibility="invisible" />
