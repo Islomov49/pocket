@@ -1,7 +1,6 @@
 package com.jim.pocketaccounter;
 import android.app.Activity;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,7 +10,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -24,6 +22,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -34,6 +33,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -57,6 +57,7 @@ import com.jim.pocketaccounter.helper.LeftMenuItem;
 import com.jim.pocketaccounter.helper.LeftSideDrawer;
 import com.jim.pocketaccounter.syncbase.SignInGoogleMoneyHold;
 import com.jim.pocketaccounter.syncbase.SyncBase;
+import com.jim.pocketaccounter.report.ReportByAccount;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -82,7 +83,7 @@ public class PocketAccounter extends AppCompatActivity {
     public static FinanceManager financeManager;
     private FragmentManager fragmentManager;
     SharedPreferences spref;
-    SharedPreferences.Editor ed  ;
+    SharedPreferences.Editor ed;
     private RelativeLayout rlRecordsMain, rlRecordIncomes;
     private TextView tvRecordIncome, tvRecordBalanse, tvRecordExpanse;
     private ImageView ivToolbarMostRight;
@@ -100,19 +101,19 @@ public class PocketAccounter extends AppCompatActivity {
     DownloadImageTask imagetask;
 
     public static boolean PRESSED;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pocket_accounter);
-        spref=getSharedPreferences("infoFirst",MODE_PRIVATE);
-        ed=spref.edit();
-        if (spref.getBoolean("FIRST_KEY",true)){
+        spref = getSharedPreferences("infoFirst", MODE_PRIVATE);
+        ed = spref.edit();
+        if (spref.getBoolean("FIRST_KEY", true)) {
             try {
-                Intent first=new Intent(this, IntroIndicator.class);
+                Intent first = new Intent(this, IntroIndicator.class);
                 startActivity(first);
                 finish();
-            }
-            finally {
+            } finally {
 
             }
         }
@@ -548,15 +549,9 @@ public class PocketAccounter extends AppCompatActivity {
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
     public void onBackPressed() {
         android.support.v4.app.Fragment temp00 = getSupportFragmentManager().
                 findFragmentById(R.id.flMain);
-        initialize(date);
         if (!drawer.isClosed()) {
             drawer.closeLeftSide();
         } else if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
@@ -580,7 +575,14 @@ public class PocketAccounter extends AppCompatActivity {
                 } else {
                     AddCreditFragment.to_open_dialog = true;
                     getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                    switch (getSupportFragmentManager().findFragmentById(R.id.flMain).getTag()) {
+                    initialize(date);
+                    Log.d("sss", "" + getSupportFragmentManager().findFragmentById(R.id.flMain).getTag());
+                    String tag = getSupportFragmentManager().findFragmentById(R.id.flMain).getTag();
+                    if (tag.matches("Addcredit")
+                            || tag.matches("InfoFragment")) {
+                        replaceFragment(new CreditTabLay(), com.jim.pocketaccounter.debt.PockerTag.CREDITS);
+                    }
+                    switch (tag) {
                         case PockerTag.ACCOUNT:
                         case PockerTag.CATEGORY:
                         case PockerTag.CURRENCY:
@@ -597,9 +599,14 @@ public class PocketAccounter extends AppCompatActivity {
                 }
             } else {
                 getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                Log.d("sss", "ll");
                 if (getSupportFragmentManager().findFragmentById(R.id.flMain) != null) {
                     if (fragmentManager.findFragmentById(R.id.flMain).getTag() == null) {
+                        Log.d("ssss", fragmentManager.findFragmentById(R.id.flMain).getClass().getName());
                         switch (fragmentManager.findFragmentById(R.id.flMain).getClass().getName()) {
+                            case "RecordEditFragment":
+                                initialize(date);
+                                break;
                             case "com.jim.pocketaccounter.CurrencyEditFragment":
                             case "com.jim.pocketaccounter.CurrencyChooseFragment":
                                 findViewById(R.id.change).setVisibility(View.VISIBLE);
@@ -635,15 +642,6 @@ public class PocketAccounter extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                drawer.openLeftSide();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
     public void replaceFragment(Fragment fragment) {
         if (fragment != null) {
             getSupportFragmentManager()
@@ -658,8 +656,6 @@ public class PocketAccounter extends AppCompatActivity {
     public void replaceFragment(final Fragment fragment, final String tag) {
         if (fragment != null) {
             int size = fragmentManager.getBackStackEntryCount();
-            if (fragmentManager.getFragments() != null)
-                Log.d("fm", "" + fragmentManager.getFragments().size() + " " + size);
             for (int i = 0; i < size; i++) {
                 fragmentManager.popBackStack();
             }

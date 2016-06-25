@@ -144,7 +144,10 @@ public class BorrowFragment extends Fragment {
             }
             PreferenceManager.getDefaultSharedPreferences(getContext());
             String ss = (person.getAmount() - qq) == (int) (person.getAmount() - qq) ? "" + (int) (person.getAmount() - qq) : "" + (person.getAmount() - qq);
-            view.BorrowPersonSumm.setText(ss + person.getCurrency().getAbbr());
+            if (person.isTo_archive()) {
+                view.BorrowPersonSumm.setText("repaid");
+            } else
+                view.BorrowPersonSumm.setText(ss + person.getCurrency().getAbbr());
             if (person.getPerson().getPhoto().equals("") || person.getPerson().getPhoto().matches("0")) {
                 view.BorrowPersonPhotoPath.setImageResource(R.drawable.no_photo);
             } else {
@@ -349,7 +352,7 @@ public class BorrowFragment extends Fragment {
         }
     }
 
-    public void changeList () {
+    public void changeList() {
         MyAdapter adapter = new MyAdapter();
         recyclerView.setAdapter(adapter);
     }

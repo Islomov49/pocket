@@ -38,6 +38,9 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
         View view = inflater.inflate(R.layout.debt_borrow_fragment, container, false);
         tabLayout = (TabLayout) view.findViewById(R.id.tlDebtBorrowFragment);
         viewPager = (ViewPager) view.findViewById(R.id.vpDebtBorrowFragment);
+        PocketAccounter.toolbar.setTitle("Учет Долгов");
+        PocketAccounter.toolbar.setSubtitle("");
+        PocketAccounter.toolbar.findViewById(R.id.spToolbar).setVisibility(View.GONE);
         fb = (FloatingActionButton) view.findViewById(R.id.fbDebtBorrowFragment);
         fb.setOnClickListener(this);
         PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight).setVisibility(View.GONE);
@@ -45,6 +48,7 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
     }
 
     @Override
+
     public void onStart() {
         super.onStart();
         restartAdapter();
