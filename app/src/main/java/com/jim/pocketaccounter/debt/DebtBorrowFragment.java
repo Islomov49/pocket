@@ -40,10 +40,11 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
         viewPager = (ViewPager) view.findViewById(R.id.vpDebtBorrowFragment);
         PocketAccounter.toolbar.setTitle("Учет Долгов");
         PocketAccounter.toolbar.setSubtitle("");
+        PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel).setVisibility(View.GONE);
+        PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight).setVisibility(View.GONE);
         PocketAccounter.toolbar.findViewById(R.id.spToolbar).setVisibility(View.GONE);
         fb = (FloatingActionButton) view.findViewById(R.id.fbDebtBorrowFragment);
         fb.setOnClickListener(this);
-        PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight).setVisibility(View.GONE);
         return view;
     }
 

@@ -211,7 +211,10 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
         borrowName.setText(debtBorrow.getPerson().getName());
         String qq = ((int) (debtBorrow.getAmount() - total)) == (debtBorrow.getAmount() - total)
                 ? "" + ((int) (debtBorrow.getAmount() - total)) : "" + (debtBorrow.getAmount() - total);
-        leftAmount.setText(qq + debtBorrow.getCurrency().getAbbr());
+        if (total >= debtBorrow.getAmount())
+            leftAmount.setText(getResources().getString(R.string.repaid));
+        else
+            leftAmount.setText(qq + debtBorrow.getCurrency().getAbbr());
         String sana = (year != 0 ? year + " " + getString(R.string.year) : "")
                 + (mounth != 0 ? mounth + " " + getString(R.string.moth) : "")
                 + (day != 0 ? day + " " + getString(R.string.day) : "");
@@ -356,10 +359,11 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
                                     public void onClick(DialogInterface dialog, int id) {
                                     }
                                 }).setNegativeButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
+                            public void onClick(DialogInterface d, int id) {
+                                d.cancel();
                                 peysAdapter.setDataChanged(format.format(date.getTime()), Double.parseDouble(enterPay.getText().toString()),
                                         "" + accountSp.getSelectedItem(), comment.getText().toString());
+                                dialog.dismiss();
                             }
                         });
                         builder.create().show();
@@ -482,6 +486,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
             totalPayAmount.setText("" + ((qoldiq == (int) qoldiq) ? ("" + (int) qoldiq) : ("" + qoldiq)) + "" + debtBorrow.getCurrency().getAbbr());
             if (qoldiq >= debtBorrow.getAmount()) {
                 payText.setText(getResources().getString(R.string.archive));
+                leftAmount.setText(getResources().getString(R.string.repaid));
             }
             debtBorrow.setReckings(list);
             manager.setDebtBorrows(manager.getDebtBorrows());
