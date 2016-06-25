@@ -45,7 +45,7 @@ import java.util.Calendar;
 public class RecordDetailFragment extends Fragment implements OnClickListener {
     private Calendar date;
     private RecyclerView rvRecordDetail;
-    private ImageView ivToolbarMostRight;
+    private ImageView ivToolbarMostRight, ivToolbarExcel;
     private int mode = PocketAccounterGeneral.NORMAL_MODE;
     private ArrayList<FinanceRecord> records;
 
@@ -57,6 +57,9 @@ public class RecordDetailFragment extends Fragment implements OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.record_detail_layout, container, false);
         ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
+        ivToolbarMostRight.setVisibility(View.VISIBLE);
+        ivToolbarExcel = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel);
+        ivToolbarExcel.setVisibility(View.GONE);
         ivToolbarMostRight.setOnClickListener(this);
         ((PocketAccounter) getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((PocketAccounter) getContext()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_button);

@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +36,8 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 	private ListView lvCurrency;
 	private int mode = PocketAccounterGeneral.NORMAL_MODE;
 	private boolean[] selected;
-	private ImageView ivToolbar;
+	private ImageView ivToolbar, ivToolbarExcel;
+	private Spinner spToolbar;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.currency_fragment, container, false);
 		fabCurrencyAdd = (FloatingActionButton) rootView.findViewById(R.id.fabCurrencyAdd);
@@ -114,6 +116,10 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 		ivToolbar.setVisibility(View.VISIBLE);
 		ivToolbar.setImageResource(R.drawable.pencil);
 		ivToolbar.setOnClickListener(this);
+		ivToolbarExcel = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel);
+		ivToolbarExcel.setVisibility(View.GONE);
+		spToolbar = (Spinner) PocketAccounter.toolbar.findViewById(R.id.spToolbar);
+		spToolbar.setVisibility(View.GONE);
 		refreshList();
 		return rootView;
 	}

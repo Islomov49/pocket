@@ -22,6 +22,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,8 +68,11 @@ public class CurrencyEditFragment extends Fragment implements OnClickListener, O
 			}
 		});
 		PocketAccounter.toolbar.setTitle(currency.getName()+", "+currency.getAbbr());
+		PocketAccounter.toolbar.setSubtitle("");
 		((ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight)).setImageResource(R.drawable.check_sign);
 		((ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight)).setVisibility(View.VISIBLE);
+		((ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel)).setVisibility(View.GONE);
+		((Spinner) PocketAccounter.toolbar.findViewById(R.id.spToolbar)).setVisibility(View.GONE);
 		((ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight)).setOnClickListener(this);
 		refreshExchangeList();
 		return rootView;

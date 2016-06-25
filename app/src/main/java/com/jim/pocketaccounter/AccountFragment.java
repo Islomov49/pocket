@@ -24,6 +24,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout.LayoutParams;
+import android.widget.Spinner;
 
 import com.jim.pocketaccounter.credit.CreditDetials;
 import com.jim.pocketaccounter.credit.ReckingCredit;
@@ -46,7 +47,8 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 	private boolean[] selected;
 	private int mode = PocketAccounterGeneral.NORMAL_MODE, selectedIcon;
 	private ListView lvAccounts;
-	private ImageView ivToolbarMostRight;
+	private ImageView ivToolbarMostRight, ivToolbarExcel;
+	private Spinner spToolbar;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.account_layout, container, false);
 		fabAccountAdd = (FloatingActionButton) rootView.findViewById(R.id.fabAccountAdd);
@@ -103,6 +105,10 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 		ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
 		ivToolbarMostRight.setImageResource(R.drawable.pencil);
 		ivToolbarMostRight.setOnClickListener(this);
+		ivToolbarExcel = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel);
+		ivToolbarExcel.setVisibility(View.VISIBLE);
+		spToolbar = (Spinner) PocketAccounter.toolbar.findViewById(R.id.spToolbar);
+		spToolbar.setVisibility(View.GONE);
 		refreshList(mode);
 		return rootView;
 	}

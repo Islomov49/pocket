@@ -104,8 +104,7 @@ public class RecordIncomesView extends View implements 	GestureDetector.OnGestur
 		borderPaint.setStrokeWidth(getResources().getDimension(R.dimen.one_dp));
 		for (int i=0; i<3; i++) 
 			canvas.drawLine(workspace.left+(i+1)*width, workspace.top, workspace.left+(i+1)*width, workspace.bottom, borderPaint);
-		
-	}	
+	}
 	private void drawWorkspaceShader(Canvas canvas) {
 		Bitmap temp = BitmapFactory.decodeResource(getResources(), R.drawable.workspace_shader);
 		workspaceShader = Bitmap.createScaledBitmap(temp, (int)workspace.width(), (int)workspace.height(), false);
@@ -167,7 +166,7 @@ public class RecordIncomesView extends View implements 	GestureDetector.OnGestur
 						else
 							category = PocketAccounter.financeManager.getIncomes().get(position);
 						if (category != null)
-							((PocketAccounter) getContext()).replaceFragment(new RecordEditFragment(category, Calendar.getInstance(), null, PocketAccounterGeneral.MAIN));
+							((PocketAccounter) getContext()).replaceFragment(new RecordEditFragment(category, date, null, PocketAccounterGeneral.MAIN));
 						else
 							openChooseDialog(position);
 					}
@@ -252,6 +251,7 @@ public class RecordIncomesView extends View implements 	GestureDetector.OnGestur
 				for (int i=0; i<buttons.size(); i++)
 					buttons.get(i).setPressed(false);
 				invalidate();
+				PocketAccounter.PRESSED = false;
 			}
 		});
 		dialog.show();

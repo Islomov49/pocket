@@ -51,7 +51,7 @@ import java.util.UUID;
 @SuppressLint("ValidFragment")
 public class RecordEditFragment extends Fragment implements OnClickListener{
     private TextView tvRecordEditDisplay;
-    private ImageView ivToolbarMostRight, ivRecordEditCategory, ivRecordEditSubCategory;
+    private ImageView ivToolbarMostRight, ivRecordEditCategory, ivRecordEditSubCategory, ivToolbaExcel;
     private Spinner spRecordEdit, spToolbar;
     private RootCategory category;
     private SubCategory subCategory;
@@ -141,6 +141,8 @@ public class RecordEditFragment extends Fragment implements OnClickListener{
         ivToolbarMostRight.setVisibility(View.VISIBLE);
         ivToolbarMostRight.setImageResource(R.drawable.check_sign);
         ivToolbarMostRight.setOnClickListener(this);
+        ivToolbaExcel = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel);
+        ivToolbaExcel.setVisibility(View.GONE);
         ivRecordEditCategory = (ImageView) rootView.findViewById(R.id.ivRecordEditCategory);
         ivRecordEditSubCategory = (ImageView) rootView.findViewById(R.id.ivRecordEditSubCategory);
         tvRecordEditDisplay = (TextView) rootView.findViewById(R.id.tvRecordEditDisplay);

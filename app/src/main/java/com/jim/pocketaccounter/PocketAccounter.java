@@ -1,5 +1,4 @@
 package com.jim.pocketaccounter;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -12,21 +11,18 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.SharedPreferencesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -36,8 +32,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
@@ -52,7 +46,6 @@ import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 import com.jim.pocketaccounter.helper.record.RecordExpanseView;
 import com.jim.pocketaccounter.helper.record.RecordIncomesView;
 import com.jim.pocketaccounter.intropage.IntroIndicator;
-import com.jim.pocketaccounter.report.FilterFragment;
 import com.jim.pocketaccounter.debt.DebtBorrowFragment;
 import com.jim.pocketaccounter.finance.FinanceManager;
 import com.jim.pocketaccounter.helper.LeftMenuAdapter;
@@ -60,8 +53,6 @@ import com.jim.pocketaccounter.helper.LeftMenuItem;
 import com.jim.pocketaccounter.helper.LeftSideDrawer;
 import com.jim.pocketaccounter.syncbase.SignInGoogleMoneyHold;
 import com.jim.pocketaccounter.syncbase.SyncBase;
-import com.jim.pocketaccounter.report.ReportByAccount;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -71,14 +62,12 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import static com.jim.pocketaccounter.R.color.toolbar_text_color;
 
 public class PocketAccounter extends AppCompatActivity {
-    TextView userName, userEmail;
+    TextView userName,userEmail;
     CircleImageView userAvatar;
     public static Toolbar toolbar;
     public static LeftSideDrawer drawer;
@@ -89,14 +78,14 @@ public class PocketAccounter extends AppCompatActivity {
     SharedPreferences.Editor ed;
     private RelativeLayout rlRecordsMain, rlRecordIncomes;
     private TextView tvRecordIncome, tvRecordBalanse, tvRecordExpanse;
-    private ImageView ivToolbarMostRight;
+    private ImageView ivToolbarMostRight, ivToolbarExcel;
     private RecordExpanseView expanseView;
     private RecordIncomesView incomeView;
     private Calendar date;
     private Spinner spToolbar;
     private RelativeLayout rlRecordTable;
     SignInGoogleMoneyHold reg;
-    boolean downloadnycCanRest = true;
+    boolean downloadnycCanRest=true;
     SyncBase mySync;
     Uri imageUri;
     FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -109,6 +98,14 @@ public class PocketAccounter extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pocket_accounter);
+        File direct = new File(Environment.getExternalStorageDirectory() + "/Pocket Accounter");
+        if(!direct.exists())
+        {
+            if(direct.mkdir())
+            {
+
+            }
+        }
         spref = getSharedPreferences("infoFirst", MODE_PRIVATE);
         ed = spref.edit();
         if (spref.getBoolean("FIRST_KEY", true)) {
@@ -122,7 +119,7 @@ public class PocketAccounter extends AppCompatActivity {
         }
         financeManager = new FinanceManager(this);
         fragmentManager = getSupportFragmentManager();
-        mySync = new SyncBase(storageRef, this, "PocketAccounterDatabase");
+        mySync=new SyncBase(storageRef,this,"PocketAccounterDatabase");
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(ContextCompat.getColor(this, toolbar_text_color));
@@ -131,23 +128,22 @@ public class PocketAccounter extends AppCompatActivity {
         drawer.setLeftBehindContentView(R.layout.activity_behind_left_simple);
         lvLeftMenu = (ListView) findViewById(R.id.lvLeftMenu);
         fillLeftMenu();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
+        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
+        if(user!=null){
             userName.setText(user.getDisplayName());
             userEmail.setText(user.getEmail());
-            if (user.getPhotoUrl() != null) {
+            if(user.getPhotoUrl()!=null){
                 imagetask.execute(user.getPhotoUrl().toString());
-                imageUri = user.getPhotoUrl();
-
+                imageUri=user.getPhotoUrl();
             }
         }
-
         rlRecordsMain = (RelativeLayout) findViewById(R.id.rlRecordExpanses);
         tvRecordIncome = (TextView) findViewById(R.id.tvRecordIncome);
         tvRecordBalanse = (TextView) findViewById(R.id.tvRecordBalanse);
         rlRecordIncomes = (RelativeLayout) findViewById(R.id.rlRecordIncomes);
         ivToolbarMostRight = (ImageView) findViewById(R.id.ivToolbarMostRight);
         spToolbar = (Spinner) toolbar.findViewById(R.id.spToolbar);
+        ivToolbarExcel = (ImageView) toolbar.findViewById(R.id.ivToolbarExcel);
         rlRecordTable = (RelativeLayout) findViewById(R.id.rlRecordTable);
         rlRecordTable.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,7 +157,7 @@ public class PocketAccounter extends AppCompatActivity {
         date = Calendar.getInstance();
         initialize(date);
         //Bu notifikatsiyani bosib prilojeniyaga kirganda fragmenti ochvorishga
-        switch (getIntent().getIntExtra("TIP", 0)) {
+        switch (getIntent().getIntExtra("TIP", 0)){
             case AlarmReceiver.TO_DEBT:
                 replaceFragment(new DebtBorrowFragment(), PockerTag.DEBTS);
                 break;
@@ -169,22 +165,18 @@ public class PocketAccounter extends AppCompatActivity {
                 replaceFragment(new CreditTabLay(), PockerTag.CREDITS);
                 break;
         }
-
-
         (new Thread(new Runnable() {
             @Override
             public void run() {
-                NotificationManagerCredit notific = new NotificationManagerCredit(PocketAccounter.this);
+                NotificationManagerCredit notific=new NotificationManagerCredit(PocketAccounter.this);
                 notific.notificSetCredit();
             }
         })).start();
-
     }
 
     public Calendar getDate() {
         return date;
     }
-
     public void initialize(Calendar date) {
         PRESSED = false;
         toolbar.setTitle(getResources().getString(R.string.app_name));
@@ -198,6 +190,7 @@ public class PocketAccounter extends AppCompatActivity {
         spToolbar.setVisibility(View.GONE);
         ivToolbarMostRight.setImageResource(R.drawable.finance_calendar);
         ivToolbarMostRight.setVisibility(View.VISIBLE);
+        ivToolbarExcel.setVisibility(View.GONE);
         ivToolbarMostRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -297,17 +290,17 @@ public class PocketAccounter extends AppCompatActivity {
         ArrayList<LeftMenuItem> items = new ArrayList<LeftMenuItem>();
         Bitmap temp = BitmapFactory.decodeResource(getResources(), R.drawable.cloud);
         Bitmap bitmap = Bitmap.createScaledBitmap(temp, (int) getResources().getDimension(R.dimen.twentyfour_dp), (int) getResources().getDimension(R.dimen.twentyfour_dp), false);
-        userAvatar = (CircleImageView) findViewById(R.id.userphoto);
-        userName = (TextView) findViewById(R.id.tvToolbarName);
-        userEmail = (TextView) findViewById(R.id.tvGoogleMail);
-        imagetask = new DownloadImageTask(userAvatar);
+        userAvatar=(CircleImageView) findViewById(R.id.userphoto);
+        userName=(TextView) findViewById(R.id.tvToolbarName);
+        userEmail=(TextView) findViewById(R.id.tvGoogleMail);
+        imagetask=new DownloadImageTask(userAvatar);
 
         //TODO agar upload sync settingsi ichiga qoyilganda reg if usloviyani ichiga qoyiladi
-        reg = new SignInGoogleMoneyHold(PocketAccounter.this, new SignInGoogleMoneyHold.UpdateSucsess() {
+        reg=new SignInGoogleMoneyHold(PocketAccounter.this, new SignInGoogleMoneyHold.UpdateSucsess() {
             @Override
             public void updateToSucsess() {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                if (user != null) {
+                FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
+                if(user!=null){
                     mySync.uploadBASE(user.getUid(), new SyncBase.ChangeStateLis() {
                         @Override
                         public void onSuccses() {
@@ -321,12 +314,12 @@ public class PocketAccounter extends AppCompatActivity {
                     });
                     userName.setText(user.getDisplayName());
                     userEmail.setText(user.getEmail());
-                    if (user.getPhotoUrl() != null) {
+                    if(user.getPhotoUrl()!=null){
                         imagetask.execute(user.getPhotoUrl().toString());
-                        imageUri = user.getPhotoUrl();
+                        imageUri=user.getPhotoUrl();
                     }
-                    if (user.getPhotoUrl() != null)
-                        Log.d("GOOGLEPHOTO", user.getPhotoUrl() + "");
+                    if(user.getPhotoUrl()!=null)
+                        Log.d("GOOGLEPHOTO", user.getPhotoUrl()+"");
                 }
             }
 
@@ -343,9 +336,12 @@ public class PocketAccounter extends AppCompatActivity {
         fabIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final FirebaseUser userim = FirebaseAuth.getInstance().getCurrentUser();
-                if (userim != null) {
+
+                 final FirebaseUser userim= FirebaseAuth.getInstance().getCurrentUser();
+                if(userim!=null){
                     drawer.close();
+
+
                     (new Handler()).postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -353,6 +349,7 @@ public class PocketAccounter extends AppCompatActivity {
                             builder.setMessage(R.string.sync_message)
                                     .setPositiveButton("Sync", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
+
                                             mySync.uploadBASE(userim.getUid(), new SyncBase.ChangeStateLis() {
                                                 @Override
                                                 public void onSuccses() {
@@ -366,12 +363,15 @@ public class PocketAccounter extends AppCompatActivity {
                                             });
 
                                         }
-                                    }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                                    }) .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.cancel();
                                 }
                             });
+
+
                             builder.create().show();
+
                         }
                     }, 150);
                 } else {
@@ -388,6 +388,7 @@ public class PocketAccounter extends AppCompatActivity {
                         }
                     }, 150);
                 }
+
             }
         });
         LeftMenuItem main = new LeftMenuItem(cats[0], R.drawable.drawer_home);
@@ -449,8 +450,8 @@ public class PocketAccounter extends AppCompatActivity {
                         switch (position) {
                             case 0:
                                 findViewById(R.id.change).setVisibility(View.VISIBLE);
+                                PRESSED = false;
                                 if (getSupportFragmentManager().getBackStackEntryCount() != 0) {
-                                    Log.d("sss", "qayta");
                                     FragmentManager fm = getSupportFragmentManager();
                                     for (int i = 0; i < fm.getBackStackEntryCount(); i++)
                                         fm.popBackStack();
@@ -542,6 +543,7 @@ public class PocketAccounter extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        PRESSED = false;
         android.support.v4.app.Fragment temp00 = getSupportFragmentManager().
                 findFragmentById(R.id.flMain);
         if (!drawer.isClosed()) {
@@ -568,7 +570,6 @@ public class PocketAccounter extends AppCompatActivity {
                     AddCreditFragment.to_open_dialog = true;
                     getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                     initialize(date);
-                    Log.d("sss", "" + getSupportFragmentManager().findFragmentById(R.id.flMain).getTag());
                     String tag = getSupportFragmentManager().findFragmentById(R.id.flMain).getTag();
                     if (tag.matches("Addcredit")
                             || tag.matches("InfoFragment")) {
@@ -597,6 +598,7 @@ public class PocketAccounter extends AppCompatActivity {
                         Log.d("ssss", fragmentManager.findFragmentById(R.id.flMain).getClass().getName());
                         switch (fragmentManager.findFragmentById(R.id.flMain).getClass().getName()) {
                             case "com.jim.pocketaccounter.RecordEditFragment":
+                            case "com.jim.pocketaccounter.RecordDetailFragment":
                                 initialize(date);
                                 break;
                             case "com.jim.pocketaccounter.CurrencyEditFragment":
@@ -667,7 +669,6 @@ public class PocketAccounter extends AppCompatActivity {
         if (imagetask != null)
             imagetask.cancel(true);
     }
-
     @Override
     public void onRestart() {
         super.onRestart();
@@ -690,14 +691,8 @@ public class PocketAccounter extends AppCompatActivity {
 
         public DownloadImageTask(CircleImageView bmImage) {
             this.bmImage = bmImage;
-
             File file = new File(getFilesDir(), "userphoto.jpg");
-            Log.d("UPDATEP", "opened " + file.getAbsolutePath() + "");
-
             if (file.exists()) {
-
-                Log.d("UPDATEP", "opened " + file.getAbsolutePath() + "");
-
                 bmImage.setImageURI(Uri.parse(file.getAbsolutePath()));
             }
         }
@@ -758,7 +753,6 @@ public class PocketAccounter extends AppCompatActivity {
     }
 
     private ProgressDialog mProgressDialog;
-
 
     public void showProgressDialog() {
         if (mProgressDialog == null) {

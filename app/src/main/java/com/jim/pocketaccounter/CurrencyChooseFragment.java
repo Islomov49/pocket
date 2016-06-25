@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +47,8 @@ public class CurrencyChooseFragment extends Fragment {
 		ivToolbarMostRight = ((ImageView)PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight));
 		ivToolbarMostRight.setVisibility(View.VISIBLE);
 		ivToolbarMostRight.setImageResource(R.drawable.check_sign);
+		((ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel)).setVisibility(View.GONE);
+		((Spinner) PocketAccounter.toolbar.findViewById(R.id.spToolbar)).setVisibility(View.GONE);
 		gvCurrencyChoose = (GridView) view.findViewById(R.id.gvCurrencyChoose);
 		final String[] baseCurrencies = getResources().getStringArray(R.array.base_currencies);
 		final String[] baseAbbrs = getResources().getStringArray(R.array.base_abbrs);

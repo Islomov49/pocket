@@ -33,11 +33,16 @@ public class RecordDetailAdapter extends RecyclerView.Adapter<RecordDetailAdapte
         holder.ivRecordDetail.setImageResource(result.get(position).getCategory().getIcon());
         holder.tvRecordDetailCategoryName.setText(result.get(position).getCategory().getName());
         DecimalFormat decimalFormat = new DecimalFormat("0.00");
-        if (result.get(position).getCategory().getType() == PocketAccounterGeneral.EXPANCE)
+        String sign = "";
+        if (result.get(position).getCategory().getType() == PocketAccounterGeneral.EXPANCE) {
             holder.tvRecordDetailCategoryAmount.setTextColor(ContextCompat.getColor(context, R.color.red));
-        else
+            sign = "-";
+        }
+        else {
             holder.tvRecordDetailCategoryAmount.setTextColor(ContextCompat.getColor(context, R.color.green_just));
-        holder.tvRecordDetailCategoryAmount.setText(decimalFormat.format(PocketAccounterGeneral.getCost(result.get(position)))+result.get(position).getCurrency().getAbbr());
+            sign = "+";
+        }
+        holder.tvRecordDetailCategoryAmount.setText(sign + decimalFormat.format(PocketAccounterGeneral.getCost(result.get(position)))+result.get(position).getCurrency().getAbbr());
         boolean subCatIsNull = (result.get(position).getSubCategory() == null);
         if (subCatIsNull) {
             holder.llSubCategories.setVisibility(View.GONE);
