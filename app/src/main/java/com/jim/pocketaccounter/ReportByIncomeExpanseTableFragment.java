@@ -4,32 +4,37 @@ package com.jim.pocketaccounter;
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.jim.pocketaccounter.report.FilterDialog;
-import com.jim.pocketaccounter.report.FilterSelectable;
 import com.jim.pocketaccounter.report.IncomeExpanseDataRow;
 import com.jim.pocketaccounter.report.IncomeExpanseReport;
-import com.jim.pocketaccounter.report.ReportByCategoryDialogAdapter;
-import com.jim.pocketaccounter.report.ReportByIncomeExpanseDialogAdapter;
 import com.jim.pocketaccounter.report.TableView;
 
-import org.w3c.dom.Text;
-
+import java.io.File;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import jxl.write.Number;
+import jxl.Workbook;
+import jxl.write.Label;
+import jxl.write.WritableSheet;
+import jxl.write.WritableWorkbook;
+import jxl.write.WriteException;
 
 public class ReportByIncomeExpanseTableFragment extends Fragment {
     private TableView table;
@@ -39,56 +44,31 @@ public class ReportByIncomeExpanseTableFragment extends Fragment {
     private TextView tvTotalIncome, tvAverageIncome,
                      tvTotalExpanse, tvAverageExpanse,
                      tvTotalProfit, tvAverageProfit;
+    private ImageView ivToolbarExcel;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.report_by_income_expanse, container, false);
         String[] titles = getResources().getStringArray(R.array.report_by_income_expanse_table_titles);
         table = (TableView) rootView.findViewById(R.id.tvReportByIncomeExpanse);
-        table.setClickable(true);
-        table.setTitles(titles);
         tvTotalIncome = (TextView) rootView.findViewById(R.id.tvTotalIncome);
         tvAverageIncome = (TextView) rootView.findViewById(R.id.tvAverageIncome);
         tvTotalExpanse = (TextView) rootView.findViewById(R.id.tvTotalExpanse);
         tvAverageExpanse = (TextView) rootView.findViewById(R.id.tvAverageExpanse);
         tvTotalProfit = (TextView) rootView.findViewById(R.id.tvTotalProfit);
         tvAverageProfit = (TextView) rootView.findViewById(R.id.tvAverageProfit);
+        ivToolbarExcel = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel);
+        ivToolbarExcel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                exportToExcelFile();
+            }
+        });
         init();
         data = new IncomeExpanseReport(getContext(), begin, end);
         dataRows = data.makeReport();
-        drawTable(dataRows);
-        table.setOnTableClickListener(new TableView.ClickableTable() {
-            @Override
-            public void onTableClick(int row) {
-                if (dataRows.get(row).getTotalIncome() == 0 && dataRows.get(row).getTotalExpanse() == 0) return;
-                IncomeExpanseDataRow dataRow = dataRows.get(row);
-                final Dialog dialog=new Dialog(getActivity());
-                View dialogView = getActivity().getLayoutInflater().inflate(R.layout.report_by_income_expanse_info, null);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-                dialog.setContentView(dialogView);
-                TextView tvReportByIncomeExpanseDate = (TextView) dialogView.findViewById(R.id.tvReportByIncomeExpanseDate);
-                SimpleDateFormat format = new SimpleDateFormat("dd LLL, yyyy");
-                tvReportByIncomeExpanseDate.setText(format.format(dataRow.getDate().getTime()));
-                ListView lvReportByIncomeExpanseInfo = (ListView) dialogView.findViewById(R.id.lvReportByIncomeExpanseInfo);
-                ImageView ivReportByCategoryClose = (ImageView) dialogView.findViewById(R.id.ivReportByCategoryClose);
-                ivReportByCategoryClose.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        dialog.dismiss();
-                    }
-                });
-                ReportByIncomeExpanseDialogAdapter adapter = new ReportByIncomeExpanseDialogAdapter(getContext(), dataRow.getDetails());
-                lvReportByIncomeExpanseInfo.setAdapter(adapter);
-                TextView tvReportByIncomeExpanseTotalIncome = (TextView) dialogView.findViewById(R.id.tvReportByIncomeExpanseTotalIncome);
-                DecimalFormat decimalFormat = new DecimalFormat("0.00##");
-                tvReportByIncomeExpanseTotalIncome.setText(decimalFormat.format(dataRow.getTotalExpanse())+PocketAccounter.financeManager.getMainCurrency().getAbbr());
-                TextView tvReportByIncomeExpanseExpanse = (TextView) dialogView.findViewById(R.id.tvReportByIncomeExpanseExpanse);
-                tvReportByIncomeExpanseExpanse.setText(decimalFormat.format(dataRow.getTotalIncome())+PocketAccounter.financeManager.getMainCurrency().getAbbr());
-                TextView tvReportByIncomeExpanseProfit = (TextView) dialogView.findViewById(R.id.tvReportByIncomeExpanseProfit);
-                tvReportByIncomeExpanseProfit.setText(decimalFormat.format(dataRow.getTotalProfit())+PocketAccounter.financeManager.getMainCurrency().getAbbr());
-                dialog.show();
-            }
-        });
+        table.setTitle(titles, false);
+        table.setDatas(dataRows);
         calculateDatas();
         return rootView;
     }
@@ -97,8 +77,7 @@ public class ReportByIncomeExpanseTableFragment extends Fragment {
         this.end = (Calendar) end.clone();
         data = new IncomeExpanseReport(getContext(), this.begin, this.end);
         dataRows = data.makeReport();
-        drawTable(dataRows);
-        this.table.invalidate();
+        table.setDatas(dataRows);
         calculateDatas();
     }
     private void calculateDatas() {
@@ -148,17 +127,69 @@ public class ReportByIncomeExpanseTableFragment extends Fragment {
         end.set(Calendar.SECOND, 59);
         end.set(Calendar.MILLISECOND, 59);
     }
-    private void drawTable(ArrayList<IncomeExpanseDataRow> datas) {
-        String[][] table = new String[datas.size()][4];
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-        DecimalFormat decimalFormat = new DecimalFormat("0.00##");
-        String abbr = PocketAccounter.financeManager.getMainCurrency().getAbbr();
-        for (int i = 0; i<datas.size(); i++) {
-            table[i][0] = format.format(datas.get(i).getDate().getTime());
-            table[i][1] = decimalFormat.format(datas.get(i).getTotalExpanse())+abbr;
-            table[i][2] = decimalFormat.format(datas.get(i).getTotalIncome())+abbr;
-            table[i][3] = decimalFormat.format(datas.get(i).getTotalProfit())+abbr;
-        }
-        this.table.setTables(table);
+    public void exportToExcelFile() {
+        final Dialog dialog=new Dialog(getContext());
+        View dialogView = ((PocketAccounter) getContext()).getLayoutInflater().inflate(R.layout.warning_dialog, null);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(dialogView);
+        TextView tvWarningText = (TextView) dialogView.findViewById(R.id.tvWarningText);
+        tvWarningText.setText(R.string.save_excel);
+        Button ok = (Button) dialogView.findViewById(R.id.btnWarningYes);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SimpleDateFormat format = new SimpleDateFormat("dd_MM_yyyy");
+                File sd = Environment.getExternalStorageDirectory();
+                String fname = sd.getAbsolutePath()+"/Pocket Accounter/pa_"+format.format(Calendar.getInstance().getTime());
+                File temp = new File(fname+".xlsx");
+                while(temp.exists()) {
+                    fname = fname+"_copy";
+                    temp = new File(fname);
+                }
+                fname = fname+".xlsx";
+                try {
+                    File exlFile = new File(fname);
+                    WritableWorkbook writableWorkbook = Workbook.createWorkbook(exlFile);
+                    WritableSheet writableSheet = writableWorkbook.createSheet(getContext().getResources().getString(R.string.app_name), 0);
+                    String[] labels = new String[] {getContext().getResources().getString(R.string.date),
+                            getContext().getResources().getString(R.string.income),
+                            getContext().getResources().getString(R.string.expanse),
+                            getContext().getResources().getString(R.string.profit)};
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    for (int i=0; i<labels.length; i++) {
+                        Label label = new Label(i, 0, labels[i]);
+                        writableSheet.addCell(label);
+                    }
+                    for (int i=0; i<dataRows.size(); i++) {
+                        Label date = new Label(0, i+1, dateFormat.format(dataRows.get(i).getDate().getTime()));
+                        Number income = new Number(1, i+1, dataRows.get(i).getTotalIncome());
+                        Number expance = new Number(2, i+1, dataRows.get(i).getTotalExpanse());
+                        Number profit = new Number(3, i+1, dataRows.get(i).getTotalProfit());
+                        writableSheet.addCell(date);
+                        writableSheet.addCell(income);
+                        writableSheet.addCell(expance);
+                        writableSheet.addCell(profit);
+                    }
+                    writableWorkbook.write();
+                    writableWorkbook.close();
+                    Toast.makeText(getContext(),fname+": saved...", Toast.LENGTH_SHORT).show();
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+                catch (WriteException e) {
+                    e.printStackTrace();
+                }
+                dialog.dismiss();
+            }
+        });
+        Button cancel = (Button) dialogView.findViewById(R.id.btnWarningNo);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 }

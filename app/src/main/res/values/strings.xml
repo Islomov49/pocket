@@ -920,4 +920,8 @@
     <string name="info">Инфо</string>
     <string name="save_to_excel">Сохранить в EXCEL</string>
     <string name="no_datas_for_show">Нет данных для отображения!</string>
+    <string name="table">Таблица</string>
+    <string name="bars">Бары</string>
+    <string name="save_excel">Сохранить в EXCEL файл?</string>
+    <string name="date">Дата</string>
 </resources>

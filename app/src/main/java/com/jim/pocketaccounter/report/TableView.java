@@ -1,379 +1,228 @@
 package com.jim.pocketaccounter.report;
 
-import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.PointF;
-import android.graphics.Rect;
-import android.graphics.RectF;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GestureDetectorCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
+import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 
-public class TableView extends View implements GestureDetector.OnGestureListener {
-
-    private int count_rows;
-    private int count_colums;
-    private float min_height;
-    private float min_width;
-    private float margin_content = getResources().getDimension(R.dimen.margin_contetn);
-    private float stroke_width = getResources().getDimension(R.dimen.stroke_width);
-    private float textHeight = getResources().getDimension(R.dimen.text_height);
-    private float textWidth, bitmap_size = getResources().getDimension(R.dimen.bitmap_size);
-    private Bitmap plus, minus;
-    private RectF[][] tables_rect;
-    private RectF[] titles_rects;
-    private GestureDetectorCompat gestureDetector;
-    private String[] titles;
-    private String[][] tables;
-    private int position_row = -1, pos_categ, pos_cur;
-    private boolean single_tap = false;
-    private ClickableTable clickableTable = null;
-    private RectF container = new RectF();
-    public void setTitles(String[] titles) {
-        this.titles = titles;
-        titles_rects = new RectF[titles.length];
-        for (int i=0; i<titles_rects.length; i++) {
-            titles_rects[i] = new RectF();
-        }
-    }
-
-    public void setTables(String[][] tables) {
-        this.tables = tables;
-        tables_rect = new RectF[tables.length][titles.length];
-        for (int i=0; i < tables.length; i++) {
-            for (int j = 0; j<titles.length; j++) {
-                tables_rect[i][j] = new RectF();
-            }
-        }
-    }
-
+public class TableView extends LinearLayout {
+    private TextView tvFirstTitle, tvSecondTitle, tvThirdTitle, tvFourthTitle;
+    private RecyclerView rvTable;
+    private boolean isFirstBitmap;
+    private ArrayList<? extends Object> datas;
+    private LinearLayoutManager lm;
     public TableView(Context context) {
         super(context);
-        gestureDetector = new GestureDetectorCompat(getContext(), this);
-        setClickable(true);
-        plus = BitmapFactory.decodeResource(getResources(), R.drawable.add_green);
-        plus = Bitmap.createScaledBitmap(plus,
-                (int) bitmap_size,
-                (int) bitmap_size,
-                true);
-        minus = BitmapFactory.decodeResource(getResources(), R.drawable.remove_red);
-        minus = Bitmap.createScaledBitmap(minus,
-                (int) bitmap_size,
-                (int) bitmap_size,
-                true);
-    }
-
-    public TableView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        gestureDetector = new GestureDetectorCompat(getContext(), this);
-        setClickable(true);
-        plus = BitmapFactory.decodeResource(getResources(), R.drawable.add_green);
-        plus = Bitmap.createScaledBitmap(plus,
-                (int) bitmap_size,
-                (int) bitmap_size,
-                true);
-        minus = BitmapFactory.decodeResource(getResources(), R.drawable.remove_red);
-        minus = Bitmap.createScaledBitmap(minus,
-                (int) bitmap_size,
-                (int) bitmap_size,
-                true);
+        LayoutInflater inflater =(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.table_layout, this);
+        init();
     }
     public TableView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        gestureDetector = new GestureDetectorCompat(getContext(), this);
-        setClickable(true);
-        plus = BitmapFactory.decodeResource(getResources(), R.drawable.add_green);
-        plus = Bitmap.createScaledBitmap(plus,
-                (int) bitmap_size,
-                (int) bitmap_size,
-                true);
-        minus = BitmapFactory.decodeResource(getResources(), R.drawable.remove_red);
-        minus = Bitmap.createScaledBitmap(minus,
-                (int) bitmap_size,
-                (int) bitmap_size,
-                true);
+        LayoutInflater inflater =(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.table_layout, this);
+        init();
     }
+    public TableView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        LayoutInflater inflater =(LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater.inflate(R.layout.table_layout, this);
+        init();
+    }
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public TableView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        init();
+    }
+    private void init() {
+        rvTable = (RecyclerView) findViewById(R.id.rvTable);
+        DisplayMetrics dm = getResources().getDisplayMetrics();
+        int width = dm.widthPixels;
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(width/5, (int)getResources().getDimension(R.dimen.thirtyfive_dp));
+        lp.setMargins((int)getResources().getDimension(R.dimen.eight_dp), (int)getResources().getDimension(R.dimen.five_dp),
+                (int)getResources().getDimension(R.dimen.five_dp), (int)getResources().getDimension(R.dimen.five_dp));
+        tvFirstTitle = (TextView) findViewById(R.id.tvFirstTitle);
+        tvFirstTitle.setLayoutParams(lp);
+        tvSecondTitle = (TextView) findViewById(R.id.tvSecondTitle);
+        tvSecondTitle.setLayoutParams(lp);
+        tvThirdTitle = (TextView) findViewById(R.id.tvThirdTitle);
+        tvThirdTitle.setLayoutParams(lp);
+        tvFourthTitle = (TextView) findViewById(R.id.tvFourthTitle);
+        tvFourthTitle.setLayoutParams(lp);
+        lm = new LinearLayoutManager(getContext());
+        rvTable.setLayoutManager(lm);
+    }
+    public void setTitle(String[] titles, boolean isFirstBitmap) {
+        this.isFirstBitmap = isFirstBitmap;
+        tvFirstTitle.setText(titles[0]);
+        tvSecondTitle.setText(titles[1]);
+        tvThirdTitle.setText(titles[2]);
+        tvFourthTitle.setText(titles[3]);
+    }
+    public void setDatas(ArrayList<? extends Object> datas) {
+        this.datas = datas;
+        MyAdapter adapter = new MyAdapter(datas);
+        rvTable.setAdapter(adapter);
+    }
+     private class MyAdapter extends RecyclerView.Adapter<TableView.ViewHolder> {
+        private ArrayList<? extends Object> result;
+        public MyAdapter(ArrayList<? extends Object> result) {
+            this.result = result;
+        }
+        public int getItemCount() {
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        min_height = getResources().getDimension(R.dimen.thirty_dp);
-        container.set(margin_content, margin_content, getWidth()-margin_content, min_height*count_rows+2*margin_content);
-        setMinimumHeight((int)(container.height()+getResources().getDimension(R.dimen.fourty_dp)+4*margin_content));
-        pos_categ = -1;
-        pos_cur = -1;
-        if (titles != null) {
-            min_height = getResources().getDimension(R.dimen.fifty_dp);
-            onDrawTitles(canvas);
-        }
-        if (tables != null) {
-            onDrawTables(canvas, tables);
-        }
-    }
-    private void onDrawTitles(Canvas canvas) {
-        count_colums = titles_rects.length;
-        min_width = container.width()/count_colums;
-        Paint paint = new Paint();
-        paint.setFlags(Paint.ANTI_ALIAS_FLAG);
-        paint.setStyle(Paint.Style.FILL);
-        paint.setTextSize(textHeight);
-        for (int i = 0; i < count_colums; i++) {
-            if (titles[i].matches("Category")) pos_categ = i;
-            if (titles[i].matches("Amount")) pos_cur = i;
-            titles_rects[i].set(
-                    container.left + i * min_width,
-                    container.top,
-                    container.left + (i + 1) * min_width,
-                    container.top + min_height);
-            paint.setColor(ContextCompat.getColor(getContext(), R.color.table_title));
-            canvas.drawRect(titles_rects[i], paint);
-            paint.setColor(Color.WHITE);
-            textWidth = paint.measureText(titles[i]);
-            canvas.drawText(titles[i], container.left + i * min_width + min_width / 2 - textWidth / 2,
-                    container.top + min_height / 2 + textHeight / 2, paint);
-        }
-        container.top = margin_content + min_height;
-    }
 
-    private void onDrawTables(Canvas canvas, String[][] tables) {
-        count_rows = tables.length;
-        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        paint.setStyle(Paint.Style.FILL);
-        for (int i = 0; i < count_rows; i++) {
-            if (i == position_row)
-                min_height = getResources().getDimension(R.dimen.fifty_dp);
+            return result.size();
+        }
+        public TableView.ViewHolder onCreateViewHolder(ViewGroup parent, int var2) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.table_item, parent, false);
+            DisplayMetrics dm = getResources().getDisplayMetrics();
+            int width = dm.widthPixels;
+            LinearLayout.LayoutParams lp = new LayoutParams(width/5, ViewGroup.LayoutParams.WRAP_CONTENT);
+            lp.setMargins((int)getResources().getDimension(R.dimen.eight_dp), (int)getResources().getDimension(R.dimen.five_dp),
+                    (int)getResources().getDimension(R.dimen.five_dp), (int)getResources().getDimension(R.dimen.five_dp));
+            lp.gravity = Gravity.CENTER;
+            RelativeLayout rlFirstCol = (RelativeLayout) view.findViewById(R.id.rlFirstCol);
+            rlFirstCol.setLayoutParams(lp);
+            TextView tvTableSecondCol = (TextView) view.findViewById(R.id.tvTableSecondCol);
+            tvTableSecondCol.setLayoutParams(lp);
+            TextView tvTableThirdCol = (TextView) view.findViewById(R.id.tvTableThirdCol);
+            tvTableThirdCol.setLayoutParams(lp);
+            TextView tvTableFourthCol = (TextView) view.findViewById(R.id.tvTableFourthCol);
+            lp.setMargins((int)getResources().getDimension(R.dimen.eight_dp), (int)getResources().getDimension(R.dimen.five_dp),
+                    (int)getResources().getDimension(R.dimen.eight_dp), (int)getResources().getDimension(R.dimen.five_dp));
+            tvTableFourthCol.setLayoutParams(lp);
+            return new TableView.ViewHolder(view);
+        }
+         public void setPosition(int position) {
+             View view = rvTable.getChildAt(position);
+             if (view != null) {
+                 if (position % 2 == 0)
+                     view.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.table_double));
+                 else
+                     view.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.table_odd));
+             }
+         }
+        @Override
+        public void onBindViewHolder(ViewHolder holder, final int position) {
+            if (position % 2 == 0)
+                holder.view.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.table_double));
             else
-                min_height = getResources().getDimension(R.dimen.thirty_dp);
-            for (int j = 0; j < count_colums; j++) {
-                tables_rect[i][j].set(container.left + j * min_width, container.top,
-                        container.left + (j + 1) * min_width, container.top + min_height);
-                if (i % 2 == 0) {
-                    paint.setColor(ContextCompat.getColor(getContext(), R.color.table_odd));
+                holder.view.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.table_odd));
+            holder.view.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    unselectAll();
+                    v.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.table_selected));
+                    if (!isFirstBitmap) {
+                        IncomeExpanseDataRow row = (IncomeExpanseDataRow)datas.get(position);
+                        if (row.getTotalIncome() == 0 && row.getTotalExpanse() == 0)
+                            return;
+                        final Dialog dialog = new Dialog(getContext());
+                        View dialogView = ((PocketAccounter)getContext()).getLayoutInflater().inflate(R.layout.report_by_income_expanse_info, null);
+                        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                        dialog.setContentView(dialogView);
+                        TextView tvReportByIncomeExpanseDate = (TextView) dialogView.findViewById(R.id.tvReportByIncomeExpanseDate);
+                        SimpleDateFormat format = new SimpleDateFormat("dd LLL, yyyy");
+                        tvReportByIncomeExpanseDate.setText(format.format(row.getDate().getTime()));
+                        ListView lvReportByIncomeExpanseInfo = (ListView) dialogView.findViewById(R.id.lvReportByIncomeExpanseInfo);
+                        ImageView ivReportByCategoryClose = (ImageView) dialogView.findViewById(R.id.ivReportByCategoryClose);
+                        ivReportByCategoryClose.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                        ReportByIncomeExpanseDialogAdapter adapter = new ReportByIncomeExpanseDialogAdapter(getContext(), row.getDetails());
+                        lvReportByIncomeExpanseInfo.setAdapter(adapter);
+                        TextView tvReportByIncomeExpanseTotalIncome = (TextView) dialogView.findViewById(R.id.tvReportByIncomeExpanseTotalIncome);
+                        DecimalFormat decimalFormat = new DecimalFormat("0.00##");
+                        tvReportByIncomeExpanseTotalIncome.setText(decimalFormat.format(row.getTotalExpanse()) + PocketAccounter.financeManager.getMainCurrency().getAbbr());
+                        TextView tvReportByIncomeExpanseExpanse = (TextView) dialogView.findViewById(R.id.tvReportByIncomeExpanseExpanse);
+                        tvReportByIncomeExpanseExpanse.setText(decimalFormat.format(row.getTotalIncome()) + PocketAccounter.financeManager.getMainCurrency().getAbbr());
+                        TextView tvReportByIncomeExpanseProfit = (TextView) dialogView.findViewById(R.id.tvReportByIncomeExpanseProfit);
+                        tvReportByIncomeExpanseProfit.setText(decimalFormat.format(row.getTotalProfit()) + PocketAccounter.financeManager.getMainCurrency().getAbbr());
+                        dialog.show();
+                    }
                 }
-                else {
-                    paint.setColor(ContextCompat.getColor(getContext(), R.color.table_double));
-                }
-                canvas.drawRect(tables_rect[i][j], paint);
-                if (i == position_row) {
-                    paint.setColor(ContextCompat.getColor(getContext(), R.color.table_selected));
-                    canvas.drawRect(tables_rect[i][j], paint);
-                }
+            });
+            SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+            DecimalFormat decimalFormat = new DecimalFormat("0.00");
+            String abbr = PocketAccounter.financeManager.getMainCurrency().getAbbr();
+            if (isFirstBitmap) {
+                AccountDataRow row = (AccountDataRow)result.get(position);
+                holder.tvTableFirstCol.setVisibility(GONE);
+                holder.ivTableItem.setVisibility(VISIBLE);
+                if (row.getCategory().getType() == PocketAccounterGeneral.INCOME)
+                    holder.ivTableItem.setImageResource(R.drawable.add_green);
+                else
+                    holder.ivTableItem.setImageResource(R.drawable.remove_red);
+                holder.tvTableSecondCol.setText(format.format(row.getDate().getTime()));
+                holder.tvTableThirdCol.setText(decimalFormat.format(row.getAmount())+abbr);
+                String text = row.getCategory().getName();
+                if (row.getSubCategory() != null)
+                    text = text + ", " + row.getSubCategory().getName();
+                holder.tvTableFourthCol.setText(text);
             }
-            container = new RectF(container.left, container.top + min_height, container.right, container.bottom);
-        }
-        paint.setTextSize(getResources().getDimension(R.dimen.ten_sp));
-        paint.setColor(ContextCompat.getColor(getContext(), R.color.toolbar_text_color));
-        for (int i = 0; i < count_rows; i++) {
-            for (int j = 0; j < count_colums; j++) {
-                String text = tables[i][j];
-                Rect bound = new Rect();
-                paint.getTextBounds(text, 0, text.length(), bound);
-                if (i != position_row) {
-                    if (bound.width() >= tables_rect[i][j].width()) {
-                        for (int k=5; k<tables[i][j].length(); k++) {
-                            text = tables[i][j].substring(0, k);
-                            paint.getTextBounds(text, 0, text.length(), bound);
-                            if (bound.width() >= tables_rect[i][j].width()) {
-                                text = text.substring(0, text.length()-3) + "...";
-                                break;
-                            }
-                        }
-                    }
-                    paint.getTextBounds(text, 0, text.length(), bound);
-                    RectF temp = tables_rect[i][j];
-                    boolean isBitmap =  (tables[i][j].matches("0") || tables[i][j].matches("1"));
-                    if (isBitmap) {
-                        Bitmap sign = null;
-                        if (tables[i][j].matches("0")) {
-                            Bitmap temp1 = BitmapFactory.decodeResource(getResources(), R.drawable.add_green);
-                            sign = Bitmap.createScaledBitmap(temp1, (int)getResources().getDimension(R.dimen.twenty_dp), (int)getResources().getDimension(R.dimen.twenty_dp), false);
-                        } else {
-                            Bitmap temp1 = BitmapFactory.decodeResource(getResources(), R.drawable.remove_red);
-                            sign = Bitmap.createScaledBitmap(temp1, (int)getResources().getDimension(R.dimen.twenty_dp), (int)getResources().getDimension(R.dimen.twenty_dp), false);
-                        }
-                        canvas.drawBitmap(sign, temp.left+temp.width()/2-sign.getWidth()/2, temp.top+temp.height()/2-sign.getHeight()/2,paint);
-                    }
-                    else
-                        canvas.drawText(text, temp.left+temp.width()/2-bound.width()/2, temp.top + temp.height()/2+bound.height()/2, paint);
-                }
-                else {
-                    ArrayList<String> texts = new ArrayList<>();
-                    if (tables[i][j].indexOf(':') == -1) {
-                        if (bound.width() >= tables_rect[i][j].width()) {
-                            int pos = 0;
-                            boolean entered = false;
-                            for (int k=5; k<tables[i][j].length()+1; k++) {
-                                text = tables[i][j].substring(pos, k);
-                                paint.getTextBounds(text, 0, text.length(), bound);
-                                if (bound.width() >= tables_rect[i][j].width()) {
-                                    k -= 2;
-                                    String temp = tables[i][j].substring(pos, k);
-                                    texts.add(temp);
-                                    entered = true;
-                                    pos = k;
-                                }
-                                if (k == tables[i][j].length()-1 && entered) {
-                                    String temp = tables[i][j].substring(pos, k+1);
-                                    texts.add(temp);
-                                }
-                            }
-                        }
-                        else {
-                            texts.add(tables[i][j]);
-                        }
-                    }
-                    else {
-                        String first = tables[i][j].substring(0, tables[i][j].indexOf(':'));
-                        paint.getTextBounds(first, 0, first.length(), bound);
-
-                        if (bound.width() >= tables_rect[i][j].width()) {
-                            int pos = 0;
-                            boolean entered = false;
-                            for (int k=5; k<first.length(); k++) {
-                                text = first.substring(pos, k);
-                                paint.getTextBounds(text, 0, text.length(), bound);
-                                if (bound.width() >= tables_rect[i][j].width()) {
-                                    k -= 2;
-                                    String temp = first.substring(pos, k);
-                                    texts.add(temp);
-                                    entered = true;
-                                    pos = k;
-                                }
-                                if (k == first.length()-1 && entered) {
-                                    String temp = first.substring(pos, k+1);
-                                    texts.add(temp);
-                                }
-                            }
-                        }
-                        else {
-                            texts.add(first);
-                        }
-                        String second = tables[i][j].substring(tables[i][j].indexOf(':')+1, tables[i][j].length());
-                        paint.getTextBounds(second, 0, second.length(), bound);
-                        if (bound.width() >= tables_rect[i][j].width()) {
-                            int pos = 0;
-                            boolean entered = false;
-                            for (int k=5; k<second.length(); k++) {
-                                text = second.substring(pos, k);
-                                paint.getTextBounds(text, 0, text.length(), bound);
-                                if (bound.width() >= tables_rect[i][j].width()) {
-                                    k -= 2;
-                                    String temp = second.substring(pos, k);
-                                    texts.add(temp);
-                                    entered = true;
-                                    pos = k;
-                                }
-                                if (k == second.length()-1 && entered) {
-                                    String temp = second.substring(pos, k+1);
-                                    texts.add(temp);
-                                }
-                            }
-                        }
-                        else {
-                            texts.add(second);
-                        }
-                    }
-                    int size = texts.size();
-                    if (size == 1) {
-                        RectF temp = tables_rect[i][j];
-                        boolean isBitmap =  (tables[i][j].matches("0") || tables[i][j].matches("1"));
-                        if (isBitmap) {
-                            Bitmap sign = null;
-                            if (tables[i][j].matches("0")) {
-                                Bitmap temp1 = BitmapFactory.decodeResource(getResources(), R.drawable.add_green);
-                                sign = Bitmap.createScaledBitmap(temp1, (int)getResources().getDimension(R.dimen.twenty_dp), (int)getResources().getDimension(R.dimen.twenty_dp), false);
-                            } else {
-                                Bitmap temp1 = BitmapFactory.decodeResource(getResources(), R.drawable.remove_red);
-                                sign = Bitmap.createScaledBitmap(temp1, (int)getResources().getDimension(R.dimen.twenty_dp), (int)getResources().getDimension(R.dimen.twenty_dp), false);
-                            }
-                            canvas.drawBitmap(sign, temp.left+temp.width()/2-sign.getWidth()/2, temp.top+temp.height()/2-sign.getHeight()/2,paint);
-                        }
-                        else
-                            canvas.drawText(texts.get(0), temp.left+temp.width()/2-bound.width()/2, temp.top + temp.height()/2+bound.height()/2, paint);
-                    }
-                    else {
-                        float rectHeight = tables_rect[i][j].height();
-                        for (int k=0; k<size; k++) {
-                            paint.getTextBounds(texts.get(k), 0, texts.get(k).length(), bound);
-                            int height = bound.height();
-                            int width = bound.width();
-                            canvas.drawText(texts.get(k), tables_rect[i][j].left+tables_rect[i][j].width()/2-width/2, tables_rect[i][j].top + rectHeight/size+ k*(height+rectHeight/30),paint);
-                        }
-                    }
-                }
+            else {
+                IncomeExpanseDataRow row = (IncomeExpanseDataRow)result.get(position);
+                holder.tvTableFirstCol.setVisibility(VISIBLE);
+                holder.ivTableItem.setVisibility(GONE);
+                holder.tvTableFirstCol.setText(format.format(row.getDate().getTime()));
+                holder.tvTableSecondCol.setText(decimalFormat.format(row.getTotalIncome())+abbr);
+                holder.tvTableThirdCol.setText(decimalFormat.format(row.getTotalExpanse())+abbr);
+                holder.tvTableFourthCol.setText(decimalFormat.format(row.getTotalProfit())+abbr);
             }
         }
     }
-
-
-    @SuppressLint("ClickableViewAccessibility")
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        this.gestureDetector.onTouchEvent(event);
-        return super.onTouchEvent(event);
-
-    }
-
-    @Override
-    public boolean onDown(MotionEvent e) {
-        return false;
-    }
-
-    @Override
-    public void onShowPress(MotionEvent e) {
-
-    }
-
-    public boolean onSingleTapUp(MotionEvent e) {
-        float x = e.getX();
-        float y = e.getY();
-        for (int i = 0; i < count_rows; i++) {
-            for (int j = 0; j < count_colums; j++) {
-                if (tables_rect[i][j].contains(x, y)) {
-                    single_tap = true;
-                    position_row = i;
-                    invalidate();
-                    clickableTable.onTableClick(position_row);
-                    break;
-                }
+    public void unselectAll() {
+        RecyclerView.Adapter adapter = rvTable.getAdapter();
+        for (int i=0; i<adapter.getItemCount(); i++) {
+            if (rvTable.getChildAt(i) != null) {
+                if (i % 2 == 0)
+                    rvTable.getChildAt(i).setBackgroundColor(ContextCompat.getColor(getContext(), R.color.table_double));
+                else
+                    rvTable.getChildAt(i).setBackgroundColor(ContextCompat.getColor(getContext(), R.color.table_odd));
             }
         }
-        return false;
     }
-
-    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        return false;
-    }
-
-    @Override
-    public void onLongPress(MotionEvent e) {
-
-    }
-
-    @Override
-    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        return false;
-    }
-
-    public void setOnTableClickListener(ClickableTable clickableTable) {
-        this.clickableTable = clickableTable;
-    }
-
-    public interface ClickableTable {
-        public void onTableClick(int row);
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public TextView tvTableFirstCol, tvTableSecondCol, tvTableThirdCol, tvTableFourthCol;
+        public ImageView ivTableItem;
+        public View view;
+        public ViewHolder(View view) {
+            super(view);
+            tvTableFirstCol = (TextView)view.findViewById(R.id.tvTableFirstCol);
+            tvTableSecondCol = (TextView)view.findViewById(R.id.tvTableSecondCol);
+            tvTableThirdCol = (TextView)view.findViewById(R.id.tvTableThirdCol);
+            tvTableFourthCol = (TextView)view.findViewById(R.id.tvTableFourthCol);
+            ivTableItem = (ImageView)view.findViewById(R.id.ivTableItem);
+            this.view = view;
+        }
     }
 }

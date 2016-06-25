@@ -28,7 +28,7 @@ import java.util.Calendar;
 public class TableBarFragment extends Fragment {
     private ReportByIncomeExpanseTableFragment tableFragment;
     private ReportByIncomeExpanseBarFragment barFragment;
-    private ImageView ivToolbarMostRight;
+    private ImageView ivToolbarMostRight, ivToolbarExcel;
     private FilterDialog filterDialog;
     @Nullable
     @Override
@@ -47,23 +47,36 @@ public class TableBarFragment extends Fragment {
             }
         });
         tableFragment = new ReportByIncomeExpanseTableFragment();
+        ivToolbarExcel = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel);
+        ivToolbarExcel.setVisibility(View.VISIBLE);
         barFragment = new ReportByIncomeExpanseBarFragment();
         list.add(tableFragment);
         list.add(barFragment);
         viewPager.setAdapter(new TableBarAdapter(((PocketAccounter)getContext()).getSupportFragmentManager(), list));
         tabLayout.setupWithViewPager(viewPager);
+        filterDialog.setOnDateSelectedListener(new FilterSelectable() {
+            @Override
+            public void onDateSelected(Calendar begin, Calendar end) {
+                tableFragment.invalidate(begin, end);
+            }
+        });
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
             @Override
             public void onPageSelected(final int position) {
                 filterDialog.setOnDateSelectedListener(new FilterSelectable() {
                     @Override
                     public void onDateSelected(Calendar begin, Calendar end) {
-                        if (position == 0)
+                        if (position == 0) {
                             tableFragment.invalidate(begin, end);
-                        else
+                            ivToolbarExcel.setVisibility(View.VISIBLE);
+                        }
+                        else {
                             barFragment.invalidate(begin, end);
+                            ivToolbarExcel.setVisibility(View.GONE);
+                        }
                     }
                 });
             }
@@ -72,7 +85,6 @@ public class TableBarFragment extends Fragment {
         });
         return view;
     }
-
     private class TableBarAdapter extends FragmentStatePagerAdapter {
         private ArrayList<Fragment> list;
         public TableBarAdapter(FragmentManager fm, ArrayList<Fragment> list) {
@@ -86,9 +98,9 @@ public class TableBarFragment extends Fragment {
 
         public CharSequence getPageTitle(int position) {
             if (position == 0) {
-                return "Table";
+                return getResources().getString(R.string.table);
             }
-            return "Bar";
+            return getString(R.string.bars);
         }
     }
 }
