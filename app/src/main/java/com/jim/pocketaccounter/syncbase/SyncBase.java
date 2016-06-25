@@ -51,6 +51,7 @@ public class SyncBase {
         PATH_FOR_INPUT=DB_PATH+DB_NAME;
         }
     public void uploadBASE(String auth_uid, final ChangeStateLis even){
+
         try {
             StorageMetadata metadata = new StorageMetadata.Builder()
                     .setContentType("sqlite/db")
@@ -77,8 +78,6 @@ public class SyncBase {
 
 
     }
-
-
    public boolean downloadLast(String auth_uid, final ChangeStateLis even){
 
        final ProgressDialog A1=new ProgressDialog(context);
@@ -138,29 +137,4 @@ public class SyncBase {
 
     }
 
-    class Complekt{
-        private ChangeStateLis eventer;
-        private String UID;
-
-        public ChangeStateLis getEventer() {
-            return eventer;
-        }
-
-        public Complekt(ChangeStateLis eventer, String UID) {
-            this.eventer = eventer;
-            this.UID = UID;
-        }
-
-        public void setEventer(ChangeStateLis eventer) {
-            this.eventer = eventer;
-        }
-
-        public String getUID() {
-            return UID;
-        }
-
-        public void setUID(String UID) {
-            this.UID = UID;
-        }
-    }
 }

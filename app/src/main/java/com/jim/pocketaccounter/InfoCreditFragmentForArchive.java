@@ -26,6 +26,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.jim.pocketaccounter.credit.AdapterCridetArchive;
 import com.jim.pocketaccounter.credit.CreditDetials;
 import com.jim.pocketaccounter.credit.ReckingCredit;
 import com.jim.pocketaccounter.finance.Account;
@@ -71,12 +72,12 @@ public class InfoCreditFragmentForArchive extends Fragment {
     private Context context;
     TextView myPay,myDelete;
     DecimalFormat  formater;
-    CreditArchiveFragment.ListnerDel A1;
+    AdapterCridetArchive.ListnerDel A1;
     int POSITIOn;
     public InfoCreditFragmentForArchive() {
         // Required empty public constructor
     }
-    public void setConteent(CreditDetials temp,int position, CreditArchiveFragment.ListnerDel A1){
+    public void setConteent(CreditDetials temp,int position, AdapterCridetArchive.ListnerDel A1){
         currentCredit=temp;
         this.A1=A1;
         formater=new DecimalFormat("0.##");
@@ -138,24 +139,44 @@ public class InfoCreditFragmentForArchive extends Fragment {
         ivToolbarMostRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+        if(currentCredit.isKey_for_include()){
+            final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage("Do you realize what you want to delete this post? This post are calculeted in balance! All transaction operations will deleted from aplication! ARE YOU SURE?")
+                    .setPositiveButton("DELETE ANYWAY", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialoge, int id) {
 
+                            A1.delete_item(POSITIOn);
+                            getActivity().getSupportFragmentManager().popBackStack ();
 
-                final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("Do you realize what you want to delete this post? Then you can not restore!")
-                        .setPositiveButton("DELETE ANYWAY", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialoge, int id) {
+                        }
+                    }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.cancel();
 
-                                A1.delete_item(POSITIOn);
-                                getActivity().getSupportFragmentManager().popBackStack ();
+                }
+            });
+            builder.create().show();
 
-                            }
-                        }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
+        }
+        else{
+            final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setMessage("Do you realize what you want to delete this post? Then you can not restore!")
+                    .setPositiveButton("DELETE ANYWAY", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialoge, int id) {
 
-                    }
-                });
-                builder.create().show();
+                            A1.delete_item(POSITIOn);
+                            getActivity().getSupportFragmentManager().popBackStack ();
+
+                        }
+                    }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.cancel();
+
+                }
+            });
+            builder.create().show();
+
+        }
 
 
 

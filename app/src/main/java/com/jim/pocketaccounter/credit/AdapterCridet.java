@@ -71,7 +71,8 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         dateformarter=new SimpleDateFormat("dd.MM.yyyy");
         formater=new DecimalFormat("0.##");
         this.svyaz=svyaz;
-        Log.d("objectTest", ""+cardDetials.size());
+
+        Log.d("svyazKELDI", ""+cardDetials.size());
     }
 
 
@@ -80,9 +81,8 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holdeer, final int position) {
-        if(holdeer instanceof Fornull){
-            return;
-        }
+        if(holdeer instanceof Fornull){   return;  }
+        Log.d("svyazKELDI", "chizdi BINGO");
         final myViewHolder holder=(myViewHolder) holdeer;
         final CreditDetials itemCr= cardDetials.get(position);
             holder.credit_procent.setText(parseToWithoutNull(itemCr.getProcent())+"%");
@@ -373,8 +373,8 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             iconn=(ImageView) v.findViewById(R.id.iconaaa);
             glav=v;
         }
-
     }
+
     public void openFragment(Fragment fragment,String tag) {
         if (fragment != null) {
             if(tag.matches("Addcredit"))
@@ -412,13 +412,8 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
                     context, R.layout.spiner_gravity_right, accaounts);
-
-            accountSp.setAdapter(arrayAdapter);
-
-        }
-        else{
-            dialogView.findViewById(R.id.is_calc).setVisibility(View.GONE);
-        }
+            accountSp.setAdapter(arrayAdapter);        }
+        else{            dialogView.findViewById(R.id.is_calc).setVisibility(View.GONE);        }
         final Calendar date = Calendar.getInstance();
         enterDate.setText(dateformarter.format(date.getTime()));
         ImageView cancel = (ImageView) dialogView.findViewById(R.id.ivInfoDebtBorrowCancel);
@@ -432,7 +427,6 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         });
         final DatePickerDialog.OnDateSetListener getDatesetListener = new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-
                 enterDate.setText(dateformarter.format((new GregorianCalendar(arg1,arg2,arg3)).getTime()));
                 date.set(arg1, arg2, arg3);
             }
@@ -452,14 +446,8 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             @Override
             public void onClick(View v) {
 
-                /*InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(dialogView.getWindowToken(), 0);
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }*/
                 final String amount=enterPay.getText().toString();
+
                 double total_paid=0;
                 for(ReckingCredit item:current.getReckings())
                     total_paid+=item.getAmount();
@@ -507,7 +495,6 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         current.getReckings().add(rec);
                         notifyItemChanged(position);
                         Log.d(TAG, "onClick: "+current+" "+pos);
-                       // A1.change_item(current,pos);
                         dialog.dismiss();
                     }
                 }

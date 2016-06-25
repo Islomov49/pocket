@@ -167,7 +167,7 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    Calendar calender = Calendar.getInstance();
+                        Calendar calender = Calendar.getInstance();
                     Dialog mDialog = new DatePickerDialog(getContext(),
                             getDatesetListener, calender.get(Calendar.YEAR),
                             calender.get(Calendar.MONTH), calender

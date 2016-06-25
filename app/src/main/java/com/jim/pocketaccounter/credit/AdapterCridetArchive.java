@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
@@ -21,6 +22,8 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.jim.pocketaccounter.CreditArchiveFragment;
+import com.jim.pocketaccounter.InfoCreditFragmentForArchive;
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
 import com.jim.pocketaccounter.finance.Account;
@@ -43,28 +46,31 @@ public class AdapterCridetArchive extends RecyclerView.Adapter<AdapterCridetArch
     int S = 0;
     SimpleDateFormat dateformarter;
     Context context;
-    forListnerArchive A1;
     ArrayList<Account> accaunt_AC;
-    boolean toArcive=false;
     long forDay=1000L*60L*60L*24L;
     long forMoth=1000L*60L*60L*24L*30L;
     long forYear=1000L*60L*60L*24L*365L;
     final static long forWeek=1000L*60L*60L*24L*7L;
     DecimalFormat formater;
-    public AdapterCridetArchive(List<CreditDetials> cardDetials, Context This, forListnerArchive A1){
-        this.cardDetials=cardDetials;
+    public AdapterCridetArchive( Context This){
+        this.cardDetials=PocketAccounter.financeManager.getArchiveCredits();
         this.context=This;
         dateformarter=new SimpleDateFormat("dd.MM.yyyy");
         formater=new DecimalFormat("0.##");
 
-        this.A1=A1;
-    }
-
-    public interface forListnerArchive{
-         void togoInfo(CreditDetials current, int position);
-         void item_delete(int position);
 
     }
+    AdapterCridetArchive.GoCredFragForNotify svyazForNotifyFromArchAdap;
+    public void setSvyazToAdapter(AdapterCridetArchive.GoCredFragForNotify goNotify){
+        svyazForNotifyFromArchAdap=goNotify;
+    }
+    public interface ListnerDel{
+         void delete_item(int position);
+    }
+    public interface GoCredFragForNotify{
+        void notifyCredFrag();
+    }
+
     @Override
     public void onBindViewHolder(myViewHolder holder, final int position) {
     final CreditDetials itemCr= cardDetials.get(position);
@@ -152,7 +158,31 @@ public class AdapterCridetArchive extends RecyclerView.Adapter<AdapterCridetArch
         holder.glav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               A1.togoInfo(itemCr,position);
+
+                InfoCreditFragmentForArchive temp=new InfoCreditFragmentForArchive();
+                int pos=cardDetials.indexOf(itemCr);
+                temp.setConteent(itemCr, pos, new ListnerDel() {
+                    @Override
+                    public void delete_item(int position) {
+                        CreditDetials Az=cardDetials.get(position);
+                        if(Az.isKey_for_include()){
+                        ArrayList<CreditDetials>  credList=PocketAccounter.financeManager.getCredits();
+                            for (CreditDetials creditDetials : credList) {
+                                if(creditDetials.getTake_time().getTimeInMillis()==Az.getTake_time().getTimeInMillis()){
+                                    credList.remove(creditDetials);
+                                    PocketAccounter.financeManager.saveCredits();
+                                    svyazForNotifyFromArchAdap.notifyCredFrag();
+                                    Log.d("svyazKELDI", "DELETE");
+                                    break;
+                                }
+                            }
+                        }
+                        cardDetials.remove(position);
+                        PocketAccounter.financeManager.saveArchiveCredits();
+                        notifyItemRemoved(position);
+                    }
+                });
+                openFragment(temp,"InfoFragment");
             }
         });
 
@@ -234,6 +264,13 @@ public class AdapterCridetArchive extends RecyclerView.Adapter<AdapterCridetArch
     }
 
 
+    public void openFragment(Fragment fragment, String tag) {
+        if (fragment != null) {
+            final android.support.v4.app.FragmentTransaction ft = ((PocketAccounter)context).getSupportFragmentManager().beginTransaction().addToBackStack(tag).setTransition(android.support.v4.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            ft.add(R.id.flMain, fragment,tag);
+            ft.commit();
+        }
+    }
 
 
 }

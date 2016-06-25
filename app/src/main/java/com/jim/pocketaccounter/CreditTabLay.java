@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.jim.pocketaccounter.credit.AdapterCridetArchive;
 import com.jim.pocketaccounter.helper.FloatingActionButton;
 import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
@@ -100,7 +101,7 @@ public class CreditTabLay extends Fragment  implements View.OnClickListener, Vie
     @Override
     public void onClick(View v) {
     }
-
+    AdapterCridetArchive.GoCredFragForNotify svyazForNotifyFromArchAdap;
     public class PagerAdapter extends FragmentStatePagerAdapter {
 
         public PagerAdapter(FragmentManager fm) {
@@ -119,10 +120,12 @@ public class CreditTabLay extends Fragment  implements View.OnClickListener, Vie
                             svyaz.itemInsertedToArchive();
                         }
                     });
+                    svyazForNotifyFromArchAdap=credA.getInterfaceNotify();
                     return credA;
                 case 1:
                     CreditArchiveFragment arch=new CreditArchiveFragment();
                     svyaz=arch.getSvyaz();
+                    arch.setSvyazToAdapter(svyazForNotifyFromArchAdap);
                     return arch;
 
                 default:

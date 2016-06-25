@@ -29,8 +29,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        app:tabBackground="@color/expp"
+        android:background="@color/toolbar_color"
+        app:tabBackground="@color/toolbar_color"
         app:tabGravity="fill"
-        app:tabIndicatorColor="@color/green_light_forline"
+        app:tabIndicatorColor="#414141"
         app:tabMode="fixed" />
 </RelativeLayout>

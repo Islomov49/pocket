@@ -18,7 +18,7 @@ import com.jim.pocketaccounter.R;
 
 public class AlarmReceiver extends BroadcastReceiver
 {
-    public static final int TO_DEBT=0,TO_CRIDET=1;
+    public static final int TO_DEBT=10,TO_CRIDET=11;
 
     @Override
     public void onReceive(Context context, Intent intent)
@@ -41,7 +41,7 @@ public class AlarmReceiver extends BroadcastReceiver
             resultIntent.putExtra("TIP",TO_DEBT);
         }
         else if(tipFragment==TO_CRIDET){
-            resultIntent.putExtra("TIP",TO_DEBT);
+            resultIntent.putExtra("TIP",TO_CRIDET);
         }
 
         PendingIntent pIntent=PendingIntent.getActivity(context,0,resultIntent,0);

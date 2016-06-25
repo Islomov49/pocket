@@ -111,13 +111,12 @@ public class NotificationManagerCredit {
 				if(to.compareTo(today)>0){
 					Intent intent=new Intent(context, AlarmReceiver.class);
 					intent.putExtra("msg",msg);
-					intent.putExtra("TIP",NotificationService.TO_CRIDET);
-					int _id=rand.nextInt();
+					intent.putExtra("TIP",AlarmReceiver.TO_CRIDET);
 
+					int _id=rand.nextInt();
 					PendingIntent pendingIntent = PendingIntent.getBroadcast(context,  (_id<0)?_id*(-1):_id,
 							intent, 0 );
 					SimpleDateFormat dff = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-
 					Log.d("AlarmSet",""+dff.format(to.getTime())+" - "+_id);
 
 					alarmManager.set(AlarmManager.RTC_WAKEUP, to.getTimeInMillis(), pendingIntent);

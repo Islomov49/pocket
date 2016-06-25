@@ -5,11 +5,15 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
 import com.jim.pocketaccounter.credit.AdapterCridet;
+import com.jim.pocketaccounter.credit.AdapterCridetArchive;
 import com.jim.pocketaccounter.credit.CreditDetials;
 import com.jim.pocketaccounter.credit.ReckingCredit;
 import com.jim.pocketaccounter.finance.FinanceManager;
@@ -26,6 +30,18 @@ public class CreditFragment extends Fragment {
     Context This;
     CreditTabLay.SvyazkaFragmentov svyaz;
     private FinanceManager financeManager;
+
+    public AdapterCridetArchive.GoCredFragForNotify getInterfaceNotify(){
+        return new AdapterCridetArchive.GoCredFragForNotify() {
+            @Override
+            public void notifyCredFrag() {
+                crAdap.notifyDataSetChanged();
+                Log.d("svyazKELDI", "notifyCredFrag");
+
+            }
+        };
+    }
+
     public CreditFragment() {
         // Required empty public constructor
 
@@ -35,6 +51,9 @@ public class CreditFragment extends Fragment {
         super.onCreate(savedInstanceState);
         crList=PocketAccounter.financeManager.getCredits();
         This=getActivity();
+
+
+
     }
     public  CreditTabLay.ForFab getEvent(){
         return new CreditTabLay.ForFab() {
@@ -47,10 +66,18 @@ public class CreditFragment extends Fragment {
     public void setSvyaz(CreditTabLay.SvyazkaFragmentov A){
         svyaz=A;
     }
+    Toolbar toolbarik;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        toolbarik=PocketAccounter.toolbar;
+        ImageView ivToolbarMostRight = (ImageView) toolbarik.findViewById(R.id.ivToolbarMostRight);
+        ivToolbarMostRight.setImageResource(R.drawable.ic_delete_black_18dp);
+        ivToolbarMostRight.setVisibility(View.GONE);
+        toolbarik.setTitle("Credit managment");
+        toolbarik.setSubtitle("");
+
         View V=inflater.inflate(R.layout.fragment_credit, container, false);
         financeManager = PocketAccounter.financeManager;
         crRV=(RecyclerView) V.findViewById(R.id.my_recycler_view);
@@ -58,18 +85,10 @@ public class CreditFragment extends Fragment {
         crRV.setLayoutManager(llm);
 
         crAdap=new AdapterCridet(This,svyaz);
+        crRV.setAdapter(crAdap);
 
 
 
-        V.post(new Runnable() {
-            @Override
-            public void run() {
-                crRV.setAdapter(crAdap);
-
-
-
-            }
-        });
 
 
         return V;

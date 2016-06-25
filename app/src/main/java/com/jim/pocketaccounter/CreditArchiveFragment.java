@@ -23,6 +23,10 @@ public class CreditArchiveFragment extends Fragment {
     RecyclerView crRV;
     AdapterCridetArchive crAdap;
     Context This;
+    AdapterCridetArchive.GoCredFragForNotify svyazForNotifyFromArchAdap;
+    public void setSvyazToAdapter(AdapterCridetArchive.GoCredFragForNotify goNotify){
+        svyazForNotifyFromArchAdap=goNotify;
+    }
     public CreditArchiveFragment() {
         // Required empty public constructor
 
@@ -49,49 +53,20 @@ public class CreditArchiveFragment extends Fragment {
         crRV=(RecyclerView) V.findViewById(R.id.my_recycler_view);
         LinearLayoutManager llm = new LinearLayoutManager(This);
         crRV.setLayoutManager(llm);
-        crList=PocketAccounter.financeManager.getArchiveCredits();
-        crAdap=new AdapterCridetArchive(crList, This, new AdapterCridetArchive.forListnerArchive() {
-            @Override
-            public void togoInfo(CreditDetials current,int position) {
-                InfoCreditFragmentForArchive temp=new InfoCreditFragmentForArchive();
-                temp.setConteent(current, position, new ListnerDel() {
-                    @Override
-                    public void delete_item(int position) {
-                        crList.remove(position);
-                        PocketAccounter.financeManager.saveArchiveCredits();
-                        crAdap.notifyItemRemoved(position);
-                    }
-                });
-                openFragment(temp,"InfoFragment");
-            }
+       // crList=PocketAccounter.financeManager.getArchiveCredits();
 
-
-            @Override
-            public void item_delete(int position) {
-                //TODO DELETE FROM DATABASE
-                crList.remove(position);
-                crAdap.notifyItemRemoved(position);
-            }
-
-
-        });
-
+        crAdap=new AdapterCridetArchive( This);
+        crAdap.setSvyazToAdapter(svyazForNotifyFromArchAdap);
         crRV.setAdapter(crAdap);
-
 
 
         return V;
     }
 
-    public void openFragment(Fragment fragment,String tag) {
-        if (fragment != null) {
-            final android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(tag).setTransition(android.support.v4.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-            ft.add(R.id.flMain, fragment,tag);
-            ft.commit();
-        }
-    }
     public void updateList(){
         crAdap.notifyItemInserted(0);
+        if(crRV.getChildCount()>0);
+        crRV.scrollToPosition(0);
     }
     @Override
     public void onAttach(Context context) {
@@ -108,8 +83,6 @@ public class CreditArchiveFragment extends Fragment {
         super.onDetach();
         PocketAccounter.financeManager.saveArchiveCredits();
     }
-    interface ListnerDel{
-        public void delete_item(int position);
-    }
+
 
 }

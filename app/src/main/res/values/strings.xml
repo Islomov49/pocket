@@ -792,7 +792,7 @@
     <string name="debt_borrow_given_recking">Vernuli dolg</string>
     <string name="detail">Подробно</string>
     <string name="profit">Прибыль</string>
-    <string name="loading">Synchronization</string>
+    <string name="loading">Signing in</string>
     <string name="please_wait">Please wait</string>
     <string name="total">Общая сумма:</string>
     <string name="average">Средняя сумма:</string>
@@ -910,6 +910,10 @@
     <string name="payza">"Your payment balance is "</string>
     <string name="imsure">I\'m sure</string>
     <string name="cancel1">Cancel</string>
+    <string name="try_later">Try later</string>
+    <string name="err_con">Error with connection</string>
+    <string name="first_sync_loging">To synchronize your database you need to log in using a Google account as. You will be able to download your data from any device, anywhere. You can recover any data loss! To restore the data, go to Settings->Backup</string>
+    <string name="sync_message">Whether you want to synchronize your data? This data will be overwritten strangled</string>
     <string name="category_name_error">Назвение категории не введено!</string>
     <string name="sub_cat_name_error">Назвение подкатегории не введено!</string>
     <string name="account_name_error">Название счета не введено!</string>
