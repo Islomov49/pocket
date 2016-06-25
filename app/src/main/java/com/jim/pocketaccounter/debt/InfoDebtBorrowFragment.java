@@ -66,6 +66,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
     private FrameLayout infoFrame;
     private FrameLayout isHaveReking;
     private TextView tvInfoDebtBorrowTakeDate;
+    private TextView payText;
 
     public static Fragment getInstance(String id, int type) {
         InfoDebtBorrowFragment fragment = new InfoDebtBorrowFragment();
@@ -87,6 +88,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
         deleteFrame = (FrameLayout) view.findViewById(R.id.flInfoDebtBorrowDeleted);
         totalPayAmount = (TextView) view.findViewById(R.id.total_summ_debt_borrow);
         tvTotalsummInfo = (TextView) view.findViewById(R.id.tvInfoDebtBorrowTotalSumm);
+        payText = (TextView) view.findViewById(R.id.paybut);
         circleImageView = (CircleImageView) view.findViewById(R.id.iconDebtBorrowInfo);
         recyclerView = (RecyclerView) view.findViewById(R.id.rvDebtBorrowInfo);
         info = (ImageView) view.findViewById(R.id.ivInfoDebtBorrowInfo);
@@ -219,7 +221,10 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
             borrowLeftDate.setText(sana);
         }
         totalPayAmount.setText("" + (total == ((int) total) ? (int) total : total) + debtBorrow.getCurrency().getAbbr());
-
+        if (total >= debtBorrow.getAmount()) {
+            payText.setText(getResources().getString(R.string.archive));
+            deleteFrame.setVisibility(View.GONE);
+        }
         if (!debtBorrow.getPerson().getPhoto().equals("") && !debtBorrow.getPerson().getPhoto().matches("0")) {
             try {
                 circleImageView.setImageBitmap(queryContactImage(Integer.parseInt(debtBorrow.getPerson().getPhoto())));
@@ -288,69 +293,102 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
     private void openDialog() {
-        final Dialog dialog = new Dialog(getActivity());
-        View dialogView = getActivity().getLayoutInflater().inflate(R.layout.add_pay_debt_borrow_info_mod, null);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(dialogView);
-        final EditText enterDate = (EditText) dialogView.findViewById(R.id.etInfoDebtBorrowDate);
-        final EditText enterPay = (EditText) dialogView.findViewById(R.id.etInfoDebtBorrowPaySumm);
-        final EditText comment = (EditText) dialogView.findViewById(R.id.etInfoDebtBorrowPayComment);
-        accountSp = (Spinner) dialogView.findViewById(R.id.spInfoDebtBorrowAccount);
+        if (!payText.getText().toString().matches(getResources().getString(R.string.archive))) {
+            final Dialog dialog = new Dialog(getActivity());
+            View dialogView = getActivity().getLayoutInflater().inflate(R.layout.add_pay_debt_borrow_info_mod, null);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(dialogView);
+            final EditText enterDate = (EditText) dialogView.findViewById(R.id.etInfoDebtBorrowDate);
+            final EditText enterPay = (EditText) dialogView.findViewById(R.id.etInfoDebtBorrowPaySumm);
+            final EditText comment = (EditText) dialogView.findViewById(R.id.etInfoDebtBorrowPayComment);
+            accountSp = (Spinner) dialogView.findViewById(R.id.spInfoDebtBorrowAccount);
 
-        String[] accaounts = new String[manager.getAccounts().size()];
-        for (int i = 0; i < accaounts.length; i++) {
-            accaounts[i] = manager.getAccounts().get(i).getName();
+            String[] accaounts = new String[manager.getAccounts().size()];
+            for (int i = 0; i < accaounts.length; i++) {
+                accaounts[i] = manager.getAccounts().get(i).getName();
+            }
+
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+                    getContext(), android.R.layout.simple_spinner_item, accaounts);
+
+            accountSp.setAdapter(arrayAdapter);
+
+            if (!debtBorrow.isCalculate()) {
+                dialogView.findViewById(R.id.is_calc).setVisibility(View.GONE);
+            }
+
+            ImageView cancel = (ImageView) dialogView.findViewById(R.id.ivInfoDebtBorrowCancel);
+            ImageView save = (ImageView) dialogView.findViewById(R.id.ivInfoDebtBorrowSave);
+            final Calendar date = Calendar.getInstance();
+            enterDate.setText(simpleDateFormat.format(date.getTime()));
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                }
+            });
+            final DatePickerDialog.OnDateSetListener getDatesetListener = new DatePickerDialog.OnDateSetListener() {
+                public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+                    date.set(arg1, arg2, arg3);
+                    enterDate.setText(simpleDateFormat.format(date.getTime()));
+                }
+            };
+            enterDate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Calendar calendar = Calendar.getInstance();
+                    Dialog mDialog = new DatePickerDialog(getContext(),
+                            getDatesetListener, calendar.get(Calendar.YEAR),
+                            calendar.get(Calendar.MONTH), calendar
+                            .get(Calendar.DAY_OF_MONTH));
+                    mDialog.show();
+                }
+            });
+            save.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+                    if (Double.parseDouble(leftAmount.getText().toString().substring(0, leftAmount.getText().toString().length() - 2))
+                            - Double.parseDouble(enterPay.getText().toString()) < 0) {
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder.setMessage("siz keragidan ortiqcha to'lov bo'lishiga rozimisiz ?")
+                                .setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                    }
+                                }).setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                                peysAdapter.setDataChanged(format.format(date.getTime()), Double.parseDouble(enterPay.getText().toString()),
+                                        "" + accountSp.getSelectedItem(), comment.getText().toString());
+                            }
+                        });
+                        builder.create().show();
+                    } else {
+                        peysAdapter.setDataChanged(format.format(date.getTime()), Double.parseDouble(enterPay.getText().toString()),
+                                "" + accountSp.getSelectedItem(), comment.getText().toString());
+                    }
+                    dialog.dismiss();
+                }
+            });
+            DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
+            int width = displayMetrics.widthPixels;
+            dialog.getWindow().setLayout(7 * width / 8, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            dialog.show();
+        } else {
+            for (int i = 0; i < manager.getDebtBorrows().size(); i++) {
+                if (manager.getDebtBorrows().get(i).getId().matches(debtBorrow.getId())) {
+                    manager.getDebtBorrows().get(i).setTo_archive(true);
+                    break;
+                }
+            }
+
+            ((PocketAccounter) getContext()).getSupportFragmentManager().popBackStack();
+            DebtBorrowFragment fragment = new DebtBorrowFragment();
+            Bundle bundle = new Bundle();
+            bundle.putInt("pos", debtBorrow.getType());
+            fragment.setArguments(bundle);
+            ((PocketAccounter) getContext()).replaceFragment(fragment, PockerTag.DEBTS);
         }
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                getContext(), android.R.layout.simple_spinner_item, accaounts);
-
-        accountSp.setAdapter(arrayAdapter);
-
-        if (!debtBorrow.isCalculate()) {
-            dialogView.findViewById(R.id.is_calc).setVisibility(View.GONE);
-        }
-
-        ImageView cancel = (ImageView) dialogView.findViewById(R.id.ivInfoDebtBorrowCancel);
-        ImageView save = (ImageView) dialogView.findViewById(R.id.ivInfoDebtBorrowSave);
-        final Calendar date = Calendar.getInstance();
-        enterDate.setText(simpleDateFormat.format(date.getTime()));
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        final DatePickerDialog.OnDateSetListener getDatesetListener = new DatePickerDialog.OnDateSetListener() {
-            public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-                date.set(arg1, arg2, arg3);
-                enterDate.setText(simpleDateFormat.format(date.getTime()));
-            }
-        };
-        enterDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
-                Dialog mDialog = new DatePickerDialog(getContext(),
-                        getDatesetListener, calendar.get(Calendar.YEAR),
-                        calendar.get(Calendar.MONTH), calendar
-                        .get(Calendar.DAY_OF_MONTH));
-                mDialog.show();
-            }
-        });
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-                peysAdapter.setDataChanged(format.format(date.getTime()), Double.parseDouble(enterPay.getText().toString()),
-                        "" + accountSp.getSelectedItem(), comment.getText().toString());
-                dialog.dismiss();
-            }
-        });
-        DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
-        int width = displayMetrics.widthPixels;
-        dialog.getWindow().setLayout(7 * width / 8, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        dialog.show();
     }
 
     @Override
@@ -441,8 +479,10 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
                     ? ("" + ((int) (debtBorrow.getAmount() - qoldiq))) : ("" + (debtBorrow.getAmount() - qoldiq));
 
             leftAmount.setText(qq + "" + debtBorrow.getCurrency().getAbbr());
-
             totalPayAmount.setText("" + ((qoldiq == (int) qoldiq) ? ("" + (int) qoldiq) : ("" + qoldiq)) + "" + debtBorrow.getCurrency().getAbbr());
+            if (qoldiq >= debtBorrow.getAmount()) {
+                payText.setText(getResources().getString(R.string.archive));
+            }
             debtBorrow.setReckings(list);
             manager.setDebtBorrows(manager.getDebtBorrows());
             isHaveReking.setVisibility(View.VISIBLE);

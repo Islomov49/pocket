@@ -257,6 +257,7 @@ public class BorrowFragment extends Fragment {
                                         break;
                                     }
                                 }
+//                                if (view)
                                 Recking recking = new Recking(format.format(date.getTime()),
                                         Double.parseDouble(enterPay.getText().toString()),
                                         persons.get(position).getId(), ac,
@@ -287,7 +288,6 @@ public class BorrowFragment extends Fragment {
                                 financeManager.getDebtBorrows().get(i).setTo_archive(true);
                                 allPersons.get(i).setTo_archive(true);
                                 persons.remove(position);
-                                Log.d("123", "" + allPersons.get(i).isTo_archive() + "\n" + financeManager.getDebtBorrows().get(i).isTo_archive());
                                 break;
                             }
                         }
