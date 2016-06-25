@@ -103,4 +103,11 @@ public class TableBarFragment extends Fragment {
             return getString(R.string.bars);
         }
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        ivToolbarExcel.setVisibility(View.GONE);
+        ivToolbarMostRight.setVisibility(View.GONE);
+    }
 }
