@@ -549,7 +549,18 @@ public class PocketAccounter extends AppCompatActivity {
         if (!drawer.isClosed()) {
             drawer.closeLeftSide();
         } else if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
-            finish();
+            final AlertDialog.Builder builder = new AlertDialog.Builder(PocketAccounter.this);
+            builder.setMessage("Chiqishni hohlaysizmi ?")
+                    .setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                        }
+                    }).setNegativeButton("ВЫЙТИ", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.cancel();
+                    finish();
+                }
+            });
+            builder.create().show();
         } else {
             if (temp00.getTag() != null) {
                 if (temp00.getTag().equals(AddCreditFragment.OPENED_TAG) && AddCreditFragment.to_open_dialog) {
@@ -745,10 +756,7 @@ public class PocketAccounter extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-
-
             }
-
         }
     }
 
