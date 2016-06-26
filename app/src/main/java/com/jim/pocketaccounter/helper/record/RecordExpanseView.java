@@ -261,7 +261,7 @@ public class RecordExpanseView extends View implements 	GestureDetector.OnGestur
 						buttons.get(i).setPressed(false);
 					invalidate();
 				}
-
+				PocketAccounter.PRESSED = false;
 				dialog.dismiss();
 			}
 		});
@@ -308,6 +308,7 @@ public class RecordExpanseView extends View implements 	GestureDetector.OnGestur
 				}
 				else
 					((PocketAccounter)getContext()).replaceFragment(new RootCategoryEditFragment(null, PocketAccounterGeneral.EXPANSE_MODE, pos, date));
+				PocketAccounter.PRESSED = false;
 				dialog.dismiss();
 			}
 		});
@@ -343,6 +344,7 @@ public class RecordExpanseView extends View implements 	GestureDetector.OnGestur
 				for (int i=0; i<buttons.size(); i++)
 					buttons.get(i).setPressed(false);
 				invalidate();
+				PocketAccounter.PRESSED = false;
 				dialog.dismiss();
 			}
 		});

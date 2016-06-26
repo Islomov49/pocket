@@ -101,7 +101,7 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
     private DatePickerDialog.OnDateSetListener getDatesetListener = new DatePickerDialog.OnDateSetListener() {
         public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
             getDate.set(arg1, arg2, arg3);
-            if (returnDate != null && getDate.compareTo(returnDate)>0 ) {
+            if (returnDate != null && getDate.compareTo(returnDate) > 0) {
                 returnDate = getDate;
                 PersonDataRepeat.setText(simpleDateFormat.format(returnDate.getTime()));
             }
@@ -167,7 +167,7 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                        Calendar calender = Calendar.getInstance();
+                    Calendar calender = Calendar.getInstance();
                     Dialog mDialog = new DatePickerDialog(getContext(),
                             getDatesetListener, calender.get(Calendar.YEAR),
                             calender.get(Calendar.MONTH), calender
@@ -281,7 +281,7 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
 
                         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-                                ActivityCompat.requestPermissions((PocketAccounter)getContext(),
+                                ActivityCompat.requestPermissions((PocketAccounter) getContext(),
                                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                                         PERMISSION_READ_STORAGE);
                             }
@@ -290,9 +290,9 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
                         dialog.show();
 
                     } else {
-                        ActivityCompat.requestPermissions((PocketAccounter)getContext(),
-                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                            PERMISSION_READ_STORAGE);
+                        ActivityCompat.requestPermissions((PocketAccounter) getContext(),
+                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                PERMISSION_READ_STORAGE);
                     }
                 } else {
                     getPhoto();
@@ -346,10 +346,11 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
     private Bitmap queryContactImage(int imageDataRow) {
-        Cursor c = getContext().getContentResolver().query(ContactsContract.Data.CONTENT_URI, new String[] {
+        Cursor c = getContext().getContentResolver().query(ContactsContract.Data.CONTENT_URI, new String[]{
                 ContactsContract.CommonDataKinds.Photo.PHOTO
-        }, ContactsContract.Data._ID + "=?", new String[] {
+        }, ContactsContract.Data._ID + "=?", new String[]{
                 Integer.toString(imageDataRow)
         }, null);
         byte[] imageBytes = null;
@@ -366,7 +367,7 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
         }
     }
 
-    public void askForContactPermission(){
+    public void askForContactPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
                 if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
@@ -394,13 +395,12 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
             } else {
                 getContact();
             }
-        }
-        else {
+        } else {
             getContact();
         }
     }
 
-    private void getContact(){
+    private void getContact() {
         Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
         intent.setType(ContactsContract.Contacts.CONTENT_TYPE);
         intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
@@ -435,8 +435,12 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
             }
         }
     }
+
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {}
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+    }
+
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {}
+    public void onNothingSelected(AdapterView<?> parent) {
+    }
 }

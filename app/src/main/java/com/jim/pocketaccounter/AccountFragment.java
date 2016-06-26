@@ -18,6 +18,7 @@ import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.GridView;
@@ -25,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.jim.pocketaccounter.credit.CreditDetials;
 import com.jim.pocketaccounter.credit.ReckingCredit;
@@ -140,12 +142,50 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 					refreshList(mode);
 				}
 				else {
-					mode = PocketAccounterGeneral.NORMAL_MODE;
-					ivToolbarMostRight.setImageDrawable(null);
-					ivToolbarMostRight.setImageResource(R.drawable.pencil);
-					deleteAccounts();
-					refreshList(mode);
-					selected = null;
+					boolean isAnySelection = false;
+					for (int i=0; i<selected.length; i++) {
+						if (selected[i]) {
+							isAnySelection = true;
+							break;
+						}
+					}
+					if (isAnySelection) {
+						final Dialog dialog=new Dialog(getActivity());
+						View dialogView = getActivity().getLayoutInflater().inflate(R.layout.warning_dialog, null);
+						dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+						dialog.setContentView(dialogView);
+						TextView tv = (TextView) dialogView.findViewById(R.id.tvWarningText);
+						tv.setText(getString(R.string.account_delete_warning));
+						Button btnYes = (Button) dialogView.findViewById(R.id.btnWarningYes);
+						btnYes.setOnClickListener(new OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								mode = PocketAccounterGeneral.NORMAL_MODE;
+								ivToolbarMostRight.setImageDrawable(null);
+								ivToolbarMostRight.setImageResource(R.drawable.pencil);
+								deleteAccounts();
+								selected = null;
+								refreshList(mode);
+								dialog.dismiss();
+							}
+						});
+						Button btnNo = (Button) dialogView.findViewById(R.id.btnWarningNo);
+						btnNo.setOnClickListener(new OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								dialog.dismiss();
+
+							}
+						});
+						dialog.show();
+					}
+					else {
+						mode = PocketAccounterGeneral.NORMAL_MODE;
+						ivToolbarMostRight.setImageDrawable(null);
+						ivToolbarMostRight.setImageResource(R.drawable.pencil);
+						selected = null;
+						refreshList(mode);
+					}
 				}
 				break;
 			case R.id.fabAccountAdd:

@@ -92,8 +92,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="2px"
                 android:background="@color/green_light_forline"
-
-
                 />
 
             <LinearLayout
@@ -133,17 +131,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-
                     <EditText
                         android:id="@+id/etBorrowAddPopupNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:hint="Phone Number"
-                        android:inputType="numberDecimal"
+                        android:inputType="phone"
                         android:textSize="14sp" />
                 </RelativeLayout>
 

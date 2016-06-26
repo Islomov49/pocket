@@ -141,7 +141,6 @@ public class CurrencyChooseFragment extends Fragment {
 						btnYes.setOnClickListener(new OnClickListener() {
 							@Override
 							public void onClick(View v) {
-								//Here will be deleted all records related with the currency
 								ArrayList<Currency> temp = new ArrayList<Currency>();
 								for (int i=0; i<currencies.size(); i++) {
 									if (chbs[i])
@@ -175,6 +174,35 @@ public class CurrencyChooseFragment extends Fragment {
 									for (int j = 0; j< PocketAccounter.financeManager.getCurrencies().size(); j++) {
 										if (temp.get(i).getId().matches(PocketAccounter.financeManager.getCurrencies().get(j).getId())) {
 											temp.get(i).setCosts(PocketAccounter.financeManager.getCurrencies().get(j).getCosts());
+											break;
+										}
+									}
+								}
+								for (int i=0; i<PocketAccounter.financeManager.getRecords().size(); i++) {
+									for (int j=0; j<temp.size(); j++) {
+										if (PocketAccounter.financeManager.getRecords().get(i).getCurrency().getId().matches(temp.get(j).getId())) {
+											PocketAccounter.financeManager.getRecords().remove(i);
+											i--;
+											break;
+										}
+									}
+								}
+								for (int i=0; i<PocketAccounter.financeManager.getCredits().size(); i++) {
+									if (!PocketAccounter.financeManager.getCredits().get(i).isKey_for_include()) continue;
+									for (int j=0; j<temp.size(); j++) {
+										if (PocketAccounter.financeManager.getCredits().get(i).getValyute_currency().getId().matches(temp.get(j).getId())) {
+											PocketAccounter.financeManager.getCredits().remove(i);
+											i--;
+											break;
+										}
+									}
+								}
+								for (int i=0; i<PocketAccounter.financeManager.getDebtBorrows().size(); i++) {
+									if (!PocketAccounter.financeManager.getDebtBorrows().get(i).isCalculate()) continue;
+									for (int j=0; j<temp.size(); j++) {
+										if (PocketAccounter.financeManager.getDebtBorrows().get(i).getCurrency().getId().matches(temp.get(j).getId())) {
+											PocketAccounter.financeManager.getDebtBorrows().remove(i);
+											i--;
 											break;
 										}
 									}

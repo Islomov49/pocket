@@ -61,7 +61,16 @@ public class ReportByIncomeExpanseTableFragment extends Fragment {
         ivToolbarExcel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                exportToExcelFile();
+                File direct = new File(Environment.getExternalStorageDirectory() + "/Pocket Accounter");
+                if(!direct.exists())
+                {
+                    if(direct.mkdir())
+                    {
+                        exportToExcelFile();
+                    }
+                } else {
+                    exportToExcelFile();
+                }
             }
         });
         init();
@@ -128,6 +137,7 @@ public class ReportByIncomeExpanseTableFragment extends Fragment {
         end.set(Calendar.MILLISECOND, 59);
     }
     public void exportToExcelFile() {
+
         final Dialog dialog=new Dialog(getContext());
         View dialogView = ((PocketAccounter) getContext()).getLayoutInflater().inflate(R.layout.warning_dialog, null);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);

@@ -103,14 +103,7 @@ public class PocketAccounter extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pocket_accounter);
-        File direct = new File(Environment.getExternalStorageDirectory() + "/Pocket Accounter");
-        if(!direct.exists())
-        {
-            if(direct.mkdir())
-            {
 
-            }
-        }
         spref = getSharedPreferences("infoFirst", MODE_PRIVATE);
         ed = spref.edit();
         if (spref.getBoolean("FIRST_KEY", true)) {

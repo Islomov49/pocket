@@ -19,6 +19,7 @@ import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -26,6 +27,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jim.pocketaccounter.finance.Category;
@@ -36,6 +38,8 @@ import com.jim.pocketaccounter.finance.SubCategoryAdapter;
 import com.jim.pocketaccounter.helper.FABIcon;
 import com.jim.pocketaccounter.helper.PockerTag;
 import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -204,10 +208,41 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 				setMode(mode);
 			}
 			else {
-				deleteSubcats();
 				mode = PocketAccounterGeneral.NORMAL_MODE;
-				setMode(mode);
-				refreshSubCatList(mode);
+				boolean isAnySelected = false;
+				for (int i=0; i<selected.length; i++) {
+					if (selected[i]) {
+						isAnySelected = true;
+						break;
+					}
+				}
+				if (isAnySelected) {
+					final Dialog dialog=new Dialog(getContext());
+					View dialogView = getActivity().getLayoutInflater().inflate(R.layout.warning_dialog, null);
+					dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+					dialog.setContentView(dialogView);
+					TextView tv = (TextView) dialogView.findViewById(R.id.tvWarningText);
+					tv.setText(R.string.subcat_delete_warning);
+					Button btnYes = (Button) dialogView.findViewById(R.id.btnWarningYes);
+					btnYes.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							deleteSubcats();
+							setMode(mode);
+							dialog.dismiss();
+						}
+					});
+					Button btnNo = (Button) dialogView.findViewById(R.id.btnWarningNo);
+					btnNo.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							dialog.dismiss();
+						}
+					});
+					dialog.show();
+				}
+				else
+					setMode(mode);
 			}
 			break;
 		case R.id.ivToolbarMostRight:
@@ -385,6 +420,12 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 	}
 	private void deleteSubcats() {
 		for (int i=0; i<selected.length; i++) {
+			for (int j = 0; j<PocketAccounter.financeManager.getRecords().size(); j++) {
+				if (PocketAccounter.financeManager.getRecords().get(j).getSubCategory() == null) continue;
+				if (PocketAccounter.financeManager.getRecords().get(j).getSubCategory().getId().matches(subCategories.get(i).getId())) {
+					PocketAccounter.financeManager.getRecords().get(j).setSubCategory(null);
+				}
+			}
 			if (selected[i])
 				subCategories.set(i, null);
 		}

@@ -1,26 +1,28 @@
 package com.jim.pocketaccounter;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
-import com.jim.pocketaccounter.finance.Category;
 import com.jim.pocketaccounter.finance.CategoryAdapter;
 import com.jim.pocketaccounter.finance.RootCategory;
 import com.jim.pocketaccounter.helper.FloatingActionButton;
-import com.jim.pocketaccounter.helper.PockerTag;
 import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 import com.jim.pocketaccounter.helper.ScrollDirectionListener;
 
@@ -128,20 +130,73 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 				((PocketAccounter)getActivity()).replaceFragment(new RootCategoryEditFragment(null, PocketAccounterGeneral.NO_MODE, 0, null));
 				break;
 			case R.id.ivToolbarMostRight:
-				if (mode == PocketAccounterGeneral.NORMAL_MODE)
+				if (mode == PocketAccounterGeneral.NORMAL_MODE) {
 					mode = PocketAccounterGeneral.EDIT_MODE;
+					setMode(mode);
+				}
 				else {
 					mode = PocketAccounterGeneral.NORMAL_MODE;
-					deleteCategories();
+					boolean isAnySelection = false;
+					for (int i=0; i<selected.length; i++) {
+						if (selected[i]) {
+							isAnySelection = true;
+							break;
+						}
+					}
+					if (isAnySelection) {
+						final Dialog dialog=new Dialog(getActivity());
+						View dialogView = getActivity().getLayoutInflater().inflate(R.layout.warning_dialog, null);
+						dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+						dialog.setContentView(dialogView);
+						TextView tv = (TextView) dialogView.findViewById(R.id.tvWarningText);
+						tv.setText(R.string.category_delete_warning);
+						Button btnYes = (Button) dialogView.findViewById(R.id.btnWarningYes);
+						btnYes.setOnClickListener(new OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								deleteCategories();
+								setMode(mode);
+								dialog.dismiss();
+							}
+						});
+						Button btnNo = (Button) dialogView.findViewById(R.id.btnWarningNo);
+						btnNo.setOnClickListener(new OnClickListener() {
+							@Override
+							public void onClick(View v) {
+								dialog.dismiss();
+							}
+						});
+						dialog.show();
+					}
+					else
+						setMode(mode);
 				}
-				setMode(mode);
+
 				break;
 		}
 	}
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		if (mode == PocketAccounterGeneral.NORMAL_MODE)
-			((PocketAccounter)getActivity()).replaceFragment(new RootCategoryEditFragment(PocketAccounter.financeManager.getCategories().get(position), PocketAccounterGeneral.NO_MODE, 0, null));
+		if (mode == PocketAccounterGeneral.NORMAL_MODE) {
+			if (chbCatExpanses.isChecked() && chbCatIncomes.isChecked())
+				((PocketAccounter) getActivity()).replaceFragment(new RootCategoryEditFragment(PocketAccounter.financeManager.getCategories().get(position), PocketAccounterGeneral.NO_MODE, 0, null));
+			else if (chbCatExpanses.isChecked() && !chbCatIncomes.isChecked()) {
+				ArrayList<RootCategory> categories = new ArrayList<>();
+				for (int i=0; i < PocketAccounter.financeManager.getCategories().size(); i++) {
+					if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.EXPANCE)
+						categories.add(PocketAccounter.financeManager.getCategories().get(i));
+				}
+				((PocketAccounter) getActivity()).replaceFragment(new RootCategoryEditFragment(categories.get(position), PocketAccounterGeneral.NO_MODE, 0, null));
+			}
+			else if (chbCatIncomes.isChecked() && !chbCatExpanses.isChecked()) {
+				ArrayList<RootCategory> categories = new ArrayList<>();
+				for (int i=0; i < PocketAccounter.financeManager.getCategories().size(); i++) {
+					if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.INCOME)
+						categories.add(PocketAccounter.financeManager.getCategories().get(i));
+				}
+				((PocketAccounter) getActivity()).replaceFragment(new RootCategoryEditFragment(categories.get(position), PocketAccounterGeneral.NO_MODE, 0, null));
+			}
+		}
 		else {
 			CheckBox chbCatListItem = (CheckBox) view.findViewById(R.id.chbAccountListItem);
 			chbCatListItem.setChecked(!chbCatListItem.isChecked());
@@ -165,20 +220,80 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 	}
 	private void deleteCategories() {
 		//delete from all categories
-		for (int i=0; i<selected.length; i++) {
-			if (selected[i]) {
-				String id = PocketAccounter.financeManager.getCategories().get(i).getId();
-				for (int j=0; j<PocketAccounter.financeManager.getExpanses().size(); j++) {
-					if (PocketAccounter.financeManager.getExpanses().get(j) == null)	continue;
-					if (PocketAccounter.financeManager.getExpanses().get(j).getId().matches(id))
-						PocketAccounter.financeManager.getExpanses().set(j, null);
+		if (chbCatIncomes.isChecked() && chbCatExpanses.isChecked()) {
+			for (int i=0; i<selected.length; i++) {
+				if (selected[i]) {
+					String id = PocketAccounter.financeManager.getCategories().get(i).getId();
+					for (int j=0; j<PocketAccounter.financeManager.getExpanses().size(); j++) {
+						if (PocketAccounter.financeManager.getExpanses().get(j) == null)	continue;
+						if (PocketAccounter.financeManager.getExpanses().get(j).getId().matches(id))
+							PocketAccounter.financeManager.getExpanses().set(j, null);
+					}
+					for (int j=0; j<PocketAccounter.financeManager.getIncomes().size(); j++) {
+						if (PocketAccounter.financeManager.getIncomes().get(j) == null)	continue;
+						if (PocketAccounter.financeManager.getIncomes().get(j).getId().matches(id))
+							PocketAccounter.financeManager.getIncomes().set(j, null);
+					}
+					for (int j=0; j<PocketAccounter.financeManager.getRecords().size(); j++) {
+						if (PocketAccounter.financeManager.getRecords().get(j).getCategory().getId().matches(id)) {
+							PocketAccounter.financeManager.getRecords().remove(j);
+							j--;
+						}
+					}
+					PocketAccounter.financeManager.getCategories().set(i, null);
 				}
-				for (int j=0; j<PocketAccounter.financeManager.getIncomes().size(); j++) {
-					if (PocketAccounter.financeManager.getIncomes().get(j) == null)	continue;
-					if (PocketAccounter.financeManager.getIncomes().get(j).getId().matches(id))
-						PocketAccounter.financeManager.getIncomes().set(j, null);
+			}
+		} else if (chbCatIncomes.isChecked() && !chbCatExpanses.isChecked()) {
+			ArrayList<RootCategory> categories = new ArrayList<>();
+			for (int i=0; i < PocketAccounter.financeManager.getCategories().size(); i++) {
+				if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.INCOME)
+					categories.add(PocketAccounter.financeManager.getCategories().get(i));
+			}
+			for (int i=0; i<selected.length; i++) {
+				if (selected[i]) {
+					String id = categories.get(i).getId();
+					for (int j=0; j<PocketAccounter.financeManager.getIncomes().size(); j++) {
+						if (PocketAccounter.financeManager.getIncomes().get(j) == null)	continue;
+						if (PocketAccounter.financeManager.getIncomes().get(j).getId().matches(id))
+							PocketAccounter.financeManager.getIncomes().set(j, null);
+					}
+					for (int j=0; j<PocketAccounter.financeManager.getRecords().size(); j++) {
+						if (PocketAccounter.financeManager.getRecords().get(j).getCategory().getId().matches(id)) {
+							PocketAccounter.financeManager.getRecords().remove(j);
+							j--;
+						}
+					}
+					for (int j=0; j<PocketAccounter.financeManager.getCategories().size(); j++) {
+						if (PocketAccounter.financeManager.getCategories().get(j).getId().matches(id))
+							PocketAccounter.financeManager.getCategories().set(j, null);
+					}
 				}
-				PocketAccounter.financeManager.getCategories().set(i, null);
+			}
+		} else if (!chbCatIncomes.isChecked() && chbCatExpanses.isChecked()) {
+			ArrayList<RootCategory> categories = new ArrayList<>();
+			for (int i=0; i < PocketAccounter.financeManager.getCategories().size(); i++) {
+				if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.EXPANCE)
+					categories.add(PocketAccounter.financeManager.getCategories().get(i));
+			}
+			for (int i=0; i<selected.length; i++) {
+				if (selected[i]) {
+					String id = categories.get(i).getId();
+					for (int j=0; j<PocketAccounter.financeManager.getExpanses().size(); j++) {
+						if (PocketAccounter.financeManager.getExpanses().get(j) == null)	continue;
+						if (PocketAccounter.financeManager.getExpanses().get(j).getId().matches(id))
+							PocketAccounter.financeManager.getExpanses().set(j, null);
+					}
+					for (int j=0; j<PocketAccounter.financeManager.getRecords().size(); j++) {
+						if (PocketAccounter.financeManager.getRecords().get(j).getCategory().getId().matches(id)) {
+							PocketAccounter.financeManager.getRecords().remove(j);
+							j--;
+						}
+					}
+					for (int j=0; j<PocketAccounter.financeManager.getCategories().size(); i++) {
+						if (PocketAccounter.financeManager.getCategories().get(j).getId().matches(id))
+							PocketAccounter.financeManager.getCategories().set(i, null);
+					}
+				}
 			}
 		}
 		for (int i = 0; i< PocketAccounter.financeManager.getCategories().size(); i++) {

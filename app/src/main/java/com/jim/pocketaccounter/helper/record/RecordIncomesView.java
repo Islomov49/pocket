@@ -239,6 +239,7 @@ public class RecordIncomesView extends View implements 	GestureDetector.OnGestur
 					initButtons();
 					for (int i=0; i<buttons.size(); i++)
 						buttons.get(i).setPressed(false);
+					PocketAccounter.PRESSED = false;
 					invalidate();
 				}
 
@@ -288,6 +289,7 @@ public class RecordIncomesView extends View implements 	GestureDetector.OnGestur
 				}
 				else
 					((PocketAccounter)getContext()).replaceFragment(new RootCategoryEditFragment(null, PocketAccounterGeneral.INCOME_MODE, pos, date));
+				PocketAccounter.PRESSED = false;
 				dialog.dismiss();
 			}
 		});
