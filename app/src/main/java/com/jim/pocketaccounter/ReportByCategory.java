@@ -30,6 +30,8 @@ public class ReportByCategory extends Fragment {
         ArrayList<Fragment> list = new ArrayList<>();
         list.add(incomesFragment);
         list.add(expansesFragment);
+        PocketAccounter.toolbar.setTitle("");
+        PocketAccounter.toolbar.setSubtitle("");
 
         vpReportByCategory.setAdapter(new MyViewPagerAdapter(
                 ((PocketAccounter) getContext())

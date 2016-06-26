@@ -46,6 +46,8 @@ public class TableBarFragment extends Fragment {
                 filterDialog.show();
             }
         });
+        PocketAccounter.toolbar.setTitle("");
+        PocketAccounter.toolbar.setSubtitle("");
         tableFragment = new ReportByIncomeExpanseTableFragment();
         ivToolbarExcel = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel);
         ivToolbarExcel.setVisibility(View.VISIBLE);
