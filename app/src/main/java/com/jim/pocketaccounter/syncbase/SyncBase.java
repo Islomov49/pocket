@@ -2,6 +2,8 @@ package com.jim.pocketaccounter.syncbase;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Environment;
@@ -51,7 +53,9 @@ public class SyncBase {
         PATH_FOR_INPUT=DB_PATH+DB_NAME;
         }
     public void uploadBASE(String auth_uid, final ChangeStateLis even){
-
+        if(!isNetworkAvailable()){
+            even.onFailed("NA");
+        }
         try {
             StorageMetadata metadata = new StorageMetadata.Builder()
                     .setContentType("sqlite/db")
@@ -66,13 +70,13 @@ public class SyncBase {
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    even.onFailed(e);
+                    even.onFailed(e.getMessage());
 
                 }
             });
         }
         catch (Exception o){
-            even.onFailed(o);
+            even.onFailed(o.getMessage());
         }
 
 
@@ -104,7 +108,7 @@ public class SyncBase {
 
 
        } catch (Exception e) {
-           even.onFailed(e);
+           even.onFailed(e.getMessage());
            e.printStackTrace();
            A1.dismiss();
        }
@@ -126,7 +130,7 @@ public class SyncBase {
 
     public interface ChangeStateLis {
         void onSuccses();
-        void onFailed(Exception e);
+        void onFailed(String e);
 
 
     }
@@ -136,5 +140,10 @@ public class SyncBase {
 
 
     }
-
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
 }

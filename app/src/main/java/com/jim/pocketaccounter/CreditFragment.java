@@ -77,6 +77,7 @@ public class CreditFragment extends Fragment {
         ivToolbarMostRight.setVisibility(View.GONE);
         toolbarik.setTitle("Credit managment");
         toolbarik.setSubtitle("");
+        toolbarik.findViewById(R.id.spToolbar).setVisibility(View.GONE);
 
         View V=inflater.inflate(R.layout.fragment_credit, container, false);
         financeManager = PocketAccounter.financeManager;

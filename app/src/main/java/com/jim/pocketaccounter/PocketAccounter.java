@@ -46,6 +46,7 @@ import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 import com.jim.pocketaccounter.helper.record.RecordExpanseView;
 import com.jim.pocketaccounter.helper.record.RecordIncomesView;
 import com.jim.pocketaccounter.intropage.IntroIndicator;
+import com.jim.pocketaccounter.report.FilterFragment;
 import com.jim.pocketaccounter.debt.DebtBorrowFragment;
 import com.jim.pocketaccounter.finance.FinanceManager;
 import com.jim.pocketaccounter.helper.LeftMenuAdapter;
@@ -53,6 +54,8 @@ import com.jim.pocketaccounter.helper.LeftMenuItem;
 import com.jim.pocketaccounter.helper.LeftSideDrawer;
 import com.jim.pocketaccounter.syncbase.SignInGoogleMoneyHold;
 import com.jim.pocketaccounter.syncbase.SyncBase;
+import com.jim.pocketaccounter.report.ReportByAccount;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -62,6 +65,8 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import static com.jim.pocketaccounter.R.color.toolbar_text_color;
@@ -304,12 +309,13 @@ public class PocketAccounter extends AppCompatActivity {
                     mySync.uploadBASE(user.getUid(), new SyncBase.ChangeStateLis() {
                         @Override
                         public void onSuccses() {
+                            Log.d("ANIMATIOON", "StopANIMATSION");
                             //uploaded base action with UI
                         }
 
                         @Override
-                        public void onFailed(Exception e) {
-
+                        public void onFailed(String e) {
+                            Log.d("ANIMATIOON", "StopANIMATSION FAILED: "+e);
                         }
                     });
                     userName.setText(user.getDisplayName());
@@ -353,11 +359,14 @@ public class PocketAccounter extends AppCompatActivity {
                                             mySync.uploadBASE(userim.getUid(), new SyncBase.ChangeStateLis() {
                                                 @Override
                                                 public void onSuccses() {
+                                                    Log.d("ANIMATIOON", "StopANIMATSION");
 
                                                 }
 
                                                 @Override
-                                                public void onFailed(Exception e) {
+                                                public void onFailed(String e) {
+                                                    Log.d("ANIMATIOON", "StopANIMATSION FAILED: "+e);
+
                                                     //oshibka chiqaramiz
                                                 }
                                             });
@@ -679,12 +688,25 @@ public class PocketAccounter extends AppCompatActivity {
         financeManager.saveAllDatas();
         if (imagetask != null)
             imagetask.cancel(true);
+
+        if(imagetask!=null)
+        {
+            imagetask.cancel(true);
+            imagetask=null;
+        }
+
     }
     @Override
     public void onRestart() {
         super.onRestart();
-        if (downloadnycCanRest && imageUri != null) {
-            imagetask.execute(imageUri.toString());
+        try {
+            if(downloadnycCanRest&&imageUri!=null){
+                imagetask=new DownloadImageTask(userAvatar);
+                imagetask.execute(imageUri.toString());
+            }
+        }
+        catch (Exception o){
+            Log.d("TASKERROR", "onRestart: ");
         }
     }
 
@@ -712,21 +734,22 @@ public class PocketAccounter extends AppCompatActivity {
             String urldisplay = urls[0];
             Bitmap mIcon11 = null;
 
-            for (; true; ) {
-                if (isCancelled()) break;
-                try {
-                    InputStream in = new java.net.URL(urldisplay).openStream();
-                    mIcon11 = BitmapFactory.decodeStream(in);
+            for(; true;){
+               try {
+                   InputStream in = new java.net.URL(urldisplay).openStream();
+                   mIcon11 = BitmapFactory.decodeStream(in);
                     break;
-                } catch (Exception e) {
-                    Log.e("Error", e.getMessage());
-                    e.printStackTrace();
-                    try {
-                        Thread.sleep(10000);
-                    } catch (InterruptedException e1) {
-                        e1.printStackTrace();
-                    }
-                }
+               } catch (Exception e) {
+                   Log.e("Error", e.getMessage());
+                   e.printStackTrace();
+                   try {
+                       Thread.sleep(10000);
+                   } catch (InterruptedException e1) {
+                       e1.printStackTrace();
+                   }
+
+               }
+                if (isCancelled()) break;
 
             }
 
@@ -761,6 +784,7 @@ public class PocketAccounter extends AppCompatActivity {
     }
 
     private ProgressDialog mProgressDialog;
+
 
     public void showProgressDialog() {
         if (mProgressDialog == null) {

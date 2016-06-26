@@ -112,7 +112,7 @@ public class SignInGoogleMoneyHold {
 
     }
     public void regitRequstGet(Intent data){
-
+        showProgressDialog();
         GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
         Log.d(TAG,data.toString());
 
@@ -141,7 +141,7 @@ public class SignInGoogleMoneyHold {
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(@NonNull Status status) {
-                        //  ((TextView)findViewById(R.id.userStatus)).setText("SIGN OUTED");
+
                         Log.d(TAG, "Revoke");
                     }
                 });
@@ -150,7 +150,7 @@ public class SignInGoogleMoneyHold {
 
 
     public void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        showProgressDialog();
+
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
@@ -166,9 +166,7 @@ public class SignInGoogleMoneyHold {
                         else {
                             succsesEvent.updateToSucsess();
                         }
-                        // [START_EXCLUDE]
                         hideProgressDialog();
-                        // [END_EXCLUDE]
                     }
                 });
     }
