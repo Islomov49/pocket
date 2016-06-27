@@ -16,7 +16,7 @@
             android:layout_gravity="center_vertical"
             android:layout_margin="@dimen/sixteen_sp"
             android:layout_weight="1"
-            android:text="@string/account"
+            android:text="@string/edit"
             android:textColor="@color/toolbar_text_color" />
 
         <ImageView

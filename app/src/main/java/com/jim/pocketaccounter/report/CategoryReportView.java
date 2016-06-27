@@ -29,9 +29,11 @@ public class CategoryReportView extends LinearLayout {
     private int type;
     private ArrayList<CategoryDataRow> datas;
     private Calendar begin, end;
-    public CategoryReportView(Context context, int type) {
+    public CategoryReportView(Context context, int type, Calendar begin, Calendar end) {
         super(context);
         this.type = type;
+        this.begin = (Calendar) begin.clone();
+        this.end = (Calendar) end.clone();
         pieChart = new PieChart(context);
         pieChart.setUsePercentValues(true);
         pieChart.setDescription("");
@@ -47,20 +49,8 @@ public class CategoryReportView extends LinearLayout {
         pieChart.setRotationAngle(0);
         pieChart.setRotationEnabled(false);
         pieChart.setHighlightPerTapEnabled(true);
-        pieChart.animateY(2500, Easing.EasingOption.EaseInOutQuad);
-        begin = Calendar.getInstance();
-        begin.set(1971, 0, 1);
-        end = Calendar.getInstance();
-        categoryReportDatas = new CategoryReportDatas(context, begin, end);
-        if (type == PocketAccounterGeneral.INCOME) {
-            pieChart.setCenterText(getResources().getString(R.string.income));
-            datas = categoryReportDatas.makeIncomeReport();
-        }
-        else {
-            pieChart.setCenterText(getResources().getString(R.string.expanse));
-            datas = categoryReportDatas.makeExpanseReport();
-        }
-        drawReport(datas);
+        pieChart.animateY(1000, Easing.EasingOption.EaseInOutQuad);
+        invalidate(begin, end);
         Legend l = pieChart.getLegend();
         l.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
         l.setXEntrySpace(7f);
@@ -72,8 +62,6 @@ public class CategoryReportView extends LinearLayout {
     }
     public Calendar getBeginTime() {return begin;}
     public Calendar getEndTime() {return end;}
-    public void setBeginTime(Calendar begin) {this.begin = (Calendar)begin.clone();}
-    public void setEndTime(Calendar end) {this.end = (Calendar)end.clone();}
     public PieChart getPieChart() {return pieChart;}
     public CategoryReportView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -86,6 +74,21 @@ public class CategoryReportView extends LinearLayout {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
     public ArrayList<CategoryDataRow> getDatas() {return datas;}
+    public void invalidate(Calendar begin, Calendar end) {
+        this.begin = (Calendar) begin.clone();
+        this.end = (Calendar) end.clone();
+        categoryReportDatas = new CategoryReportDatas(getContext(), begin, end);
+        if (type == PocketAccounterGeneral.INCOME) {
+            pieChart.setCenterText(getResources().getString(R.string.income));
+            datas = categoryReportDatas.makeIncomeReport();
+        }
+        else {
+            pieChart.setCenterText(getResources().getString(R.string.expanse));
+            datas = categoryReportDatas.makeExpanseReport();
+        }
+        drawReport(datas);
+
+    }
     public void drawReport(ArrayList<CategoryDataRow> datas) {
         ArrayList<Entry> yVals = new ArrayList<Entry>();
         for (int i = 0; i < datas.size(); i++) {
@@ -114,6 +117,7 @@ public class CategoryReportView extends LinearLayout {
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(11f);
         data.setValueTextColor(Color.WHITE);
+        pieChart.animateY(1000, Easing.EasingOption.EaseInOutQuad);
         pieChart.setData(data);
         pieChart.invalidate();
     }

@@ -40,13 +40,14 @@ public class TableBarFragment extends Fragment {
         filterDialog = new FilterDialog(getContext());
         ivToolbarMostRight = (ImageView)PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
         ivToolbarMostRight.setImageResource(R.drawable.ic_filter);
+        ivToolbarMostRight.setVisibility(View.VISIBLE);
         ivToolbarMostRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 filterDialog.show();
             }
         });
-        PocketAccounter.toolbar.setTitle("");
+        PocketAccounter.toolbar.setTitle(R.string.report_by_income_expanse);
         PocketAccounter.toolbar.setSubtitle("");
         tableFragment = new ReportByIncomeExpanseTableFragment();
         ivToolbarExcel = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel);
@@ -75,7 +76,7 @@ public class TableBarFragment extends Fragment {
                             tableFragment.invalidate(begin, end);
                             ivToolbarExcel.setVisibility(View.VISIBLE);
                         }
-                        else {
+                        else if (position == 1){
                             barFragment.invalidate(begin, end);
                             ivToolbarExcel.setVisibility(View.GONE);
                         }

@@ -105,16 +105,15 @@ public class PocketAccounter extends AppCompatActivity {
         setContentView(R.layout.pocket_accounter);
         spref = getSharedPreferences("infoFirst", MODE_PRIVATE);
         ed = spref.edit();
-//        if (spref.getBoolean("FIRST_KEY", true)) {
-//            try {
-//                Intent first = new Intent(this, IntroIndicator.class);
-//                startActivity(first);
-//                finish();
-//            } finally {
-//
-//            }
-//        }
-//
+        if (spref.getBoolean("FIRST_KEY", true)) {
+            try {
+                Intent first = new Intent(this, IntroIndicator.class);
+                startActivity(first);
+                finish();
+            } finally {
+
+            }
+        }
         financeManager = new FinanceManager(this);
         fragmentManager = getSupportFragmentManager();
         mySync=new SyncBase(storageRef,this,"PocketAccounterDatabase");
@@ -227,10 +226,10 @@ public class PocketAccounter extends AppCompatActivity {
         int width = dm.widthPixels;
         int height = dm.heightPixels;
         int side = 0;
-        if (height * 0.6 > width)
+        if (height * 0.55 > width)
             side = width;
         else
-            side = (int) (height * 0.6);
+            side = (int) (height * 0.55);
         expanseView = new RecordExpanseView(this, date);
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(side, side);
         lp.addRule(RelativeLayout.CENTER_HORIZONTAL);

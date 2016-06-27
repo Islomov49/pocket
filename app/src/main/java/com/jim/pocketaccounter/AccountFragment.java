@@ -57,7 +57,7 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 		fabAccountAdd.setOnClickListener(this);
 		lvAccounts = (ListView) rootView.findViewById(R.id.lvAccounts);
 		lvAccounts.setOnItemClickListener(this);
-		PocketAccounter.toolbar.setTitle("Учет Долгов");
+		PocketAccounter.toolbar.setTitle(R.string.accounts);
 		PocketAccounter.toolbar.setSubtitle("");
 		fabAccountAdd.attachToListView(lvAccounts, new ScrollDirectionListener() {
 			@Override

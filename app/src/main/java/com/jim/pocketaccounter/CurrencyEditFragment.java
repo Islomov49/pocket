@@ -68,7 +68,7 @@ public class CurrencyEditFragment extends Fragment implements OnClickListener, O
 			}
 		});
 		PocketAccounter.toolbar.setTitle(currency.getName()+", "+currency.getAbbr());
-		PocketAccounter.toolbar.setSubtitle("");
+		PocketAccounter.toolbar.setSubtitle(R.string.edit);
 		((ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight)).setImageResource(R.drawable.check_sign);
 		((ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight)).setVisibility(View.VISIBLE);
 		((ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel)).setVisibility(View.GONE);
@@ -199,7 +199,7 @@ public class CurrencyEditFragment extends Fragment implements OnClickListener, O
 			@Override
 			public void onClick(View v) {
 				if (etExchange.getText().toString().matches("") || Double.parseDouble(etExchange.getText().toString()) == 0) {
-					etExchange.setError("Введен неправильное значение!");
+					etExchange.setError(getString(R.string.incorrect_value));
 					return;
 				}
 				if (currCost != null) {

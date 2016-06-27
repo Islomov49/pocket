@@ -931,4 +931,10 @@
     <string name="backup">Загрузка базу данных</string>
     <string name="backup_summary">Загружает последние данные из Google аккаунта</string>
     <string name="google_logout">Log out</string>
+    <string name="incorrect_value">Введен неправильное значение!</string>
+    <string name="edit">Добавление/Редактирование</string>
+    <string name="accounts">Счета</string>
+    <string name="report_by_income_expanse">Доходы и расходы</string>
+    <string name="report_by_categories">Отчет по категориям</string>
+    <string name="to_edit">Редактировать</string>
 </resources>

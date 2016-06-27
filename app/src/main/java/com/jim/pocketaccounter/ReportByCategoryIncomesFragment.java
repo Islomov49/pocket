@@ -1,7 +1,9 @@
 package com.jim.pocketaccounter;
 
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.hardware.display.DisplayManagerCompat;
@@ -24,6 +26,8 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 import com.jim.pocketaccounter.report.CategoryDataRow;
 import com.jim.pocketaccounter.report.CategoryReportView;
+import com.jim.pocketaccounter.report.FilterDialog;
+import com.jim.pocketaccounter.report.FilterSelectable;
 import com.jim.pocketaccounter.report.ReportByCategoryDialogAdapter;
 
 import java.text.DecimalFormat;
@@ -33,17 +37,24 @@ import java.util.Calendar;
 public class ReportByCategoryIncomesFragment extends Fragment implements OnChartValueSelectedListener {
     private LinearLayout llReportByCategory;
     private CategoryReportView categoryReportView;
+    private Calendar begin, end;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.report_by_category_expanse, container, false);
         llReportByCategory = (LinearLayout) rootView.findViewById(R.id.llReportByCategory);
-        categoryReportView = new CategoryReportView(getContext(), PocketAccounterGeneral.INCOME);
+        init();
+        categoryReportView = new CategoryReportView(getContext(), PocketAccounterGeneral.INCOME, begin, end);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         categoryReportView.setLayoutParams(lp);
         categoryReportView.getPieChart().setOnChartValueSelectedListener(this);
         llReportByCategory.addView(categoryReportView);
         return rootView;
+    }
+    public void invalidate(Calendar begin , Calendar end) {
+        ReportByCategoryIncomesFragment.this.begin = (Calendar) begin.clone();
+        ReportByCategoryIncomesFragment.this.end = (Calendar) end.clone();
+        categoryReportView.invalidate(begin, end);
     }
     @Override
     public void onValueSelected(final Entry e, int dataSetIndex, Highlight h) {
@@ -87,6 +98,31 @@ public class ReportByCategoryIncomesFragment extends Fragment implements OnChart
         int width = dm.widthPixels;
         dialog.getWindow().setLayout(7*width/8, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.show();
+    }
+    private void init() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String setting = sharedPreferences.getString("report_filter", "0");
+        begin = Calendar.getInstance();
+        end = Calendar.getInstance();
+        switch (setting) {
+            case "0":
+                begin.set(Calendar.DAY_OF_MONTH, 1);
+                break;
+            case "1":
+                begin.add(Calendar.DAY_OF_MONTH, -2);
+                break;
+            case "2":
+                begin.add(Calendar.DAY_OF_MONTH, -6);
+                break;
+        }
+        begin.set(Calendar.HOUR_OF_DAY, 0);
+        begin.set(Calendar.MINUTE, 0);
+        begin.set(Calendar.SECOND, 0);
+        begin.set(Calendar.MILLISECOND, 0);
+        end.set(Calendar.HOUR_OF_DAY, 23);
+        end.set(Calendar.MINUTE, 59);
+        end.set(Calendar.SECOND, 59);
+        end.set(Calendar.MILLISECOND, 59);
     }
     @Override
     public void onNothingSelected() {}

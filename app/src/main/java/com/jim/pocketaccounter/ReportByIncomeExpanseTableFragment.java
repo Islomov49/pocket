@@ -1,13 +1,19 @@
 package com.jim.pocketaccounter;
 
 
+import android.*;
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +51,7 @@ public class ReportByIncomeExpanseTableFragment extends Fragment {
                      tvTotalExpanse, tvAverageExpanse,
                      tvTotalProfit, tvAverageProfit;
     private ImageView ivToolbarExcel;
+    private final int PERMISSION_READ_STORAGE = 0;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -61,16 +68,34 @@ public class ReportByIncomeExpanseTableFragment extends Fragment {
         ivToolbarExcel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                File direct = new File(Environment.getExternalStorageDirectory() + "/Pocket Accounter");
-                if(!direct.exists())
-                {
-                    if(direct.mkdir())
-                    {
-                        exportToExcelFile();
+                int permission = ContextCompat.checkSelfPermission(getContext(),
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                if (permission != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(((PocketAccounter) getContext()),
+                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder.setMessage("Permission to access the SD-CARD is required for this app to Download PDF.")
+                                .setTitle("Permission required");
+
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                ActivityCompat.requestPermissions((PocketAccounter) getContext(),
+                                        new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                        PERMISSION_READ_STORAGE);
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+
+                    } else {
+                        ActivityCompat.requestPermissions((PocketAccounter) getContext(),
+                                new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                PERMISSION_READ_STORAGE);
                     }
                 } else {
-                    exportToExcelFile();
+                    saveExcel();
                 }
+
             }
         });
         init();
@@ -80,6 +105,30 @@ public class ReportByIncomeExpanseTableFragment extends Fragment {
         table.setDatas(dataRows);
         calculateDatas();
         return rootView;
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_READ_STORAGE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    saveExcel();
+                }
+                break;
+            }
+        }
+    }
+    private void saveExcel() {
+        File direct = new File(Environment.getExternalStorageDirectory() + "/Pocket Accounter");
+        if(!direct.exists())
+        {
+            if(direct.mkdir())
+            {
+                exportToExcelFile();
+            }
+        } else {
+            exportToExcelFile();
+        }
     }
     public void invalidate(Calendar begin, Calendar end) {
         this.begin = (Calendar) begin.clone();
