@@ -19,10 +19,6 @@ import com.jim.pocketaccounter.helper.FloatingActionButton;
 
 import java.util.ArrayList;
 
-/**
- * Created by user on 6/4/2016.
- */
-
 public class DebtBorrowFragment extends Fragment implements View.OnClickListener, ViewPager.OnPageChangeListener {
     private final int BORROW_FRAGMENT = 0;
     private final int DEBT_FRAGMENT = 1;

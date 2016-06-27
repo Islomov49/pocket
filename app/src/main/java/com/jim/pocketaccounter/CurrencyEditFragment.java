@@ -79,7 +79,7 @@ public class CurrencyEditFragment extends Fragment implements OnClickListener, O
 	}
 
 	private void refreshExchangeList() {
-		CurrencyExchangeAdapter adapter = new CurrencyExchangeAdapter(getActivity(), currency.getCosts(), selected, mode);
+		CurrencyExchangeAdapter adapter = new CurrencyExchangeAdapter(getActivity(), currency.getCosts(), selected, mode, currency.getAbbr());
 		lvCurrencyEditExchange.setAdapter(adapter);
 	}
 	@Override
@@ -154,7 +154,7 @@ public class CurrencyEditFragment extends Fragment implements OnClickListener, O
 			@Override
 			public void onClick(View view) {
 				final Dialog dialog=new Dialog(getActivity());
-				View dialogView = getActivity().getLayoutInflater().inflate(R.layout.exchange_edit, null);
+				View dialogView = getActivity().getLayoutInflater().inflate(R.layout.date_picker, null);
 				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 				dialog.setContentView(dialogView);
 				final DatePicker dp = (DatePicker) dialogView.findViewById(R.id.dp);
@@ -162,7 +162,9 @@ public class CurrencyEditFragment extends Fragment implements OnClickListener, O
 				ivDatePickOk.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
+						SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
 						day.set(dp.getYear(), dp.getMonth(), dp.getDayOfMonth());
+						tvExchangeEditDate.setText(format.format(day.getTime()));
 						dialog.dismiss();
 					}
 				});
@@ -196,6 +198,10 @@ public class CurrencyEditFragment extends Fragment implements OnClickListener, O
 		ivCurrencyEditDialogOk.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				if (etExchange.getText().toString().matches("") || Double.parseDouble(etExchange.getText().toString()) == 0) {
+					etExchange.setError("Введен неправильное значение!");
+					return;
+				}
 				if (currCost != null) {
 					currCost.setCost(Double.parseDouble(etExchange.getText().toString()));
 					currCost.setDay(day);

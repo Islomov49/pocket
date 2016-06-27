@@ -26,10 +26,12 @@ public class CurrencyExchangeAdapter extends BaseAdapter {
 	private LayoutInflater inflater;
 	private int mode;
 	private boolean[] selected;
-	public CurrencyExchangeAdapter(Context context, ArrayList<CurrencyCost> result, boolean[] selected, int mode) {
+	private String abbr;
+	public CurrencyExchangeAdapter(Context context, ArrayList<CurrencyCost> result, boolean[] selected, int mode, String abbr) {
 	    this.result = result;
 	    this.mode = mode;
 	    this.selected = selected;
+		this.abbr = abbr;
 	    inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	  }
 	@Override
@@ -52,7 +54,7 @@ public class CurrencyExchangeAdapter extends BaseAdapter {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 		String text = dateFormat.format(result.get(position).getDay().getTime()) 
 					  + "    1"+ PocketAccounter.financeManager.getMainCurrency().getAbbr()
-					  + "=" + decFormat.format(result.get(position).getCost());
+					  + "=" + decFormat.format(result.get(position).getCost())+abbr;
 		tvCurrencyExchangeListItem.setText(text);
 		CheckBox chbCurrencyExchangeListItem = (CheckBox) view.findViewById(R.id.chbCurrencyExchangeListItem);
 		chbCurrencyExchangeListItem.setOnCheckedChangeListener(new OnCheckedChangeListener() {

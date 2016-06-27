@@ -69,6 +69,22 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
                 return false;
             }
         });
+        Preference googleBackup = (Preference) findPreference("backup");
+        googleBackup.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                //google backup
+                return false;
+            }
+        });
+        Preference googleLogout = (Preference) findPreference("logout");
+        googleLogout.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                //google logout
+                return false;
+            }
+        });
     }
 
     private void importDB() {

@@ -55,4 +55,13 @@
             android:summary="@string/setting_repair"
             android:title="@string/repair" />
     </PreferenceCategory>
+    <PreferenceCategory android:title="@string/google_sync">
+        <Preference
+            android:key="backup"
+            android:summary="@string/backup_summary"
+            android:title="@string/backup" />
+        <Preference
+            android:key="logout"
+            android:title="@string/google_logout" />
+    </PreferenceCategory>
 </PreferenceScreen>

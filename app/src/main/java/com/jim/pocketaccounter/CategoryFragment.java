@@ -289,9 +289,9 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 							j--;
 						}
 					}
-					for (int j=0; j<PocketAccounter.financeManager.getCategories().size(); i++) {
+					for (int j=0; j<PocketAccounter.financeManager.getCategories().size(); j++) {
 						if (PocketAccounter.financeManager.getCategories().get(j).getId().matches(id))
-							PocketAccounter.financeManager.getCategories().set(i, null);
+							PocketAccounter.financeManager.getCategories().set(j, null);
 					}
 				}
 			}

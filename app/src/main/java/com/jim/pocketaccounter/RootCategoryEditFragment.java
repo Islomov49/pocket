@@ -358,6 +358,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 				gvCategoryIcons.setOnItemClickListener(new OnItemClickListener() {
 					@Override
 					public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
 						Bitmap temp  = BitmapFactory.decodeResource(getResources(), icons[position]);
 						Bitmap scaled = Bitmap.createScaledBitmap(temp, (int)getResources().getDimension(R.dimen.twentyfive_dp), (int)getResources().getDimension(R.dimen.twentyfive_dp), false);
 						fabChooseIcon.setImageBitmap(scaled);
@@ -379,6 +380,8 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 		ivSubCatSave.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 				if (etSubCategoryName.getText().toString().matches("")) {
 					etSubCategoryName.setError(getResources().getString(R.string.sub_cat_name_error));
 					return;

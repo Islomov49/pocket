@@ -68,7 +68,7 @@
         android:ems="10"
         android:padding="@dimen/five_dp"
         android:textSize="@dimen/sixteen_sp" 
-        android:inputType="number">
+        android:inputType="numberDecimal">
 		
         <requestFocus />
     </EditText>

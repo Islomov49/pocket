@@ -927,4 +927,8 @@
     <string name="category_delete_warning">Данные, связанные с выделенными категориями будут удалены!</string>
     <string name="account_delete_warning">Данные, связанные с выделенными счетами будут удалены!</string>
     <string name="subcat_delete_warning">Данные, связанные с выделенными подкатегориями будут удалены!</string>
+    <string name="google_sync">Google синхронизация</string>
+    <string name="backup">Загрузка базу данных</string>
+    <string name="backup_summary">Загружает последние данные из Google аккаунта</string>
+    <string name="google_logout">Log out</string>
 </resources>

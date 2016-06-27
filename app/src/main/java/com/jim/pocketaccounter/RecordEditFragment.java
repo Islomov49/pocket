@@ -62,7 +62,7 @@ public class RecordEditFragment extends Fragment implements OnClickListener{
     private int parent;
     private int[] numericButtons = {R.id.rlZero, R.id.rlOne, R.id.rlTwo, R.id.rlThree, R.id.rlFour, R.id.rlFive, R.id.rlSix, R.id.rlSeven, R.id.rlEight, R.id.rlNine};
     private int[] operatorButtons = {R.id.rlPlusSign, R.id.rlMinusSign, R.id.rlMultipleSign, R.id.rlDivideSign};
-    private boolean lastNumeric;
+    private boolean lastNumeric = true;
     private boolean stateError;
     private boolean lastDot;
     private boolean lastOperator;
@@ -386,7 +386,11 @@ public class RecordEditFragment extends Fragment implements OnClickListener{
         }
     }
     private void createNewRecord() {
-        if (Double.parseDouble(tvRecordEditDisplay.getText().toString()) != 0) {
+        onEqual();
+        String value = tvRecordEditDisplay.getText().toString();
+        if (value.length() > 14)
+            value = value.substring(0, 14);
+        if (Double.parseDouble(value) != 0) {
             if (record != null) {
                 record.setCategory(category);
                 record.setSubCategory(subCategory);
@@ -413,7 +417,7 @@ public class RecordEditFragment extends Fragment implements OnClickListener{
             ((PocketAccounter)getContext()).getSupportFragmentManager().popBackStack();
         }
     }
-    private void openCategoryDialog(ArrayList<RootCategory> categories) {
+    private void openCategoryDialog(final ArrayList<RootCategory> categories) {
         final Dialog dialog=new Dialog(getActivity());
         View dialogView = getActivity().getLayoutInflater().inflate(R.layout.category_choose_list, null);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -424,9 +428,9 @@ public class RecordEditFragment extends Fragment implements OnClickListener{
         lvCategoryChoose.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ivRecordEditCategory.setImageResource(PocketAccounter.financeManager.getCategories().get(position).getIcon());
+                ivRecordEditCategory.setImageResource(categories.get(position).getIcon());
                 ivRecordEditSubCategory.setImageResource(R.drawable.category_not_selected);
-                category = PocketAccounter.financeManager.getCategories().get(position);
+                category = categories.get(position);
                 dialog.dismiss();
             }
         });

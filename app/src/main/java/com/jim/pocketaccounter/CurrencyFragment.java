@@ -278,6 +278,7 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 								}
 							}
 							setCurrencyListMode();
+							PocketAccounter.toolbar.setSubtitle(getResources().getString(R.string.main_currency)+" "+ PocketAccounter.financeManager.getMainCurrency().getAbbr());
 							dialog.dismiss();
 						}
 					});

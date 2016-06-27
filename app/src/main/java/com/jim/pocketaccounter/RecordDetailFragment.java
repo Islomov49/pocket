@@ -48,7 +48,7 @@ public class RecordDetailFragment extends Fragment implements OnClickListener {
     private ImageView ivToolbarMostRight, ivToolbarExcel;
     private int mode = PocketAccounterGeneral.NORMAL_MODE;
     private ArrayList<FinanceRecord> records;
-
+    private boolean[] selections;
     @SuppressLint("ValidFragment")
     public RecordDetailFragment(Calendar date) {
         this.date = (Calendar) date.clone();
@@ -98,11 +98,11 @@ public class RecordDetailFragment extends Fragment implements OnClickListener {
                     PocketAccounter.financeManager.getRecords().get(i).getDate().compareTo(end) <= 0)
                 records.add(PocketAccounter.financeManager.getRecords().get(i));
         }
-        RecordDetailAdapter adapter = new RecordDetailAdapter(getContext(), records);
+        selections = new boolean[records.size()];
+        RecordDetailAdapter adapter = new RecordDetailAdapter(getContext(), records, mode, selections);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         rvRecordDetail.setLayoutManager(llm);
-        rvRecordDetail.setAdapter(adapter);
         rvRecordDetail.setAdapter(adapter);
     }
 
@@ -111,6 +111,7 @@ public class RecordDetailFragment extends Fragment implements OnClickListener {
         switch (v.getId()) {
             case R.id.ivToolbarMostRight:
                 mode = (mode == PocketAccounterGeneral.NORMAL_MODE ? PocketAccounterGeneral.EDIT_MODE : PocketAccounterGeneral.NORMAL_MODE);
+                Log.d("sss", "mode_frag"+mode);
                 setMode(mode);
                 break;
         }
@@ -118,33 +119,23 @@ public class RecordDetailFragment extends Fragment implements OnClickListener {
 
     private void setMode(int mode) {
         RecordDetailAdapter adapter = (RecordDetailAdapter) rvRecordDetail.getAdapter();
-        adapter.setMode(mode);
         if (mode == PocketAccounterGeneral.NORMAL_MODE) {
+            for (int i=0; i<selections.length; i++)
+                selections[i] = false;
             ivToolbarMostRight.setImageResource(R.drawable.pencil);
-            for (int i = adapter.getItemCount()-1; i >= 0; i--) {
+            for (int i=0; i<adapter.getItemCount(); i++) {
                 View view = rvRecordDetail.getChildAt(i);
                 if (view != null) {
-                    if (((CheckBox) view.findViewById(R.id.chbRecordFragmentDetail)).isChecked()) {
-                        adapter.removingItem(records.get(i));
-                    }
-                }
-            }
-            adapter.notifyDataSetChanged();
-            for (int i = adapter.getItemCount(); i >= 0; i--) {
-                View view = rvRecordDetail.getChildAt(i);
-                if (view != null) {
-                    view.findViewById(R.id.chbRecordFragmentDetail).setVisibility(View.GONE);
+                    CheckBox chb = (CheckBox) view.findViewById(R.id.chbRecordFragmentDetail);
                 }
             }
         } else {
             ivToolbarMostRight.setImageResource(R.drawable.ic_trash);
-            for (int i = 0; i < adapter.getItemCount(); i++) {
-                View view = rvRecordDetail.getChildAt(i);
-                if (view != null) {
-                    view.findViewById(R.id.chbRecordFragmentDetail).setVisibility(View.VISIBLE);
-                    ((CheckBox)view.findViewById(R.id.chbRecordFragmentDetail)).setChecked(false);
-                }
-            }
         }
+        adapter.setMode(mode);
+        for (int i=0; i<adapter.getItemCount(); i++)
+            adapter.notifyItemChanged(i);
+        for (int i=0; i<selections.length; i++)
+            Log.d("sss", "pos "+i+" checked "+selections[i]);
     }
 }

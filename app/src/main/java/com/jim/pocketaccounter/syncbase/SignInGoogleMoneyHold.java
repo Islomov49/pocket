@@ -75,7 +75,7 @@ public class SignInGoogleMoneyHold {
         GoogleApiClient.OnConnectionFailedListener conFaild=new GoogleApiClient.OnConnectionFailedListener() {
             @Override
             public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                Log.d(TAG,connectionResult.getErrorMessage());
+//                Log.d(TAG,connectionResult.getErrorMessage());
             }
         };
         this.succsesEvent=succsesEvent;

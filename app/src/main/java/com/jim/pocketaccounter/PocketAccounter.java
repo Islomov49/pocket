@@ -103,18 +103,18 @@ public class PocketAccounter extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pocket_accounter);
-
         spref = getSharedPreferences("infoFirst", MODE_PRIVATE);
         ed = spref.edit();
-        if (spref.getBoolean("FIRST_KEY", true)) {
-            try {
-                Intent first = new Intent(this, IntroIndicator.class);
-                startActivity(first);
-                finish();
-            } finally {
-
-            }
-        }
+//        if (spref.getBoolean("FIRST_KEY", true)) {
+//            try {
+//                Intent first = new Intent(this, IntroIndicator.class);
+//                startActivity(first);
+//                finish();
+//            } finally {
+//
+//            }
+//        }
+//
         financeManager = new FinanceManager(this);
         fragmentManager = getSupportFragmentManager();
         mySync=new SyncBase(storageRef,this,"PocketAccounterDatabase");
