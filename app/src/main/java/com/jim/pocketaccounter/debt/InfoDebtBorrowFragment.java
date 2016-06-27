@@ -67,6 +67,9 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
     private FrameLayout isHaveReking;
     private TextView tvInfoDebtBorrowTakeDate;
     private TextView payText;
+    private boolean isCheks[];
+    int mode = 1;
+    private TextView phoneNumber;
 
     public static Fragment getInstance(String id, int type) {
         InfoDebtBorrowFragment fragment = new InfoDebtBorrowFragment();
@@ -89,6 +92,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
         totalPayAmount = (TextView) view.findViewById(R.id.total_summ_debt_borrow);
         tvTotalsummInfo = (TextView) view.findViewById(R.id.tvInfoDebtBorrowTotalSumm);
         payText = (TextView) view.findViewById(R.id.paybut);
+        phoneNumber = (TextView) view.findViewById(R.id.tvInfoDebtBorrowPhoneNumber);
         circleImageView = (CircleImageView) view.findViewById(R.id.iconDebtBorrowInfo);
         recyclerView = (RecyclerView) view.findViewById(R.id.rvDebtBorrowInfo);
         info = (ImageView) view.findViewById(R.id.ivInfoDebtBorrowInfo);
@@ -109,6 +113,11 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
                     break;
                 }
             }
+        }
+
+        isCheks = new boolean[debtBorrow.getReckings().size()];
+        for (int i = 0; i < isCheks.length; i++) {
+            isCheks[i] = false;
         }
 
         PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight).setOnClickListener(new View.OnClickListener() {
@@ -138,6 +147,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
             }
         });
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+        phoneNumber.setText(debtBorrow.getPerson().getPhoneNumber());
         tvInfoDebtBorrowTakeDate.setText(format.format(debtBorrow.getTakenDate().getTime()));
         calculate.setText(debtBorrow.isCalculate() ? "calculate" : "no calculate");
         infoFrame.setVisibility(View.GONE);
@@ -223,7 +233,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
         } else {
             borrowLeftDate.setText(sana);
         }
-        totalPayAmount.setText("" + (total == ((int) total) ? (int) total : total) + debtBorrow.getCurrency().getAbbr());
+        totalPayAmount.setText("" + (total == ((int) total) ? ("" + ((int) total)) : ("" + total)) + debtBorrow.getCurrency().getAbbr());
         if (total >= debtBorrow.getAmount()) {
             payText.setText(getResources().getString(R.string.archive));
             deleteFrame.setVisibility(View.GONE);
@@ -239,33 +249,33 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
         }
         Log.d("sss", debtBorrow.getCurrency().getAbbr());
         tvTotalsummInfo.setText("" + (debtBorrow.getAmount() == ((int) debtBorrow.getAmount())
-                ? ((int) debtBorrow.getAmount()) : debtBorrow.getAmount()) + debtBorrow.getCurrency().getAbbr());
+                ? (""+(int) debtBorrow.getAmount()) : (""+debtBorrow.getAmount())) + debtBorrow.getCurrency().getAbbr());
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setAdapter(peysAdapter);
         borrowPay.setOnClickListener(this);
-
         deleteFrame.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                for (int i = peysAdapter.getItemCount() - 1; i >= 0; i--) {
-                    final View item = recyclerView.getChildAt(i);
-                    if (item.findViewById(R.id.for_delete_check_box).getVisibility() == View.GONE) {
-                        item.findViewById(R.id.for_delete_check_box).setVisibility(View.VISIBLE);
-                        item.findViewById(R.id.rlRootView).setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                ((CheckBox) item.findViewById(R.id.for_delete_check_box)).setChecked(
-                                        !((CheckBox) item.findViewById(R.id.for_delete_check_box)).isChecked());
-                            }
-                        });
-                    } else {
-                        item.findViewById(R.id.rlRootView).setOnClickListener(null);
-                        if (((CheckBox) item.findViewById(R.id.for_delete_check_box)).isChecked()) {
+            public void onClick(View view) {
+                if (mode == 1) mode = 0;
+                else mode = 1;
+                if (mode == 0) {
+                    for (int i = 0; i < peysAdapter.getItemCount(); i++) {
+                        peysAdapter.notifyItemChanged(i);
+                    }
+                    payText.setText(getResources().getString(R.string.cancel));
+                } else {
+                    for (int i = isCheks.length - 1; i >= 0; i--) {
+                        if (isCheks[i]) {
                             peysAdapter.itemDeleted(i);
+                        } else {
+                            peysAdapter.notifyItemChanged(i);
                         }
-                        item.findViewById(R.id.for_delete_check_box).setVisibility(View.GONE);
+                    }
+                    isCheks = new boolean[debtBorrow.getReckings().size()];
+                    for (int i = 0; i < isCheks.length; i++) {
+                        isCheks[i] = false;
                     }
                 }
             }
@@ -312,7 +322,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
             }
 
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                    getContext(), android.R.layout.simple_spinner_item, accaounts);
+                    getContext(), R.layout.spiner_gravity_right, accaounts);
 
             accountSp.setAdapter(arrayAdapter);
 
@@ -333,6 +343,10 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
             final DatePickerDialog.OnDateSetListener getDatesetListener = new DatePickerDialog.OnDateSetListener() {
                 public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
                     date.set(arg1, arg2, arg3);
+                    if (date.compareTo(debtBorrow.getTakenDate()) < 0) {
+                        date.setTime(debtBorrow.getTakenDate().getTime());
+                        enterDate.setError("date error");
+                    }
                     enterDate.setText(simpleDateFormat.format(date.getTime()));
                 }
             };
@@ -351,27 +365,32 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
                 @Override
                 public void onClick(View v) {
                     final SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-                    if (Double.parseDouble(leftAmount.getText().toString().substring(0, leftAmount.getText().toString().length() - 2))
-                            - Double.parseDouble(enterPay.getText().toString()) < 0) {
-                        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                        builder.setMessage("siz keragidan ortiqcha to'lov bo'lishiga rozimisiz ?")
-                                .setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                    }
-                                }).setNegativeButton("OK", new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface d, int id) {
-                                d.cancel();
-                                peysAdapter.setDataChanged(format.format(date.getTime()), Double.parseDouble(enterPay.getText().toString()),
-                                        "" + accountSp.getSelectedItem(), comment.getText().toString());
-                                dialog.dismiss();
-                            }
-                        });
-                        builder.create().show();
+                    if (!enterPay.getText().toString().isEmpty()) {
+                        if (Double.parseDouble(leftAmount.getText().toString().substring(0, leftAmount.getText().toString().length() - 1))
+                                - Double.parseDouble(enterPay.getText().toString()) < 0) {
+                            final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                            builder.setMessage(leftAmount.getText() + " to'lov o'rniga " +
+                                    enterPay.getText() + debtBorrow.getCurrency().getAbbr() + " to'lovga rozimisiz ?")
+                                    .setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                        }
+                                    }).setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface d, int id) {
+                                    d.cancel();
+                                    peysAdapter.setDataChanged(format.format(date.getTime()), Double.parseDouble(enterPay.getText().toString()),
+                                            "" + accountSp.getSelectedItem(), comment.getText().toString());
+                                    dialog.dismiss();
+                                }
+                            });
+                            builder.create().show();
+                        } else {
+                            peysAdapter.setDataChanged(format.format(date.getTime()), Double.parseDouble(enterPay.getText().toString()),
+                                    "" + accountSp.getSelectedItem(), comment.getText().toString());
+                        }
+                        dialog.dismiss();
                     } else {
-                        peysAdapter.setDataChanged(format.format(date.getTime()), Double.parseDouble(enterPay.getText().toString()),
-                                "" + accountSp.getSelectedItem(), comment.getText().toString());
+                        enterPay.setError("Enter Pay Value");
                     }
-                    dialog.dismiss();
                 }
             });
             DisplayMetrics displayMetrics = getResources().getDisplayMetrics();
@@ -397,7 +416,16 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        openDialog();
+        if (payText.getText().toString().matches(getResources().getString(R.string.cancel))) {
+            mode=1;
+            for (int i = 0; i < isCheks.length; i++) {
+                isCheks[i] = false;
+                peysAdapter.notifyItemChanged(i);
+            }
+            payText.setText(getResources().getString(R.string.pay));
+        } else {
+            openDialog();
+        }
     }
 
     @Override
@@ -434,14 +462,38 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
                     }
                 }
             }
-
+            if (mode == 0) {
+                view.rootView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        view.checkBox.setChecked(!view.checkBox.isChecked());
+                        isCheks[position] = !isCheks[position];
+                    }
+                });
+            }
             if (!list.get(position).getComment().matches("")) {
                 view.comment.setText("Comment: " + list.get(position).getComment());
             } else {
                 view.comment.setVisibility(View.GONE);
             }
-            view.checkBox.setVisibility(View.GONE);
-            view.checkBox.setChecked(false);
+            if (mode == 1) {
+                view.checkBox.setVisibility(View.GONE);
+            } else {
+                view.checkBox.setVisibility(View.VISIBLE);
+            }
+            view.checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    view.checkBox.setChecked(isCheks[position]);
+                    if (view.checkBox.isChecked()) {
+                        view.checkBox.setChecked(false);
+                    } else {
+                        view.checkBox.setChecked(true);
+                    }
+                    isCheks[position] = view.checkBox.isChecked();
+                }
+            });
+            view.checkBox.setChecked(isCheks[position]);
         }
 
         public InfoDebtBorrowFragment.ViewHolder onCreateViewHolder(ViewGroup parent, int var2) {
@@ -457,7 +509,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
             for (Recking rc : list) {
                 total += rc.getAmount();
             }
-            totalPayAmount.setText(total == ((int) total) ? "" + ((int) total) : "" + total + debtBorrow.getCurrency().getAbbr());
+            totalPayAmount.setText((total == ((int) total) ? ("" + ((int) total)) : ("" + total)) + debtBorrow.getCurrency().getAbbr());
             String qq = ((int) (debtBorrow.getAmount() - total)) == (debtBorrow.getAmount() - total)
                     ? "" + ((int) (debtBorrow.getAmount() - total)) : "" + (debtBorrow.getAmount() - total);
             leftAmount.setText(qq + "" + debtBorrow.getCurrency().getAbbr());
@@ -483,15 +535,21 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
                     ? ("" + ((int) (debtBorrow.getAmount() - qoldiq))) : ("" + (debtBorrow.getAmount() - qoldiq));
 
             leftAmount.setText(qq + "" + debtBorrow.getCurrency().getAbbr());
-            totalPayAmount.setText("" + ((qoldiq == (int) qoldiq) ? ("" + (int) qoldiq) : ("" + qoldiq)) + "" + debtBorrow.getCurrency().getAbbr());
+            totalPayAmount.setText("" + (qoldiq == ((int) qoldiq) ? ("" + ((int) qoldiq)) : ("" + qoldiq)) + "" + debtBorrow.getCurrency().getAbbr());
+
             if (qoldiq >= debtBorrow.getAmount()) {
                 payText.setText(getResources().getString(R.string.archive));
+                deleteFrame.setVisibility(View.GONE);
                 leftAmount.setText(getResources().getString(R.string.repaid));
             }
             debtBorrow.setReckings(list);
             manager.setDebtBorrows(manager.getDebtBorrows());
             isHaveReking.setVisibility(View.VISIBLE);
             notifyItemInserted(0);
+            isCheks = new boolean[list.size()];
+            for (int i = 0; i < isCheks.length; i++) {
+                isCheks[i] = false;
+            }
         }
     }
 

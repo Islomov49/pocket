@@ -41,11 +41,9 @@ public class NotificationManagerCredit {
 		myDebdbor=myFinance.loadDebtBorrows();
 		alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 		rand=new Random(10000000);
-
 	}
 		
 	public void notificSetCredit()  {
-
 		cancelAllNotifs();
 		Calendar today = Calendar.getInstance();
 
@@ -124,9 +122,55 @@ public class NotificationManagerCredit {
 				}
 			}
 		}
-
 	}
-	
+
+	public void notificSetDebt() {
+		cancelAllNotifs();
+		Calendar today = Calendar.getInstance();
+
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		String time = prefs.getString("planningNotifTime", "09:00");
+
+		SimpleDateFormat df = new SimpleDateFormat("HH:mm");
+		Calendar cal = Calendar.getInstance();
+		Date morning_time = null;
+		try {
+			morning_time = df.parse(time);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return;
+		}
+		cal.setTime(morning_time);
+
+		today.set(Calendar.HOUR_OF_DAY, 9);
+		today.set(Calendar.MINUTE, 0);
+		today.set(Calendar.SECOND, 0);
+
+		for (DebtBorrow item : myDebdbor) {
+			if (item.getReturnDate() == null && item.isTo_archive()) continue;
+			Calendar to = (Calendar) item.getReturnDate().clone();
+			to.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY));
+			to.set(Calendar.MINUTE, cal.get(Calendar.MINUTE));
+			to.set(Calendar.SECOND, 0);
+
+			to.add(Calendar.DAY_OF_YEAR, -1);
+
+			String msg = "Credit on behalf of " + item.getPerson().getName() + " tomorrow . If you have not paid pay today !";
+
+			if (to.compareTo(today) > 0) {
+				Intent intent = new Intent(context, AlarmReceiver.class);
+				intent.putExtra("msg", msg);
+//				intent.putExtra("TIP", NotificationService.TO_CRIDET);
+				int _id = rand.nextInt();
+
+				PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (_id < 0) ? _id * (-1) : _id,
+						intent, 0);
+				SimpleDateFormat dff = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+				alarmManager.set(AlarmManager.RTC_WAKEUP, to.getTimeInMillis(), pendingIntent);
+			}
+		}
+	}
+
 	public void cancelAllNotifs() {
 		Intent updateServiceIntent = new Intent(context, AlarmReceiver.class);
 	    PendingIntent pendingUpdateIntent = PendingIntent.getService(context, 0, updateServiceIntent, 0);

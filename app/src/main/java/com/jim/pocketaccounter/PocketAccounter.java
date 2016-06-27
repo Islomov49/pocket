@@ -46,7 +46,6 @@ import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 import com.jim.pocketaccounter.helper.record.RecordExpanseView;
 import com.jim.pocketaccounter.helper.record.RecordIncomesView;
 import com.jim.pocketaccounter.intropage.IntroIndicator;
-import com.jim.pocketaccounter.report.FilterFragment;
 import com.jim.pocketaccounter.debt.DebtBorrowFragment;
 import com.jim.pocketaccounter.finance.FinanceManager;
 import com.jim.pocketaccounter.helper.LeftMenuAdapter;
@@ -54,7 +53,6 @@ import com.jim.pocketaccounter.helper.LeftMenuItem;
 import com.jim.pocketaccounter.helper.LeftSideDrawer;
 import com.jim.pocketaccounter.syncbase.SignInGoogleMoneyHold;
 import com.jim.pocketaccounter.syncbase.SyncBase;
-import com.jim.pocketaccounter.report.ReportByAccount;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -65,8 +63,6 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import static com.jim.pocketaccounter.R.color.toolbar_text_color;
@@ -334,12 +330,9 @@ public class PocketAccounter extends AppCompatActivity {
         fabIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                  final FirebaseUser userim= FirebaseAuth.getInstance().getCurrentUser();
                 if(userim!=null){
                     drawer.close();
-
-
                     (new Handler()).postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -369,16 +362,11 @@ public class PocketAccounter extends AppCompatActivity {
                                     dialog.cancel();
                                 }
                             });
-
-
                             builder.create().show();
-
                         }
                     }, 150);
                 } else {
                     drawer.close();
-
-
                     (new Handler()).postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -389,7 +377,6 @@ public class PocketAccounter extends AppCompatActivity {
                         }
                     }, 150);
                 }
-
             }
         });
         LeftMenuItem main = new LeftMenuItem(cats[0], R.drawable.drawer_home);
@@ -574,7 +561,8 @@ public class PocketAccounter extends AppCompatActivity {
                             }).setNegativeButton("DISCARD", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
-                            getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                            getSupportFragmentManager().popBackStack();
+
                         }
                     });
                     builder.create().show();
@@ -610,7 +598,7 @@ public class PocketAccounter extends AppCompatActivity {
                         Log.d("ssss", fragmentManager.findFragmentById(R.id.flMain).getClass().getName());
                         switch (fragmentManager.findFragmentById(R.id.flMain).getClass().getName()) {
                             case "com.jim.pocketaccounter.RecordEditFragment":
-                            case "com.jim.pocketaccounter.RecordDetailFragment":
+//                            case "com.jim.pocketaccounter.RecordDetailFragment":
                                 initialize(date);
                                 break;
                             case "com.jim.pocketaccounter.CurrencyEditFragment":
@@ -665,6 +653,7 @@ public class PocketAccounter extends AppCompatActivity {
             for (int i = 0; i < size; i++) {
                 fragmentManager.popBackStack();
             }
+            findViewById(R.id.change).setVisibility(View.INVISIBLE);
             fragmentManager.beginTransaction()
                     .addToBackStack(null)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)

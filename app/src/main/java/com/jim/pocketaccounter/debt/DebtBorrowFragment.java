@@ -11,7 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.view.animation.AnimationUtils;
 
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
@@ -31,7 +31,7 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         setRetainInstance(true);
-        View view = inflater.inflate(R.layout.debt_borrow_fragment, container, false);
+        View view = inflater.inflate(R.layout.debt_borrow_fragment_mod, container, false);
         tabLayout = (TabLayout) view.findViewById(R.id.tlDebtBorrowFragment);
         viewPager = (ViewPager) view.findViewById(R.id.vpDebtBorrowFragment);
         PocketAccounter.toolbar.setTitle("Учет Долгов");
@@ -58,6 +58,8 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
         archiv = BorrowFragment.getInstance(2);
         BorrowFragment debt = BorrowFragment.getInstance(1);
         BorrowFragment borrow = BorrowFragment.getInstance(0);
+        debt.setDebtBorrowFragment(this);
+        borrow.setDebtBorrowFragment(this);
         borrowFragments.add(archiv);
         borrowFragments.add(debt);
         borrowFragments.add(borrow);
@@ -79,6 +81,18 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
                     }
                 }
             }
+        }
+    }
+    private boolean show = false;
+    public void onScrolledList(boolean k) {
+        if (k) {
+            if (!show)
+            fb.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fab_down));
+            show = true;
+        } else {
+            if (show)
+            fb.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fab_up));
+            show = false;
         }
     }
 
@@ -114,6 +128,9 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onPageScrollStateChanged(int state) {
+        if (show){
+            onScrolledList(false);
+        }
     }
 
     private class MyAdapter extends FragmentStatePagerAdapter {

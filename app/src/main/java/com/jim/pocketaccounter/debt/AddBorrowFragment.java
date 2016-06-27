@@ -17,6 +17,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -38,6 +39,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
@@ -46,6 +48,13 @@ import com.jim.pocketaccounter.finance.Currency;
 import com.jim.pocketaccounter.finance.FinanceManager;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -150,10 +159,10 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
         }
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                getContext(), android.R.layout.simple_spinner_item, accaounts);
+                getContext(), R.layout.spiner_gravity_right, accaounts);
 
         ArrayAdapter<String> arrayValyuAdapter = new ArrayAdapter<String>(
-                getContext(), android.R.layout.simple_spinner_item, valyuts);
+                getContext(), R.layout.spiner_gravity_right, valyuts);
 
         arrayAdapter.setDropDownViewResource(
                 android.R.layout.simple_spinner_dropdown_item);
@@ -225,7 +234,45 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
                             Currency currency = manager.getCurrencies().get(PersonValyuta.getSelectedItemPosition());
                             ArrayList<Recking> reckings = new ArrayList<Recking>();
                             Account account = manager.getAccounts().get(PersonAccount.getSelectedItemPosition());
-                            DebtBorrow debtBorrow = new DebtBorrow(new Person(PersonName.getText().toString(), PersonNumber.getText().toString(), photoPath),
+                            File file = null;
+                            if (!photoPath.matches("")) {
+                                try {
+                                    Integer.parseInt(photoPath);
+                                } catch (Exception e) {
+                                    Bitmap bitmap = decodeFile(new File(photoPath));
+                                    Bitmap C;
+
+                                    if (bitmap.getWidth() >= bitmap.getHeight()) {
+                                        C = Bitmap.createBitmap(
+                                                bitmap,
+                                                bitmap.getWidth() / 2 - bitmap.getHeight() / 2,
+                                                0,
+                                                bitmap.getHeight(),
+                                                bitmap.getHeight()
+                                        );
+                                    } else {
+                                        C = Bitmap.createBitmap(
+                                                bitmap,
+                                                0,
+                                                bitmap.getHeight() / 2 - bitmap.getWidth() / 2,
+                                                bitmap.getWidth(),
+                                                bitmap.getWidth()
+                                        );
+                                    }
+                                    try {
+                                        file = new File(getContext().getFilesDir(), Uri.parse(photoPath).getLastPathSegment());
+                                        FileOutputStream outputStream = new FileOutputStream(file.getAbsoluteFile());
+                                        C.compress(Bitmap.CompressFormat.JPEG, 30, outputStream);
+                                        outputStream.flush();
+                                        outputStream.close();
+                                    } catch (IOException e1) {
+                                        e1.printStackTrace();
+                                    }
+                                }
+                            }
+
+                            DebtBorrow debtBorrow = new DebtBorrow(new Person(PersonName.getText().toString(),
+                                    PersonNumber.getText().toString(), file != null ? file.getAbsolutePath() : photoPath=="" ? "" : photoPath),
                                     getDate,
                                     returnDate,
                                     "borrow_" + UUID.randomUUID().toString(),
@@ -303,6 +350,26 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
         return view;
     }
 
+    private Bitmap decodeFile(File f) {
+        try {
+            //Decode image size
+            BitmapFactory.Options o = new BitmapFactory.Options();
+            o.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(new FileInputStream(f), null, o);
+            //The new size we want to scale to
+            final int REQUIRED_SIZE = 128;
+            //Find the correct scale value. It should be the power of 2.
+            int scale = 1;
+            while (o.outWidth / scale / 2 >= REQUIRED_SIZE && o.outHeight / scale / 2 >= REQUIRED_SIZE)
+                scale *= 2;
+            //Decode with inSampleSize
+            BitmapFactory.Options o2 = new BitmapFactory.Options();
+            o2.inSampleSize = scale;
+            return BitmapFactory.decodeStream(new FileInputStream(f), null, o2);
+        } catch (FileNotFoundException e) {
+        }
+        return null;
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -342,7 +409,7 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
             String picturePath = cursor.getString(columnIndex);
             cursor.close();
             photoPath = picturePath;
-            imageView.setImageURI(Uri.fromFile(new File(photoPath)));
+            imageView.setImageBitmap(decodeFile(new File(photoPath)));
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -435,12 +502,6 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
             }
         }
     }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-    }
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {}
+    public void onNothingSelected(AdapterView<?> parent) {}
 }

@@ -105,4 +105,11 @@ public class ReportByCategory extends Fragment {
             return getResources().getString(R.string.expanse);
         }
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight).setVisibility(View.GONE);
+        PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel).setVisibility(View.GONE);
+    }
 }

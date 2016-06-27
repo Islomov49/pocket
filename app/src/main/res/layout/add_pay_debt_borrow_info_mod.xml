@@ -90,7 +90,9 @@
                     android:gravity="right"
                     android:textSize="16dp"
                     android:inputType="numberDecimal"
-                    android:textColor="@color/black_for_glavniy_text"/>
+                    android:textColor="@color/black_for_glavniy_text"
+                    android:maxLength="13"
+                    />
             </LinearLayout>
             <RelativeLayout
                 android:id="@+id/is_calc"
@@ -104,17 +106,23 @@
                     android:layout_height="wrap_content"
                     android:text="From account : "
                     android:textSize="16dp"
-                    android:textColor="@color/black_for_glavniy_text"/>
+                    android:textColor="@color/black_for_glavniy_text"
+                    android:layout_marginRight="5dp"
+                    android:id="@+id/tvamoint"
+                    />
+
                 <Spinner
                     android:id="@+id/spInfoDebtBorrowAccount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="how much you paid? "
                     android:gravity="right"
-                    android:textSize="20dp"
+                    android:textSize="16sp"
                     android:textColor="@color/black_for_glavniy_text"
+                    android:layout_toRightOf="@+id/tvamoint"
                     android:layout_alignParentRight="true"
-                    android:layout_alignParentEnd="true" />
+                    />
+
             </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -133,7 +141,9 @@
                     android:hint="Do you want note?"
                     android:gravity="right"
                     android:textSize="16dp"
-                    android:textColor="@color/black_for_glavniy_text"/>
+                    android:textColor="@color/black_for_glavniy_text"
+                    android:maxLength="13"
+                    />
             </LinearLayout>
                    </LinearLayout>
     </RelativeLayout>
