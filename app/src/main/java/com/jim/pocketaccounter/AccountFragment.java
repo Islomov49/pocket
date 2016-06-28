@@ -28,7 +28,6 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.jim.pocketaccounter.credit.CreditDetials;
 import com.jim.pocketaccounter.credit.ReckingCredit;
 import com.jim.pocketaccounter.debt.DebtBorrow;
 import com.jim.pocketaccounter.debt.Recking;
@@ -49,13 +48,14 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 	private boolean[] selected;
 	private int mode = PocketAccounterGeneral.NORMAL_MODE, selectedIcon;
 	private ListView lvAccounts;
-	private ImageView ivToolbarMostRight, ivToolbarExcel;
+	private ImageView ivToolbarMostRight;
 	private Spinner spToolbar;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.account_layout, container, false);
 		fabAccountAdd = (FloatingActionButton) rootView.findViewById(R.id.fabAccountAdd);
 		fabAccountAdd.setOnClickListener(this);
 		lvAccounts = (ListView) rootView.findViewById(R.id.lvAccounts);
+		PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel).setVisibility(View.GONE);
 		lvAccounts.setOnItemClickListener(this);
 		PocketAccounter.toolbar.setTitle(R.string.accounts);
 		PocketAccounter.toolbar.setSubtitle("");
@@ -107,10 +107,9 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 		});
 		((PocketAccounter)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
+		ivToolbarMostRight.setVisibility(View.VISIBLE);
 		ivToolbarMostRight.setImageResource(R.drawable.pencil);
 		ivToolbarMostRight.setOnClickListener(this);
-		ivToolbarExcel = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel);
-		ivToolbarExcel.setVisibility(View.VISIBLE);
 		spToolbar = (Spinner) PocketAccounter.toolbar.findViewById(R.id.spToolbar);
 		spToolbar.setVisibility(View.GONE);
 		refreshList(mode);

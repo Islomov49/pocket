@@ -262,4 +262,11 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
         });
         dialog.show();
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        spToolbar.setVisibility(View.GONE);
+        ivToolbarExcel.setVisibility(View.GONE);
+    }
 }

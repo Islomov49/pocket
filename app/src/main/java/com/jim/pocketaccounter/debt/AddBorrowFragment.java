@@ -352,13 +352,13 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
 
     private Bitmap decodeFile(File f) {
         try {
-            //Decode image size
+//            Decode image size
             BitmapFactory.Options o = new BitmapFactory.Options();
             o.inJustDecodeBounds = true;
             BitmapFactory.decodeStream(new FileInputStream(f), null, o);
-            //The new size we want to scale to
+//            The new size we want to scale to
             final int REQUIRED_SIZE = 128;
-            //Find the correct scale value. It should be the power of 2.
+//            Find the correct scale value. It should be the power of 2.
             int scale = 1;
             while (o.outWidth / scale / 2 >= REQUIRED_SIZE && o.outHeight / scale / 2 >= REQUIRED_SIZE)
                 scale *= 2;

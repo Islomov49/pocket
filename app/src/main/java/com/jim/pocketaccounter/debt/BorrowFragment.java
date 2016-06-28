@@ -160,7 +160,7 @@ public class BorrowFragment extends Fragment {
                 view.BorrowPersonSumm.setText(getResources().getString(R.string.repaid));
             } else
                 view.BorrowPersonSumm.setText(ss + person.getCurrency().getAbbr());
-            if (person.getPerson().getPhoto().equals("")) {
+            if (person.getPerson().getPhoto().matches("") || person.getPerson().getPhoto().matches("0")) {
                 view.BorrowPersonPhotoPath.setImageResource(R.drawable.no_photo);
             } else {
                 try {

@@ -148,25 +148,27 @@ public class NotificationManagerCredit {
 
 		for (DebtBorrow item : myDebdbor) {
 			if (item.getReturnDate() == null && item.isTo_archive()) continue;
-			Calendar to = (Calendar) item.getReturnDate().clone();
-			to.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY));
-			to.set(Calendar.MINUTE, cal.get(Calendar.MINUTE));
-			to.set(Calendar.SECOND, 0);
+			if (item.getReturnDate() != null) {
+				Calendar to = (Calendar) item.getReturnDate().clone();
+				to.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY));
+				to.set(Calendar.MINUTE, cal.get(Calendar.MINUTE));
+				to.set(Calendar.SECOND, 0);
 
-			to.add(Calendar.DAY_OF_YEAR, -1);
+				to.add(Calendar.DAY_OF_YEAR, -1);
 
-			String msg = "Credit on behalf of " + item.getPerson().getName() + " tomorrow . If you have not paid pay today !";
+				String msg = "Credit on behalf of " + item.getPerson().getName() + " tomorrow . If you have not paid pay today !";
 
-			if (to.compareTo(today) > 0) {
-				Intent intent = new Intent(context, AlarmReceiver.class);
-				intent.putExtra("msg", msg);
-//				intent.putExtra("TIP", NotificationService.TO_CRIDET);
-				int _id = rand.nextInt();
+				if (to.compareTo(today) > 0) {
+					Intent intent = new Intent(context, AlarmReceiver.class);
+					intent.putExtra("msg", msg);
+					intent.putExtra("TIP", AlarmReceiver.TO_DEBT);
+					int _id = rand.nextInt();
 
-				PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (_id < 0) ? _id * (-1) : _id,
-						intent, 0);
-				SimpleDateFormat dff = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-				alarmManager.set(AlarmManager.RTC_WAKEUP, to.getTimeInMillis(), pendingIntent);
+					PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (_id < 0) ? _id * (-1) : _id,
+							intent, 0);
+					SimpleDateFormat dff = new SimpleDateFormat("dd.MM.yyyy HH:mm");
+					alarmManager.set(AlarmManager.RTC_WAKEUP, to.getTimeInMillis(), pendingIntent);
+				}
 			}
 		}
 	}

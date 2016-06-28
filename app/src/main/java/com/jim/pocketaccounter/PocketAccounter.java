@@ -32,6 +32,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
@@ -150,9 +152,12 @@ public class PocketAccounter extends AppCompatActivity {
         date = Calendar.getInstance();
         initialize(date);
         //Bu notifikatsiyani bosib prilojeniyaga kirganda fragmenti ochvorishga
+        Toast.makeText(this, "" + getIntent().getIntExtra("TIP", 0), Toast.LENGTH_SHORT).show();
+
         switch (getIntent().getIntExtra("TIP", 0)){
             case AlarmReceiver.TO_DEBT:
                 replaceFragment(new DebtBorrowFragment(), PockerTag.DEBTS);
+                Toast.makeText(this, "keldi", Toast.LENGTH_SHORT).show();
                 break;
             case AlarmReceiver.TO_CRIDET:
                 replaceFragment(new CreditTabLay(), PockerTag.CREDITS);
@@ -163,6 +168,7 @@ public class PocketAccounter extends AppCompatActivity {
             public void run() {
                 NotificationManagerCredit notific=new NotificationManagerCredit(PocketAccounter.this);
                 notific.notificSetCredit();
+                notific.notificSetDebt();
             }
         })).start();
     }
@@ -447,42 +453,75 @@ public class PocketAccounter extends AppCompatActivity {
                                 }
                                 break;
                             case 1:
+                                if (getSupportFragmentManager().getBackStackEntryCount() == 1
+                                        && getSupportFragmentManager().findFragmentById(R.id.flMain).getTag()
+                                        .matches(com.jim.pocketaccounter.debt.PockerTag.CURRENCY)) return;
                                 replaceFragment(new CurrencyFragment(), PockerTag.CURRENCY);
                                 break;
                             case 2:
+                                if (getSupportFragmentManager().getBackStackEntryCount() == 1
+                                        && getSupportFragmentManager().findFragmentById(R.id.flMain).getTag()
+                                        .matches(com.jim.pocketaccounter.debt.PockerTag.CURRENCY)) return;
                                 replaceFragment(new CurrencyFragment(), PockerTag.CURRENCY);
                                 //Currency management
                                 break;
                             case 3:
+                                if (getSupportFragmentManager().getBackStackEntryCount() == 1
+                                        && getSupportFragmentManager().findFragmentById(R.id.flMain).getTag()
+                                        .matches(com.jim.pocketaccounter.debt.PockerTag.CATEGORY)) return;
                                 replaceFragment(new CategoryFragment(), PockerTag.CATEGORY);
                                 //Category management
                                 break;
                             case 4:
+                                if (getSupportFragmentManager().getBackStackEntryCount() == 1
+                                        && getSupportFragmentManager().findFragmentById(R.id.flMain).getTag()
+                                        .matches(com.jim.pocketaccounter.debt.PockerTag.ACCOUNT)) return;
                                 replaceFragment(new AccountFragment(), PockerTag.ACCOUNT);
                                 //Accounting management
                                 break;
                             case 5:
+                                if (getSupportFragmentManager().getBackStackEntryCount() == 1
+                                        && getSupportFragmentManager().findFragmentById(R.id.flMain).getTag()
+                                        .matches(com.jim.pocketaccounter.debt.PockerTag.CREDITS)) return;
                                 replaceFragment(new CreditTabLay(), PockerTag.CREDITS);
                                 break;
                             case 6:
+                                if (getSupportFragmentManager().getBackStackEntryCount() == 1
+                                        && getSupportFragmentManager().findFragmentById(R.id.flMain).getTag()
+                                        .matches(com.jim.pocketaccounter.debt.PockerTag.CREDITS)) return;
                                 replaceFragment(new CreditTabLay(), PockerTag.CREDITS);
                                 //Statistics by account
                                 break;
                             case 7:
+                                if (getSupportFragmentManager().getBackStackEntryCount() == 1
+                                        && getSupportFragmentManager().findFragmentById(R.id.flMain).getTag()
+                                        .matches(com.jim.pocketaccounter.debt.PockerTag.DEBTS)) return;
                                 replaceFragment(new DebtBorrowFragment(), PockerTag.DEBTS);
                                 //Statistics by income/expanse
                                 break;
                             case 8:
+                                if (getSupportFragmentManager().getBackStackEntryCount() == 1
+                                        && getSupportFragmentManager().findFragmentById(R.id.flMain).getTag()
+                                        .matches(com.jim.pocketaccounter.debt.PockerTag.REPORT_ACCOUNT)) return;
                                 replaceFragment(new ReportByAccountFragment(), PockerTag.REPORT_ACCOUNT);
                                 break;
                             case 9:
+                                if (getSupportFragmentManager().getBackStackEntryCount() == 1
+                                        && getSupportFragmentManager().findFragmentById(R.id.flMain).getTag()
+                                        .matches(com.jim.pocketaccounter.debt.PockerTag.REPORT_ACCOUNT)) return;
                                 replaceFragment(new ReportByAccountFragment(), PockerTag.REPORT_ACCOUNT);
                                 // accounting debt
                                 break;
                             case 10:
+                                if (getSupportFragmentManager().getBackStackEntryCount() == 1
+                                        && getSupportFragmentManager().findFragmentById(R.id.flMain).getTag()
+                                        .matches(com.jim.pocketaccounter.debt.PockerTag.REPORT_INCOM_EXPENSE)) return;
                                 replaceFragment(new TableBarFragment(), PockerTag.REPORT_INCOM_EXPENSE);
                                 break;
                             case 11:
+                                if (getSupportFragmentManager().getBackStackEntryCount() == 1
+                                        && getSupportFragmentManager().findFragmentById(R.id.flMain).getTag()
+                                        .matches(com.jim.pocketaccounter.debt.PockerTag.REPORT_CATEGORY)) return;
                                 replaceFragment(new ReportByCategory(), PockerTag.REPORT_CATEGORY);
                                 break;
                             case 12:
@@ -598,7 +637,7 @@ public class PocketAccounter extends AppCompatActivity {
                         Log.d("ssss", fragmentManager.findFragmentById(R.id.flMain).getClass().getName());
                         switch (fragmentManager.findFragmentById(R.id.flMain).getClass().getName()) {
                             case "com.jim.pocketaccounter.RecordEditFragment":
-//                            case "com.jim.pocketaccounter.RecordDetailFragment":
+                            case "com.jim.pocketaccounter.RecordDetailFragment":
                                 initialize(date);
                                 break;
                             case "com.jim.pocketaccounter.CurrencyEditFragment":

@@ -249,7 +249,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
         }
         Log.d("sss", debtBorrow.getCurrency().getAbbr());
         tvTotalsummInfo.setText("" + (debtBorrow.getAmount() == ((int) debtBorrow.getAmount())
-                ? (""+(int) debtBorrow.getAmount()) : (""+debtBorrow.getAmount())) + debtBorrow.getCurrency().getAbbr());
+                ? ("" + (int) debtBorrow.getAmount()) : ("" + debtBorrow.getAmount())) + debtBorrow.getCurrency().getAbbr());
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -266,17 +266,30 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
                     }
                     payText.setText(getResources().getString(R.string.cancel));
                 } else {
-                    for (int i = isCheks.length - 1; i >= 0; i--) {
-                        if (isCheks[i]) {
-                            peysAdapter.itemDeleted(i);
-                        } else {
-                            peysAdapter.notifyItemChanged(i);
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setMessage("O'chirishga tayyormisiz ?")
+                            .setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface d, int id) {
+                                    d.dismiss();
+                                }
+                            }).setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface d, int id) {
+                            for (int i = isCheks.length - 1; i >= 0; i--) {
+                                if (isCheks[i]) {
+                                    peysAdapter.itemDeleted(i);
+                                } else {
+                                    peysAdapter.notifyItemChanged(i);
+                                }
+                            }
+                            isCheks = new boolean[debtBorrow.getReckings().size()];
+                            for (int i = 0; i < isCheks.length; i++) {
+                                isCheks[i] = false;
+                            }
+                            payText.setText(getResources().getString(R.string.pay));
+                            d.cancel();
                         }
-                    }
-                    isCheks = new boolean[debtBorrow.getReckings().size()];
-                    for (int i = 0; i < isCheks.length; i++) {
-                        isCheks[i] = false;
-                    }
+                    });
+                    builder.create().show();
                 }
             }
         });
@@ -417,7 +430,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (payText.getText().toString().matches(getResources().getString(R.string.cancel))) {
-            mode=1;
+            mode = 1;
             for (int i = 0; i < isCheks.length; i++) {
                 isCheks[i] = false;
                 peysAdapter.notifyItemChanged(i);
