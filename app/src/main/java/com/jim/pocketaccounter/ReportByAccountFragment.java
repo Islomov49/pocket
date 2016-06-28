@@ -150,9 +150,16 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
     }
 
     void onCreateReportbyAccount(Context context, Calendar begin, Calendar end, Account account, Currency currency) {
+        Log.d("begin", ": " + begin.getTime());
+        Log.d("end", ": " + end.getTime());
         reportByAccount = new ReportByAccount(getContext(), begin, end, account, currency);
         sortReportByAccount = reportByAccount.makeAccountReport();
+        Calendar current_begin = null, current_end = null;
         Collections.sort(sortReportByAccount, new MyComparator());
+        if (sortReportByAccount != null && sortReportByAccount.size() >= 2) {
+            current_begin = (Calendar) sortReportByAccount.get(0).getDate().clone();
+            current_end = (Calendar) sortReportByAccount.get(sortReportByAccount.size() - 1).getDate().clone();
+        }
         if (sortReportByAccount.isEmpty()) {
             tbReportByAccount.setVisibility(View.GONE);
             linLayReportByAccountInfo.setVisibility(View.GONE);
@@ -178,12 +185,14 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
         }
         tbReportByAccount.setDatas(sortReportByAccount);
 
-        double aDay = 1000.0 * 60.0 * 60.0 * 24.0;
-        long countOfDays = 1;
-        if (sortReportByAccount != null) {
-            countOfDays = (long) Math.ceil((sortReportByAccount.get(sortReportByAccount.size() - 1).getDate().getTimeInMillis()
-                    - sortReportByAccount.get(0).getDate().getTimeInMillis()) / aDay);
+        long countOfDays = 0;
+
+        while (current_begin.getTime().compareTo(current_end.getTime()) <= 0) {
+            countOfDays++;
+            current_begin.add(Calendar.DAY_OF_MONTH, 1);
+            Log.d("count_of_days", ": " + countOfDays);
         }
+
         String abbr = PocketAccounter.financeManager.getMainCurrency().getAbbr();
         averageProfit = totalProfit / countOfDays;
         tvReportbyAccountTotalIncome.setText(getResources().getString(R.string.report_income_expanse_total_income) + decimalFormat.format(totalIncome) + abbr);
