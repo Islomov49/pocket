@@ -58,7 +58,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Paid date : "
+                    android:text="@string/pay_date"
                     android:textSize="16dp"
                     android:textColor="@color/black_for_glavniy_text"/>
                 <EditText
@@ -79,14 +79,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Amount : "
+                    android:text="@string/amount"
                     android:textSize="16dp"
                     android:textColor="@color/black_for_glavniy_text"/>
                 <EditText
                     android:id="@+id/etInfoDebtBorrowPaySumm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="how much you paid? "
+                    android:hint="@string/enter_amount"
                     android:gravity="right"
                     android:textSize="16dp"
                     android:inputType="numberDecimal"
@@ -104,7 +104,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="From account : "
+                    android:text="@string/account"
                     android:textSize="16dp"
                     android:textColor="@color/black_for_glavniy_text"
                     android:layout_marginRight="5dp"
@@ -131,14 +131,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Comment : "
+                    android:text="@string/comment"
                     android:textSize="16dp"
                     android:textColor="@color/black_for_glavniy_text"/>
                 <EditText
                     android:id="@+id/etInfoDebtBorrowPayComment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Do you want note?"
+                    android:hint="@string/enter_comment"
                     android:gravity="right"
                     android:textSize="16dp"
                     android:textColor="@color/black_for_glavniy_text"
@@ -186,7 +186,4 @@
             android:gravity="center"
             android:id="@+id/textView12" />
     </LinearLayout>
-
-
-
 </LinearLayout>

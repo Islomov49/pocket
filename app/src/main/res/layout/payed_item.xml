@@ -56,7 +56,6 @@
                 android:layout_height="wrap_content"
                 android:text="Via: Visa card"
                 android:visibility="visible"
-
                 android:textColor="@color/for_darker"
                 android:textSize="16dp"/>
 

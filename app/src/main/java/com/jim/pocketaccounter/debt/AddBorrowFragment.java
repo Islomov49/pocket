@@ -32,14 +32,12 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
@@ -51,10 +49,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -222,13 +217,13 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
             @Override
             public void onClick(View v) {
                 if (PersonName.getText().toString().equals("")) {
-                    PersonName.setError("Enter name");
+                    PersonName.setError(getString(R.string.enter_name_error));
                 } else {
                     if (PersonSumm.getText().toString().equals("")) {
-                        PersonSumm.setError("Enter amount");
+                        PersonSumm.setError(getString(R.string.enter_amount_error));
                     } else {
                         if (PersonDataGet.getText().toString().matches("")) {
-                            PersonDataGet.setError("Enter taken date");
+                            PersonDataGet.setError(getString(R.string.enter_takendate_error));
                         } else {
                             ArrayList<DebtBorrow> list = manager.getDebtBorrows();
                             Currency currency = manager.getCurrencies().get(PersonValyuta.getSelectedItemPosition());
@@ -326,7 +321,7 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
                         builder.setMessage("Permission to access the SD-CARD is required for this app to Download PDF.")
                                 .setTitle("Permission required");
 
-                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 ActivityCompat.requestPermissions((PocketAccounter) getContext(),
                                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},

@@ -46,7 +46,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_marginTop="29dp"
-                        android:text="Name "
+                        android:text="@string/name"
                         android:textColor="#212121"
                         android:textSize="20sp" />
 
@@ -57,7 +57,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_below="@+id/name_text_view"
-                        android:hint="add name who is it?"
+                        android:hint="@string/enter_name_error"
                         android:maxLines="2"
                         android:textColor="@color/black_for_glavniy_text"
                         android:textColorHint="@color/black_for_secondary_text"
@@ -82,7 +82,7 @@
                             android:layout_marginLeft="8dp"
                             android:layout_marginRight="8dp"
                             android:layout_marginTop="5dp"
-                            android:text="FROM CONTACT"
+                            android:text="@string/from_contact"
                             android:textColor="@color/green_light"
                             android:textSize="8dp" />
                     </FrameLayout>
@@ -106,14 +106,14 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="@dimen/twenty_dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:text="Phone number"
+                        android:text="@string/tel_number"
                         android:textColor="@color/black_for_glavniy_text"
                         android:textSize="18dp" />
 
@@ -140,7 +140,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
-                        android:hint="Phone Number"
+                        android:hint="@string/enter_phone_number"
                         android:inputType="phone"
                         android:textSize="14sp" />
                 </RelativeLayout>
@@ -156,7 +156,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:text="Value of debt"
+                        android:text="@string/debt_amount"
                         android:textColor="@color/black_for_glavniy_text"
                         android:textSize="18dp" />
 
@@ -192,7 +192,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:layout_toLeftOf="@+id/spBorrowAddPopupValyuta"
-                        android:hint="how much value of debt?"
+                        android:hint="@string/enter_debt_amoount"
                         android:inputType="numberDecimal"
                         android:text=""
                         android:maxLength="13"
@@ -209,7 +209,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:text="Date"
+                        android:text="@string/date"
                         android:textColor="@color/black_for_glavniy_text"
                         android:textSize="18dp" />
 
@@ -238,7 +238,7 @@
                         android:layout_marginRight="6dp"
                         android:layout_toLeftOf="@+id/imageView2"
                         android:focusableInTouchMode="false"
-                        android:hint="when get ?"
+                        android:hint="@string/begin_date"
                         android:textSize="14sp" />
 
                     <ImageView
@@ -259,7 +259,7 @@
                         android:layout_toEndOf="@+id/imageView2"
                         android:layout_toRightOf="@+id/imageView2"
                         android:focusableInTouchMode="false"
-                        android:hint="when repeat?"
+                        android:hint="@string/end_time"
                         android:textSize="14sp" />
 
                 </RelativeLayout>
@@ -275,7 +275,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:text="Transactions"
+                        android:text="@string/transactions"
                         android:textColor="@color/black_for_glavniy_text"
                         android:textSize="18dp" />
 
@@ -305,7 +305,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_marginTop="5dp"
                         android:layout_toLeftOf="@+id/chbAddDebtBorrowCalculate"
-                        android:text="Operations are included in the balance?"
+                        android:text="@string/include_in_balance"
                         android:textColor="@color/black_for_glavniy_text" />
 
                     <CheckBox
@@ -333,7 +333,7 @@
                         android:layout_marginRight="6dp"
                         android:layout_toLeftOf="@+id/spBorrowAddPopupAccount"
                         android:layout_toStartOf="@+id/spBorrowAddPopupAccount"
-                        android:hint="How much you paid?"
+                        android:hint="@string/enter_first_transaction"
                         android:inputType="numberDecimal"
                         android:maxLength="13"
                         android:textSize="14sp" />

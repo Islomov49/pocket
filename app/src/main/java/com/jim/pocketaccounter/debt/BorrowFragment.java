@@ -145,7 +145,7 @@ public class BorrowFragment extends Fragment {
             view.BorrowPersonNumber.setText(person.getPerson().getPhoneNumber());
             view.BorrowPersonDateGet.setText(simpleDateFormat.format(person.getTakenDate().getTime()));
             if (person.getReturnDate() == null) {
-                view.BorrowPersonDateRepeat.setText("no date");
+                view.BorrowPersonDateRepeat.setText(R.string.no_date_selected);
             } else {
                 view.BorrowPersonDateRepeat.setText(simpleDateFormat.format(person.getReturnDate().getTime()));
             }
@@ -247,7 +247,7 @@ public class BorrowFragment extends Fragment {
                                 date.set(arg1, arg2, arg3);
                                 if (date.compareTo(person.getTakenDate()) < 0) {
                                     date.setTime(person.getTakenDate().getTime());
-                                    enterDate.setError("date error");
+                                    enterDate.setError(getString(R.string.incorrect_date));
                                 } else {
                                     enterDate.setError("");
                                 }
@@ -281,14 +281,13 @@ public class BorrowFragment extends Fragment {
                                             - Double.parseDouble(enterPay.getText().toString()) < 0) {
                                         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                                         final String finalAc = ac;
-                                        builder.setMessage(view.BorrowPersonSumm.getText() + " o'rni o'rniga "
-                                                + enterPay.getText() + person.getCurrency().getAbbr() + " to'lashga rozimisiz ?")
-                                                .setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
+                                        builder.setMessage(getResources().getString(R.string.incorrect_pay))
+                                                .setPositiveButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface d, int id) {
                                                         d.dismiss();
                                                         dialog.dismiss();
                                                     }
-                                                }).setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                                                }).setNegativeButton(getString(R.string.ok), new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface d, int id) {
                                                 d.cancel();
                                                 Recking recking = new Recking(format.format(date.getTime()),
@@ -330,7 +329,7 @@ public class BorrowFragment extends Fragment {
                                     }
                                     dialog.dismiss();
                                 } else {
-                                    enterPay.setError("Enter Pay Value");
+                                    enterPay.setError(getString(R.string.enter_pay_value));
                                 }
                             }
                         });

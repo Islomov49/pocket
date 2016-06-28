@@ -125,11 +125,11 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
             public void onClick(View view) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setMessage((getArguments().getInt("type", 0) == 2 && debtBorrow.isCalculate()) ?
-                        "balansdan o'chirishni hohlaysizmi ?" : "Delete ?")
-                        .setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
+                        getString(R.string.debt_delete_meessage) : getString(R.string.delete))
+                        .setPositiveButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                             }
-                        }).setNegativeButton("DELETE", new DialogInterface.OnClickListener() {
+                        }).setNegativeButton(getResources().getString(R.string.delete), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                         manager.getDebtBorrows().remove(debtBorrow);
@@ -149,7 +149,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
         phoneNumber.setText(debtBorrow.getPerson().getPhoneNumber());
         tvInfoDebtBorrowTakeDate.setText(format.format(debtBorrow.getTakenDate().getTime()));
-        calculate.setText(debtBorrow.isCalculate() ? "calculate" : "no calculate");
+        calculate.setText(debtBorrow.isCalculate() ? getString(R.string.calc_in_balance) : getString(R.string.no_calc_in_balance));
         infoFrame.setVisibility(View.GONE);
         view.findViewById(R.id.with_wlyuzik).setVisibility(view.GONE);
         view.findViewById(R.id.infoooc).setOnClickListener(new View.OnClickListener() {
@@ -229,7 +229,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
                 + (mounth != 0 ? mounth + " " + getString(R.string.moth) : "")
                 + (day != 0 ? day + " " + getString(R.string.day) : "");
         if (debtBorrow.getReturnDate() == null) {
-            borrowLeftDate.setText("no date");
+            borrowLeftDate.setText(getResources().getString(R.string.no_date_selected));
         } else {
             borrowLeftDate.setText(sana);
         }
@@ -267,12 +267,12 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
                     payText.setText(getResources().getString(R.string.cancel));
                 } else {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setMessage("O'chirishga tayyormisiz ?")
-                            .setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
+                    builder.setMessage(getString(R.string.delete_question))
+                            .setPositiveButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface d, int id) {
                                     d.dismiss();
                                 }
-                            }).setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                            }).setNegativeButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface d, int id) {
                             for (int i = isCheks.length - 1; i >= 0; i--) {
                                 if (isCheks[i]) {
@@ -358,7 +358,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
                     date.set(arg1, arg2, arg3);
                     if (date.compareTo(debtBorrow.getTakenDate()) < 0) {
                         date.setTime(debtBorrow.getTakenDate().getTime());
-                        enterDate.setError("date error");
+                        enterDate.setError(getResources().getString(R.string.incorrect_date));
                     }
                     enterDate.setText(simpleDateFormat.format(date.getTime()));
                 }
@@ -382,12 +382,11 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
                         if (Double.parseDouble(leftAmount.getText().toString().substring(0, leftAmount.getText().toString().length() - 1))
                                 - Double.parseDouble(enterPay.getText().toString()) < 0) {
                             final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                            builder.setMessage(leftAmount.getText() + " to'lov o'rniga " +
-                                    enterPay.getText() + debtBorrow.getCurrency().getAbbr() + " to'lovga rozimisiz ?")
-                                    .setPositiveButton("CANCEL", new DialogInterface.OnClickListener() {
+                            builder.setMessage(getResources().getString(R.string.incorrect_pay))
+                                    .setPositiveButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                         }
-                                    }).setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                                    }).setNegativeButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface d, int id) {
                                     d.cancel();
                                     peysAdapter.setDataChanged(format.format(date.getTime()), Double.parseDouble(enterPay.getText().toString()),
@@ -402,7 +401,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
                         }
                         dialog.dismiss();
                     } else {
-                        enterPay.setError("Enter Pay Value");
+                        enterPay.setError(getResources().getString(R.string.enter_pay_value));
                     }
                 }
             });
@@ -461,7 +460,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
         }
 
         public void onBindViewHolder(final InfoDebtBorrowFragment.ViewHolder view, final int position) {
-            view.infoDate.setText("Date of Pay: " + list.get(position).getPayDate());
+            view.infoDate.setText(getString(R.string.pay_daet) + list.get(position).getPayDate());
             view.infoSumm.setText((list.get(position).getAmount() == ((int) list.get(position).getAmount())
                     ? ("" + ((int) list.get(position).getAmount())) : ("" + list.get(position).getAmount()))
                     + "" + debtBorrow.getCurrency().getAbbr());
@@ -470,7 +469,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
             } else {
                 for (Account account : manager.getAccounts()) {
                     if (account.getId().matches(list.get(position).getAccountId())) {
-                        view.infoAccount.setText("Via: " + account.getName());
+                        view.infoAccount.setText(getString(R.string.by) + account.getName());
                         break;
                     }
                 }
@@ -485,7 +484,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
                 });
             }
             if (!list.get(position).getComment().matches("")) {
-                view.comment.setText("Comment: " + list.get(position).getComment());
+                view.comment.setText(getResources().getString(R.string.comment)+": " + list.get(position).getComment());
             } else {
                 view.comment.setVisibility(View.GONE);
             }
