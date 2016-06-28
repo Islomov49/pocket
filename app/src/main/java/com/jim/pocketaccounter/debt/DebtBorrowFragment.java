@@ -151,12 +151,12 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
 
         public CharSequence getPageTitle(int position) {
             if (position == BORROW_FRAGMENT) {
-                return "Borrows";
+                return getResources().getString(R.string.borrows);
             }
             if (position == DEBT_FRAGMENT) {
-                return "Debts";
+                return getResources().getString(R.string.debts);
             }
-            return "Archive";
+            return getResources().getString(R.string.archive);
         }
     }
 }

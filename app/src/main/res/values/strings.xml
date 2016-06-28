@@ -963,4 +963,6 @@
     <string name="amount">Сумма:</string>
     <string name="enter_amount">Введите сумму</string>
     <string name="enter_comment">Введите комментарие</string>
+    <string name="borrows">Мне должны</string>
+    <string name="debts">Я должен</string>
 </resources>
