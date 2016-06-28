@@ -1,4 +1,5 @@
 package com.jim.pocketaccounter.helper.record;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import com.jim.pocketaccounter.PocketAccounter;
@@ -32,7 +33,9 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 @SuppressLint("DrawAllocation")
 public class RecordExpanseView extends View implements 	GestureDetector.OnGestureListener {
@@ -242,15 +245,51 @@ public class RecordExpanseView extends View implements 	GestureDetector.OnGestur
 		View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_with_listview, null);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(dialogView);
+		String id = PocketAccounter.financeManager.getExpanses().get(pos).getId();
+		boolean hasAnyRecord = false;
+		Calendar beg = (Calendar) date.clone();
+		beg.set(Calendar.HOUR_OF_DAY, 0);
+		beg.set(Calendar.MINUTE, 0);
+		beg.set(Calendar.SECOND, 0);
+		beg.set(Calendar.MILLISECOND, 0);
+		Calendar end = (Calendar) date.clone();
+		end.set(Calendar.HOUR_OF_DAY, 23);
+		end.set(Calendar.MINUTE, 59);
+		end.set(Calendar.SECOND, 59);
+		end.set(Calendar.MILLISECOND, 59);
+		ArrayList<FinanceRecord> temp = new ArrayList<>();
+		for (int i=0; i<PocketAccounter.financeManager.getRecords().size(); i++) {
+			Calendar day = PocketAccounter.financeManager.getRecords().get(i).getDate();
+			if(beg.compareTo(day) <= 0 && end.compareTo(day) >= 0) {
+				temp.add(PocketAccounter.financeManager.getRecords().get(i));
+			}
+		}
+		for (int i=0; i<temp.size(); i++) {
+			if (temp.get(i).getCategory().getId().matches(id)) {
+				hasAnyRecord = true;
+				break;
+			}
+		}
 		String edit = getContext().getString(R.string.to_edit);
 		String change = getResources().getString(R.string.change);
 		String clear = getResources().getString(R.string.clear);
-		String[] items = new String[3];
-		items[0] = change;
-		items[1] = clear;
-		items[2] = edit;
+		String clearRecords = getContext().getString(R.string.clear_records);
+		ArrayAdapter<String> adapter;
+		if (hasAnyRecord) {
+			String[] items = new String[4];
+			items[0] = change;
+			items[1] = clear;
+			items[2] = edit;
+			items[3] = clearRecords;
+			adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, items);
+		}
+		else {
+			String[] items = new String[2];
+			items[0] = change;
+			items[1] = clear;
+			adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, items);
+		}
 		ListView lvDialog = (ListView) dialogView.findViewById(R.id.lvDialog);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, items);
 		lvDialog.setAdapter(adapter);
 		lvDialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
@@ -269,11 +308,77 @@ public class RecordExpanseView extends View implements 	GestureDetector.OnGestur
 					case 2:
 						openEditDialog(pos);
 						break;
+					case 3:
+						clear(pos);
+						break;
 				}
 				PocketAccounter.PRESSED = false;
 				dialog.dismiss();
 			}
 		});
+		dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+			@Override
+			public void onCancel(DialogInterface dialog) {
+				for (int i=0; i<buttons.size(); i++)
+					buttons.get(i).setPressed(false);
+				PocketAccounter.PRESSED = false;
+				invalidate();
+			}
+		});
+		dialog.show();
+	}
+	private void clear(final int pos) {
+		final Dialog dialog=new Dialog(getContext());
+		View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.warning_dialog, null);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(dialogView);
+		TextView tv = (TextView) dialogView.findViewById(R.id.tvWarningText);
+		String catName = PocketAccounter.financeManager.getExpanses().get(pos).getName();
+		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+		tv.setText("Записи, связанные с категорией "+catName +" будут удалены ("+format.format(date.getTime())+").");
+		final Calendar beg = (Calendar) date.clone();
+		beg.set(Calendar.HOUR_OF_DAY, 0);
+		beg.set(Calendar.MINUTE, 0);
+		beg.set(Calendar.SECOND, 0);
+		beg.set(Calendar.MILLISECOND, 0);
+		final Calendar end = (Calendar) date.clone();
+		end.set(Calendar.HOUR_OF_DAY, 23);
+		end.set(Calendar.MINUTE, 59);
+		end.set(Calendar.SECOND, 59);
+		end.set(Calendar.MILLISECOND, 59);
+		Button btnYes = (Button) dialogView.findViewById(R.id.btnWarningYes);
+		final String id = PocketAccounter.financeManager.getExpanses().get(pos).getId();
+		btnYes.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				for (int i=0; i<PocketAccounter.financeManager.getRecords().size(); i++) {
+					Calendar day = PocketAccounter.financeManager.getRecords().get(i).getDate();
+					if (beg.compareTo(day) <= 0 && end.compareTo(day) >= 0 &&
+							PocketAccounter.financeManager.getRecords().get(i).getCategory().getId().matches(id)) {
+						PocketAccounter.financeManager.getRecords().remove(i);
+						i--;
+					}
+				}
+				PocketAccounter.PRESSED = false;
+				for (int i=0; i<buttons.size(); i++)
+					buttons.get(i).setPressed(false);
+				PocketAccounter.PRESSED = false;
+				invalidate();
+				dialog.dismiss();
+			}
+		});
+		Button btnNo = (Button) dialogView.findViewById(R.id.btnWarningNo);
+		btnNo.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				for (int i=0; i<buttons.size(); i++)
+					buttons.get(i).setPressed(false);
+				PocketAccounter.PRESSED = false;
+				invalidate();
+				dialog.dismiss();
+			}
+		});
+
 		dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
 			@Override
 			public void onCancel(DialogInterface dialog) {

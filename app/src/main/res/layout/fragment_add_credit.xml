@@ -50,7 +50,7 @@
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="what tag you want?"
+                        android:hint="@string/enter_credit_name"
 
                         android:textSize="16sp"
                         android:textColor="@color/black_for_glavniy_text"
@@ -82,7 +82,7 @@
                                 android:layout_height="wrap_content"
                                 android:textSize="18dp"
                                 android:textColor="@color/black_for_glavniy_text"
-                                android:text="Value of credit"
+                                android:text="@string/credit_amount"
                                 android:layout_marginRight="10dp"
                                 />
                             <RelativeLayout
@@ -102,7 +102,7 @@
                                 android:id="@+id/value_credit"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:hint="how much you take?"
+                                android:hint="@string/credit_amount"
                                 android:textSize="14sp"
                                 android:layout_alignParentLeft="true"
                                 android:layout_alignParentStart="true"
@@ -121,8 +121,6 @@
 
                                 ></Spinner>
                         </RelativeLayout>
-
-
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
@@ -133,7 +131,7 @@
                                     android:layout_height="wrap_content"
                                     android:textSize="18dp"
                                     android:textColor="@color/black_for_glavniy_text"
-                                    android:text="Procent"
+                                    android:text="@string/percent"
                                     android:layout_marginRight="10dp"
                                     />
                                 <RelativeLayout
@@ -153,7 +151,7 @@
                                     android:id="@+id/procent_credit"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:hint="how much your credit procent?"
+                                    android:hint="@string/credit_percent"
                                     android:textSize="14sp"
                                     android:layout_alignParentLeft="true"
                                     android:layout_alignParentStart="true"
@@ -163,7 +161,6 @@
                                     android:inputType="numberDecimal"
                                     android:elevation="0dp"
                                     />
-
                                 <Spinner
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
@@ -174,8 +171,6 @@
 
                                     ></Spinner>
                             </RelativeLayout>
-
-
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -186,7 +181,7 @@
                                 android:layout_height="wrap_content"
                                 android:textSize="18dp"
                                 android:textColor="@color/black_for_glavniy_text"
-                                android:text="For period"
+                                android:text="@string/period_of_credit"
                                 android:layout_marginRight="10dp"
                                 />
                             <RelativeLayout
@@ -206,7 +201,7 @@
                                 android:id="@+id/for_period_credit"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:hint="how long time you should pay?"
+                                android:hint="@string/enter_period_of_credit"
                                 android:textSize="14sp"
                                 android:layout_alignParentLeft="true"
                                 android:layout_alignParentStart="true"
@@ -225,9 +220,6 @@
 
                                 ></Spinner>
                         </RelativeLayout>
-
-
-
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -238,7 +230,7 @@
                                 android:layout_height="wrap_content"
                                 android:textSize="18dp"
                                 android:textColor="@color/black_for_glavniy_text"
-                                android:text="Date"
+                                android:text="@string/interval"
                                 android:layout_marginRight="10dp"
                                 />
                             <RelativeLayout
@@ -258,7 +250,7 @@
                                 android:id="@+id/date_pick_edit"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:hint="when you take?"
+                                android:hint="@string/credit_begin_date"
                                 android:focusableInTouchMode="false"
                                 android:textSize="14sp"
                                 android:layout_marginRight="6dp"
@@ -276,7 +268,7 @@
                                 android:id="@+id/date_ends_edit"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:hint="when ends?"
+                                android:hint="@string/credit_return_date"
                                 android:focusableInTouchMode="false"
                                 android:textSize="14sp"
                                 android:layout_marginLeft="6dp"
@@ -284,10 +276,7 @@
                                 android:layout_alignParentEnd="true"
                                 android:layout_toRightOf="@+id/imageView2"
                                 android:layout_toEndOf="@+id/imageView2" />
-
                         </RelativeLayout>
-
-
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
@@ -298,9 +287,8 @@
                                 android:layout_height="wrap_content"
                                 android:textSize="18dp"
                                 android:textColor="@color/black_for_glavniy_text"
-                                android:text="Transactions"
-                                android:layout_marginRight="10dp"
-                                />
+                                android:text="@string/transactions"
+                                android:layout_marginRight="10dp"/>
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -319,7 +307,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Operations are included in the balance?"
+                                android:text="@string/include_credit_in_balance"
                                 android:layout_marginTop="5dp"
                                 android:textColor="@color/black_for_glavniy_text"
                                 android:id="@+id/textView4" />
@@ -334,7 +322,6 @@
                                 android:text=""
                                 android:checked="true"/>
                         </RelativeLayout>
-
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
@@ -342,31 +329,23 @@
                                 android:id="@+id/for_trasaction_credit"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="How much you paid?"
+                                android:hint="Начальная выплата кредита"
                                 android:textSize="14sp"
                                 android:layout_alignParentLeft="true"
                                 android:layout_alignParentStart="true"
                                 android:layout_toLeftOf="@+id/spinner_sceta"
                                 android:layout_toStartOf="@+id/spinner_sceta"
                                 android:layout_marginRight="6dp"
-                                android:inputType="numberDecimal"
-                                />
-
+                                android:inputType="numberDecimal"/>
                             <Spinner
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_alignParentRight="true"
                                 android:layout_alignParentEnd="true"
                                 android:id="@+id/spinner_sceta"
-                                android:layout_marginTop="14dp"
-
-                                ></Spinner>
-
-
+                                android:layout_marginTop="14dp" />
                         </RelativeLayout>
-
                     </LinearLayout>
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

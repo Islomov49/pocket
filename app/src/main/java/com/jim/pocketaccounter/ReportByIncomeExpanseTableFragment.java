@@ -139,8 +139,12 @@ public class ReportByIncomeExpanseTableFragment extends Fragment {
         calculateDatas();
     }
     private void calculateDatas() {
-        long aDay = 1000*60*60*24;
-        long countOfDays = (end.getTimeInMillis()-begin.getTimeInMillis())/aDay;
+        int countOfDays = 0;
+        Calendar beg = (Calendar) begin.clone();
+        while(beg.compareTo(end) <= 0) {
+            countOfDays++;
+            beg.add(Calendar.DAY_OF_MONTH, 1);
+        }
         DecimalFormat format = new DecimalFormat("0.00##");
         String abbr = PocketAccounter.financeManager.getMainCurrency().getAbbr();
         double totalIncome = 0.0, totalExpanse = 0.0, totalProfit = 0.0,

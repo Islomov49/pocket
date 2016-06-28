@@ -1,14 +1,14 @@
 <resources>
-    <string name="app_name">MoneyHolder</string>
+    <string name="app_name">Мои деньги</string>
     <string-array name="drawer_cats">
-        <item>Home</item>
-        <item>Finance</item>
-        <item>Statistics</item>
-        <item>Accounting debt</item>
-        <item>Settings</item>
-        <item>Rate app</item>
-        <item>Share app</item>
-        <item>Write to us</item>
+        <item>Главная</item>
+        <item>Финансы</item>
+        <item>Статистика</item>
+        <item>Учет долгов и кредитов</item>
+        <item>Настройки</item>
+        <item>Оценить приложения</item>
+        <item>Поделиться</item>
+        <item>Отпарвить письмо</item>
     </string-array>
     <string-array name="cat_ids">
         <item>0</item>
@@ -21,9 +21,9 @@
         <item>11</item>
     </string-array>
     <string-array name="statistics_subitems">
-        <item>Report by account</item>
-        <item>Report by income/expanse</item>
-        <item>Report by category</item>
+        <item>Отчет по счетам</item>
+        <item>Отчет по расходам и доходам</item>
+        <item>Отчет по категориям</item>
     </string-array>
     <string-array name="statistics_subitems_icons">
         <item>drawer_currency</item>
@@ -31,9 +31,9 @@
         <item>drawer_account</item>
     </string-array>
     <string-array name="finance_subitems">
-        <item>Currency management</item>
-        <item>Category management</item>
-        <item>Account management</item>
+        <item>Валюты</item>
+        <item>Категории</item>
+        <item>Счета</item>
     </string-array>
     <string-array name="finance_subitem_icons">
         <item>drawer_currency</item>
@@ -41,158 +41,150 @@
         <item>drawer_account</item>
     </string-array>
     <string-array name="debts_subitems">
-        <item>Credit</item>
-        <item>Debts</item>
+        <item>Кредиты</item>
+        <item>Долги</item>
     </string-array>
     <string-array name="debts_subitem_icons">
         <item>drawer_credit</item>
         <item>drawer_debts_debt</item>
     </string-array>
     <string-array name="base_currencies">
-        <item>United States</item>
-        <item>Russia</item>
-        <item>United Kingdom</item>
-        <item>EU</item>
-        <item>Ukraine</item>
-        <item>Afghanistan</item>
-        <item>Albania</item>
-        <item>Algeria</item>
-        <item>Angola</item>
-        <item>Armenia</item>
-        <item>Australia</item>
-        <item>Azerbaijan</item>
-        <item>Bahrain</item>
-        <item>Bangladesh</item>
-        <item>Belarus</item>
-        <item>Bosnia and Herzegovina</item>
-        <item>Brazil</item>
-        <item>Bulgaria</item>
-        <item>China</item>
-        <item>Czech Republic</item>
-        <item>Denmark</item>
-        <item>Egypt</item>
-        <item>Ghana</item>
-        <item>Hungary</item>
-        <item>India</item>
-        <item>Indonesia</item>
-        <item>Iran</item>
-        <item>Iraq</item>
-        <item>Israel</item>
-        <item>Japan</item>
-        <item>Jordan</item>
-        <item>Kazakhstan</item>
-        <item>Korea</item>
-        <item>Kuwait</item>
-        <item>Philippines</item>
-        <item>Poland</item>
-        <item>Qatar</item>
-        <item>Romania</item>
-        <item>Saudi Arabia</item>
-        <item>Switzerland</item>
-        <item>Serbia</item>
-        <item>South Africa</item>
-        <item>Thailand</item>
-        <item>Turkey</item>
+        <item>Доллары</item>
+        <item>Рубль</item>
+        <item>Евро</item>
+        <item>Гривна</item>
+        <item>Фунт стерлингов</item>
+        <item>Лев</item>
+        <item>Тенге</item>
+        <item>Белорусский рубль</item>
+        <item>Армянский драм</item>
+        <item>Шекель</item>
+        <item>Иена</item>
+        <item>Вона</item>
+        <item>Афгани</item>
+        <item>Лек</item>
+        <item>Алжирский динар</item>
+        <item>Кванза</item>
+        <item>Манат</item>
+        <item>Бахрейнский динар</item>
+        <item>Така</item>
+        <item>Марка</item>
+        <item>Реал</item>
+        <item>ЮАНЬ</item>
+        <item>Чешская крона</item>
+        <item>Датская крона</item>
+        <item>Египетский фунт</item>
+        <item>Седи</item>
+        <item>Форинт</item>
+        <item>Индийская рупия</item>
+        <item>Индонезийская рупия</item>
+        <item>Иранский риал</item>
+        <item>Иракский динар</item>
+        <item>Иорданский динар</item>
+        <item>Кувейтский динар</item>
+        <item>Филиппинское песо</item>
+        <item>Злотый</item>
+        <item>Катарский риал</item>
+        <item>Лей</item>
+        <item>Саудовский риял</item>
+        <item>Швейцарский франк</item>
+        <item>Сербский динар</item>
+        <item>Бат</item>
+        <item>Лира</item>
     </string-array>
     <string-array name="base_abbrs">
         <item>$</item>
         <item>₽</item>
-        <item>£</item>
         <item>€</item>
         <item>₴</item>
+        <item>£</item>
+        <item>лв</item>
+        <item>₸</item>
+        <item>Br</item>
+        <item>РА</item>
+        <item>₪</item>
+        <item>¥</item>
+        <item>₩</item>
         <item>؋</item>
         <item>L</item>
-        <item>DZD</item>
+        <item>.د.ج </item>
         <item>Kz</item>
-        <item>֏</item>
-        <item>$</item>
-        <item>₼</item>
-        <item>BD</item>
-        <item>Tk</item>
-        <item>BYR</item>
+        <item>АР</item>
+        <item>.د.ب </item>
+        <item>৳</item>
         <item>KM</item>
-        <item>R$</item>
-        <item>лв</item>
+        <item>$</item>
         <item>¥</item>
         <item>Kč</item>
         <item>kr</item>
-        <item>Pt</item>
-        <item>GH₵</item>
+        <item>.ج.م</item>
+        <item>﷼₵</item>
         <item>Ft</item>
         <item>₹</item>
         <item>Rp</item>
         <item>﷼</item>
-        <item>ع.د</item>
-        <item>₪</item>
-        <item>¥</item>
-        <item>د.ا</item>
-        <item>₸</item>
-        <item>₩</item>
-        <item>د.ك</item>
+        <item>.د.ع</item>
+        <item>.د.إ</item>
+        <item>.د.ك</item>
         <item>₱</item>
         <item>zł</item>
-        <item>ر.ق</item>
-        <item>lei</item>
-        <item>ر.س</item>
-        <item>Fr</item>
+        <item>﷼</item>
+        <item>L</item>
+        <item>﷼</item>
+        <item>₣</item>
         <item>din</item>
-        <item>R</item>
         <item>฿</item>
         <item>₺</item>
     </string-array>
     <string-array name="currency_ids">
-        <item>us</item>
-        <item>rus</item>
-        <item>uk</item>
-        <item>eu</item>
-        <item>ukr</item>
-        <item>afg</item>
-        <item>alb</item>
-        <item>alg</item>
-        <item>ang</item>
-        <item>arm</item>
-        <item>aus</item>
-        <item>aze</item>
-        <item>bah</item>
-        <item>bng</item>
-        <item>bel</item>
-        <item>bnh</item>
-        <item>bra</item>
-        <item>bul</item>
-        <item>cn</item>
-        <item>cz</item>
-        <item>den</item>
-        <item>egy</item>
-        <item>gha</item>
-        <item>hun</item>
-        <item>ind</item>
-        <item>ino</item>
-        <item>irn</item>
-        <item>irq</item>
-        <item>isr</item>
-        <item>jap</item>
-        <item>jor</item>
-        <item>kaz</item>
-        <item>kor</item>
-        <item>kuw</item>
-        <item>phi</item>
-        <item>pol</item>
-        <item>qat</item>
-        <item>rom</item>
-        <item>sar</item>
-        <item>swz</item>
-        <item>ser</item>
-        <item>saf</item>
-        <item>tha</item>
-        <item>tur</item>
+        <item>currency_1</item>
+        <item>currency_2</item>
+        <item>currency_3</item>
+        <item>currency_4</item>
+        <item>currency_5</item>
+        <item>currency_6</item>
+        <item>currency_7</item>
+        <item>currency_8</item>
+        <item>currency_9</item>
+        <item>currency_10</item>
+        <item>currency_11</item>
+        <item>currency_12</item>
+        <item>currency_13</item>
+        <item>currency_14</item>
+        <item>currency_15</item>
+        <item>currency_16</item>
+        <item>currency_17</item>
+        <item>currency_18</item>
+        <item>currency_19</item>
+        <item>currency_20</item>
+        <item>currency_21</item>
+        <item>currency_22</item>
+        <item>currency_23</item>
+        <item>currency_24</item>
+        <item>currency_25</item>
+        <item>currency_26</item>
+        <item>currency_27</item>
+        <item>currency_28</item>
+        <item>currency_29</item>
+        <item>currency_30</item>
+        <item>currency_31</item>
+        <item>currency_32</item>
+        <item>currency_33</item>
+        <item>currency_34</item>
+        <item>currency_35</item>
+        <item>currency_36</item>
+        <item>currency_37</item>
+        <item>currency_38</item>
+        <item>currency_39</item>
+        <item>currency_40</item>
+        <item>currency_41</item>
+        <item>currency_42</item>
     </string-array>
     <string-array name="currency_costs">
         <item>1.0</item>
         <item>65.0</item>
         <item>100.0</item>
         <item>1.1</item>
-        <item>1.0</item>
-        <item>1.0</item>
         <item>1.0</item>
         <item>1.0</item>
         <item>1.0</item>
@@ -457,7 +449,7 @@
     <string name="this_period_ends">This period ends:</string>
     <string name="verall_debt">Оverall amount:</string>
     <string name="in_this_month_should_pay">In this month should pay:</string>
-    <string name="credit_name">Credit name</string>
+    <string name="credit_name">Наименование кредита</string>
     <string name="home">Дом</string>
     <string name="network">Связь</string>
     <string name="clothes">Одежда</string>
@@ -477,7 +469,7 @@
     <string name="years">years</string>
     <string name="days">days</string>
     <string name="ends">Ends</string>
-    <string name="archive">TO ARCHIVE</string>
+    <string name="archive">Архив</string>
     <string name="toritus">How do you understand the credit system is very flexible . A lot of options . Because of this, we have given the solution but this may not be accurate. Whatever it was all exactly Please enter your version of the course has obshim wallet .</string>
     <string-array name="cat_values">
         <item>home</item>
@@ -726,10 +718,10 @@
     <string name="feedback_hint">Input feedback</string>
     <string name="feedback_subject">Subject: </string>
     <string name="feedback_content">Content: </string>
-    <string name="per_day">Per day</string>
-    <string name="per_week">Per week</string>
-    <string name="per_month">Per month</string>
-    <string name="per_year">Per year</string>
+    <string name="per_day">Ежедневно</string>
+    <string name="per_week">Еженедельно</string>
+    <string name="per_month">Ежемесячно</string>
+    <string name="per_year">Ежегодно</string>
     <string name="mont">Month</string>
     <string name="yearr">Year</string>
     <string name="weekk">Week</string>
@@ -748,21 +740,21 @@
     <string name="pay">PAY</string>
     <string name="cancel">CANCEL</string>
     <string name="repaid">Repaid</string>
-    <string name="active">Active</string>
-    <string name="archivee">Archive</string>
+    <string name="active">Активные</string>
+    <string name="archivee">Архив</string>
     <string-array name="months">
-        <item>Yanvar</item>
-        <item>Fevral</item>
-        <item>Mart</item>
-        <item>Aprel</item>
-        <item>May</item>
-        <item>Iyun</item>
-        <item>Iyul</item>
-        <item>Avgust</item>
-        <item>Sentabr</item>
-        <item>Oktabr</item>
-        <item>Noyabr</item>
-        <item>Dekabr</item>
+        <item>Январь</item>
+        <item>Февраль</item>
+        <item>Март</item>
+        <item>Апрель</item>
+        <item>Май</item>
+        <item>Июнь</item>
+        <item>Июль</item>
+        <item>Август</item>
+        <item>Сентябрь</item>
+        <item>Октябрь</item>
+        <item>Ноябрь</item>
+        <item>Декабрь</item>
     </string-array>
     <string name="error">Ошибочное выражение!</string>
     <string-array name="account_names">
@@ -802,26 +794,10 @@
     <string-array name="language_titles">
         <item>РУССКИЙ (RU)</item>
         <item>ENGLISH (EN)</item>
-        <item>DEUTSCH (DE)</item>
-        <item>FRANÇAIS (FR)</item>
-        <item>ESPAÑOL (ES)</item>
-        <item>ITALIANO (IT)</item>
-        <item>中文（繁體)（CN)</item>
-        <item>日本語（JP）</item>
-        <item>한국어(KR)</item>
-        <item>PORTUGUÊS (PT)</item>
     </string-array>
     <string-array name="language_values">
         <item>ru</item>
         <item>en</item>
-        <item>de</item>
-        <item>fr</item>
-        <item>es</item>
-        <item>it</item>
-        <item>zh</item>
-        <item>ja</item>
-        <item>ko</item>
-        <item>pt</item>
     </string-array>
     <string name="choose_language">Select language</string>
     <string name="transfer_data">Transfer balance from last month</string>
@@ -937,4 +913,16 @@
     <string name="report_by_income_expanse">Доходы и расходы</string>
     <string name="report_by_categories">Отчет по категориям</string>
     <string name="to_edit">Редактировать</string>
+    <string name="clear_records">Очистить</string>
+    <string name="enter_credit_name">Введите название кредита</string>
+    <string name="credit_amount">Сумма кредита</string>
+    <string name="percent">Процентная ставка</string>
+    <string name="credit_percent">Процент вашего кредита</string>
+    <string name="period_of_credit">Срок кредитования</string>
+    <string name="enter_period_of_credit">Введите срок кредита</string>
+    <string name="interval">Интервал</string>
+    <string name="credit_begin_date">Начало выплат</string>
+    <string name="credit_return_date">Конец выплат</string>
+    <string name="transactions">Транзакции</string>
+    <string name="include_credit_in_balance">Учитывать кредит в балансе?</string>
 </resources>

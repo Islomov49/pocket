@@ -79,14 +79,13 @@ public class PocketAccounter extends AppCompatActivity {
     private FragmentManager fragmentManager;
     SharedPreferences spref;
     SharedPreferences.Editor ed;
-    private RelativeLayout rlRecordsMain, rlRecordIncomes;
+    private RelativeLayout rlRecordsMain, rlRecordIncomes, rlRecordBalance;
     private TextView tvRecordIncome, tvRecordBalanse, tvRecordExpanse;
     private ImageView ivToolbarMostRight, ivToolbarExcel;
     private RecordExpanseView expanseView;
     private RecordIncomesView incomeView;
     private Calendar date;
     private Spinner spToolbar;
-    private RelativeLayout rlRecordTable;
     SignInGoogleMoneyHold reg;
     boolean downloadnycCanRest=true;
     SyncBase mySync;
@@ -95,7 +94,7 @@ public class PocketAccounter extends AppCompatActivity {
     StorageReference storageRef = storage.getReferenceFromUrl("gs://pocket-accounter.appspot.com");
     DownloadImageTask imagetask;
 
-    public static boolean PRESSED;
+    public static boolean PRESSED = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,8 +138,8 @@ public class PocketAccounter extends AppCompatActivity {
         ivToolbarMostRight = (ImageView) findViewById(R.id.ivToolbarMostRight);
         spToolbar = (Spinner) toolbar.findViewById(R.id.spToolbar);
         ivToolbarExcel = (ImageView) toolbar.findViewById(R.id.ivToolbarExcel);
-        rlRecordTable = (RelativeLayout) findViewById(R.id.rlRecordTable);
-        rlRecordTable.setOnClickListener(new View.OnClickListener() {
+        rlRecordBalance = (RelativeLayout) findViewById(R.id.rlRecordBalance);
+        rlRecordBalance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (PRESSED) return;

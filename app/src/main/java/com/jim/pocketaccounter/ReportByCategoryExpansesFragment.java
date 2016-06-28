@@ -91,7 +91,12 @@ public class ReportByCategoryExpansesFragment extends Fragment implements OnChar
         DecimalFormat decimalFormat = new DecimalFormat("0.00##");
         tvReportByCategoryInfoTotal.setText(decimalFormat.format(row.getTotalAmount())+PocketAccounter.financeManager.getMainCurrency().getAbbr());
         TextView tvReportByCategoryInfoAverage = (TextView) dialogView.findViewById(R.id.tvReportByCategoryInfoAverage);
-        long countOfDays = (end.getTimeInMillis()-begin.getTimeInMillis())/(1000*60*60*24);
+        int countOfDays = 0;
+        Calendar beg = (Calendar) begin.clone();
+        while(beg.compareTo(end) <= 0) {
+            countOfDays++;
+            beg.add(Calendar.DAY_OF_MONTH, 1);
+        }
         double average = row.getTotalAmount()/countOfDays;
         tvReportByCategoryInfoAverage.setText(decimalFormat.format(average));
         DisplayMetrics dm = getResources().getDisplayMetrics();
