@@ -18,18 +18,18 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="@dimen/hundred_and_twenty_dp"
                 android:background="@color/grey_light"
                 android:orientation="horizontal"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp">
+                android:paddingLeft="@dimen/sixteen_dp"
+                android:paddingRight="@dimen/sixteen_dp">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/ivBorrowAddPopup"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_width="@dimen/ninetytwo_dp"
+                    android:layout_height="@dimen/ninetytwo_dp"
+                    android:layout_marginRight="@dimen/ten_dp"
+                    android:layout_marginTop="@dimen/fifteen_dp"
                     app:border_color="@color/green_light_forline"
                     app:border_overlay="true"
                     app:border_width="2px" />
@@ -45,10 +45,10 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
-                        android:layout_marginTop="29dp"
+                        android:layout_marginTop="@dimen/twentynine_dp"
                         android:text="@string/name"
                         android:textColor="#212121"
-                        android:textSize="20sp" />
+                        android:textSize="@dimen/twenty_sp" />
 
                     <EditText
                         android:id="@+id/etBorrowAddPopupName"
@@ -61,7 +61,7 @@
                         android:maxLines="2"
                         android:textColor="@color/black_for_glavniy_text"
                         android:textColorHint="@color/black_for_secondary_text"
-                        android:textSize="16sp"
+                        android:textSize="@dimen/sixteen_dp"
                         android:maxLength="13"
                         />
 
@@ -72,19 +72,19 @@
                         android:layout_alignBottom="@+id/name_text_view"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
-                        android:layout_marginBottom="2dp"
+                        android:layout_marginBottom="@dimen/two_dp"
                         android:background="@drawable/rounded_rectangle_1">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="5dp"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginRight="8dp"
-                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="@dimen/five_dp"
+                            android:layout_marginLeft="@dimen/eight_dp"
+                            android:layout_marginRight="@dimen/eight_dp"
+                            android:layout_marginTop="@dimen/five_dp"
                             android:text="@string/from_contact"
                             android:textColor="@color/green_light"
-                            android:textSize="8dp" />
+                            android:textSize="@dimen/eight_dp" />
                     </FrameLayout>
                 </RelativeLayout>
 
@@ -92,7 +92,7 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="2px"
+                android:layout_height="@dimen/two_dp"
                 android:background="@color/green_light_forline"
                 />
 
@@ -100,8 +100,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp">
+                android:paddingLeft="@dimen/sixteen_dp"
+                android:paddingRight="@dimen/sixteen_dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -112,10 +112,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="@dimen/ten_dp"
                         android:text="@string/tel_number"
                         android:textColor="@color/black_for_glavniy_text"
-                        android:textSize="18dp" />
+                        android:textSize="@dimen/eighteen_sp" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -124,7 +124,7 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="2px"
+                            android:layout_height="@dimen/two_dp"
                             android:background="@color/green_light_forline" />
                     </RelativeLayout>
                 </LinearLayout>
@@ -142,23 +142,23 @@
                         android:layout_alignParentTop="true"
                         android:hint="@string/enter_phone_number"
                         android:inputType="phone"
-                        android:textSize="14sp" />
+                        android:textSize="@dimen/fourteen_sp" />
                 </RelativeLayout>
 
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="@dimen/twenty_dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="@dimen/ten_dp"
                         android:text="@string/debt_amount"
                         android:textColor="@color/black_for_glavniy_text"
-                        android:textSize="18dp" />
+                        android:textSize="@dimen/eighteen_sp" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -167,7 +167,7 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="2px"
+                            android:layout_height="@dimen/two_dp"
                             android:background="@color/green_light_forline" />
                     </RelativeLayout>
                 </LinearLayout>
@@ -182,7 +182,7 @@
                         android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
-                        android:layout_marginTop="14dp" />
+                        android:layout_marginTop="@dimen/fourty_dp" />
 
                     <EditText
                         android:id="@+id/etBorrowAddPopupSumm"
@@ -196,22 +196,22 @@
                         android:inputType="numberDecimal"
                         android:text=""
                         android:maxLength="13"
-                        android:textSize="14sp" />
+                        android:textSize="@dimen/fourteen_sp" />
                 </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="@dimen/sixteen_dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="@dimen/ten_dp"
                         android:text="@string/date"
                         android:textColor="@color/black_for_glavniy_text"
-                        android:textSize="18dp" />
+                        android:textSize="@dimen/eighteen_sp" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -220,7 +220,7 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="2px"
+                            android:layout_height="@dimen/two_dp"
                             android:background="@color/green_light_forline" />
                     </RelativeLayout>
                 </LinearLayout>
@@ -235,18 +235,18 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
-                        android:layout_marginRight="6dp"
+                        android:layout_marginRight="@dimen/six_dp"
                         android:layout_toLeftOf="@+id/imageView2"
                         android:focusableInTouchMode="false"
                         android:hint="@string/begin_date"
-                        android:textSize="14sp" />
+                        android:textSize="@dimen/fourteen_sp" />
 
                     <ImageView
                         android:id="@+id/imageView2"
-                        android:layout_width="30dp"
-                        android:layout_height="40dp"
+                        android:layout_width="@dimen/thirty_dp"
+                        android:layout_height="@dimen/fourty_dp"
                         android:layout_centerHorizontal="true"
-                        android:padding="5dp"
+                        android:padding="@dimen/five_dp"
                         android:src="@drawable/ikitar" />
 
                     <EditText
@@ -255,29 +255,27 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
-                        android:layout_marginLeft="6dp"
+                        android:layout_marginLeft="@dimen/six_dp"
                         android:layout_toEndOf="@+id/imageView2"
                         android:layout_toRightOf="@+id/imageView2"
                         android:focusableInTouchMode="false"
                         android:hint="@string/end_time"
-                        android:textSize="14sp" />
-
+                        android:textSize="@dimen/fourteen_sp" />
                 </RelativeLayout>
-
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="@dimen/sixteen_dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginRight="@dimen/ten_dp"
                         android:text="@string/transactions"
                         android:textColor="@color/black_for_glavniy_text"
-                        android:textSize="18dp" />
+                        android:textSize="@dimen/eighteen_sp" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -286,7 +284,7 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="2px"
+                            android:layout_height="@dimen/two_dp"
                             android:background="@color/green_light_forline" />
                     </RelativeLayout>
                 </LinearLayout>
@@ -294,8 +292,8 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginTop="5dp">
+                    android:layout_marginBottom="@dimen/five_dp"
+                    android:layout_marginTop="@dimen/five_dp">
 
                     <TextView
                         android:id="@+id/textView4"
@@ -303,7 +301,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginTop="@dimen/five_dp"
                         android:layout_toLeftOf="@+id/chbAddDebtBorrowCalculate"
                         android:text="@string/include_in_balance"
                         android:textColor="@color/black_for_glavniy_text" />
@@ -330,13 +328,13 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
-                        android:layout_marginRight="6dp"
+                        android:layout_marginRight="@dimen/six_dp"
                         android:layout_toLeftOf="@+id/spBorrowAddPopupAccount"
                         android:layout_toStartOf="@+id/spBorrowAddPopupAccount"
                         android:hint="@string/enter_first_transaction"
                         android:inputType="numberDecimal"
                         android:maxLength="13"
-                        android:textSize="14sp" />
+                        android:textSize="@dimen/fourteen_sp" />
 
                     <Spinner
                         android:id="@+id/spBorrowAddPopupAccount"
@@ -344,9 +342,8 @@
                         android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentRight="true"
-                        android:layout_marginTop="14dp"
-
-                        ></Spinner>
+                        android:layout_marginTop="@dimen/fourteen_dp"
+                        />
 
 
                 </RelativeLayout>
@@ -356,14 +353,14 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="@dimen/sixteen_dp"
+                android:layout_marginRight="@dimen/sixteen_dp"
+                android:layout_marginTop="@dimen/ten_dp"
                 android:gravity="center">
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="2px"
+                    android:layout_height="@dimen/two_dp"
                     android:background="@color/green_light_forline" />
             </RelativeLayout>
         </LinearLayout>

@@ -36,8 +36,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="2px"
-        android:layout_marginBottom="10dp"
-
+        android:layout_marginBottom="@dimen/ten_dp"
         android:background="@color/green_light_forline"
         />
 
@@ -48,8 +47,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginRight="@dimen/sixteen_dp"
+            android:layout_marginLeft="@dimen/sixteen_dp"
             >
             <LinearLayout
                 android:layout_width="match_parent"
@@ -59,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/pay_date"
-                    android:textSize="16dp"
+                    android:textSize="@dimen/sixteen_sp"
                     android:textColor="@color/black_for_glavniy_text"/>
                 <EditText
                     android:id="@+id/etInfoDebtBorrowDate"
@@ -68,7 +67,7 @@
                     android:hint="when you paid? "
                     android:clickable="false"
                     android:gravity="right"
-                    android:textSize="16dp"
+                    android:textSize="@dimen/sixteen_sp"
                     android:focusableInTouchMode="false"
                     android:textColor="@color/black_for_glavniy_text"/>
             </LinearLayout>
@@ -80,7 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/amount"
-                    android:textSize="16dp"
+                    android:textSize="@dimen/sixteen_sp"
                     android:textColor="@color/black_for_glavniy_text"/>
                 <EditText
                     android:id="@+id/etInfoDebtBorrowPaySumm"
@@ -88,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/enter_amount"
                     android:gravity="right"
-                    android:textSize="16dp"
+                    android:textSize="@dimen/sixteen_sp"
                     android:inputType="numberDecimal"
                     android:textColor="@color/black_for_glavniy_text"
                     android:maxLength="13"
@@ -99,15 +98,15 @@
                 android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="5dp">
+                android:layout_marginBottom="@dimen/ten_dp"
+                android:layout_marginTop="@dimen/five_dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/account"
-                    android:textSize="16dp"
+                    android:textSize="@dimen/sixteen_dp"
                     android:textColor="@color/black_for_glavniy_text"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginRight="@dimen/five_dp"
                     android:id="@+id/tvamoint"
                     />
 
@@ -117,7 +116,7 @@
                     android:layout_height="wrap_content"
                     android:hint="how much you paid? "
                     android:gravity="right"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/sixteen_dp"
                     android:textColor="@color/black_for_glavniy_text"
                     android:layout_toRightOf="@+id/tvamoint"
                     android:layout_alignParentRight="true"
@@ -132,7 +131,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/comment"
-                    android:textSize="16dp"
+                    android:textSize="@dimen/sixteen_sp"
                     android:textColor="@color/black_for_glavniy_text"/>
                 <EditText
                     android:id="@+id/etInfoDebtBorrowPayComment"
@@ -140,7 +139,7 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/enter_comment"
                     android:gravity="right"
-                    android:textSize="16dp"
+                    android:textSize="@dimen/sixteen_sp"
                     android:textColor="@color/black_for_glavniy_text"
                     android:maxLength="13"
                     />
