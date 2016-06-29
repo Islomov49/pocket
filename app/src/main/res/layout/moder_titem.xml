@@ -208,7 +208,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/left"
+                        android:text="@string/left2"
                         android:textSize="@dimen/twelve_sp"
                         android:textColor="@color/for_darker"
                         android:id="@+id/textView2"

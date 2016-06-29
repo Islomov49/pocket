@@ -221,7 +221,7 @@
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/twelve_sp"
                             android:textColor="@color/forlines"
-                            android:text="@string/period_of_credit"
+                            android:text="@string/period_of_credit2"
                             android:id="@+id/intervalCreditInfoText"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentLeft="true"
