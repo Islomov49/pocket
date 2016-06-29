@@ -78,7 +78,7 @@
                     android:layout_height="@dimen/eightyfive_dp"
                     app:border_color="@color/green_light_forline"
                     app:border_overlay="true"
-                    app:border_width="@dimen/two_dp"
+                    app:border_width="2dp"
                     android:src="@drawable/iconforpr"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
@@ -97,7 +97,7 @@
                     android:background="@color/grey_light2">
                     <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/two_dp"
+                        android:layout_height="2dp"
                         android:background="@color/green_light_forline"
                         android:layout_marginBottom="@dimen/ten_dp"
                         android:layout_alignParentRight="true"
@@ -116,7 +116,7 @@
 
                     <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/two_dp"
+                        android:layout_height="2dp"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentLeft="true"
@@ -317,7 +317,7 @@
             <FrameLayout
                 android:id="@+id/with_wlyuzik"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/two_dp"
+                android:layout_height="2dp"
                 android:background="@color/green_light_forline"
                 android:visibility="visible" />
 
@@ -338,6 +338,7 @@
                     android:layout_marginRight="@dimen/twenty_dp"
                     android:gravity="bottom"
                     android:text="@string/transactions"
+                    android:textSize="@dimen/twelve_sp"
                     android:textColor="@color/black_for_secondary_text" />
 
                 <FrameLayout
@@ -388,7 +389,7 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/two_dp"
+                android:layout_height="2dp"
                 android:layout_marginBottom="@dimen/ten_dp"
                 android:layout_marginLeft="@dimen/twelve_sp"
                 android:layout_marginRight="@dimen/twelve_sp"
@@ -422,16 +423,6 @@
             android:layout_marginTop="@dimen/ten_dp"
             >
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/two_dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:background="@color/green_light_forline" />
-
             <TextView
                 android:id="@+id/total_summ_debt_borrow"
                 android:layout_width="wrap_content"
@@ -452,14 +443,22 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginBottom="6dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="6dp"
+                android:layout_marginBottom="@dimen/six_dp"
+                android:layout_marginRight="@dimen/ten_dp"
+                android:layout_marginTop="@dimen/six_dp"
                 android:layout_toLeftOf="@+id/total_summ_debt_borrow"
                 android:gravity="right"
                 android:text="@string/total_pay_sum"
                 android:textColor="@color/black_for_secondary_text"
-                android:textSize="14dp" />
+                android:textSize="@dimen/fourteen_sp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/green_light_forline"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
         </RelativeLayout>
 
     </RelativeLayout>

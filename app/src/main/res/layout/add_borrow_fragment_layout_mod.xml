@@ -92,7 +92,7 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/two_dp"
+                android:layout_height="2dp"
                 android:background="@color/green_light_forline"
                 />
 
@@ -124,7 +124,7 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/two_dp"
+                            android:layout_height="1px"
                             android:background="@color/green_light_forline" />
                     </RelativeLayout>
                 </LinearLayout>
@@ -168,7 +168,7 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/two_dp"
+                            android:layout_height = "1px"
                             android:background="@color/green_light_forline" />
                     </RelativeLayout>
                 </LinearLayout>
@@ -179,11 +179,12 @@
 
                     <Spinner
                         android:id="@+id/spBorrowAddPopupValyuta"
-                        android:layout_width="wrap_content"
+                        android:layout_width="@dimen/fourty_dp"
                         android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
+                        android:layout_centerInParent="true"
                         android:layout_alignParentRight="true"
-                        android:layout_marginTop="@dimen/fourty_dp" />
+                        android:layout_marginTop="@dimen/fourteen_dp"/>
 
                     <EditText
                         android:id="@+id/etBorrowAddPopupSumm"
@@ -221,7 +222,7 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/two_dp"
+                            android:layout_height="2px"
                             android:background="@color/green_light_forline" />
                     </RelativeLayout>
                 </LinearLayout>
@@ -285,7 +286,7 @@
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/two_dp"
+                            android:layout_height="2px"
                             android:background="@color/green_light_forline" />
                     </RelativeLayout>
                 </LinearLayout>
@@ -305,6 +306,7 @@
                         android:layout_marginTop="@dimen/five_dp"
                         android:layout_toLeftOf="@+id/chbAddDebtBorrowCalculate"
                         android:text="@string/include_in_balance"
+                        android:textSize="@dimen/twelve_sp"
                         android:textColor="@color/black_for_glavniy_text" />
 
                     <CheckBox
@@ -361,9 +363,10 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/two_dp"
+                    android:layout_height="2dp"
                     android:background="@color/green_light_forline" />
             </RelativeLayout>
+
         </LinearLayout>
 
     </ScrollView>

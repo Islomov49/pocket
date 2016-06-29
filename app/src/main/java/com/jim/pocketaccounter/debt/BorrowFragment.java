@@ -96,7 +96,10 @@ public class BorrowFragment extends Fragment {
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                debtBorrowFragment.onScrolledList(dy > 0);
+                try {
+                    debtBorrowFragment.onScrolledList(dy > 0);
+                } catch (NullPointerException e) {
+                }
             }
         });
         return view;
@@ -189,7 +192,7 @@ public class BorrowFragment extends Fragment {
                 }
                 if (total >= person.getAmount()) {
                     view.pay.setText(getString(R.string.archive));
-                } else view.pay.setText(getString(R.string.pay));
+                } else view.pay.setText(getString(R.string.payy));
             }
 
             if (person.getPerson().getPhoneNumber().matches("")) {

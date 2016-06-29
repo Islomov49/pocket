@@ -10,6 +10,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:tabBackground="@color/expp"
+        android:fillViewport="true"
+        android:background="#ffffff"
+        android:scrollIndicators="bottom"
+        app:tabGravity="fill"
+        app:tabMode="fixed"
         app:tabIndicatorColor="@color/green_light_forline" />
 
     <android.support.v4.view.ViewPager
@@ -25,9 +30,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_margin="16dp"
+            android:layout_margin="@dimen/sixteen_dp"
             android:src="@drawable/currency_add"
             app:fab_colorNormal="@color/green_light" />
-
 
 </RelativeLayout>

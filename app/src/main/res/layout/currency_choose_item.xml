@@ -8,7 +8,7 @@
         android:id="@+id/chbCurrencyChoose"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/five_dp"
+        android:layout_margin="5dp"
         android:button="@drawable/currency_choose" />
 
     <TextView

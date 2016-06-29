@@ -123,7 +123,8 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
     public void onPageSelected(int position) {
         if (position == 2) {
             archiv.changeList();
-        }
+            fb.setVisibility(View.GONE);
+        } else fb.setVisibility(View.VISIBLE);
     }
 
     @Override

@@ -9,4 +9,5 @@
     android:maxLength="10"
     android:layout_height="wrap_content"
     android:ellipsize="marquee"
+    android:textSize="@dimen/fourteen_sp"
     android:textAlignment="inherit"/>

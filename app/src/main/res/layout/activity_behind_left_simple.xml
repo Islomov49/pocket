@@ -75,38 +75,6 @@
 						android:id="@+id/textView" />
 				</LinearLayout>
 			</RelativeLayout>
-			<RelativeLayout
-				android:layout_width="@dimen/hundred"
-				android:layout_height="@dimen/hundred"
-				android:layout_marginTop="@dimen/one_hundred_fiveteen_dp"
-				android:layout_marginLeft="@dimen/one_hundred_eighty_one_dp">
-				<RelativeLayout
-					android:id="@+id/framee"
-					android:layout_width="@dimen/hundred"
-					android:layout_height="@dimen/hundred">
-					<com.jim.pocketaccounter.helper.FABIcon
-
-						android:layout_width="@dimen/fiftysix_dp"
-						android:layout_height="@dimen/fiftysix_dp"
-						android:id="@+id/fabDrawerNavIcon"
-						android:layout_centerInParent="true"
-						android:layout_marginTop="@dimen/one_hundred_fourty_two_dp"
-						android:layout_marginLeft="@dimen/two_hundred_eight_dp"
-						/>
-				</RelativeLayout>
-
-				<ImageView
-
-					android:id="@+id/iconFrameForAnim"
-					android:layout_centerInParent="true"
-					android:layout_width="@dimen/twentyfour_dp"
-					android:layout_height="@dimen/twentyfour_dp"
-
-					/>
-
-				</RelativeLayout>
-
-
 
 
 	        <LinearLayout
@@ -140,5 +108,35 @@
 	    android:visibility="gone" >
 
 	</LinearLayout>
+
+	<RelativeLayout
+		android:layout_width="@dimen/hundred"
+		android:layout_height="@dimen/hundred"
+		android:layout_marginTop="@dimen/one_hundred_fiveteen_dp"
+		android:layout_marginLeft="@dimen/one_hundred_eighty_one_dp">
+		<RelativeLayout
+			android:id="@+id/framee"
+			android:layout_width="@dimen/hundred"
+			android:layout_height="@dimen/hundred">
+			<com.jim.pocketaccounter.helper.FABIcon
+
+				android:layout_width="@dimen/fiftysix_dp"
+				android:layout_height="@dimen/fiftysix_dp"
+				android:id="@+id/fabDrawerNavIcon"
+				android:layout_centerInParent="true"
+				android:layout_marginTop="@dimen/one_hundred_fourty_two_dp"
+				android:layout_marginLeft="@dimen/two_hundred_eight_dp"
+				/>
+		</RelativeLayout>
+
+		<ImageView
+
+			android:id="@+id/iconFrameForAnim"
+			android:layout_centerInParent="true"
+			android:layout_width="@dimen/twentyfour_dp"
+			android:layout_height="@dimen/twentyfour_dp"
+			/>
+
+	</RelativeLayout>
 	 
 </RelativeLayout>	
