@@ -45,10 +45,6 @@ import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
 
-/**
- * Created by ismoi on 6/15/2016.
- */
-
 public class ReportByAccountFragment extends Fragment implements View.OnClickListener {
     private ImageView ivToolbarMostRight, ivToolbarExcel;
     private Spinner spToolbar;
@@ -80,6 +76,7 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
         ivToolbarExcel = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel);
         ivToolbarExcel.setOnClickListener(this);
         ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
+        ivToolbarMostRight.setVisibility(View.VISIBLE);
         ivToolbarMostRight.setImageResource(R.drawable.ic_filter);
         ivToolbarMostRight.setOnClickListener(this);
         PocketAccounter.toolbar.setTitle("");
@@ -150,16 +147,19 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
     }
 
     void onCreateReportbyAccount(Context context, Calendar begin, Calendar end, Account account, Currency currency) {
-        Log.d("begin", ": " + begin.getTime());
-        Log.d("end", ": " + end.getTime());
-        reportByAccount = new ReportByAccount(getContext(), begin, end, account, currency);
+        reportByAccount = new ReportByAccount(context, begin, end, account, currency);
         sortReportByAccount = reportByAccount.makeAccountReport();
-        Calendar current_begin = null, current_end = null;
+        Calendar current_begin = (Calendar) Calendar.getInstance().clone(), current_end = (Calendar) Calendar.getInstance().clone();
         Collections.sort(sortReportByAccount, new MyComparator());
+        long countOfDays = 0;
         if (sortReportByAccount != null && sortReportByAccount.size() >= 2) {
             current_begin = (Calendar) sortReportByAccount.get(0).getDate().clone();
             current_end = (Calendar) sortReportByAccount.get(sortReportByAccount.size() - 1).getDate().clone();
-        }
+            while (current_begin.getTime().compareTo(current_end.getTime()) <= 0) {
+                countOfDays++;
+                current_begin.add(Calendar.DAY_OF_MONTH, 1);
+            }
+        } else countOfDays = 1;
         if (sortReportByAccount.isEmpty()) {
             tbReportByAccount.setVisibility(View.GONE);
             linLayReportByAccountInfo.setVisibility(View.GONE);
@@ -177,7 +177,6 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
         double totalIncome = 0.0, totalExpanse = 0.0, totalProfit = 0.0, averageProfit = 0.0;
 
         for (int i = 0; i < sortReportByAccount.size(); i++) {
-            totalProfit = totalProfit + sortReportByAccount.get(i).getAmount();
             if (sortReportByAccount.get(i).getType() == 0)
                 totalIncome = totalIncome + sortReportByAccount.get(i).getAmount();
             else
@@ -185,15 +184,8 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
         }
         tbReportByAccount.setDatas(sortReportByAccount);
 
-        long countOfDays = 0;
-
-        while (current_begin.getTime().compareTo(current_end.getTime()) <= 0) {
-            countOfDays++;
-            current_begin.add(Calendar.DAY_OF_MONTH, 1);
-            Log.d("count_of_days", ": " + countOfDays);
-        }
-
         String abbr = PocketAccounter.financeManager.getMainCurrency().getAbbr();
+        totalProfit = totalIncome - totalExpanse;
         averageProfit = totalProfit / countOfDays;
         tvReportbyAccountTotalIncome.setText(getResources().getString(R.string.report_income_expanse_total_income) + decimalFormat.format(totalIncome) + abbr);
         tvReportbyAccountTotalExpanse.setText(getResources().getString(R.string.report_income_expanse_total_expanse) + decimalFormat.format(totalExpanse) + abbr);
@@ -253,7 +245,6 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
                     writableWorkbook.write();
                     writableWorkbook.close();
                     Toast.makeText(getContext(), fname + ": saved...", Toast.LENGTH_SHORT).show();
-                    Log.d("path", "" + fname);
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (WriteException e) {

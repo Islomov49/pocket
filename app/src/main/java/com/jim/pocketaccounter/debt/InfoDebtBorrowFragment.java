@@ -104,7 +104,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
         id = getArguments().getString("id");
         isHaveReking = (FrameLayout) view.findViewById(R.id.ifListHave);
         ((ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight)).setVisibility(View.VISIBLE);
-        ((ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight)).setImageResource(R.drawable.trash);
+        ((ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight)).setImageResource(R.drawable.ic_trash);
         manager = PocketAccounter.financeManager;
         debtBorrow = new DebtBorrow();
         if (manager.getDebtBorrows() != null) {

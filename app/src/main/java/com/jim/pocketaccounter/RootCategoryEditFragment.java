@@ -86,7 +86,6 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 					((PocketAccounter)getContext()).initialize(calendar);
 					((PocketAccounter)getContext()).getSupportFragmentManager().popBackStack();
 				}
-
 			}
 		});
 		ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);

@@ -11,7 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +29,6 @@ import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
 
 public class TableView extends LinearLayout {
     private Bitmap operation;
@@ -194,7 +192,7 @@ public class TableView extends LinearLayout {
                 AccountDataRow row = (AccountDataRow) result.get(position);
                 holder.tvTableFirstCol.setVisibility(GONE);
                 holder.ivTableItem.setVisibility(VISIBLE);
-                if (row.getCategory().getType() == PocketAccounterGeneral.INCOME) {
+                if (row.getType() == PocketAccounterGeneral.INCOME) {
                     operation = BitmapFactory.decodeResource(getResources(), R.drawable.add_green);
                     operation = Bitmap.createScaledBitmap(operation, (int) getResources().getDimension(R.dimen.thirteen_dp), (int) getResources().getDimension(R.dimen.thirteen_dp), true);
                     holder.ivTableItem.setImageBitmap(operation);

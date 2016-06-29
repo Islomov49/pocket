@@ -1,7 +1,6 @@
 package com.jim.pocketaccounter.report;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
@@ -19,10 +18,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-
-/**
- * Created by ismoi on 6/17/2016.
- */
 
 public class ReportByAccount {
     private Context context;
@@ -84,7 +79,6 @@ public class ReportByAccount {
             }
         }
         for (int i = 0; i < debt_borrow.size(); i++) {
-            Log.d("sss", "size: "+account.getId() + " "+debt_borrow.get(i).getAccount());
             if (debt_borrow.get(i).getAccount().getId().matches(account.getId())
                     && currency.getId().matches(debt_borrow.get(i).getCurrency().getId())) {
                 AccountDataRow row = new AccountDataRow();

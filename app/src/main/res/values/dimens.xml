@@ -99,11 +99,6 @@
     <dimen name="ten_sp">10sp</dimen>
     <!-- text sizes end -->
 
-    <dimen name="margin_contetn">10dp</dimen>
-    <dimen name="stroke_width">1sp</dimen>
-    <dimen name="min_height">30dp</dimen>
-    <dimen name="text_height">12sp</dimen>
-    <dimen name="bitmap_size">20dp</dimen>
     <dimen name="one_hundred_fiveteen_dp">115dp</dimen>
     <dimen name="one_hundred_eighty_one_dp">181dp</dimen>
 </resources>
