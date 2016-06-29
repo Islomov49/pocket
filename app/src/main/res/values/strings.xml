@@ -935,6 +935,7 @@
     <string name="enter_phone_number">Введите номер телефона</string>
     <string name="debt_amount">Сумма долга</string>
     <string name="enter_debt_amoount">Введите сумму долга</string>
+    <string name="enter_borrow_amoount">Введите сумму займа</string>
     <string name="begin_date">Начальная дата</string>
     <string name="end_time">Крайный срок</string>
     <string name="include_in_balance">Включить в баланс</string>
@@ -981,7 +982,6 @@
     <string name="payment_balans">"Your payment balance is: "</string>
     <string name="payment_balance2">"\nAre you sure of the fact that you have to pay more than: "</string>
     <string name="total_credit_value">Total credit value:</string>
-    <string name="left">Left:</string>
     <string name="taken_date">Taken date :</string>
     <string name="adding_to_archive">Adding to Archive:</string>
     <string name="should_not_empty">Name should not empty!</string>
@@ -1000,7 +1000,6 @@
     <string name="delete_anyway">DELETE ANYWAY</string>
     <string name="paid_date">Paid date :</string>
     <string name="when_you_paid">when you paid?</string>
-    <string name="amount">Amount :</string>
     <string name="from_account">From account :</string>
     <string name="how_much_you_paid">how much you paid?</string>
     <string name="commentik">Comment :</string>
@@ -1009,10 +1008,8 @@
     <string name="left_amount">Left amount :</string>
     <string name="procent_of_credit">Procent of credit:</string>
     <string name="left_date">Left date :</string>
-    <string name="period_of_credit">Period of credit :</string>
     <string name="taked_credit_time">Taked credit time :</string>
     <string name="in_the_balance">In the balance:</string>
-    <string name="transactions">Transactions</string>
-    <string name="delete">DELETE</string>
     <string name="total_a">Total :</string>
+    <string name="amount_borrow">Сумма займа</string>
 </resources>

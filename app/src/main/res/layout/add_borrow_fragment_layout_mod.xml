@@ -157,6 +157,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/ten_dp"
                         android:text="@string/debt_amount"
+                        android:id="@+id/summ_zayma"
                         android:textColor="@color/black_for_glavniy_text"
                         android:textSize="@dimen/eighteen_sp" />
 

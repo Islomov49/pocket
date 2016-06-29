@@ -136,17 +136,18 @@ public class NotificationManagerCredit {
 
 				to.add(Calendar.DAY_OF_YEAR, -1);
 
-			String msg = context.getString(R.string.payment_ends_for_notify);
+				String msg = context.getString(R.string.payment_ends_for_notify);
 
-			if (to.compareTo(today) > 0) {
-				Intent intent = new Intent(context, AlarmReceiver.class);
-				intent.putExtra("msg", msg);
-				intent.putExtra("title",item.getPerson().getName());
-				intent.putExtra("TIP", AlarmReceiver.TO_DEBT);
-				int _id = rand.nextInt();
-				PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ++count,
-						intent, 0);
-				alarmManager.set(AlarmManager.RTC_WAKEUP, to.getTimeInMillis(), pendingIntent);
+				if (to.compareTo(today) > 0) {
+					Intent intent = new Intent(context, AlarmReceiver.class);
+					intent.putExtra("msg", msg);
+					intent.putExtra("title", item.getPerson().getName());
+					intent.putExtra("TIP", AlarmReceiver.TO_DEBT);
+					int _id = (int) (Math.random() * 10000);
+					PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ++count,
+							intent, 0);
+					alarmManager.set(AlarmManager.RTC_WAKEUP, to.getTimeInMillis(), pendingIntent);
+				}
 			}
 		}
 	}

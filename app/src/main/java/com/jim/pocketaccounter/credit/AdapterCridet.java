@@ -431,7 +431,6 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         int pos=cardDetials.indexOf(current);
                         current.getReckings().add(rec);
                         notifyItemChanged(position);
-                        Log.d(TAG, "onClick: "+current+" "+pos);
                         dialog.dismiss();
                     }
                 }

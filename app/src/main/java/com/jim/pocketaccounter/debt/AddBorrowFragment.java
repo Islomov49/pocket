@@ -38,6 +38,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
@@ -139,7 +140,10 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
         PersonAccount = (Spinner) view.findViewById(R.id.spBorrowAddPopupAccount);
         calculate = (CheckBox) view.findViewById(R.id.chbAddDebtBorrowCalculate);
         getDate = Calendar.getInstance();
-
+        if (TYPE == DebtBorrow.DEBT) {
+            PersonSumm.setHint(getResources().getString(R.string.enter_borrow_amoount));
+            ((TextView) view.findViewById(R.id.summ_zayma)).setText(R.string.amount_borrow);
+        }
         manager = PocketAccounter.financeManager;
 
         PersonAccount.setOnItemSelectedListener(this);
