@@ -18,8 +18,6 @@ import java.util.ArrayList;
 
 
 public class CreditArchiveFragment extends Fragment {
-    ArrayList<CreditDetials> crList;
-    ArrayList<CreditDetials> creditDetialsesList;
     RecyclerView crRV;
     AdapterCridetArchive crAdap;
     Context This;
@@ -28,7 +26,6 @@ public class CreditArchiveFragment extends Fragment {
         svyazForNotifyFromArchAdap=goNotify;
     }
     public CreditArchiveFragment() {
-        // Required empty public constructor
 
     }
     @Override
@@ -48,12 +45,10 @@ public class CreditArchiveFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View V=inflater.inflate(R.layout.fragment_credit, container, false);
         crRV=(RecyclerView) V.findViewById(R.id.my_recycler_view);
         LinearLayoutManager llm = new LinearLayoutManager(This);
         crRV.setLayoutManager(llm);
-       // crList=PocketAccounter.financeManager.getArchiveCredits();
 
         crAdap=new AdapterCridetArchive( This);
         crAdap.setSvyazToAdapter(svyazForNotifyFromArchAdap);

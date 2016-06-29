@@ -2,6 +2,7 @@ package com.jim.pocketaccounter;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,10 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.jim.pocketaccounter.credit.AdapterCridet;
 import com.jim.pocketaccounter.credit.AdapterCridetArchive;
 import com.jim.pocketaccounter.credit.CreditDetials;
+import com.jim.pocketaccounter.credit.LinearManagerWithOutEx;
 import com.jim.pocketaccounter.credit.ReckingCredit;
 import com.jim.pocketaccounter.finance.FinanceManager;
 import com.melnykov.fab.FloatingActionButton;
@@ -30,13 +33,13 @@ public class CreditFragment extends Fragment {
     Context This;
     CreditTabLay.SvyazkaFragmentov svyaz;
     private FinanceManager financeManager;
+    private CreditTabLay creditTabLay;
 
     public AdapterCridetArchive.GoCredFragForNotify getInterfaceNotify(){
         return new AdapterCridetArchive.GoCredFragForNotify() {
             @Override
             public void notifyCredFrag() {
                 crAdap.notifyDataSetChanged();
-                Log.d("svyazKELDI", "notifyCredFrag");
 
             }
         };
@@ -75,25 +78,37 @@ public class CreditFragment extends Fragment {
         ImageView ivToolbarMostRight = (ImageView) toolbarik.findViewById(R.id.ivToolbarMostRight);
         ivToolbarMostRight.setImageResource(R.drawable.ic_delete_black_18dp);
         ivToolbarMostRight.setVisibility(View.GONE);
-        toolbarik.setTitle("Credit managment");
+        toolbarik.setTitle(R.string.cred_managment);
         toolbarik.setSubtitle("");
         toolbarik.findViewById(R.id.spToolbar).setVisibility(View.GONE);
 
         View V=inflater.inflate(R.layout.fragment_credit, container, false);
         financeManager = PocketAccounter.financeManager;
         crRV=(RecyclerView) V.findViewById(R.id.my_recycler_view);
-        LinearLayoutManager llm = new LinearLayoutManager(This);
+        LinearManagerWithOutEx llm = new LinearManagerWithOutEx(This);
         crRV.setLayoutManager(llm);
 
         crAdap=new AdapterCridet(This,svyaz);
         crRV.setAdapter(crAdap);
 
+        crRV.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
 
-
-
-
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                creditTabLay.onScrolledList(dy > 0);
+            }
+        });
         return V;
     }
+
+    public void setCreditTabLay (CreditTabLay creditTabLay) {
+        this.creditTabLay = creditTabLay;
+    }
+
     public void openFragment(Fragment fragment,String tag) {
         if (fragment != null) {
             if(tag.matches("Addcredit"))
@@ -105,7 +120,6 @@ public class CreditFragment extends Fragment {
 
                     @Override
                     public void canceledAdding() {
-                        //some think when canceled
                     }
                 });
             final android.support.v4.app.FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(tag).setTransition(android.support.v4.app.FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
@@ -114,23 +128,34 @@ public class CreditFragment extends Fragment {
         }
     }
     public void updateToFirst(){
-        // crList.add(0,creditDetialsesList.get(0));
-       // crList=PocketAccounter.financeManager.getCredits();
-        crAdap.notifyItemInserted(0);
-        // financeManager.setCredits(crList);
-        crRV.scrollToPosition(0);
-    }
-    public void updateList(){
-        //   crList.clear();
-      /* creditDetialsesList=PocketAccounter.financeManager.getCredits();
-        for (CreditDetials temp:creditDetialsesList){
-            crList.add(temp);
-        }*/
-        crList=PocketAccounter.financeManager.getCredits();
-        crAdap.notifyDataSetChanged();
-        Log.d("objectTest","LIST FARMENT :"+crList);
+
+        try{
+            (new Handler()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    crAdap.notifyItemInserted(0);
+                }
+            }, 50);
+
+            try {
+                (new Handler()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        crRV.scrollToPosition(0);
+                    }
+                }, 100);
+            }
+            catch (Exception o){
+            }
+
+        }
+        catch (Exception o){
+
+        }
+
 
     }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

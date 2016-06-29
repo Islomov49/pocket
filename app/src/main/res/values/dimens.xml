@@ -72,6 +72,7 @@
     <dimen name="eighty_dp">80dp</dimen>
     <dimen name="eightyfive_dp">85dp</dimen>
     <dimen name="ninetytwo_dp">92dp</dimen>
+    <dimen name="hundred">110dp</dimen>
     <dimen name="hundred_and_ten_dp">110dp</dimen>
     <dimen name="hundred_and_twenty_dp">120dp</dimen>
     <dimen name="hunder_and_fourty_dp">140dp</dimen>
@@ -91,7 +92,9 @@
     <dimen name="twenty_sp">20sp</dimen>
     <dimen name="twentytwo_sp">22sp</dimen>
     <dimen name="twentyfour_sp">24sp</dimen>
+    <dimen name="twentyfive_sp">24sp</dimen>
     <dimen name="twentysix_sp">26sp</dimen>
+    <dimen name="thirty_sp">30sp</dimen>
     <dimen name="twelve_sp">12sp</dimen>
     <dimen name="ten_sp">10sp</dimen>
     <!-- text sizes end -->
@@ -101,4 +104,6 @@
     <dimen name="min_height">30dp</dimen>
     <dimen name="text_height">12sp</dimen>
     <dimen name="bitmap_size">20dp</dimen>
+    <dimen name="one_hundred_fiveteen_dp">115dp</dimen>
+    <dimen name="one_hundred_eighty_one_dp">181dp</dimen>
 </resources>

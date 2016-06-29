@@ -5,24 +5,16 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
-import android.text.Selection;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -34,12 +26,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.jim.pocketaccounter.credit.CreditDetials;
 import com.jim.pocketaccounter.credit.ReckingCredit;
-import com.jim.pocketaccounter.debt.PockerTag;
-import com.jim.pocketaccounter.debt.Recking;
 import com.jim.pocketaccounter.finance.Account;
 import com.jim.pocketaccounter.finance.Currency;
 import com.jim.pocketaccounter.finance.FinanceManager;
@@ -52,7 +41,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import static android.R.id.selectedIcon;
 
 
 public class AddCreditFragment extends Fragment {
@@ -74,9 +62,7 @@ public class AddCreditFragment extends Fragment {
     long forMoth=1000L*60L*60L*24L*30L;
     long forWeek=1000L*60L*60L*24L*7L;
     long forYear=1000L*60L*60L*24L*365L;
-    boolean isAv=true;
     ArrayList<Currency> currencies;
-    int isAvInt=0;
     CreditFragment.EventFromAdding eventLis;
     AddCreditFragment ThisFragment;
     ArrayList<CreditDetials> myList;
@@ -99,11 +85,8 @@ public class AddCreditFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View V=inflater.inflate(R.layout.fragment_add_credit, container, false);
         context=getActivity();
-        //   to_open_dialog=false;
-        Log.d("args",argFirst[0]+argFirst[1]+argFirst[2]+"");
         spiner_forValut=(Spinner) V.findViewById(R.id.spinner);
         spiner_procent=(Spinner) V.findViewById(R.id.spinner_procent);
         spinner_peiod=(Spinner) V.findViewById(R.id.spinner_period);
@@ -139,7 +122,6 @@ public class AddCreditFragment extends Fragment {
                     to_open_dialog=true;
 
                 }
-                Log.d("somesome",""+to_open_dialog+" "+nameCred.getText().toString());
             }
         });
 
@@ -150,31 +132,29 @@ public class AddCreditFragment extends Fragment {
         ivToolbarMostRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //name checking
                 boolean isMojno=true;
                 if (nameCred.getText().toString().equals("")){
-                    nameCred.setError("Name should not empty!");
+                    nameCred.setError(getString(R.string.should_not_empty));
                     isMojno=false;
                 }
                 else nameCred.setHintTextColor(ContextCompat.getColor(context,R.color.black_for_secondary_text));
 
-                //value cheking
                 if (valueCred.getText().toString().equals("")){
-                    valueCred.setError("Value should not empty!");
+                    valueCred.setError(getString(R.string.value_shoud_not_empty));
                     isMojno=false;
                 }
 
                 if (procentCred.getText().toString().equals("")){
-                    procentCred.setError("Procent should not empty!");
+                    procentCred.setError(getString(R.string.procent_should_not_empty));
                     isMojno=false;
                 }
 
                 if (periodCred.getText().toString().equals("")){
-                    periodCred.setError("Procent should not empty!");
+                    periodCred.setError(getString(R.string.period_should_not_empty));
                     isMojno=false;
                 }
                 if (firstCred.getText().toString().equals("")){
-                    firstCred.setError("After Period choise geting or last return date!");
+                    firstCred.setError(getString(R.string.after_per_choise));
                     isMojno=false;
                 }
 
@@ -236,7 +216,7 @@ public class AddCreditFragment extends Fragment {
 
                 }
                 else {
-                    periodCred.setError("First enter period of debt!");
+                    periodCred.setError(getString(R.string.first_enter_period));
                 }
             }
         };
@@ -288,7 +268,7 @@ public class AddCreditFragment extends Fragment {
 
                 }
                 else {
-                    periodCred.setError("First enter period of debt!");
+                    periodCred.setError(getString(R.string.first_enter_period));
                 }
 
             }
@@ -333,9 +313,7 @@ public class AddCreditFragment extends Fragment {
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
                     String A=procentCred.getText().toString();
-                    Log.d("someeV",isAvInt+" "+A.length());
                     if(!A.equals("")) {
-                        //ADDING SUFFIX AGAIN
                         if(A.contains("%")){
                             StringBuilder sb = new StringBuilder(A);
                             sb.deleteCharAt(A.indexOf("%"));
@@ -440,7 +418,7 @@ public class AddCreditFragment extends Fragment {
         valyutes_symbols = new String[currencies.size()];
 
         for (int i = 0; i < valyutes.length; i++) {
-            valyutes[i] = currencies.get(i).getName();
+            valyutes[i] = currencies.get(i).getAbbr();
         }
         for (int i = 0; i < valyutes.length; i++) {
             valyutes_symbols[i] = currencies.get(i).getAbbr();
@@ -522,7 +500,8 @@ public class AddCreditFragment extends Fragment {
 
         }
         else {
-            periodCred.setError("First enter period of debt!");
+            periodCred.setError(getString(R.string.first_enter_period));
+
         }
     }
 
@@ -569,7 +548,8 @@ public class AddCreditFragment extends Fragment {
 
         }
         else {
-            periodCred.setError("First enter period of debt!");
+            periodCred.setError(getString(R.string.first_enter_period));
+
         }
     }
     StringBuilder sb;
@@ -662,24 +642,12 @@ public class AddCreditFragment extends Fragment {
                     else {
                         first_pay = new ReckingCredit((new GregorianCalendar(argFirst[0], argFirst[1], argFirst[2])).getTimeInMillis(), Double.parseDouble(transactionCredString),"pustoy",
                                 A1.getMyCredit_id(), getString(R.string.this_first_comment));
-
                     }
                     ArrayList<ReckingCredit> tempik=A1.getReckings();
                     tempik.add(0,first_pay);
                     A1.setReckings(tempik);
                 }
                 myList.add(0,A1);
-
-                Log.d("soemeV",
-                        A1.getCredit_name()+"\n"
-                                +A1.getIcon_ID()+"\n"
-                                +A1.getPeriod_time()+"\n"
-                                +A1.getProcent()+"\n"+
-                                A1.getProcent_interval()+"\n"+
-                                A1.getTake_time().getTimeInMillis()+
-                                "\n"+A1.getValue_of_credit()+"\n"+
-                                A1.getValyute_currency().getName()+
-                                "\n"+A1.getValue_of_credit_with_procent());
                 dialog.dismiss();
                 closeCurrentFragment();
                 onSucsessed=true;
@@ -719,7 +687,6 @@ public class AddCreditFragment extends Fragment {
 
     @Override
     public void onDetach() {
-        Log.d("Detached","true");
         ivToolbarMostRight.setVisibility(View.INVISIBLE);
         if(!onSucsessed)
             eventLis.canceledAdding();

@@ -37,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="2px"
         android:layout_marginBottom="@dimen/ten_dp"
+
         android:background="@color/green_light_forline"
         />
 
@@ -57,14 +58,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/pay_date"
+                    android:text="@string/paid_date"
                     android:textSize="@dimen/sixteen_sp"
                     android:textColor="@color/black_for_glavniy_text"/>
                 <EditText
                     android:id="@+id/etInfoDebtBorrowDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="when you paid? "
+                    android:hint="@string/when_you_paid"
                     android:clickable="false"
                     android:gravity="right"
                     android:textSize="@dimen/sixteen_sp"
@@ -85,9 +86,10 @@
                     android:id="@+id/etInfoDebtBorrowPaySumm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/enter_amount"
+                    android:hint="@string/how_much_you_paid"
                     android:gravity="right"
                     android:textSize="@dimen/sixteen_sp"
+
                     android:inputType="numberDecimal"
                     android:textColor="@color/black_for_glavniy_text"
                     android:maxLength="13"
@@ -103,8 +105,8 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/account"
-                    android:textSize="@dimen/sixteen_dp"
+                    android:text="@string/from_account"
+                    android:textSize="@dimen/sixteen_sp"
                     android:textColor="@color/black_for_glavniy_text"
                     android:layout_marginRight="@dimen/five_dp"
                     android:id="@+id/tvamoint"
@@ -114,9 +116,9 @@
                     android:id="@+id/spInfoDebtBorrowAccount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="how much you paid? "
+                    android:hint="@string/how_much_you_paid"
                     android:gravity="right"
-                    android:textSize="@dimen/sixteen_dp"
+                    android:textSize="@dimen/sixteen_sp"
                     android:textColor="@color/black_for_glavniy_text"
                     android:layout_toRightOf="@+id/tvamoint"
                     android:layout_alignParentRight="true"
@@ -130,18 +132,19 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/comment"
+                    android:text="@string/commentik"
                     android:textSize="@dimen/sixteen_sp"
                     android:textColor="@color/black_for_glavniy_text"/>
                 <EditText
                     android:id="@+id/etInfoDebtBorrowPayComment"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/enter_comment"
+                    android:hint="@string/do_you_want_note"
                     android:gravity="right"
+                    android:maxLength="100"
                     android:textSize="@dimen/sixteen_sp"
                     android:textColor="@color/black_for_glavniy_text"
-                    android:maxLength="13"
+
                     />
             </LinearLayout>
                    </LinearLayout>
@@ -151,7 +154,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="2px"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="@dimen/five_dp"
 
 
         android:background="@color/green_light_forline"/>
@@ -163,26 +166,29 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="This amount will absorb your credit"
-            android:textSize="12dp"
+            android:text="@string/this_amount_will_absorb_your_credit"
+            android:textSize="@dimen/twelve_sp"
             android:textColor="@color/black_for_glavniy_text"
-            android:layout_marginRight="16dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginRight="@dimen/sixteen_dp"
+            android:layout_marginLeft="@dimen/sixteen_dp"
             android:gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/ten_dp"
             />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/always_remember"
-            android:textSize="10sp"
-            android:layout_marginTop="10dp"
+            android:textSize="@dimen/ten_sp"
+            android:layout_marginTop="@dimen/ten_dp"
             android:textColor="@color/black_for_secondary_text"
-            android:layout_marginRight="16dp"
-            android:paddingBottom="30dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginRight="@dimen/sixteen_dp"
+            android:paddingBottom="@dimen/thirty_dp"
+            android:layout_marginLeft="@dimen/sixteen_dp"
             android:gravity="center"
             android:id="@+id/textView12" />
     </LinearLayout>
+
+
+
 </LinearLayout>

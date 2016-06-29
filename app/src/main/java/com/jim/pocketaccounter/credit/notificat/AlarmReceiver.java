@@ -23,33 +23,37 @@ public class AlarmReceiver extends BroadcastReceiver
     @Override
     public void onReceive(Context context, Intent intent)
     {
-        Log.d("AlarmSet","test");
-        long[] vibration = {0, 100, 200, 300, 400};
+
         String message = "";
+        String title="";
+        int which_photo_will_choose=R.drawable.commerce;
+
         int tipFragment=0;
         if (intent != null) {
             message = intent.getExtras().getString("msg");
             tipFragment=intent.getExtras().getInt("TIP");
+            title=intent.getExtras().getString("title");
+
         }
         else
             return;
-        Log.d("AlarmSet","test");
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Class opActivity = PocketAccounter.class;
         Intent resultIntent=new Intent(context, opActivity);
         if(tipFragment==TO_DEBT){
             resultIntent.putExtra("TIP",TO_DEBT);
+            which_photo_will_choose=R.drawable.money_9;
         }
         else if(tipFragment==TO_CRIDET){
             resultIntent.putExtra("TIP",TO_CRIDET);
+            which_photo_will_choose=intent.getExtras().getInt("icon_number");
         }
 
         PendingIntent pIntent=PendingIntent.getActivity(context,0,resultIntent,0);
-        String title = context.getResources().getString(R.string.app_name);
 
         NotificationCompat.Builder notif_builder= new NotificationCompat.Builder(context)
-                .setSmallIcon(R.drawable.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_launcher))
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), which_photo_will_choose))
                 .setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_SOUND )
                 .setContentTitle(title)

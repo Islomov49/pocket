@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="@dimen/thirty_dp"
             android:id="@+id/imageView" />
 
         <LinearLayout
@@ -27,9 +27,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:textSize="24sp"
-                android:paddingRight="16dp"
-                android:paddingLeft="16dp"
+                android:textSize="@dimen/twentyfour_dp"
+                android:paddingRight="@dimen/sixteen_dp"
+                android:paddingLeft="@dimen/sixteen_dp"
                 android:text=""
                 android:textStyle="bold"
                 android:textColor="#414141"
@@ -40,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="3"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/twenty_dp"
                 android:orientation="horizontal"
                 >
                 <FrameLayout
@@ -52,7 +52,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/fourteen_dp"
                    android:text=""
                     android:textColor="#414141"
                     android:gravity="center"/>

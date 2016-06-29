@@ -2,6 +2,7 @@ package com.jim.pocketaccounter.syncbase;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -20,6 +21,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StreamDownloadTask;
 import com.google.firebase.storage.UploadTask;
 import com.jim.pocketaccounter.R;
+import com.jim.pocketaccounter.SettingsActivity;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -54,7 +56,17 @@ public class SyncBase {
         }
     public void uploadBASE(String auth_uid, final ChangeStateLis even){
         if(!isNetworkAvailable()){
-            even.onFailed("NA");
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+            builder.setMessage(R.string.connection_faild)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                            dialog.dismiss();
+                        }
+                    });
+            builder.create().show();
+            even.onFailed("NotNetworkAvailable");
+            return;
         }
         try {
             StorageMetadata metadata = new StorageMetadata.Builder()
@@ -83,6 +95,7 @@ public class SyncBase {
 
     }
    public boolean downloadLast(String auth_uid, final ChangeStateLis even){
+       // TODO tekwirib kor dialog ustma ust bob qomayaptimi
 
        final ProgressDialog A1=new ProgressDialog(context);
        A1.setMessage(context.getString(R.string.please_wait));
@@ -141,6 +154,12 @@ public class SyncBase {
 
     }
     private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+    public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();

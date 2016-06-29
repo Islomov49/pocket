@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/sliding_tabs"
-        android:background="@android:color/white" />
+        android:background="@android:color/white"
+        />
 
     <com.jim.pocketaccounter.helper.FloatingActionButton
         android:id="@+id/fbDebtBorrowFragment"
@@ -29,9 +30,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:background="@color/toolbar_color"
-        app:tabBackground="@color/toolbar_color"
+        app:tabIndicatorColor="@color/green_light_forline"
+        app:tabBackground="@color/expp"
+        android:background="@color/expp"
         app:tabGravity="fill"
-        app:tabIndicatorColor="#414141"
         app:tabMode="fixed" />
 </RelativeLayout>

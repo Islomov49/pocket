@@ -21,20 +21,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/relativprosto"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="10dp"
-                                android:paddingBottom="10dp">
+                android:paddingLeft="@dimen/sixteen_dp"
+                android:paddingRight="@dimen/sixteen_dp"
+                android:paddingTop="@dimen/ten_dp"
+                                android:paddingBottom="@dimen/ten_dp">
                 <TextView
                     android:id="@+id/name_of_credit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="24sp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Credit for Tv For "
+                    android:textSize="@dimen/twentyfour_sp"
+                    android:layout_marginLeft="@dimen/ten_dp"
+                    android:layout_marginTop="@dimen/ten_dp"
                     android:textColor="@color/black_for_glavniy_text"
-                    android:paddingRight="10dp"
+                    android:paddingRight="@dimen/ten_dp"
                     android:layout_toRightOf="@+id/icon_creditt"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
@@ -43,12 +42,12 @@
                     android:id="@+id/left_amuont"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/sixteen_sp"
                     android:layout_below="@+id/name_of_credit"
                     android:textColor="@color/forlines"
-                    android:layout_marginLeft="10dp"
-                    android:text="Left amount :"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginLeft="@dimen/ten_dp"
+                    android:text="@string/left_amount"
+                    android:layout_marginTop="@dimen/two_dp"
                     android:layout_toRightOf="@+id/icon_creditt"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
@@ -57,23 +56,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/left_amuont"
-                    android:text="360$"
-                    android:paddingRight="10dp"
+                    android:paddingRight="@dimen/ten_dp"
 
-                    android:textSize="26sp"
-                    android:layout_marginLeft="10dp"
+                    android:textSize="@dimen/twentysix_sp"
+                    android:layout_marginLeft="@dimen/ten_dp"
                     android:textColor="@color/red"
                     android:layout_toRightOf="@+id/icon_creditt"
                     android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true" />
                 <ImageView
                     android:id="@+id/icon_creditt"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="@dimen/eighty_dp"
+                    android:layout_height="@dimen/eighty_dp"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_alignTop="@+id/name_of_credit"
-                    android:paddingTop="4dp"/>
+                    android:paddingTop="@dimen/four_dp"/>
                     </RelativeLayout>
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -82,13 +80,13 @@
                         <RelativeLayout
                             android:id="@+id/infoooc"
                             android:layout_width="match_parent"
-                            android:layout_height="40dp"
+                            android:layout_height="@dimen/fourty_dp"
                             android:background="@color/grey_light2">
                             <FrameLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="2px"
                                 android:background="@color/green_light_forline"
-                                android:layout_marginBottom="10dp"
+                                android:layout_marginBottom="@dimen/ten_dp"
                                 android:layout_alignParentRight="true"
                                 android:layout_alignParentEnd="true"
                                 android:layout_alignParentLeft="true"
@@ -100,18 +98,18 @@
                                     android:layout_height="wrap_content"
                                     android:text="Information"
                                     android:layout_centerVertical="true"
-                                    android:layout_marginLeft="16dp"
-                                    android:textSize="16sp"
+                                    android:layout_marginLeft="@dimen/sixteen_dp"
+                                    android:textSize="@dimen/sixteen_sp"
                                     android:textColor="@color/black_for_glavniy_text"/>
                             <ImageView
                                 android:id="@+id/wlyuzik_opener"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="@dimen/twenty_dp"
+                                android:layout_height="@dimen/twenty_dp"
                                 android:src="@drawable/infoo"
                                 android:layout_centerVertical="true"
                                 android:layout_alignParentRight="true"
                                 android:layout_alignParentEnd="true"
-                                android:layout_marginRight="16dp"/>
+                                android:layout_marginRight="@dimen/sixteen_dp"/>
                             <FrameLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="2px"
@@ -136,24 +134,23 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
 
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginRight="16dp">
+                            android:layout_marginLeft="@dimen/twenty_dp"
+                            android:layout_marginRight="@dimen/sixteen_dp">
                             <RelativeLayout
 
                                 android:layout_below="@+id/linearforline"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="8dp"
+                                android:layout_marginTop="@dimen/eight_dp"
                                 >
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="12sp"
+                                    android:textSize="@dimen/twelve_sp"
                                     android:textColor="@color/black_for_glavniy_text"
-                                    android:text="15% Per moth"
                                     android:gravity="right"
-                                    android:paddingLeft="10dp"
+                                    android:paddingLeft="@dimen/ten_dp"
                                     android:layout_alignParentTop="true"
                                     android:layout_alignParentRight="true"
                                     android:layout_alignParentEnd="true"
@@ -162,9 +159,9 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="12sp"
+                                    android:textSize="@dimen/twelve_sp"
                                     android:textColor="@color/forlines"
-                                    android:text="Procent of credit:"
+                                    android:text="@string/procent_of_credit"
                                     android:id="@+id/procentCredInfoText"
                                     android:layout_alignParentTop="true"
                                     android:layout_alignParentLeft="true"
@@ -175,16 +172,15 @@
                                 android:layout_below="@+id/linearforline"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp">
+                                android:layout_marginTop="@dimen/four_dp">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="12sp"
+                                    android:textSize="@dimen/twelve_sp"
                                     android:textColor="@color/black_for_glavniy_text"
-                                    android:text="17 days"
                                     android:gravity="right"
-                                    android:paddingLeft="10dp"
+                                    android:paddingLeft="@dimen/ten_dp"
                                     android:layout_alignParentTop="true"
                                     android:layout_alignParentRight="true"
                                     android:layout_alignParentEnd="true"
@@ -193,9 +189,9 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="12sp"
+                                    android:textSize="@dimen/twelve_sp"
                                     android:textColor="@color/forlines"
-                                    android:text="Left date :"
+                                    android:text="@string/left_date"
                                     android:id="@+id/leftDateInfoText"
                                     android:layout_alignParentTop="true"
                                     android:layout_alignParentLeft="true"
@@ -206,16 +202,15 @@
                                 android:layout_below="@+id/linearforline"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp">
+                                android:layout_marginTop="@dimen/four_dp">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="12sp"
+                                    android:textSize="@dimen/twelve_sp"
                                     android:textColor="@color/black_for_glavniy_text"
-                                    android:text="1 year"
                                     android:gravity="right"
-                                    android:paddingLeft="10dp"
+                                    android:paddingLeft="@dimen/ten_dp"
                                     android:layout_alignParentTop="true"
                                     android:layout_alignParentRight="true"
                                     android:layout_alignParentEnd="true"
@@ -224,9 +219,9 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="12sp"
+                                    android:textSize="@dimen/twelve_sp"
                                     android:textColor="@color/forlines"
-                                    android:text="Period of credit :"
+                                    android:text="@string/period_of_credit"
                                     android:id="@+id/intervalCreditInfoText"
                                     android:layout_alignParentTop="true"
                                     android:layout_alignParentLeft="true"
@@ -236,16 +231,15 @@
 
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp">
+                                android:layout_marginTop="@dimen/four_dp">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="12sp"
+                                    android:textSize="@dimen/twelve_sp"
                                     android:textColor="@color/black_for_glavniy_text"
-                                    android:text="01.02.2016"
                                     android:gravity="right"
-                                    android:paddingLeft="10dp"
+                                    android:paddingLeft="@dimen/ten_dp"
                                     android:layout_alignParentTop="true"
                                     android:layout_alignParentRight="true"
                                     android:layout_alignParentEnd="true"
@@ -254,9 +248,9 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="12sp"
+                                    android:textSize="@dimen/twelve_sp"
                                     android:textColor="@color/forlines"
-                                    android:text="Taked credit time :"
+                                    android:text="@string/taked_credit_time"
                                     android:id="@+id/takedtimeInfoText"
                                     android:layout_alignParentTop="true"
                                     android:layout_alignParentLeft="true"
@@ -266,16 +260,16 @@
 
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp">
+                                android:layout_marginTop="@dimen/four_dp">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="12sp"
+                                    android:textSize="@dimen/twelve_sp"
                                     android:textColor="@color/black_for_glavniy_text"
                                     android:text="1200$"
                                     android:gravity="right"
-                                    android:paddingLeft="10dp"
+                                    android:paddingLeft="@dimen/ten_dp"
                                     android:layout_alignParentTop="true"
                                     android:layout_alignParentRight="true"
                                     android:layout_alignParentEnd="true"
@@ -284,7 +278,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="12sp"
+                                    android:textSize="@dimen/twelve_sp"
                                     android:textColor="@color/forlines"
                                     android:text="Taked value :"
                                     android:id="@+id/takedValueInfoText"
@@ -296,16 +290,15 @@
 
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp">
+                                android:layout_marginTop="@dimen/four_dp">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="12sp"
+                                    android:textSize="@dimen/twelve_sp"
                                     android:textColor="@color/black_for_glavniy_text"
-                                    android:text="4000$"
                                     android:gravity="right"
-                                    android:paddingLeft="10dp"
+                                    android:paddingLeft="@dimen/ten_dp"
                                     android:layout_alignParentTop="true"
                                     android:layout_alignParentRight="true"
                                     android:layout_alignParentEnd="true"
@@ -314,7 +307,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="12sp"
+                                    android:textSize="@dimen/twelve_sp"
                                     android:textColor="@color/forlines"
                                     android:text="Total return value :"
                                     android:id="@+id/totalReturnValueText"
@@ -327,17 +320,16 @@
 
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp"
-                                android:layout_marginBottom="8dp">
+                                android:layout_marginTop="@dimen/four_dp"
+                                android:layout_marginBottom="@dimen/eight_dp">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="12sp"
+                                    android:textSize="@dimen/twelve_sp"
                                     android:textColor="@color/black_for_glavniy_text"
-                                    android:text="Calculetes"
                                     android:gravity="right"
-                                    android:paddingLeft="10dp"
+                                    android:paddingLeft="@dimen/ten_dp"
                                     android:layout_alignParentTop="true"
                                     android:layout_alignParentRight="true"
                                     android:layout_alignParentEnd="true"
@@ -346,14 +338,14 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="12sp"
+                                    android:textSize="@dimen/twelve_sp"
                                     android:textColor="@color/forlines"
-                                    android:text="In the balance:"
+                                    android:text="@string/in_the_balance"
                                     android:id="@+id/it_is_include_balance_text"
                                     android:layout_alignParentTop="true"
                                     android:layout_alignParentLeft="true"
                                     android:layout_alignParentStart="true"
-                                    android:layout_marginBottom="8dp"/>
+                                    android:layout_marginBottom="@dimen/eight_dp"/>
 
                             </RelativeLayout>
                         </LinearLayout>
@@ -373,15 +365,15 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="5dp">
+                android:layout_marginLeft="@dimen/twenty_dp"
+                android:layout_marginTop="@dimen/twenty_dp"
+                android:layout_marginBottom="@dimen/five_dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Transactions"
+                    android:text="@string/transactions"
                     android:gravity="bottom"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginRight="@dimen/twenty_dp"
                     android:textColor="@color/black_for_secondary_text"
                     android:layout_alignBottom="@+id/frameLayout3"
                     android:layout_alignParentTop="true"
@@ -391,7 +383,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginRight="@dimen/twenty_dp"
 
                     android:background="@drawable/knopka_zeleniy"
                     android:layout_alignParentRight="true"
@@ -401,13 +393,13 @@
                         android:id="@+id/paybut"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="3dp"
-                        android:layout_marginBottom="3dp"
-                        android:text="PAY"
+                        android:layout_marginRight="@dimen/sixteen_dp"
+                        android:layout_marginLeft="@dimen/sixteen_dp"
+                        android:layout_marginTop="@dimen/three_dp"
+                        android:layout_marginBottom="@dimen/three_dp"
+                        android:text="@string/pay"
                         android:textColor="@color/green_light"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/twelve_sp"
                         />
                 </FrameLayout>
 
@@ -415,7 +407,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginRight="@dimen/ten_dp"
                     android:background="@drawable/knopka_seriy"
                     android:layout_toLeftOf="@+id/frameLayout2"
                     android:layout_toStartOf="@+id/frameLayout2"
@@ -424,37 +416,37 @@
                         android:id="@+id/deleterbut"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="@dimen/ten_dp"
+                        android:layout_marginLeft="@dimen/ten_dp"
                         android:layout_marginTop="3dp"
                         android:layout_marginBottom="3dp"
-                        android:text="DELETE"
+                        android:text="@string/delete"
                         android:textColor="@color/deletecolor"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/twelve_sp"
                         />
                 </FrameLayout>
             </RelativeLayout>
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="2px"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="@dimen/twenty_dp"
+                android:layout_marginRight="@dimen/twenty_dp"
                 android:background="@color/green_light_forline"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="@dimen/ten_dp"/>
             <FrameLayout
                 android:id="@+id/ifListHave"
                 android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="2px"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_marginLeft="@dimen/twenty_dp"
+                android:layout_marginRight="@dimen/twenty_dp"
                 android:background="@color/green_light_forline"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="@dimen/five_dp"
                 />
 
             <android.support.v7.widget.RecyclerView
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginRight="@dimen/twenty_dp"
+                android:layout_marginLeft="@dimen/twenty_dp"
                 android:id="@+id/recycler_for_transactions"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -466,7 +458,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/ten_dp"
 
             >
             <FrameLayout
@@ -482,10 +474,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1840$"
                 android:textColor="@color/green_light"
-                android:textSize="14dp"
-                android:layout_marginRight="20dp"
+                android:textSize="@dimen/fourteen_sp"
+                android:layout_marginRight="@dimen/twenty_dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:id="@+id/total_transaction"
@@ -494,13 +485,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14dp"
+                android:textSize="@dimen/fourteen_sp"
                 android:gravity="right"
                 android:textColor="@color/black_for_secondary_text"
-                android:text="Total :"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="6dp"
-                android:layout_marginBottom="6dp"
+                android:text="@string/total_a"
+                android:layout_marginRight="@dimen/ten_dp"
+                android:layout_marginTop="@dimen/six_dp"
+                android:layout_marginBottom="@dimen/six_dp"
                 android:layout_toLeftOf="@+id/total_transaction"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"

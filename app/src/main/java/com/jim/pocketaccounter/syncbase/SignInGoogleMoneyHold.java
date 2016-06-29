@@ -8,7 +8,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -52,10 +54,8 @@ import java.util.GregorianCalendar;
  */
 
 public class SignInGoogleMoneyHold {
-    FirebaseAuth.AuthStateListener mAuthListener;
     GoogleApiClient mGoogleApiClient;
     private FirebaseAuth mAuth;
-    SyncBase mySync;
     String TAG="MainAct";
     Context context;
     UpdateSucsess succsesEvent;
@@ -67,18 +67,19 @@ public class SignInGoogleMoneyHold {
         public void updateToFailed();
 
     }
-    public SignInGoogleMoneyHold(Context con,UpdateSucsess succsesEvent){
+    public SignInGoogleMoneyHold(Context con,UpdateSucsess succsesEventik){
         context=con;
         spref=con.getSharedPreferences("infoFirst",con.MODE_PRIVATE);
         ed=spref.edit();
 
+        this.succsesEvent=succsesEventik;
+
         GoogleApiClient.OnConnectionFailedListener conFaild=new GoogleApiClient.OnConnectionFailedListener() {
             @Override
             public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-//                Log.d(TAG,connectionResult.getErrorMessage());
+                succsesEvent.updateToFailed();
             }
         };
-        this.succsesEvent=succsesEvent;
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(context.getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -89,78 +90,92 @@ public class SignInGoogleMoneyHold {
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
-        mAuthListener= new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
 
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
-
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-            }};
         mAuth=FirebaseAuth.getInstance();
     }
     public static final String DATA_BASE="PocketAccounterDatabase.db";
     public static final int RC_SIGN_IN=10011;
 
     public void regitUser(){
-   Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        if(!SyncBase.isNetworkAvailable(context)){
+            final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+            builder.setMessage(R.string.connection_faild)
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                            dialog.dismiss();
+                        }
+                    });
+            builder.create().show();
+            return;
+        }
+
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         ((PocketAccounter)context).startActivityForResult(signInIntent, RC_SIGN_IN);
 
     }
     public void regitRequstGet(Intent data){
-        showProgressDialog();
+
+
+
         GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
         Log.d(TAG,data.toString());
 
         if (result.isSuccess()) {
-
-            // Google Sign In was successful, authenticate with Firebase
+            showProgressDialog();
             GoogleSignInAccount account = result.getSignInAccount();
             Log.d(TAG,account.getDisplayName());
-           if(account.getPhotoUrl()!=null)
+            if(account.getPhotoUrl()!=null)
             Log.d(TAG,account.getPhotoUrl().toString());
             Log.d(TAG,account.getEmail());
             firebaseAuthWithGoogle(account);
             ed.putBoolean("FIRSTSYNC",false);
             ed.commit();
         } else {
-            Log.d("FIREBSEE", "Failed GOOGLE");
+            hideProgressDialog();
             succsesEvent.updateToFailed();
+
         }
     }
     public void revokeAccess() {
-        // Firebase sign out
-        mAuth.signOut();
 
-        // Google revoke access
-        Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient).setResultCallback(
-                new ResultCallback<Status>() {
-                    @Override
-                    public void onResult(@NonNull Status status) {
+         mAuth.signOut();
 
-                        Log.d(TAG, "Revoke");
+            mGoogleApiClient.connect();
+            mGoogleApiClient.registerConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
+                @Override
+                public void onConnected(@Nullable Bundle bundle) {
+
+                    FirebaseAuth.getInstance().signOut();
+                    if(mGoogleApiClient.isConnected()) {
+                        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
+                            @Override
+                            public void onResult(@NonNull Status status) {
+                                 if (status.isSuccess()) {
+                                        }
+                            }
+                        });
                     }
-                });
+                }
+
+                @Override
+                public void onConnectionSuspended(int i) {
+
+                }
+            });
     }
 
 
 
     public void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
 
-        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(((PocketAccounter)context ), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
 
                         if (!task.isSuccessful()) {
-                            Log.w(TAG, "signInWithCredential", task.getException());
                             succsesEvent.updateToFailed();
                         }
                         else {
@@ -220,72 +235,7 @@ public class SignInGoogleMoneyHold {
         dialog.getWindow().setLayout(7 * width / 8, RelativeLayout.LayoutParams.WRAP_CONTENT);
         dialog.show();
     }
-    //download
-    /*
-          final FirebaseUser userik=FirebaseAuth.getInstance().getCurrentUser();
 
-                        showProgressDialog();
-                        mySync.meta_Message(userik.getUid(), new SyncBase.ChangeStateLisMETA() {
-                            @Override
-                            public void onSuccses(final long inFormat) {
-
-                                Date datee=new Date();
-                                datee.setTime(inFormat);
-                               // ((TextView)findViewById(R.id.userStatus)).setText("META DATA GET");
-                                Log.d(TAG,"META DATA GET");
-                               // hideProgressDialog();
-                                final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(PocketAccounter.this);
-                                builder.setMessage("WONT YOU SYNC DATA FROM DATE :" + (new SimpleDateFormat("dd-MM-yyyy kk:mm")).format(datee))
-                                        .setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int id) {
-                                             //   showProgressDialog();
-                                                mySync.downloadLast(userik.getUid(), new SyncBase.ChangeStateLis() {
-                                                    @Override
-                                                    public void onSuccses() {
-                                                        runOnUiThread(new Runnable() {
-                                                            @Override
-                                                            public void run() {
-                                                              Log.d(TAG,"CHANGED SUCCESFULL!!! )))");
-//stuff that updates ui
-                                                                hideProgressDialog();
-
-                                                           //     ((TextView)findViewById(R.id.userStatus)).setText("ROLLBACKED ");
-
-                                                        //        readFromDatabase();
-                                                            }
-                                                        });
-
-                                                    }
-
-                                                    @Override
-                                                    public void onFailed(Exception e) {
-                                                    //    ((TextView)findViewById(R.id.userStatus)).setText("ROLLBACKED FAILED");
-
-                                                    }
-                                                });
-                                            }
-                                        }) .setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        dialog.cancel();
-                                    }
-                                });
-
-
-                                builder.create().show();
-
-                                Log.d("SyncListen",(new SimpleDateFormat("dd-MM-yyyy kk:mm")).format(datee));
-
-
-
-                            }
-
-                            @Override
-                            public void onFailed(Exception e) {
-
-                            }
-                        });
-
-     */
 
 
 }

@@ -47,7 +47,7 @@ public class InfoCreditFragment extends Fragment {
     FrameLayout ifHaveItem;
     RecyclerView tranact_recyc;
     CreditDetials currentCredit;
-    boolean toArcive = false;
+    boolean toArcive=false;
     TextView myCreditName;
     TextView myLefAmount;
     TextView myProcent;
@@ -60,24 +60,20 @@ public class InfoCreditFragment extends Fragment {
     TextView calculeted;
     ImageView icon_credit;
     ConWithFragments A1;
-    boolean payKey = true;
     PaysCreditAdapter adapRecyc;
     ArrayList<ReckingCredit> rcList;
-    boolean delete_flag = false;
-    int currentPOS = 0;
-    final static long forDay = 1000L * 60L * 60L * 24L;
-    final static long forMoth = 1000L * 60L * 60L * 24L * 30L;
-    final static long forWeek = 1000L * 60L * 60L * 24L * 7L;
-    final static long forYear = 1000L * 60L * 60L * 24L * 365L;
-    final static String CALCULATED = "Calculeted";
-    final static String NOT_CALCULATED = "Not calculeted";
+    boolean delete_flag=false;
+    int currentPOS=0;
+    final static long forDay=1000L*60L*60L*24L;
+    final static long forMoth=1000L*60L*60L*24L*30L;
+    final static long forWeek=1000L*60L*60L*24L*7L;
+    final static long forYear=1000L*60L*60L*24L*365L;
     SimpleDateFormat dateformarter;
     boolean isExpandOpen = false;
     private FinanceManager manager;
     private Context context;
     DecimalFormat formater;
-    CreditDetials eskisi;
-    TextView myPay, myDelete;
+    TextView myPay,myDelete;
 
     private boolean[] isCheks;
 
@@ -106,28 +102,28 @@ public class InfoCreditFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View V = inflater.inflate(R.layout.fragment_info_credit, container, false);
+        View V=inflater.inflate(R.layout.fragment_info_credit, container, false);
         Date dateForSimpleDate = (new Date());
-        expandableBut = (ImageView) V.findViewById(R.id.wlyuzik_opener);
-        expandablePanel = (FrameLayout) V.findViewById(R.id.shlyuzik);
-        expandableLiniya = (FrameLayout) V.findViewById(R.id.with_wlyuzik);
-        ifHaveItem = (FrameLayout) V.findViewById(R.id.ifListHave);
-        myCreditName = (TextView) V.findViewById(R.id.name_of_credit);
-        myLefAmount = (TextView) V.findViewById(R.id.value_credit_all);
-        myProcent = (TextView) V.findViewById(R.id.procentCredInfo);
-        myLefDate = (TextView) V.findViewById(R.id.leftDateInfo);
-        myPeriodOfCredit = (TextView) V.findViewById(R.id.intervalCreditInfo);
-        myTakedCredTime = (TextView) V.findViewById(R.id.takedtimeInfo);
-        myTakedValue = (TextView) V.findViewById(R.id.takedValueInfo);
-        myReturnValue = (TextView) V.findViewById(R.id.totalReturnValueInfo);
-        myTotalPaid = (TextView) V.findViewById(R.id.total_transaction);
-        calculeted = (TextView) V.findViewById(R.id.it_is_include_balance);
-        tranact_recyc = (RecyclerView) V.findViewById(R.id.recycler_for_transactions);
-        icon_credit = (ImageView) V.findViewById(R.id.icon_creditt);
-        rcList = currentCredit.getReckings();
-        adapRecyc = new PaysCreditAdapter(rcList);
-        myPay = (TextView) V.findViewById(R.id.paybut);
-        myDelete = (TextView) V.findViewById(R.id.deleterbut);
+        expandableBut=(ImageView) V.findViewById(R.id.wlyuzik_opener);
+        expandablePanel=(FrameLayout) V.findViewById(R.id.shlyuzik);
+        expandableLiniya=(FrameLayout) V.findViewById(R.id.with_wlyuzik);
+        ifHaveItem=(FrameLayout) V.findViewById(R.id.ifListHave);
+        myCreditName=(TextView) V.findViewById(R.id.name_of_credit);
+        myLefAmount=(TextView) V.findViewById(R.id.value_credit_all);
+        myProcent=(TextView) V.findViewById(R.id.procentCredInfo);
+        myLefDate=(TextView) V.findViewById(R.id.leftDateInfo);
+        myPeriodOfCredit=(TextView) V.findViewById(R.id.intervalCreditInfo);
+        myTakedCredTime=(TextView) V.findViewById(R.id.takedtimeInfo);
+        myTakedValue=(TextView) V.findViewById(R.id.takedValueInfo);
+        myReturnValue=(TextView) V.findViewById(R.id.totalReturnValueInfo);
+        myTotalPaid=(TextView) V.findViewById(R.id.total_transaction);
+        calculeted=(TextView) V.findViewById(R.id.it_is_include_balance);
+        tranact_recyc=(RecyclerView) V.findViewById(R.id.recycler_for_transactions);
+        icon_credit=(ImageView) V.findViewById(R.id.icon_creditt);
+        rcList= currentCredit.getReckings();
+        adapRecyc=new PaysCreditAdapter(rcList);
+        myPay=(TextView)  V.findViewById(R.id.paybut);
+        myDelete=(TextView)  V.findViewById(R.id.deleterbut);
         LinearLayoutManager llm = new LinearLayoutManager(context);
         tranact_recyc.setLayoutManager(llm);
 
@@ -141,13 +137,13 @@ public class InfoCreditFragment extends Fragment {
 
 
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("Do you realize what you want to delete this post? Then you can not restore!")
-                        .setPositiveButton("DELETE ANYWAY", new DialogInterface.OnClickListener() {
+                builder.setMessage(getString(R.string.delete_credit))
+                        .setPositiveButton(getString(R.string.delete_anyway), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialoge, int id) {
                                 A1.delete_item(currentPOS);
                                 getActivity().getSupportFragmentManager().popBackStack();
                             }
-                        }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                        }).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
 
@@ -162,28 +158,35 @@ public class InfoCreditFragment extends Fragment {
         tranact_recyc.setAdapter(adapRecyc);
         if (rcList.size() == 0) {
             ifHaveItem.setVisibility(View.GONE);
-        } else {
+        }else{
             ifHaveItem.setVisibility(View.VISIBLE);
 
         }
-        double total_paid = 0;
-        for (ReckingCredit item : rcList) {
-            total_paid += item.getAmount();
+        double total_paid=0;
+        for(ReckingCredit item:rcList){
+            total_paid+=item.getAmount();
         }
 
         adapRecyc.notifyDataSetChanged();
         V.findViewById(R.id.frameLayout2).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (toArcive && !delete_flag) {
+                if(toArcive&&!delete_flag){
 
                     A1.to_Archive(currentPOS);
-                    ((PocketAccounter) context).getSupportFragmentManager().popBackStack();
-                    Log.d("test11", "WE GO TO ARCHIVE:" + currentCredit);
-                } else if (!delete_flag) {
+                    ((PocketAccounter)context).getSupportFragmentManager().popBackStack ();
+                }
+                else if(!delete_flag)
+                {
                     openDialog();
-                } else {
-                    delete_flag = false;
+                }
+                else if(toArcive&&delete_flag){
+                    delete_flag=false;
+                    myPay.setText(R.string.archive);
+                    adapRecyc.notifyDataSetChanged();
+                }
+                else {
+                    delete_flag=false;
                     myPay.setText(R.string.pay);
                     for (boolean isChek : isCheks) {
                         isChek = false;
@@ -193,76 +196,83 @@ public class InfoCreditFragment extends Fragment {
             }
         });
 
-        myTakedValue.setText(parseToWithoutNull(currentCredit.getValue_of_credit()) + currentCredit.getValyute_currency().getAbbr());
-        myReturnValue.setText(parseToWithoutNull(currentCredit.getValue_of_credit_with_procent()) + currentCredit.getValyute_currency().getAbbr());
+        myTakedValue.setText(parseToWithoutNull(currentCredit.getValue_of_credit())+currentCredit.getValyute_currency().getAbbr());
+        myReturnValue.setText(parseToWithoutNull(currentCredit.getValue_of_credit_with_procent())+currentCredit.getValyute_currency().getAbbr());
         icon_credit.setImageResource(currentCredit.getIcon_ID());
         dateForSimpleDate.setTime(currentCredit.getTake_time().getTimeInMillis());
         myTakedCredTime.setText(dateformarter.format(dateForSimpleDate));
-        calculeted.setText((currentCredit.isKey_for_include()) ? CALCULATED : NOT_CALCULATED);
         myCreditName.setText(currentCredit.getCredit_name());
+        calculeted.setText((currentCredit.isKey_for_include())?getString(R.string.calculaed):getString(R.string.not_calc));
 
-        myTotalPaid.setText(parseToWithoutNull(total_paid) + currentCredit.getValyute_currency().getAbbr());
-        if (currentCredit.getValue_of_credit_with_procent() - total_paid <= 0) {
+        myTotalPaid.setText(parseToWithoutNull(total_paid)+currentCredit.getValyute_currency().getAbbr());
+        if(currentCredit.getValue_of_credit_with_procent()-total_paid<=0){
             myLefAmount.setText(getString(R.string.repaid));
-            toArcive = true;
+            toArcive=true;
             myPay.setText(getString(R.string.archive));
         } else
-            myLefAmount.setText(parseToWithoutNull(currentCredit.getValue_of_credit_with_procent() - total_paid) + currentCredit.getValyute_currency().getAbbr());
+            myLefAmount.setText(parseToWithoutNull(currentCredit.getValue_of_credit_with_procent()-total_paid)+currentCredit.getValyute_currency().getAbbr());
 
-        String suffix = "";
-        if (currentCredit.getProcent_interval() == forDay) {
-            suffix = getString(R.string.per_day);
-        } else if (currentCredit.getProcent_interval() == forWeek) {
-            suffix = getString(R.string.per_week);
-        } else if (currentCredit.getProcent_interval() == forMoth) {
-            suffix = getString(R.string.per_month);
-        } else {
-            suffix = getString(R.string.per_year);
+        String suffix="";
+        if(currentCredit.getProcent_interval()==forDay){
+            suffix=getString(R.string.per_day);
+        }
+        else if(currentCredit.getProcent_interval()==forWeek){
+            suffix=getString(R.string.per_week);
+        }
+        else if(currentCredit.getProcent_interval()==forMoth){
+            suffix=getString(R.string.per_month);
+        }
+        else {
+            suffix=getString(R.string.per_year);
         }
 
-        myProcent.setText(parseToWithoutNull(currentCredit.getProcent()) + "%" + " " + suffix);
+        myProcent.setText(parseToWithoutNull(currentCredit.getProcent())+"%"+" "+suffix);
         V.findViewById(R.id.frameLayout3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (delete_flag) {
+                if(delete_flag){
                     delete_checked_items();
-                } else {
-                    delete_flag = true;
+
+                }
+                else{
+                    delete_flag=true;
                     adapRecyc.notifyDataSetChanged();
                     myPay.setText(getString(R.string.cancel));
-                    //myDelete.setTextColor(getActivity().getColor(R.color.red));
                 }
             }
         });
 
-        Calendar to = (Calendar) currentCredit.getTake_time().clone();
-        long period_tip = currentCredit.getPeriod_time_tip();
-        long period_voqt = currentCredit.getPeriod_time();
+        Calendar to= (Calendar) currentCredit.getTake_time().clone();
+        long period_tip=currentCredit.getPeriod_time_tip();
+        long period_voqt=currentCredit.getPeriod_time();
 
-        int voqt_soni = (int) (period_voqt / period_tip);
+        int voqt_soni= (int) (period_voqt/period_tip);
 
-        if (period_tip == forDay) {
-            suffix = getString(R.string.dayy);
+        if(period_tip==forDay){
+            suffix=getString(R.string.dayy);
             to.add(Calendar.DAY_OF_YEAR, (int) voqt_soni);
-        } else if (period_tip == forWeek) {
-            suffix = getString(R.string.weekk);
+        }
+        else if(period_tip==forWeek){
+            suffix=getString(R.string.weekk);
             to.add(Calendar.WEEK_OF_YEAR, (int) voqt_soni);
-        } else if (period_tip == forMoth) {
-            suffix = getString(R.string.mont);
+        }
+        else if(period_tip==forMoth){
+            suffix=getString(R.string.mont);
             to.add(Calendar.MONTH, (int) voqt_soni);
 
-        } else {
-            suffix = getString(R.string.yearr);
+        }
+        else {
+            suffix=getString(R.string.yearr);
             to.add(Calendar.YEAR, (int) voqt_soni);
 
         }
 
-        myPeriodOfCredit.setText(Integer.toString(voqt_soni) + " " + suffix);
+        myPeriodOfCredit.setText(Integer.toString(voqt_soni)+" "+suffix);
 
         V.findViewById(R.id.infoooc).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isExpandOpen) {
+                if(isExpandOpen){
                     expandablePanel.setVisibility(View.GONE);
                     expandableLiniya.setVisibility(View.GONE);
                     expandableBut.setImageResource(R.drawable.infoo);
@@ -271,17 +281,16 @@ public class InfoCreditFragment extends Fragment {
                     expandablePanel.setVisibility(View.VISIBLE);
                     expandableLiniya.setVisibility(View.VISIBLE);
                     expandableBut.setImageResource(R.drawable.pasga_ochil);
-                    isExpandOpen = true;
+                    isExpandOpen=true;
                 }
             }
         });
 
-        long for_compute_interval = currentCredit.getTake_time().getTimeInMillis() + currentCredit.getPeriod_time() - System.currentTimeMillis();
+        long for_compute_interval=currentCredit.getTake_time().getTimeInMillis()+currentCredit.getPeriod_time()-System.currentTimeMillis();
 
-        Date from = new Date();
-        int t[] = getDateDifferenceInDDMMYYYY(from, to.getTime());
-        Log.d("Myday", t[0] + " " + t[1] + " " + t[2]);
-        if (t[0] * t[1] * t[2] < 0 && (t[0] + t[1] + t[2]) != 0) {
+        Date from=new Date();
+        int t[]=getDateDifferenceInDDMMYYYY(from,to.getTime());
+        if(t[0]*t[1]*t[2]<0&&(t[0]+t[1]+t[2])!=0){
             myLefDate.setText(R.string.ends);
             myLefDate.setTextColor(Color.parseColor("#832e1c"));
         } else {
@@ -294,29 +303,32 @@ public class InfoCreditFragment extends Fragment {
                 }
 
             }
-            if (t[1] != 0) {
-                if (!left_date_string.matches("")) {
-                    left_date_string += " ";
+            if(t[1]!=0){
+                if(!left_date_string.matches("")){
+                    left_date_string+=" ";
                 }
-                if (t[1] > 1) {
-                    left_date_string += Integer.toString(t[1]) + " " + getString(R.string.moths);
-                } else {
-                    left_date_string += Integer.toString(t[1]) + " " + getString(R.string.moth);
+                if(t[1]>1){
+                    left_date_string+=Integer.toString(t[1])+" "+getString(R.string.moths);
+                }
+                else{
+                    left_date_string+=Integer.toString(t[1])+" "+getString(R.string.moth);
                 }
             }
-            if (t[2] != 0) {
-                if (!left_date_string.matches("")) {
-                    left_date_string += " ";
+            if(t[2]!=0){
+                if(!left_date_string.matches("")){
+                    left_date_string+=" ";
                 }
-                if (t[2] > 1) {
-                    left_date_string += Integer.toString(t[2]) + " " + getString(R.string.days);
+                if(t[2]>1){
+                    left_date_string+=Integer.toString(t[2])+" "+getString(R.string.days);
 
-                } else {
-                    left_date_string += Integer.toString(t[2]) + " " + getString(R.string.day);
+                }
+                else{
+                    left_date_string+=Integer.toString(t[2])+" "+getString(R.string.day);
                 }
             }
             myLefDate.setText(left_date_string);
         }
+
 
 
         V.findViewById(R.id.pustooyy).setOnClickListener(new View.OnClickListener() {
@@ -364,7 +376,7 @@ public class InfoCreditFragment extends Fragment {
         }
 
         year = toDate.get(Calendar.YEAR) - (fromDate.get(Calendar.YEAR) + increment);
-        return new int[]{year, month, day};
+        return   new int[]{year, month, day};
     }
 
     public interface ConWithFragments {
@@ -433,32 +445,32 @@ public class InfoCreditFragment extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String amount = enterPay.getText().toString();
-                double total_paid = 0;
-                for (ReckingCredit item : rcList)
-                    total_paid += item.getAmount();
-                if (!amount.matches("")) {
-                    if (Double.parseDouble(amount) > currentCredit.getValue_of_credit_with_procent() - total_paid) {
+
+                final String amount=enterPay.getText().toString();
+                double total_paid=0;
+                for(ReckingCredit item:rcList)
+                    total_paid+=item.getAmount();
+                if(!amount.matches("")){
+                    if(Double.parseDouble(amount)>currentCredit.getValue_of_credit_with_procent()-total_paid){
 
                         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                        builder.setMessage("Your payment balance is " + parseToWithoutNull(currentCredit.getValue_of_credit_with_procent() - total_paid) +
-                                currentCredit.getValyute_currency().getAbbr() + "." + " Are you sure of the fact that you have to pay more than " +
-                                parseToWithoutNull(Double.parseDouble(amount) - (currentCredit.getValue_of_credit_with_procent() - total_paid)) +
-                                currentCredit.getValyute_currency().getAbbr() + " ?")
-                                .setPositiveButton("I'm sure", new DialogInterface.OnClickListener() {
+                        builder.setMessage(context.getString(R.string.payment_balans)+parseToWithoutNull(currentCredit.getValue_of_credit_with_procent()-total_paid)+
+                                currentCredit.getValyute_currency().getAbbr()+"."+context.getString(R.string.payment_balance2)+
+                                parseToWithoutNull(Double.parseDouble(amount)-(currentCredit.getValue_of_credit_with_procent()-total_paid))+
+                                currentCredit.getValyute_currency().getAbbr())
+                                .setPositiveButton(context.getString(R.string.imsure), new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialoge, int id) {
-                                        ReckingCredit rec = null;
-                                        if (!amount.matches("") && currentCredit.isKey_for_include())
-                                            rec = new ReckingCredit(date.getTimeInMillis(), Double.parseDouble(amount), accaunt_AC.get(accountSp.getSelectedItemPosition()).getId(),
-                                                    currentCredit.getMyCredit_id(), comment.getText().toString());
+                                        ReckingCredit rec=null;
+                                        if(!amount.matches("")&&currentCredit.isKey_for_include())
+                                            rec=new ReckingCredit(date.getTimeInMillis(),Double.parseDouble(amount),accaunt_AC.get(accountSp.getSelectedItemPosition()).getId(),
+                                                    currentCredit.getMyCredit_id(),comment.getText().toString());
                                         else
-                                            rec = new ReckingCredit(date.getTimeInMillis(), Double.parseDouble(amount), "",
-                                                    currentCredit.getMyCredit_id(), comment.getText().toString());
+                                            rec=new ReckingCredit(date.getTimeInMillis(),Double.parseDouble(amount),"",
+                                                    currentCredit.getMyCredit_id(),comment.getText().toString());
                                         rcList.add(rec);
                                         currentCredit.setReckings(rcList);
-                                        Log.d("objectTest", "Info Object :" + currentCredit);
-                                        Log.d("objectTest", "Test: " + (new CreditDetials()));
-                                        A1.change_item(currentCredit, currentPOS);
+
+                                        A1.change_item(currentCredit,currentPOS);
                                         updateDate();
                                         isCheks = new boolean[rcList.size()];
                                         for (int i = 0; i < isCheks.length; i++) {
@@ -467,7 +479,7 @@ public class InfoCreditFragment extends Fragment {
                                         Toast.makeText(getContext(), "" + isCheks.length, Toast.LENGTH_SHORT).show();
                                         dialog.dismiss();
                                     }
-                                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                }).setNegativeButton(context.getString(R.string.cancel1), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
                             }
@@ -499,25 +511,25 @@ public class InfoCreditFragment extends Fragment {
         dialog.getWindow().setLayout(7 * width / 8, RelativeLayout.LayoutParams.WRAP_CONTENT);
         dialog.show();
     }
+    public void updateDate(){
 
-    public void updateDate() {
-        double total_paid = 0;
-        for (ReckingCredit item : rcList)
-            total_paid += item.getAmount();
-        if (currentCredit.getValue_of_credit_with_procent() - total_paid <= 0) {
+        double total_paid=0;
+        for(ReckingCredit item:rcList)
+            total_paid+=item.getAmount();
+        if(currentCredit.getValue_of_credit_with_procent()-total_paid<=0){
             myLefAmount.setText(getString(R.string.repaid));
             myPay.setText(getString(R.string.archive));
-            toArcive = true;
-        } else {
-            toArcive = false;
-            myLefAmount.setText(parseToWithoutNull(currentCredit.getValue_of_credit_with_procent() - total_paid) + currentCredit.getValyute_currency().getAbbr());
+            toArcive=true;
         }
-        if (rcList.size() == 0) {
-            ifHaveItem.setVisibility(View.GONE);
-        } else {
-            ifHaveItem.setVisibility(View.VISIBLE);
+        else {
+            toArcive=false;
+            myLefAmount.setText(parseToWithoutNull(currentCredit.getValue_of_credit_with_procent()-total_paid)+currentCredit.getValyute_currency().getAbbr());
         }
-        myTotalPaid.setText(parseToWithoutNull(total_paid) + currentCredit.getValyute_currency().getAbbr());
+        if(rcList.size()==0){
+            ifHaveItem.setVisibility(View.GONE);}
+        else{
+            ifHaveItem.setVisibility(View.VISIBLE);}
+        myTotalPaid.setText(parseToWithoutNull(total_paid)+currentCredit.getValyute_currency().getAbbr());
         //TODO update recycler
     }
 
@@ -533,8 +545,8 @@ public class InfoCreditFragment extends Fragment {
         delete_flag = false;
         if (keyfor) {
             final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setMessage("You accept the deletion of records")
-                    .setPositiveButton("ACCEPT", new DialogInterface.OnClickListener() {
+            builder.setMessage(getString(R.string.accept_delete_reck))
+                    .setPositiveButton(getString(R.string.accept), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             for (int t = isCheks.length - 1; t >= 0; t--) {
                                 if (isCheks[t]) {
@@ -547,9 +559,10 @@ public class InfoCreditFragment extends Fragment {
                                 isCheks[i] = false;
                             }
                         }
-                    }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    }).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     dialog.cancel();
+                    adapRecyc.notifyDataSetChanged();
                     updateDate();
                 }
             });
@@ -561,14 +574,12 @@ public class InfoCreditFragment extends Fragment {
     }
 
     @Override
-    public void onStop() {
-        //   PocketAccounter.financeManager.saveCredits();
+    public void onStop(){
         super.onStop();
     }
 
     @Override
-    public void onDetach() {
-        //   PocketAccounter.financeManager.saveCredits();
+    public void onDetach(){
         super.onDetach();
         ivToolbarMostRight.setVisibility(View.GONE);
     }
@@ -600,11 +611,11 @@ public class InfoCreditFragment extends Fragment {
             } else {
                 view.infoAccount.setVisibility(View.GONE);
             }
-            if (!item.getComment().matches(""))
-                view.comment.setText(getString(R.string.comment) + ": " + item.getComment());
+            if(!item.getComment().matches(""))
+                view.comment.setText(getString(R.string.comment)+": " + item.getComment());
             else
                 view.comment.setVisibility(View.GONE);
-            if (delete_flag) {
+            if(delete_flag){
                 view.forDelete.setVisibility(View.VISIBLE);
                 view.forDelete.setChecked(isCheks[position]);
                 view.glav.setOnClickListener(new View.OnClickListener() {
@@ -643,7 +654,7 @@ public class InfoCreditFragment extends Fragment {
             comment = (TextView) view.findViewById(R.id.comment_trans);
             infoSumm = (TextView) view.findViewById(R.id.paid_value);
             forDelete = (CheckBox) view.findViewById(R.id.for_delete_check_box);
-            glav = view;
+            glav=view;
         }
     }
 }

@@ -11,16 +11,21 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 
 import com.jim.pocketaccounter.credit.AdapterCridetArchive;
 import com.jim.pocketaccounter.helper.FloatingActionButton;
 import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
+
+import java.util.ArrayList;
 
 
 public class CreditTabLay extends Fragment  implements View.OnClickListener, ViewPager.OnPageChangeListener{
     ForFab A1;
     FloatingActionButton fb;
     SvyazkaFragmentov svyaz;
+    private ArrayList<Fragment> list;
+
     public CreditTabLay() {
         // Required empty public constructor
     }
@@ -43,8 +48,14 @@ public class CreditTabLay extends Fragment  implements View.OnClickListener, Vie
             }
         });
         final ViewPager viewPager = (ViewPager) V.findViewById(R.id.viewpager);
+        list = new ArrayList<Fragment>();
+        CreditFragment creditFragment = new CreditFragment();
+        creditFragment.setCreditTabLay(this);
+        CreditArchiveFragment creditArchiveFragment = new CreditArchiveFragment();
+        list.add(creditFragment);
+        list.add(creditArchiveFragment);
         final PagerAdapter adapter = new PagerAdapter
-                (getActivity().getSupportFragmentManager());
+                (getActivity().getSupportFragmentManager(), list);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(this);
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -101,18 +112,33 @@ public class CreditTabLay extends Fragment  implements View.OnClickListener, Vie
     @Override
     public void onClick(View v) {
     }
+
+    private boolean show = false;
+    public void onScrolledList(boolean k) {
+        if (k) {
+            if (!show)
+                fb.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fab_down));
+            show = true;
+        } else {
+            if (show)
+                fb.startAnimation(AnimationUtils.loadAnimation(getContext(), R.anim.fab_up));
+            show = false;
+        }
+    }
+
     AdapterCridetArchive.GoCredFragForNotify svyazForNotifyFromArchAdap;
     public class PagerAdapter extends FragmentStatePagerAdapter {
-
-        public PagerAdapter(FragmentManager fm) {
+        private ArrayList<Fragment> list;
+        public PagerAdapter(FragmentManager fm, ArrayList<Fragment> list) {
             super(fm);
+            this.list = list;
         }
 
         @Override
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    CreditFragment credA=new CreditFragment();
+                    CreditFragment credA= (CreditFragment) list.get(position);
                     A1=credA.getEvent();
                     credA.setSvyaz(new SvyazkaFragmentov() {
                         @Override
@@ -123,7 +149,7 @@ public class CreditTabLay extends Fragment  implements View.OnClickListener, Vie
                     svyazForNotifyFromArchAdap=credA.getInterfaceNotify();
                     return credA;
                 case 1:
-                    CreditArchiveFragment arch=new CreditArchiveFragment();
+                    CreditArchiveFragment arch= (CreditArchiveFragment) list.get(position);
                     svyaz=arch.getSvyaz();
                     arch.setSvyazToAdapter(svyazForNotifyFromArchAdap);
                     return arch;

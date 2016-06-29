@@ -1,4 +1,5 @@
 package com.jim.pocketaccounter.credit;
+
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -37,10 +38,13 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+
+/**
+ * Created by developer on 02.06.2016.
+ */
+
 public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-    List<CreditDetials> cardDetials;
-    List<CreditDetials> allDetials;
-    int S = 0;
+   List<CreditDetials> cardDetials;
     CreditTabLay.SvyazkaFragmentov svyaz;
     SimpleDateFormat dateformarter;
     Context context;
@@ -50,13 +54,13 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     long forMoth=1000L*60L*60L*24L*30L;
     long forYear=1000L*60L*60L*24L*365L;
     final static long forWeek=1000L*60L*60L*24L*7L;
-    String TAG="testtt";
-    public AdapterCridet(Context This,CreditTabLay.SvyazkaFragmentov svyaz){
+     public AdapterCridet( Context This,CreditTabLay.SvyazkaFragmentov svyaz){
         this.cardDetials=PocketAccounter.financeManager.getCredits();
         this.context=This;
         dateformarter=new SimpleDateFormat("dd.MM.yyyy");
         formater=new DecimalFormat("0.##");
         this.svyaz=svyaz;
+
     }
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holdeer, final int position) {
@@ -141,6 +145,8 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             @Override
             public void onClick(View v) {
                 int pos=cardDetials.indexOf(itemCr);
+
+
                 InfoCreditFragment temp=new InfoCreditFragment();
                 temp.setConteent(itemCr, pos, new InfoCreditFragment.ConWithFragments() {
                     @Override
@@ -261,7 +267,8 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // create a new view
+        // Razvetleniya na dve view. odin pustoy odin realniy
+
         RecyclerView.ViewHolder vh = null;
         if (viewType == VIEW_NULL) {
             View v=LayoutInflater.from(parent.getContext())
@@ -378,19 +385,22 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 final String amount=enterPay.getText().toString();
+
                 double total_paid=0;
                 for(ReckingCredit item:current.getReckings())
                     total_paid+=item.getAmount();
+
                 if(!amount.matches("")){
                     if(Double.parseDouble(amount)>current.getValue_of_credit_with_procent()-total_paid){
 
                         final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                        builder.setMessage("Your payment balance is "+parseToWithoutNull(current.getValue_of_credit_with_procent()-total_paid)+
-                                current.getValyute_currency().getAbbr()+"."+" Are you sure of the fact that you have to pay more than "+
+                        builder.setMessage(context.getString(R.string.payment_balans)+parseToWithoutNull(current.getValue_of_credit_with_procent()-total_paid)+
+                                current.getValyute_currency().getAbbr()+"."+context.getString(R.string.payment_balance2)+
                                 parseToWithoutNull(Double.parseDouble(amount)-(current.getValue_of_credit_with_procent()-total_paid))+
-                                current.getValyute_currency().getAbbr()+" ?")
-                                .setPositiveButton("I'm sure", new DialogInterface.OnClickListener() {
+                                current.getValyute_currency().getAbbr())
+                                .setPositiveButton(context.getString(R.string.imsure), new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialoge, int id) {
                                        String amount=enterPay.getText().toString();
                                         ReckingCredit rec=null;
@@ -403,7 +413,7 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                                         notifyItemChanged(position);
                                         dialog.dismiss();
                                                             }
-                                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                }).setNegativeButton(context.getString(R.string.cancel1), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
 
@@ -421,6 +431,7 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         int pos=cardDetials.indexOf(current);
                         current.getReckings().add(rec);
                         notifyItemChanged(position);
+                        Log.d(TAG, "onClick: "+current+" "+pos);
                         dialog.dismiss();
                     }
                 }
@@ -432,4 +443,7 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         dialog.getWindow().setLayout(7 * width / 8, RelativeLayout.LayoutParams.WRAP_CONTENT);
         dialog.show();
     }
+
+
+
 }

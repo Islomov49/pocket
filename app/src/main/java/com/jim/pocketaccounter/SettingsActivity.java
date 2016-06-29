@@ -2,6 +2,7 @@ package com.jim.pocketaccounter;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -13,34 +14,45 @@ import android.os.Environment;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
+import com.jim.pocketaccounter.finance.FinanceManager;
+import com.jim.pocketaccounter.syncbase.SyncBase;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
+
 
 /**
  * Created by ismoi on 6/18/2016.
  */
 
 public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         addPreferencesFromResource(R.layout.settings);
         ListPreference language = (ListPreference) findPreference("language");
-
         if (language.getValue().matches(getResources().getString(R.string.language_default))) {
             language.setValue(Locale.getDefault().getLanguage());
-
         }
         updatePrefs("language");
         Preference save = (Preference) findPreference("save");
@@ -70,21 +82,111 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
             }
         });
         Preference googleBackup = (Preference) findPreference("backup");
+        FirebaseUser auth=FirebaseAuth.getInstance().getCurrentUser();
+        if(auth==null){googleBackup.setEnabled(false); }
+        else
         googleBackup.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                //google backup
+                lastUpload();
                 return false;
             }
         });
         Preference googleLogout = (Preference) findPreference("logout");
+        if(auth==null){googleLogout.setEnabled(false);  }
+        else
         googleLogout.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                //google logout
+                final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(SettingsActivity.this);
+                builder.setMessage(R.string.are_you_sure_for_log_out)
+                        .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                PocketAccounter.reg.revokeAccess();
+                                setResult(RESULT_OK);
+                                finish();
+                            }
+                        }) .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+                builder.create().show();
                 return false;
             }
         });
+    }
+    private void lastUpload(){
+
+        final FirebaseUser userik= FirebaseAuth.getInstance().getCurrentUser();
+
+        if(userik!=null){
+            if(!SyncBase.isNetworkAvailable(this)){
+                final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(SettingsActivity.this);
+                builder.setMessage(R.string.connection_faild)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                               dialog.dismiss();
+                                return;
+                            }
+                        });
+                builder.create().show();
+                return;
+            }
+            showProgressDialog(getString(R.string.cheking_user));
+            PocketAccounter.mySync.meta_Message(userik.getUid(), new SyncBase.ChangeStateLisMETA() {
+                @Override
+                public void onSuccses(final long inFormat) {
+                    hideProgressDialog();
+                    Date datee=new Date();
+                    datee.setTime(inFormat);
+                    final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(SettingsActivity.this);
+                    builder.setMessage(getString(R.string.sync_want_from_data) + (new SimpleDateFormat("dd.MM.yyyy kk:mm")).format(datee))
+                            .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                       showProgressDialog(getString(R.string.download));
+                                    PocketAccounter.mySync.downloadLast(userik.getUid(), new SyncBase.ChangeStateLis() {
+                                        @Override
+                                        public void onSuccses() {
+                                            runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    PocketAccounter.financeManager = new FinanceManager(SettingsActivity.this);
+                                                    hideProgressDialog();
+                                                    setResult(RESULT_OK);
+                                                    finish();
+                                                }
+                                            });
+                                        }
+                                        @Override
+                                        public void onFailed(String e) {
+                                            hideProgressDialog();
+                                            Toast.makeText(SettingsActivity.this, R.string.toast_error_connection, Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                            }) .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            hideProgressDialog();
+                            dialog.cancel();
+
+                        }
+                    });
+                    builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                        @Override
+                        public void onCancel(DialogInterface dialog) {
+                            hideProgressDialog();
+                        }
+                    });
+                    builder.create().show();
+                }
+                @Override
+                public void onFailed(Exception e) {
+                }
+            });
+        }
+        //google backup
     }
 
     private void importDB() {
@@ -156,6 +258,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
                 .unregisterOnSharedPreferenceChangeListener(this);
     }
 
+
     private void updatePrefs(String key) {
 
         if (key.matches("language")) {
@@ -198,5 +301,23 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         Intent refresh = new Intent(this, PocketAccounter.class);
         startActivity(refresh);
         finish();
+    }
+    private ProgressDialog mProgressDialog;
+
+
+    public void showProgressDialog(String message) {
+        if (mProgressDialog == null) {
+            mProgressDialog = new ProgressDialog(this);
+            mProgressDialog.setMessage(getString(R.string.download));
+            mProgressDialog.setIndeterminate(true);
+        }
+
+        mProgressDialog.show();
+    }
+
+    public void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.hide();
+        }
     }
 }

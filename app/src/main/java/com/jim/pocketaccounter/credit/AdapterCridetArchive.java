@@ -1,39 +1,23 @@
 package com.jim.pocketaccounter.credit;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Color;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.jim.pocketaccounter.CreditArchiveFragment;
 import com.jim.pocketaccounter.InfoCreditFragmentForArchive;
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
-import com.jim.pocketaccounter.finance.Account;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -42,15 +26,14 @@ import java.util.List;
 
 public class AdapterCridetArchive extends RecyclerView.Adapter<AdapterCridetArchive.myViewHolder>{
    List<CreditDetials> cardDetials;
-   List<CreditDetials> allDetials;
-    int S = 0;
+
     SimpleDateFormat dateformarter;
     Context context;
-    ArrayList<Account> accaunt_AC;
     long forDay=1000L*60L*60L*24L;
     long forMoth=1000L*60L*60L*24L*30L;
     long forYear=1000L*60L*60L*24L*365L;
     final static long forWeek=1000L*60L*60L*24L*7L;
+
     DecimalFormat formater;
     public AdapterCridetArchive( Context This){
         this.cardDetials=PocketAccounter.financeManager.getArchiveCredits();
@@ -111,7 +94,6 @@ public class AdapterCridetArchive extends RecyclerView.Adapter<AdapterCridetArch
 
         Date from=new Date();
         int t[]=getDateDifferenceInDDMMYYYY(from,to.getTime());
-        Log.d("Myday",t[0]+" "+t[1]+" "+t[2]);
         if(t[0]*t[1]*t[2]<0&&(t[0]+t[1]+t[2])!=0){
             holder.left_date.setText(R.string.ends);
         }
@@ -172,7 +154,6 @@ public class AdapterCridetArchive extends RecyclerView.Adapter<AdapterCridetArch
                                     credList.remove(creditDetials);
                                     PocketAccounter.financeManager.saveCredits();
                                     svyazForNotifyFromArchAdap.notifyCredFrag();
-                                    Log.d("svyazKELDI", "DELETE");
                                     break;
                                 }
                             }
@@ -211,7 +192,6 @@ public class AdapterCridetArchive extends RecyclerView.Adapter<AdapterCridetArch
             month = (toDate.get(Calendar.MONTH)) - (fromDate.get(Calendar.MONTH) + increment);
             increment = 0;
         }
-
         year = toDate.get(Calendar.YEAR) - (fromDate.get(Calendar.YEAR) + increment);
          return   new int[]{year, month, day};
     }

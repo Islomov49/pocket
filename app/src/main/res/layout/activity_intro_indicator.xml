@@ -42,12 +42,12 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_margin="16dp"
-        android:textSize="16sp"
+        android:layout_margin="@dimen/sixteen_sp"
+        android:textSize="@dimen/sixteen_sp"
         android:textColor="#d5d5d5"/>
     <com.jim.pocketaccounter.intropage.PageCircleIndicator
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="@dimen/thirty_dp"
         android:id="@+id/indicator"
         android:layout_alignParentBottom="true"
 

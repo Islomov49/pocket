@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="@dimen/thirty_dp"
             android:id="@+id/imageView" />
 
         <LinearLayout
@@ -28,9 +28,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:textSize="24sp"
-                android:paddingRight="16dp"
-                android:paddingLeft="16dp"
+                android:textSize="@dimen/twenty_dp"
+                android:paddingRight="@dimen/sixteen_dp"
+                android:paddingLeft="@dimen/sixteen_dp"
                 android:text="@string/let_s_go"
                 android:textStyle="bold"
                 android:textColor="#414141"
@@ -49,7 +49,7 @@
                    android:scaleType="centerInside"
                    android:id="@+id/fbDebtBorrowFragment"
                    app:fab_colorNormal="@color/green_light"
-                   android:layout_marginTop="26dp"
+                   android:layout_marginTop="@dimen/twentysix_dp"
                    android:layout_alignParentTop="true"
                    android:layout_centerHorizontal="true" />
            </RelativeLayout>
