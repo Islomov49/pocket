@@ -1,12 +1,17 @@
 package com.jim.pocketaccounter;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,8 +69,7 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
     private LinearLayout linLayReportByAccountInfo;
     private TextView tvReportByAccountNoDatas;
     private TextView tvReportbyAccountTotalIncome, tvReportbyAccountTotalExpanse, tvReportbyAccountTotalProfit, tvReportbyAccountAverageProfit;
-    private Typeface type;
-
+    private final int PERMISSION_READ_STORAGE = 0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.report_by_account, container, false);
@@ -75,12 +79,40 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
         tvReportbyAccountTotalExpanse = (TextView) rootView.findViewById(R.id.tvReportbyAccountTotalExpanse);
         tvReportbyAccountTotalProfit = (TextView) rootView.findViewById(R.id.tvReportbyAccountTotalProfit);
         tvReportbyAccountAverageProfit = (TextView) rootView.findViewById(R.id.tvReportbyAccountAverageProfit);
-        tvReportbyAccountTotalIncome.setTypeface(type);
-        tvReportbyAccountTotalExpanse.setTypeface(type);
-        tvReportbyAccountTotalProfit.setTypeface(type);
-        tvReportbyAccountAverageProfit.setTypeface(type);
         ivToolbarExcel = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel);
-        ivToolbarExcel.setOnClickListener(this);
+        ivToolbarExcel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int permission = ContextCompat.checkSelfPermission(getContext(),
+                        android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                if (permission != PackageManager.PERMISSION_GRANTED) {
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(((PocketAccounter) getContext()),
+                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                        builder.setMessage("Permission to access the SD-CARD is required for this app to Download PDF.")
+                                .setTitle("Permission required");
+
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                ActivityCompat.requestPermissions((PocketAccounter) getContext(),
+                                        new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                        PERMISSION_READ_STORAGE);
+                            }
+                        });
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+
+                    } else {
+                        ActivityCompat.requestPermissions((PocketAccounter) getContext(),
+                                new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                PERMISSION_READ_STORAGE);
+                    }
+                } else {
+                    saveExcel();
+                }
+
+            }
+        });
         ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
         ivToolbarMostRight.setVisibility(View.VISIBLE);
         ivToolbarMostRight.setImageResource(R.drawable.ic_filter);
@@ -202,6 +234,17 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
         @Override
         public int compare(AccountDataRow o1, AccountDataRow o2) {
             return o1.getDate().compareTo(o2.getDate());
+        }
+    }
+
+    private void saveExcel() {
+        File direct = new File(Environment.getExternalStorageDirectory() + "/Pocket Accounter");
+        if (!direct.exists()) {
+            if (direct.mkdir()) {
+                exportToExcelFile();
+            }
+        } else {
+            exportToExcelFile();
         }
     }
 
