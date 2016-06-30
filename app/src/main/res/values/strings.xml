@@ -1017,4 +1017,6 @@
     <string name="delete2">DELETE</string>
     <string name="total_a">Total :</string>
     <string name="amount_borrow">Сумма займа</string>
+    <string name="between_dates">Выберите интервал</string>
+    <string name="between">Интервал</string>
 </resources>

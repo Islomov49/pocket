@@ -368,19 +368,18 @@
                 android:layout_marginLeft="@dimen/twenty_dp"
                 android:layout_marginTop="@dimen/twenty_dp"
                 android:layout_marginBottom="@dimen/five_dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/transactions"
                     android:gravity="bottom"
-                    android:layout_marginRight="@dimen/twenty_dp"
                     android:textColor="@color/black_for_secondary_text"
-                    android:layout_alignBottom="@+id/frameLayout3"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true" />
-
-
+                    android:layout_alignParentStart="true"
+                    android:textSize="@dimen/fourteen_sp"
+                    android:id="@+id/textView14" />
 
             </RelativeLayout>
             <FrameLayout
