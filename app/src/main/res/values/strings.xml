@@ -1190,4 +1190,5 @@
     <string name="amount_borrow">Сумма займа</string>
     <string name="between_dates">Выберите интервал</string>
     <string name="between">Интервал</string>
+    <string name="how_long_time_you_should_pay">how long time you should pay?</string>
 </resources>

@@ -143,7 +143,10 @@ public class AddCreditFragment extends Fragment {
                     valueCred.setError(getString(R.string.value_shoud_not_empty));
                     isMojno=false;
                 }
-
+                if (!(Double.parseDouble(valueCred.getText().toString()) >0)){
+                    valueCred.setError(getString(R.string.incorrect_value));
+                    isMojno=false;
+                }
                 if (procentCred.getText().toString().equals("")){
                     procentCred.setError(getString(R.string.procent_should_not_empty));
                     isMojno=false;
@@ -151,6 +154,10 @@ public class AddCreditFragment extends Fragment {
 
                 if (periodCred.getText().toString().equals("")){
                     periodCred.setError(getString(R.string.period_should_not_empty));
+                    isMojno=false;
+                }
+                if (!(Integer.parseInt(periodCred.getText().toString()) >0)){
+                    periodCred.setError(getString(R.string.incorrect_value));
                     isMojno=false;
                 }
                 if (firstCred.getText().toString().equals("")){
@@ -375,7 +382,7 @@ public class AddCreditFragment extends Fragment {
 
         for (int i=0; i<tempIcons.length; i++)
             icons[i] = getResources().getIdentifier(tempIcons[i], "drawable", getActivity().getPackageName());
-        selectedIcon = icons[28];
+        selectedIcon = icons[4];
 
         icona.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -41,7 +41,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Credit name"
+                        android:text="@string/credit_name"
                         android:textSize="@dimen/twenty_sp"
                         android:textColor="#212121"
 
@@ -204,7 +204,7 @@
                                 android:id="@+id/for_period_credit"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:hint="how long time you should pay?"
+                                android:hint="@string/how_long_time_you_should_pay"
                                 android:textSize="@dimen/fourteen_sp"
                                 android:layout_alignParentLeft="true"
                                 android:layout_alignParentStart="true"
@@ -341,7 +341,7 @@
                                 android:layout_toLeftOf="@+id/spinner_sceta"
                                 android:layout_toStartOf="@+id/spinner_sceta"
                                 android:layout_marginRight="@dimen/six_dp"
-                                android:inputType="numberDecimal"/>
+                                android:inputType="numberDecimal"
                                 android:maxLength="13"
                                 />
 

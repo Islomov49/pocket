@@ -19,7 +19,8 @@
 					android:id="@+id/ivDrawerHead"
 					android:layout_width="@dimen/left_drawer_width"
 					android:layout_height="@dimen/drawer_header_height"
-					android:background="@drawable/bav2" />
+					android:background="#d6d6d6"
+					/>
 				<LinearLayout
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
@@ -35,6 +36,7 @@
 							android:id="@+id/userphoto"
 							android:layout_width="@dimen/fifty_dp"
 							android:layout_height="@dimen/fifty_dp"
+
 							android:src="@drawable/no_photo" />
 						<LinearLayout
 							android:layout_width="wrap_content"
@@ -49,6 +51,7 @@
 								android:textColor="#414141"
 								android:textSize="@dimen/twelve_sp"
 								android:textStyle="bold"
+								android:layout_marginRight="@dimen/sixteen_dp"
 								android:layout_marginLeft="@dimen/eight_dp"/>
 
 							<TextView
@@ -59,6 +62,7 @@
 								android:text="@string/and_sync_your_data"
 								android:textColor="#414141"
 								android:layout_marginLeft="@dimen/eight_dp"
+								android:layout_marginRight="@dimen/sixteen_dp"
 								android:textSize="@dimen/twelve_sp" />
 						</LinearLayout>
 
