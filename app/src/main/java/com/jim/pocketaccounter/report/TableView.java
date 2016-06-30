@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -202,6 +203,7 @@ public class TableView extends LinearLayout {
                     holder.ivTableItem.setImageBitmap(operation);
                 }
                 holder.tvTableSecondCol.setText(format.format(row.getDate().getTime()));
+                abbr = row.getCurrency().getAbbr();
                 holder.tvTableThirdCol.setText(decimalFormat.format(row.getAmount()) + abbr);
                 String text = row.getCategory().getName();
                 if (row.getSubCategory() != null)

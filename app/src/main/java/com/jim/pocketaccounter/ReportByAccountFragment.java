@@ -3,6 +3,7 @@ package com.jim.pocketaccounter;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
@@ -63,6 +64,7 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
     private LinearLayout linLayReportByAccountInfo;
     private TextView tvReportByAccountNoDatas;
     private TextView tvReportbyAccountTotalIncome, tvReportbyAccountTotalExpanse, tvReportbyAccountTotalProfit, tvReportbyAccountAverageProfit;
+    private Typeface type;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,6 +75,10 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
         tvReportbyAccountTotalExpanse = (TextView) rootView.findViewById(R.id.tvReportbyAccountTotalExpanse);
         tvReportbyAccountTotalProfit = (TextView) rootView.findViewById(R.id.tvReportbyAccountTotalProfit);
         tvReportbyAccountAverageProfit = (TextView) rootView.findViewById(R.id.tvReportbyAccountAverageProfit);
+        tvReportbyAccountTotalIncome.setTypeface(type);
+        tvReportbyAccountTotalExpanse.setTypeface(type);
+        tvReportbyAccountTotalProfit.setTypeface(type);
+        tvReportbyAccountAverageProfit.setTypeface(type);
         ivToolbarExcel = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel);
         ivToolbarExcel.setOnClickListener(this);
         ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
@@ -175,16 +181,15 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
         simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
         decimalFormat = new DecimalFormat("0.00##");
         double totalIncome = 0.0, totalExpanse = 0.0, totalProfit = 0.0, averageProfit = 0.0;
-
+        String abbr = "";
         for (int i = 0; i < sortReportByAccount.size(); i++) {
+            abbr = sortReportByAccount.get(i).getCurrency().getAbbr();
             if (sortReportByAccount.get(i).getType() == 0)
                 totalIncome = totalIncome + sortReportByAccount.get(i).getAmount();
             else
                 totalExpanse = totalExpanse + sortReportByAccount.get(i).getAmount();
         }
         tbReportByAccount.setDatas(sortReportByAccount);
-
-        String abbr = PocketAccounter.financeManager.getMainCurrency().getAbbr();
         totalProfit = totalIncome - totalExpanse;
         averageProfit = totalProfit / countOfDays;
         tvReportbyAccountTotalIncome.setText(getResources().getString(R.string.report_income_expanse_total_income) + decimalFormat.format(totalIncome) + abbr);
@@ -214,7 +219,7 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
                 SimpleDateFormat format = new SimpleDateFormat("dd_MM_yyyy");
                 File sd = Environment.getExternalStorageDirectory();
                 String fname = sd.getAbsolutePath() + "/" +
-                        "Pocket_Accounter/" +
+                        "Pocket Accounter/" +
                         "ra_" + format.format(Calendar.getInstance().getTime());
                 File temp = new File(fname + ".xlsx");
                 while (temp.exists()) {
