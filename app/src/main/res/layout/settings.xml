@@ -38,7 +38,7 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/filters">
         <ListPreference
-            android:defaultValue="0"
+            android:defaultValue="2"
             android:entries="@array/filter_titles"
             android:entryValues="@array/filter_value"
             android:key="report_filter"

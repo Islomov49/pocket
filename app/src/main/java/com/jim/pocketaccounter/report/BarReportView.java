@@ -52,8 +52,8 @@ public class BarReportView extends LinearLayout {
         barChart.setDrawBarShadow(false);
         barChart.setDrawGridBackground(false);
         Legend l = barChart.getLegend();
-        l.setPosition(Legend.LegendPosition.RIGHT_OF_CHART_INSIDE);
-        l.setYOffset(0f);
+        l.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
+        l.setYOffset(6f);
         l.setYEntrySpace(0f);
         l.setTextSize(8f);
         YAxis leftAxis = barChart.getAxisLeft();
@@ -120,6 +120,5 @@ public class BarReportView extends LinearLayout {
         data.setGroupSpace(80f);
         barChart.setData(data);
         barChart.invalidate();
-        Log.d("sss", "drawer");
     }
 }

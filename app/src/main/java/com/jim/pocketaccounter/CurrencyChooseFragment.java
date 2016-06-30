@@ -1,6 +1,7 @@
 package com.jim.pocketaccounter;
 
 import android.app.Dialog;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -178,34 +179,47 @@ public class CurrencyChooseFragment extends Fragment {
 										}
 									}
 								}
+								boolean isFound = false;
 								for (int i=0; i<PocketAccounter.financeManager.getRecords().size(); i++) {
 									for (int j=0; j<temp.size(); j++) {
 										if (PocketAccounter.financeManager.getRecords().get(i).getCurrency().getId().matches(temp.get(j).getId())) {
-											PocketAccounter.financeManager.getRecords().remove(i);
-											i--;
+											isFound = true;
 											break;
 										}
 									}
+									if (!isFound) {
+										PocketAccounter.financeManager.getRecords().remove(i);
+										i--;
+									}
+									isFound = false;
 								}
 								for (int i=0; i<PocketAccounter.financeManager.getCredits().size(); i++) {
 									if (!PocketAccounter.financeManager.getCredits().get(i).isKey_for_include()) continue;
 									for (int j=0; j<temp.size(); j++) {
 										if (PocketAccounter.financeManager.getCredits().get(i).getValyute_currency().getId().matches(temp.get(j).getId())) {
-											PocketAccounter.financeManager.getCredits().remove(i);
-											i--;
+											isFound = true;
 											break;
 										}
 									}
+									if (!isFound) {
+										PocketAccounter.financeManager.getCredits().remove(i);
+										i--;
+									}
+									isFound = false;
 								}
 								for (int i=0; i<PocketAccounter.financeManager.getDebtBorrows().size(); i++) {
 									if (!PocketAccounter.financeManager.getDebtBorrows().get(i).isCalculate()) continue;
 									for (int j=0; j<temp.size(); j++) {
 										if (PocketAccounter.financeManager.getDebtBorrows().get(i).getCurrency().getId().matches(temp.get(j).getId())) {
-											PocketAccounter.financeManager.getDebtBorrows().remove(i);
-											i--;
+											isFound = true;
 											break;
 										}
 									}
+									if (!isFound) {
+										PocketAccounter.financeManager.getDebtBorrows().remove(i);
+										i--;
+									}
+									isFound = false;
 								}
 								PocketAccounter.financeManager.setCurrencies(temp);
 								((PocketAccounter)getActivity()).replaceFragment(new CurrencyFragment(), PockerTag.CURRENCY);
