@@ -377,7 +377,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
                     if (date.compareTo(debtBorrow.getTakenDate()) < 0) {
                         date.setTime(debtBorrow.getTakenDate().getTime());
                         enterDate.setError(getResources().getString(R.string.incorrect_date));
-                    }
+                    } else enterDate.setError(null);
                     enterDate.setText(simpleDateFormat.format(date.getTime()));
                 }
             };

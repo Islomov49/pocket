@@ -119,16 +119,20 @@ public class BorrowFragment extends Fragment {
         private ArrayList<DebtBorrow> allPersons;
 
         public MyAdapter() {
-            allPersons = financeManager.getDebtBorrows();
-            persons = new ArrayList<>();
-            for (DebtBorrow person : financeManager.getDebtBorrows()) {
-                if (!person.isTo_archive() && person.getType() == TYPE) {
-                    persons.add(person);
-                } else {
-                    if (person.isTo_archive() && TYPE == 2) {
+            try {
+                allPersons = financeManager.getDebtBorrows();
+                persons = new ArrayList<>();
+                for (DebtBorrow person : financeManager.getDebtBorrows()) {
+                    if (!person.isTo_archive() && person.getType() == TYPE) {
                         persons.add(person);
+                    } else {
+                        if (person.isTo_archive() && TYPE == 2) {
+                            persons.add(person);
+                        }
                     }
                 }
+            } catch (NullPointerException e) {
+                recyclerView.setAdapter(myAdapter);
             }
         }
 
@@ -252,7 +256,7 @@ public class BorrowFragment extends Fragment {
                                     date.setTime(person.getTakenDate().getTime());
                                     enterDate.setError(getString(R.string.incorrect_date));
                                 } else {
-                                    enterDate.setError("");
+                                    enterDate.setError(null);
                                 }
                                 enterDate.setText(simpleDateFormat.format(date.getTime()));
                             }

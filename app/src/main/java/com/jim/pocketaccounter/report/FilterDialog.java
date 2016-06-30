@@ -107,16 +107,17 @@ public class FilterDialog extends Dialog implements AdapterView.OnItemSelectedLi
             }
         });
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                getContext(), android.R.layout.simple_spinner_item, getContext().getResources().getStringArray(R.array.filter_titles_dialog));
+                getContext(), R.layout.spiner_gravity_right,
+                getContext().getResources().getStringArray(R.array.filter_titles_dialog));
         String[] year = new String[51];
         for (int i = 0; i < 51; i++) {
             year[i] = (i + 2000) + "";
         }
         ArrayAdapter<String> yearAdapter = new ArrayAdapter<String>(
-                getContext(), android.R.layout.simple_spinner_item, year);
+                getContext(), R.layout.spiner_gravity_right, year);
         String[] months = getContext().getResources().getStringArray(R.array.months);
         ArrayAdapter<String> yearMonthAdapter = new ArrayAdapter<String>(
-                getContext(), android.R.layout.simple_spinner_item, months);
+                getContext(), R.layout.spiner_gravity_right, months);
         yearFilter.setAdapter(yearAdapter);
         yilFilter.setAdapter(yearAdapter);
         monthFilter.setAdapter(yearMonthAdapter);
@@ -208,11 +209,6 @@ public class FilterDialog extends Dialog implements AdapterView.OnItemSelectedLi
     private void mainSpinner(int position) {
         switch (position) {
             case START_CURRENT_MONTH: {
-//                yilFilter.setVisibility(View.INVISIBLE);
-//                monthFilter.setVisibility(View.INVISIBLE);
-//                yearFilter.setVisibility(View.INVISIBLE);
-//                startTimeFilter.setVisibility(View.INVISIBLE);
-//                endTimeFilter.setVisibility(View.INVISIBLE);
                 findViewById(R.id.yi_oy).setVisibility(View.GONE);
                 findViewById(R.id.yil_edit).setVisibility(View.GONE);
                 findViewById(R.id.interval_edit).setVisibility(View.GONE);
@@ -231,11 +227,6 @@ public class FilterDialog extends Dialog implements AdapterView.OnItemSelectedLi
                 break;
             }
             case START_3_DAY: {
-//                yilFilter.setVisibility(View.INVISIBLE);
-//                monthFilter.setVisibility(View.INVISIBLE);
-//                yearFilter.setVisibility(View.INVISIBLE);
-//                startTimeFilter.setVisibility(View.INVISIBLE);
-//                endTimeFilter.setVisibility(View.INVISIBLE);
                 findViewById(R.id.yi_oy).setVisibility(View.GONE);
                 findViewById(R.id.yil_edit).setVisibility(View.GONE);
                 findViewById(R.id.interval_edit).setVisibility(View.GONE);
@@ -254,11 +245,6 @@ public class FilterDialog extends Dialog implements AdapterView.OnItemSelectedLi
                 break;
             }
             case START_7_DAY: {
-//                yilFilter.setVisibility(View.INVISIBLE);
-//                monthFilter.setVisibility(View.INVISIBLE);
-//                yearFilter.setVisibility(View.INVISIBLE);
-//                startTimeFilter.setVisibility(View.INVISIBLE);
-//                endTimeFilter.setVisibility(View.INVISIBLE);
                 findViewById(R.id.yi_oy).setVisibility(View.GONE);
                 findViewById(R.id.yil_edit).setVisibility(View.GONE);
                 findViewById(R.id.interval_edit).setVisibility(View.GONE);
@@ -275,11 +261,6 @@ public class FilterDialog extends Dialog implements AdapterView.OnItemSelectedLi
                 break;
             }
             case YEAR_MONTH: {
-//                yilFilter.setVisibility(View.VISIBLE);
-//                monthFilter.setVisibility(View.VISIBLE);
-//                yearFilter.setVisibility(View.INVISIBLE);
-//                startTimeFilter.setVisibility(View.INVISIBLE);
-//                endTimeFilter.setVisibility(View.INVISIBLE);
                 findViewById(R.id.yi_oy).setVisibility(View.VISIBLE);
                 findViewById(R.id.yil_edit).setVisibility(View.GONE);
                 findViewById(R.id.interval_edit).setVisibility(View.GONE);
@@ -291,11 +272,6 @@ public class FilterDialog extends Dialog implements AdapterView.OnItemSelectedLi
                 break;
             }
             case YEAR: {
-//                yearFilter.setVisibility(View.VISIBLE);
-//                yilFilter.setVisibility(View.INVISIBLE);
-//                monthFilter.setVisibility(View.INVISIBLE);
-//                startTimeFilter.setVisibility(View.INVISIBLE);
-//                endTimeFilter.setVisibility(View.INVISIBLE);
                 findViewById(R.id.yi_oy).setVisibility(View.GONE);
                 findViewById(R.id.yil_edit).setVisibility(View.VISIBLE);
                 findViewById(R.id.interval_edit).setVisibility(View.GONE);
@@ -310,11 +286,6 @@ public class FilterDialog extends Dialog implements AdapterView.OnItemSelectedLi
                 break;
             }
             case START_END_TIME: {
-//                startTimeFilter.setVisibility(View.VISIBLE);
-//                endTimeFilter.setVisibility(View.VISIBLE);
-//                yilFilter.setVisibility(View.INVISIBLE);
-//                monthFilter.setVisibility(View.INVISIBLE);
-//                yearFilter.setVisibility(View.INVISIBLE);
                 findViewById(R.id.yi_oy).setVisibility(View.GONE);
                 findViewById(R.id.yil_edit).setVisibility(View.GONE);
                 findViewById(R.id.interval_edit).setVisibility(View.VISIBLE);

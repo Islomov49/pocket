@@ -15,7 +15,6 @@
         android:scrollIndicators="bottom"
         app:tabGravity="fill"
         app:tabTextAppearance="@style/MineCustomTabText"
-
         app:tabMode="fixed"
         app:tabMaxWidth="0dp"
         app:tabIndicatorColor="@color/green_light_forline" />
@@ -33,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:layout_margin="@dimen/sixteen_dp"
+            android:layout_margin="16dp"
             android:src="@drawable/currency_add"
             app:fab_colorNormal="@color/green_light" />
 

@@ -23,17 +23,15 @@ public class AlarmReceiver extends BroadcastReceiver
     @Override
     public void onReceive(Context context, Intent intent)
     {
-
         String message = "";
         String title="";
         int which_photo_will_choose=R.drawable.icons_4;
 
         int tipFragment=0;
         if (intent != null) {
-            message = intent.getExtras().getString("msg");
-            tipFragment=intent.getExtras().getInt("TIP");
-            title=intent.getExtras().getString("title");
-
+            message = intent.getStringExtra("msg");
+            tipFragment=intent.getIntExtra("TIP", -1);
+            title=intent.getStringExtra("title");
         }
         else
             return;
@@ -46,7 +44,7 @@ public class AlarmReceiver extends BroadcastReceiver
         }
         else if(tipFragment==TO_CRIDET){
             resultIntent.putExtra("TIP",TO_CRIDET);
-            which_photo_will_choose=intent.getExtras().getInt("icon_number");
+            which_photo_will_choose=intent.getIntExtra("icon_number", -1);
         }
 
         PendingIntent pIntent=PendingIntent.getActivity(context,0,resultIntent,0);
@@ -63,8 +61,5 @@ public class AlarmReceiver extends BroadcastReceiver
                 .setSound(alarmSound);
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
         notificationManager.notify(1, notif_builder.build());
-
-
-
     }   
 }

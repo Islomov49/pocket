@@ -95,7 +95,7 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
         }
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                getContext(), android.R.layout.simple_spinner_item, result);
+                getContext(), R.layout.spiner_gravity_right2, result);
 
         spToolbar.setAdapter(arrayAdapter);
         tbReportByAccount = (TableView) rootView.findViewById(R.id.tbReportByAccount);

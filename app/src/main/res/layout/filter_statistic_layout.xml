@@ -22,7 +22,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:text="@string/between_dates"
-            android:textSize="@dimen/twelve_sp" />
+            android:textSize="@dimen/thirteen_dp" />
 
         <ImageView
             android:id="@+id/ivFilterStatisticCancel"

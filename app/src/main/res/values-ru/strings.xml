@@ -599,9 +599,9 @@
     <string name="bonus">Бонус</string>
     <string name="percents">Проценты</string>
     <string name="other_income">Прочие</string>
-    <string name="year">year</string>
-    <string name="moth">month</string>
-    <string name="day">day</string>
+    <string name="year">год</string>
+    <string name="moth">месяц</string>
+    <string name="day">денъ</string>
     <string name="moths">months</string>
     <string name="years">years</string>
     <string name="days">days</string>

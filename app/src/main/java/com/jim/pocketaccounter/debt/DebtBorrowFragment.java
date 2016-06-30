@@ -45,7 +45,6 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
     }
 
     @Override
-
     public void onStart() {
         super.onStart();
         restartAdapter();

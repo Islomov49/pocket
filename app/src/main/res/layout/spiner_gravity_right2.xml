@@ -5,9 +5,8 @@
     style="?android:attr/spinnerItemStyle"
     android:maxLines="1"
     android:layout_width="match_parent"
-    android:gravity="right"
-    android:maxLength="10"
-    android:layout_height="wrap_content"
+    android:gravity="left|center_vertical"
+    android:maxLength="25"
+    android:layout_height="35dp"
     android:ellipsize="marquee"
-    android:textSize="@dimen/fourteen_sp"
     android:textAlignment="inherit"/>

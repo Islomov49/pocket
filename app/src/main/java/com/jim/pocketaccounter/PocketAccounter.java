@@ -183,9 +183,9 @@ public class PocketAccounter extends AppCompatActivity {
                 try{
                     NotificationManagerCredit notific=new NotificationManagerCredit(PocketAccounter.this);
                     notific.notificSetCredit();
+                    notific.notificSetDebt();
                 }
                 catch (Exception o){
-
                 }
             }
         })).start();
@@ -784,13 +784,13 @@ public class PocketAccounter extends AppCompatActivity {
             for (int i = 0; i < size; i++) {
                 fragmentManager.popBackStack();
             }
+
             findViewById(R.id.change).setVisibility(View.INVISIBLE);
             fragmentManager.beginTransaction()
                     .addToBackStack(null)
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                     .add(R.id.flMain, fragment, tag)
                     .commit();
-
         }
     }
 
@@ -800,14 +800,12 @@ public class PocketAccounter extends AppCompatActivity {
         financeManager.saveAllDatas();
         if (imagetask != null)
             imagetask.cancel(true);
-
-        if(imagetask!=null)
-        {
+        if(imagetask!=null) {
             imagetask.cancel(true);
             imagetask=null;
         }
-
     }
+
     @Override
     public void onRestart() {
         super.onRestart();
@@ -818,8 +816,7 @@ public class PocketAccounter extends AppCompatActivity {
                 imagetask.execute(imageUri.toString());
             }
         }
-        catch (Exception o){
-        }}
+        catch (Exception o){}}
         else {
             userAvatar.setImageResource(R.drawable.no_photo);
             userName.setText(R.string.please_sign);
