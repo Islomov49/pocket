@@ -143,7 +143,6 @@ public class NotificationManagerCredit {
 					intent.putExtra("msg", msg);
 					intent.putExtra("title", item.getPerson().getName());
 					intent.putExtra("TIP", AlarmReceiver.TO_DEBT);
-					int _id = (int) (Math.random() * 10000);
 					PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ++count,
 							intent, 0);
 					alarmManager.set(AlarmManager.RTC_WAKEUP, to.getTimeInMillis(), pendingIntent);

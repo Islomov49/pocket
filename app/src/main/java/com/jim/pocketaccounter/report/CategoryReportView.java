@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -43,6 +44,7 @@ public class CategoryReportView extends LinearLayout {
         pieChart.setTransparentCircleColor(Color.WHITE);
         pieChart.setTransparentCircleAlpha(110);
         pieChart.setHoleRadius(55f);
+        pieChart.setCenterTextSize(16f);
         pieChart.setTransparentCircleRadius(60f);
         pieChart.setDrawCenterText(true);
         pieChart.setNoDataText(getResources().getString(R.string.diagram_no_data_text));
@@ -52,6 +54,7 @@ public class CategoryReportView extends LinearLayout {
         pieChart.animateY(1000, Easing.EasingOption.EaseInOutQuad);
         invalidate(begin, end);
         Legend l = pieChart.getLegend();
+        l.setWordWrapEnabled(true);
         l.setPosition(Legend.LegendPosition.BELOW_CHART_CENTER);
         l.setXEntrySpace(7f);
         l.setYEntrySpace(7f);
@@ -116,7 +119,7 @@ public class CategoryReportView extends LinearLayout {
         PieData data = new PieData(xVals, dataSet);
         data.setValueFormatter(new PercentFormatter());
         data.setValueTextSize(11f);
-        data.setValueTextColor(Color.WHITE);
+        data.setValueTextColor(ContextCompat.getColor(getContext(), R.color.toolbar_text_color));
         pieChart.animateY(1000, Easing.EasingOption.EaseInOutQuad);
         pieChart.setData(data);
         pieChart.invalidate();

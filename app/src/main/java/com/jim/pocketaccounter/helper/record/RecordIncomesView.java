@@ -344,6 +344,7 @@ public class RecordIncomesView extends View implements 	GestureDetector.OnGestur
 					buttons.get(i).setPressed(false);
 				PocketAccounter.PRESSED = false;
 				invalidate();
+				((PocketAccounter)getContext()).calclulateBalanse(date);
 				dialog.dismiss();
 			}
 		});
@@ -358,7 +359,6 @@ public class RecordIncomesView extends View implements 	GestureDetector.OnGestur
 				dialog.dismiss();
 			}
 		});
-
 		dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
 			@Override
 			public void onCancel(DialogInterface dialog) {

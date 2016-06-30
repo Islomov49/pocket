@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Мои деньги</string>
+    <string name="app_name">Money Holder</string>
     <string-array name="drawer_cats">
         <item>Главная</item>
         <item>Финансы</item>
@@ -225,191 +225,320 @@
         <item>1.0</item>
     </string-array>
     <string-array name="icons">
-        <item>accumulate</item>
-        <item>ball</item>
-        <item>ball_1</item>
-        <item>ball_2</item>
-        <item>balloon</item>
-        <item>bathroom</item>
-        <item>beach</item>
-        <item>black</item>
-        <item>black_1</item>
-        <item>book</item>
-        <item>book_1</item>
-        <item>book_2</item>
-        <item>bowling</item>
-        <item>branch</item>
-        <item>buildings</item>
-        <item>burning</item>
-        <item>cake</item>
-        <item>candies</item>
-        <item>car_repair</item>
-        <item>car_wheel</item>
-        <item>card</item>
-        <item>cinema</item>
-        <item>cinema_1</item>
-        <item>clothes</item>
-        <item>clothes_1</item>
-        <item>co2</item>
-        <item>co2_formula</item>
-        <item>coconut_trees</item>
-        <item>commerce</item>
-        <item>commerce_1</item>
-        <item>communication</item>
-        <item>computer_tablet</item>
-        <item>cross</item>
-        <item>cup</item>
-        <item>cycle</item>
-        <item>drink</item>
-        <item>drink_2</item>
-        <item>drink_5</item>
-        <item>dumbbell</item>
-        <item>dvd_rom_logotype</item>
-        <item>fashion</item>
-        <item>fashion_1</item>
-        <item>fashion_2</item>
-        <item>fashion_3</item>
-        <item>fashion_4</item>
-        <item>fashion_5</item>
-        <item>fashion_6</item>
-        <item>fashion_7</item>
-        <item>fashion_8</item>
-        <item>fashion_9</item>
-        <item>fax_machine</item>
-        <item>fishbones</item>
-        <item>food</item>
-        <item>food_1</item>
-        <item>food_2</item>
-        <item>food_3</item>
-        <item>food_4</item>
-        <item>food_5</item>
-        <item>food_6</item>
-        <item>food_10</item>
-        <item>food_11</item>
-        <item>food_13</item>
-        <item>food_14</item>
-        <item>food_15</item>
-        <item>football</item>
-        <item>fruit</item>
-        <item>fruit_1</item>
-        <item>fruit_2</item>
-        <item>fuel</item>
-        <item>fuel_1</item>
-        <item>furniture</item>
-        <item>futbolka</item>
-        <item>game</item>
-        <item>gasoline</item>
-        <item>gift</item>
-        <item>greentree</item>
-        <item>gym</item>
-        <item>hair_dryer_on</item>
-        <item>hair_scissors_and_comb</item>
-        <item>hairdresser_scissors_and_comb</item>
-        <item>hat</item>
-        <item>hd_sign</item>
-        <item>healthy</item>
-        <item>herbal_soap</item>
-        <item>hockey</item>
-        <item>home_1</item>
-        <item>hot</item>
-        <item>hot_1</item>
-        <item>ice_cream</item>
-        <item>kabelnoe</item>
-        <item>kanoe</item>
-        <item>laundry_machine_variant_with_clothes_and_soap_on_top</item>
-        <item>light</item>
-        <item>liquid_soap_bottle</item>
-        <item>locomotive</item>
-        <item>lollipop</item>
-        <item>machine</item>
-        <item>mastercard</item>
-        <item>medical</item>
-        <item>medical_1</item>
-        <item>medical_2</item>
-        <item>medical_car</item>
-        <item>microwallen_1</item>
-        <item>molotok</item>
-        <item>money</item>
-        <item>money_2</item>
-        <item>money_4</item>
-        <item>money_5</item>
-        <item>money_7</item>
-        <item>money_8</item>
-        <item>money_9</item>
-        <item>money_11</item>
-        <item>motorbike</item>
-        <item>music</item>
-        <item>music_1</item>
-        <item>mw</item>
-        <item>nature_1</item>
-        <item>nature_2</item>
-        <item>office</item>
-        <item>oil_1</item>
-        <item>p_full_hd</item>
-        <item>paint</item>
-        <item>painting</item>
-        <item>park</item>
-        <item>park_1</item>
-        <item>party</item>
-        <item>people</item>
-        <item>people_1</item>
-        <item>pingpong</item>
-        <item>present</item>
-        <item>printer</item>
-        <item>recycle</item>
-        <item>recycle_bin</item>
-        <item>relaxing_massage</item>
-        <item>restaurant</item>
-        <item>school</item>
-        <item>scirt</item>
-        <item>screwdriver_and_wrench</item>
-        <item>sea</item>
-        <item>shelf</item>
-        <item>shorty</item>
-        <item>shovel_1</item>
-        <item>sign_3d</item>
-        <item>silhouette</item>
-        <item>silhouette_1</item>
-        <item>sport</item>
-        <item>sports</item>
-        <item>strawberry</item>
-        <item>striped_lollipop</item>
-        <item>suitcase</item>
-        <item>summer</item>
-        <item>swimming</item>
-        <item>taxi_frontal_vehicle</item>
-        <item>technology</item>
-        <item>technology_1</item>
-        <item>technology_2</item>
-        <item>technology_5</item>
-        <item>teeth</item>
-        <item>three</item>
-        <item>tool</item>
-        <item>tool_2</item>
-        <item>toolbox</item>
-        <item>tooth</item>
-        <item>transport</item>
-        <item>transport_1</item>
-        <item>transport_2</item>
-        <item>transport_4</item>
-        <item>transport_5</item>
-        <item>transport_8</item>
-        <item>transport_9</item>
-        <item>transport_11</item>
-        <item>transport_12</item>
-        <item>transport_13</item>
-        <item>trash</item>
-        <item>tree</item>
-        <item>tv</item>
-        <item>valleyball</item>
-        <item>vehicle</item>
-        <item>vehicle_1</item>
-        <item>washing</item>
-        <item>wheelpushing</item>
-        <item>wi_fi</item>
-        <item>wifi_signal</item>
-        <item>women</item>
-        <item>wrench</item>
+        <item>icons_1</item>
+        <item>icons_2</item>
+        <item>icons_3</item>
+        <item>icons_4</item>
+        <item>icons_5</item>
+        <item>icons_6</item>
+        <item>icons_7</item>
+        <item>icons_8</item>
+        <item>icons_9</item>
+        <item>icons_10</item>
+        <item>icons_11</item>
+        <item>icons_12</item>
+        <item>icons_13</item>
+        <item>icons_14</item>
+        <item>icons_15</item>
+        <item>icons_16</item>
+        <item>icons_17</item>
+        <item>icons_18</item>
+        <item>icons_19</item>
+        <item>icons_20</item>
+        <item>icons_21</item>
+        <item>icons_22</item>
+        <item>icons_23</item>
+        <item>icons_24</item>
+        <item>icons_25</item>
+        <item>icons_26</item>
+        <item>icons_27</item>
+        <item>icons_28</item>
+        <item>icons_29</item>
+        <item>icons_30</item>
+        <item>icons_31</item>
+        <item>icons_32</item>
+        <item>icons_33</item>
+        <item>icons_34</item>
+        <item>icons_35</item>
+        <item>icons_36</item>
+        <item>icons_37</item>
+        <item>icons_38</item>
+        <item>icons_39</item>
+        <item>icons_40</item>
+        <item>icons_41</item>
+        <item>icons_42</item>
+        <item>icons_43</item>
+        <item>icons_44</item>
+        <item>icons_45</item>
+        <item>icons_46</item>
+        <item>icons_47</item>
+        <item>icons_48</item>
+        <item>icons_49</item>
+        <item>icons_50</item>
+        <item>icons_51</item>
+        <item>icons_52</item>
+        <item>icons_53</item>
+        <item>icons_54</item>
+        <item>icons_55</item>
+        <item>icons_56</item>
+        <item>icons_57</item>
+        <item>icons_58</item>
+        <item>icons_59</item>
+        <item>icons_60</item>
+        <item>icons_61</item>
+        <item>icons_62</item>
+        <item>icons_63</item>
+        <item>icons_64</item>
+        <item>icons_65</item>
+        <item>icons_66</item>
+        <item>icons_67</item>
+        <item>icons_68</item>
+        <item>icons_69</item>
+        <item>icons_70</item>
+        <item>icons_71</item>
+        <item>icons_72</item>
+        <item>icons_73</item>
+        <item>icons_74</item>
+        <item>icons_75</item>
+        <item>icons_76</item>
+        <item>icons_77</item>
+        <item>icons_78</item>
+        <item>icons_79</item>
+        <item>icons_80</item>
+        <item>icons_81</item>
+        <item>icons_82</item>
+        <item>icons_83</item>
+        <item>icons_84</item>
+        <item>icons_85</item>
+        <item>icons_86</item>
+        <item>icons_87</item>
+        <item>icons_88</item>
+        <item>icons_89</item>
+        <item>icons_90</item>
+        <item>icons_91</item>
+        <item>icons_92</item>
+        <item>icons_93</item>
+        <item>icons_94</item>
+        <item>icons_95</item>
+        <item>icons_96</item>
+        <item>icons_97</item>
+        <item>icons_98</item>
+        <item>icons_99</item>
+        <item>icons_100</item>
+        <item>icons_101</item>
+        <item>icons_102</item>
+        <item>icons_103</item>
+        <item>icons_104</item>
+        <item>icons_105</item>
+        <item>icons_106</item>
+        <item>icons_107</item>
+        <item>icons_108</item>
+        <item>icons_109</item>
+        <item>icons_110</item>
+        <item>icons_111</item>
+        <item>icons_112</item>
+        <item>icons_113</item>
+        <item>icons_114</item>
+        <item>icons_115</item>
+        <item>icons_116</item>
+        <item>icons_117</item>
+        <item>icons_118</item>
+        <item>icons_119</item>
+        <item>icons_120</item>
+        <item>icons_121</item>
+        <item>icons_122</item>
+        <item>icons_123</item>
+        <item>icons_124</item>
+        <item>icons_125</item>
+        <item>icons_126</item>
+        <item>icons_127</item>
+        <item>icons_128</item>
+        <item>icons_129</item>
+        <item>icons_130</item>
+        <item>icons_131</item>
+        <item>icons_132</item>
+        <item>icons_133</item>
+        <item>icons_134</item>
+        <item>icons_135</item>
+        <item>icons_136</item>
+        <item>icons_137</item>
+        <item>icons_138</item>
+        <item>icons_139</item>
+        <item>icons_140</item>
+        <item>icons_141</item>
+        <item>icons_142</item>
+        <item>icons_143</item>
+        <item>icons_144</item>
+        <item>icons_145</item>
+        <item>icons_146</item>
+        <item>icons_147</item>
+        <item>icons_148</item>
+        <item>icons_149</item>
+        <item>icons_150</item>
+        <item>icons_151</item>
+        <item>icons_152</item>
+        <item>icons_153</item>
+        <item>icons_154</item>
+        <item>icons_155</item>
+        <item>icons_156</item>
+        <item>icons_157</item>
+        <item>icons_158</item>
+        <item>icons_159</item>
+        <item>icons_160</item>
+        <item>icons_161</item>
+        <item>icons_162</item>
+        <item>icons_163</item>
+        <item>icons_164</item>
+        <item>icons_165</item>
+        <item>icons_166</item>
+        <item>icons_167</item>
+        <item>icons_168</item>
+        <item>icons_169</item>
+        <item>icons_170</item>
+        <item>icons_171</item>
+        <item>icons_172</item>
+        <item>icons_173</item>
+        <item>icons_174</item>
+        <item>icons_175</item>
+        <item>icons_176</item>
+        <item>icons_177</item>
+        <item>icons_178</item>
+        <item>icons_179</item>
+        <item>icons_180</item>
+        <item>icons_181</item>
+        <item>icons_182</item>
+        <item>icons_183</item>
+        <item>icons_184</item>
+        <item>icons_185</item>
+        <item>icons_186</item>
+        <item>icons_187</item>
+        <item>icons_188</item>
+        <item>icons_189</item>
+        <item>icons_190</item>
+        <item>icons_191</item>
+        <item>icons_192</item>
+        <item>icons_193</item>
+        <item>icons_194</item>
+        <item>icons_195</item>
+        <item>icons_196</item>
+        <item>icons_197</item>
+        <item>icons_198</item>
+        <item>icons_199</item>
+        <item>icons_200</item>
+        <item>icons_201</item>
+        <item>icons_202</item>
+        <item>icons_203</item>
+        <item>icons_204</item>
+        <item>icons_205</item>
+        <item>icons_206</item>
+        <item>icons_207</item>
+        <item>icons_208</item>
+        <item>icons_209</item>
+        <item>icons_210</item>
+        <item>icons_211</item>
+        <item>icons_212</item>
+        <item>icons_213</item>
+        <item>icons_214</item>
+        <item>icons_215</item>
+        <item>icons_216</item>
+        <item>icons_217</item>
+        <item>icons_218</item>
+        <item>icons_219</item>
+        <item>icons_220</item>
+        <item>icons_221</item>
+        <item>icons_222</item>
+        <item>icons_223</item>
+        <item>icons_224</item>
+        <item>icons_225</item>
+        <item>icons_226</item>
+        <item>icons_227</item>
+        <item>icons_228</item>
+        <item>icons_229</item>
+        <item>icons_230</item>
+        <item>icons_231</item>
+        <item>icons_232</item>
+        <item>icons_233</item>
+        <item>icons_234</item>
+        <item>icons_235</item>
+        <item>icons_236</item>
+        <item>icons_237</item>
+        <item>icons_238</item>
+        <item>icons_239</item>
+        <item>icons_240</item>
+        <item>icons_241</item>
+        <item>icons_242</item>
+        <item>icons_243</item>
+        <item>icons_244</item>
+        <item>icons_245</item>
+        <item>icons_246</item>
+        <item>icons_247</item>
+        <item>icons_248</item>
+        <item>icons_249</item>
+        <item>icons_250</item>
+        <item>icons_251</item>
+        <item>icons_252</item>
+        <item>icons_253</item>
+        <item>icons_254</item>
+        <item>icons_255</item>
+        <item>icons_256</item>
+        <item>icons_257</item>
+        <item>icons_258</item>
+        <item>icons_259</item>
+        <item>icons_260</item>
+        <item>icons_261</item>
+        <item>icons_262</item>
+        <item>icons_263</item>
+        <item>icons_264</item>
+        <item>icons_265</item>
+        <item>icons_266</item>
+        <item>icons_267</item>
+        <item>icons_268</item>
+        <item>icons_269</item>
+        <item>icons_270</item>
+        <item>icons_271</item>
+        <item>icons_272</item>
+        <item>icons_273</item>
+        <item>icons_274</item>
+        <item>icons_275</item>
+        <item>icons_276</item>
+        <item>icons_277</item>
+        <item>icons_278</item>
+        <item>icons_279</item>
+        <item>icons_280</item>
+        <item>icons_281</item>
+        <item>icons_282</item>
+        <item>icons_283</item>
+        <item>icons_284</item>
+        <item>icons_285</item>
+        <item>icons_286</item>
+        <item>icons_287</item>
+        <item>icons_288</item>
+        <item>icons_289</item>
+        <item>icons_290</item>
+        <item>icons_291</item>
+        <item>icons_292</item>
+        <item>icons_293</item>
+        <item>icons_294</item>
+        <item>icons_295</item>
+        <item>icons_296</item>
+        <item>icons_297</item>
+        <item>icons_298</item>
+        <item>icons_299</item>
+        <item>icons_301</item>
+        <item>icons_302</item>
+        <item>icons_303</item>
+        <item>icons_304</item>
+        <item>icons_305</item>
+        <item>icons_306</item>
+        <item>icons_307</item>
+        <item>icons_308</item>
+        <item>icons_309</item>
+        <item>icons_310</item>
+        <item>icons_311</item>
+        <item>icons_312</item>
+        <item>icons_313</item>
+        <item>icons_314</item>
+        <item>icons_315</item>
     </string-array>
     <string name="currencies">Валюты</string>
     <string name="main_currency">Основная валюта: </string>
@@ -462,6 +591,14 @@
     <string name="sport">Спорт</string>
     <string name="beauty">Красота</string>
     <string name="equipment">Оргтехника</string>
+    <string name="travel">Путешествие</string>
+    <string name="present">Подарки</string>
+    <string name="celebration">Праздник</string>
+    <string name="other">Прочие</string>
+    <string name="salary">Зарплата</string>
+    <string name="bonus">Бонус</string>
+    <string name="percents">Проценты</string>
+    <string name="other_income">Прочие</string>
     <string name="year">year</string>
     <string name="moth">month</string>
     <string name="day">day</string>
@@ -484,6 +621,14 @@
         <item>sport</item>
         <item>beauty</item>
         <item>equipment</item>
+        <item>travel</item>
+        <item>present</item>
+        <item>celebration</item>
+        <item>other</item>
+        <item>salary</item>
+        <item>bonus</item>
+        <item>percents</item>
+        <item>other_income</item>
     </string-array>
     <string-array name="cat_types">
         <item>1</item>
@@ -498,20 +643,36 @@
         <item>1</item>
         <item>1</item>
         <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
+        <item>0</item>
     </string-array>
     <string-array name="cat_icons">
-        <item>sign_3d</item>
-        <item>p_full_hd</item>
-        <item>ball</item>
-        <item>ball_1</item>
-        <item>ball_2</item>
-        <item>balloon</item>
-        <item>bathroom</item>
-        <item>beach</item>
-        <item>black</item>
-        <item>black_1</item>
-        <item>book</item>
-        <item>book_1</item>
+        <item>icons_72</item>
+        <item>icons_90</item>
+        <item>icons_240</item>
+        <item>icons_284</item>
+        <item>icons_154</item>
+        <item>icons_266</item>
+        <item>icons_263</item>
+        <item>icons_60</item>
+        <item>icons_308</item>
+        <item>icons_174</item>
+        <item>icons_301</item>
+        <item>icons_77</item>
+        <item>icons_290</item>
+        <item>icons_63</item>
+        <item>icons_55</item>
+        <item>icons_315</item>
+        <item>icons_8</item>
+        <item>icons_19</item>
+        <item>icons_20</item>
+        <item>icons_314</item>
     </string-array>
     <string-array name="home">
         <item>Ремонт</item>
@@ -524,14 +685,28 @@
         <item>Кабельное ТВ</item>
     </string-array>
     <string-array name="home_icons">
-        <item>sign_3d</item>
-        <item>p_full_hd</item>
-        <item>ball</item>
-        <item>ball_1</item>
-        <item>ball_2</item>
-        <item>balloon</item>
-        <item>bathroom</item>
-        <item>beach</item>
+        <item>icons_310</item>
+        <item>icons_81</item>
+        <item>icons_67</item>
+        <item>icons_27</item>
+        <item>icons_122</item>
+        <item>icons_124</item>
+        <item>icons_131</item>
+        <item>icons_88</item>
+    </string-array>
+    <string-array name="travel">
+        <item>Отпуск</item>
+        <item>Тур</item>
+        <item>Турне</item>
+        <item>Рейс</item>
+        <item>Экскурсия</item>
+    </string-array>
+    <string-array name="travel_icons">
+        <item>icons_288</item>
+        <item>icons_291</item>
+        <item>icons_285</item>
+        <item>icons_275</item>
+        <item>icons_293</item>
     </string-array>
     <string-array name="network">
         <item>Интернет</item>
@@ -539,9 +714,9 @@
         <item>Телефон(моб.)</item>
     </string-array>
     <string-array name="network_icons">
-        <item>sign_3d</item>
-        <item>p_full_hd</item>
-        <item>ball</item>
+        <item>icons_139</item>
+        <item>icons_92</item>
+        <item>icons_93</item>
     </string-array>
     <string-array name="clothes">
         <item>Рубашка</item>
@@ -552,12 +727,12 @@
         <item>Туфли</item>
     </string-array>
     <string-array name="clothes_icons">
-        <item>sign_3d</item>
-        <item>p_full_hd</item>
-        <item>ball</item>
-        <item>ball_1</item>
-        <item>ball_2</item>
-        <item>balloon</item>
+        <item>icons_217</item>
+        <item>icons_199</item>
+        <item>icons_247</item>
+        <item>icons_205</item>
+        <item>icons_220</item>
+        <item>icons_201</item>
     </string-array>
     <string-array name="health">
         <item>Лекарство</item>
@@ -565,9 +740,9 @@
         <item>Стоматолог</item>
     </string-array>
     <string-array name="health_icons">
-        <item>sign_3d</item>
-        <item>p_full_hd</item>
-        <item>ball</item>
+        <item>icons_282</item>
+        <item>icons_111</item>
+        <item>icons_281</item>
     </string-array>
     <string-array name="food">
         <item>Хлеб</item>
@@ -575,37 +750,33 @@
         <item>Мясо</item>
         <item>Пиво</item>
         <item>Кефир</item>
-        <item>Яйца</item>
         <item>Вода</item>
     </string-array>
     <string-array name="food_icons">
-        <item>sign_3d</item>
-        <item>p_full_hd</item>
-        <item>ball</item>
-        <item>ball_1</item>
-        <item>ball_2</item>
-        <item>balloon</item>
-        <item>bathroom</item>
+        <item>icons_156</item>
+        <item>icons_155</item>
+        <item>icons_158</item>
+        <item>icons_294</item>
+        <item>icons_165</item>
+        <item>icons_166</item>
     </string-array>
     <string-array name="car">
-        <item>Ремон</item>
+        <item>Ремонт</item>
         <item>Топливо</item>
         <item>Моторное масло</item>
         <item>Вулканизация</item>
         <item>Фильтры</item>
-        <item>Колодки</item>
         <item>Аккумулятор</item>
         <item>Шины</item>
     </string-array>
     <string-array name="car_icons">
-        <item>sign_3d</item>
-        <item>p_full_hd</item>
-        <item>ball</item>
-        <item>ball_1</item>
-        <item>ball_2</item>
-        <item>balloon</item>
-        <item>bathroom</item>
-        <item>beach</item>
+        <item>icons_250</item>
+        <item>icons_252</item>
+        <item>icons_254</item>
+        <item>icons_269</item>
+        <item>icons_71</item>
+        <item>icons_249</item>
+        <item>icons_251</item>
     </string-array>
     <string-array name="transport">
         <item>Такси</item>
@@ -616,12 +787,12 @@
         <item>Самолет</item>
     </string-array>
     <string-array name="transport_icons">
-        <item>sign_3d</item>
-        <item>p_full_hd</item>
-        <item>ball</item>
-        <item>ball_1</item>
-        <item>ball_2</item>
-        <item>balloon</item>
+        <item>icons_262</item>
+        <item>icons_263</item>
+        <item>icons_265</item>
+        <item>icons_265</item>
+        <item>icons_265</item>
+        <item>icons_275</item>
     </string-array>
     <string-array name="gaiety">
         <item>Ресторан</item>
@@ -633,13 +804,13 @@
         <item>Аттракцион</item>
     </string-array>
     <string-array name="gaiety_icons">
-        <item>sign_3d</item>
-        <item>p_full_hd</item>
-        <item>ball</item>
-        <item>ball_1</item>
-        <item>ball_2</item>
-        <item>balloon</item>
-        <item>bathroom</item>
+        <item>icons_292</item>
+        <item>icons_306</item>
+        <item>icons_136</item>
+        <item>icons_176</item>
+        <item>icons_298</item>
+        <item>icons_302</item>
+        <item>icons_61</item>
     </string-array>
     <string-array name="buy">
         <item>Зубная паста</item>
@@ -649,11 +820,11 @@
         <item>Напитки</item>
     </string-array>
     <string-array name="buy_icons">
-        <item>sign_3d</item>
-        <item>p_full_hd</item>
-        <item>ball</item>
-        <item>ball_1</item>
-        <item>ball_2</item>
+        <item>icons_84</item>
+        <item>icons_166</item>
+        <item>icons_254</item>
+        <item>icons_296</item>
+        <item>icons_295</item>
     </string-array>
     <string-array name="sport">
         <item>Тренажерный зал</item>
@@ -663,11 +834,11 @@
         <item>Плавание</item>
     </string-array>
     <string-array name="sport_icons">
-        <item>sign_3d</item>
-        <item>p_full_hd</item>
-        <item>ball</item>
-        <item>ball_1</item>
-        <item>ball_2</item>
+        <item>icons_179</item>
+        <item>icons_178</item>
+        <item>icons_174</item>
+        <item>icons_181</item>
+        <item>icons_184</item>
     </string-array>
     <string-array name="beauty">
         <item>Парикмахер</item>
@@ -677,11 +848,11 @@
         <item>Макияж</item>
     </string-array>
     <string-array name="beauty_icons">
-        <item>sign_3d</item>
-        <item>p_full_hd</item>
-        <item>ball</item>
-        <item>ball_1</item>
-        <item>ball_2</item>
+        <item>icons_128</item>
+        <item>icons_289</item>
+        <item>icons_299</item>
+        <item>icons_299</item>
+        <item>icons_127</item>
     </string-array>
     <string-array name="equipment">
         <item>Смартфон</item>
@@ -691,11 +862,11 @@
         <item>Принтер</item>
     </string-array>
     <string-array name="equipment_icons">
-        <item>sign_3d</item>
-        <item>p_full_hd</item>
-        <item>ball</item>
-        <item>ball_1</item>
-        <item>ball_2</item>
+        <item>icons_68</item>
+        <item>icons_143</item>
+        <item>icons_142</item>
+        <item>icons_130</item>
+        <item>icons_77</item>
     </string-array>
     <string name="no_category">no_category</string>
     <string name="no_category_name">Без подкатегории</string>
@@ -768,9 +939,9 @@
         <item>acc_bank</item>
     </string-array>
     <string-array name="account_icons">
-        <item>sign_3d</item>
-        <item>p_full_hd</item>
-        <item>ball</item>
+        <item>icons_30</item>
+        <item>icons_6</item>
+        <item>icons_29</item>
     </string-array>
     <string-array name="report_by_account_titles">
         <item>Операция</item>
@@ -792,12 +963,12 @@
     <string name="language_default">default_lang</string>
     <string name="language">Language</string>
     <string-array name="language_titles">
-        <item>РУССКИЙ (RU)</item>
         <item>ENGLISH (EN)</item>
+        <item>РУССКИЙ (RU)</item>
     </string-array>
     <string-array name="language_values">
-        <item>ru</item>
         <item>en</item>
+        <item>ru</item>
     </string-array>
     <string name="choose_language">Select language</string>
     <string name="transfer_data">Transfer balance from last month</string>

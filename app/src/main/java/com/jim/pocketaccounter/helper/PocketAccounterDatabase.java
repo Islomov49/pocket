@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.UUID;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -465,19 +466,21 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 			values.put("icon", iconId);
 			db.insert("category_table", null, values);
 			int arrayId = context.getResources().getIdentifier(catValues[i], "array", context.getPackageName());
-			int subcatIconArrayId = context.getResources().getIdentifier(catValues[i]+"_icons", "array", context.getPackageName());
-			String[] subCats = context.getResources().getStringArray(arrayId);
-			String[] tempIcons = context.getResources().getStringArray(subcatIconArrayId);
-			int[] subCatIcons = new int[tempIcons.length];
-			for (int j=0; j<tempIcons.length; j++)
-				subCatIcons[j] = context.getResources().getIdentifier(tempIcons[j], "drawable", context.getPackageName());
-			for (int j=0; j<subCats.length; j++) {
-				values.clear();
-				values.put("subcategory_name", subCats[j]);
-				values.put("subcategory_id", subCats[j]);
-				values.put("category_id", catValues[i]);
-				values.put("icon", subCatIcons[j]);
-				db.insert("subcategory_table", null, values);
+			if (arrayId != 0) {
+				int subcatIconArrayId = context.getResources().getIdentifier(catValues[i]+"_icons", "array", context.getPackageName());
+				String[] subCats = context.getResources().getStringArray(arrayId);
+				String[] tempIcons = context.getResources().getStringArray(subcatIconArrayId);
+				int[] subCatIcons = new int[tempIcons.length];
+				for (int j=0; j<tempIcons.length; j++)
+					subCatIcons[j] = context.getResources().getIdentifier(tempIcons[j], "drawable", context.getPackageName());
+				for (int j=0; j<subCats.length; j++) {
+					values.clear();
+					values.put("subcategory_name", subCats[j]);
+					values.put("subcategory_id", subCats[j]);
+					values.put("category_id", catValues[i]);
+					values.put("icon", subCatIcons[j]);
+					db.insert("subcategory_table", null, values);
+				}
 			}
 		}
 	}

@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ViewGroup;
@@ -105,11 +106,11 @@ public class BarReportView extends LinearLayout {
         }
         BarDataSet set1, set2, set3;
         set1 = new BarDataSet(yVals1, getResources().getString(R.string.income));
-        set1.setColor(Color.rgb(104, 241, 175));
+        set1.setColor(ContextCompat.getColor(getContext(), R.color.bar_income));
         set2 = new BarDataSet(yVals2, getResources().getString(R.string.expanse));
-        set2.setColor(Color.rgb(164, 228, 251));
+        set2.setColor(ContextCompat.getColor(getContext(), R.color.bar_expanse));
         set3 = new BarDataSet(yVals3, getResources().getString(R.string.profit));
-        set3.setColor(Color.rgb(242, 247, 158));
+        set3.setColor(ContextCompat.getColor(getContext(), R.color.bar_profit));
         ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
         dataSets.add(set1);
         dataSets.add(set2);

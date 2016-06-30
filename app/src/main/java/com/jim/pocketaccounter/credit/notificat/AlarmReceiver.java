@@ -26,7 +26,7 @@ public class AlarmReceiver extends BroadcastReceiver
 
         String message = "";
         String title="";
-        int which_photo_will_choose=R.drawable.commerce;
+        int which_photo_will_choose=R.drawable.icons_4;
 
         int tipFragment=0;
         if (intent != null) {
@@ -42,7 +42,7 @@ public class AlarmReceiver extends BroadcastReceiver
         Intent resultIntent=new Intent(context, opActivity);
         if(tipFragment==TO_DEBT){
             resultIntent.putExtra("TIP",TO_DEBT);
-            which_photo_will_choose=R.drawable.money_9;
+            which_photo_will_choose=R.drawable.icons_4;
         }
         else if(tipFragment==TO_CRIDET){
             resultIntent.putExtra("TIP",TO_CRIDET);

@@ -367,6 +367,10 @@ public class AdapterCridet extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         });
         final DatePickerDialog.OnDateSetListener getDatesetListener = new DatePickerDialog.OnDateSetListener() {
             public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+                if(current.getTake_time().getTimeInMillis()>=(new GregorianCalendar(arg1,arg2,arg3)).getTimeInMillis()){
+                    enterDate.setError(context.getString(R.string.incorrect_date));
+                    enterDate.setText(dateformarter.format(current.getTake_time().getTime()));
+                }
                 enterDate.setText(dateformarter.format((new GregorianCalendar(arg1,arg2,arg3)).getTime()));
                 date.set(arg1, arg2, arg3);
             }

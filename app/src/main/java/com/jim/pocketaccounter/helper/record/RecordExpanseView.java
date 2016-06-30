@@ -364,6 +364,7 @@ public class RecordExpanseView extends View implements 	GestureDetector.OnGestur
 					buttons.get(i).setPressed(false);
 				PocketAccounter.PRESSED = false;
 				invalidate();
+				((PocketAccounter)getContext()).calclulateBalanse(date);
 				dialog.dismiss();
 			}
 		});

@@ -16,22 +16,22 @@
             android:orientation="vertical">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="@dimen/hundred_and_twenty_dp"
                 android:orientation="horizontal"
                 android:background="@color/grey_light"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
+                android:paddingLeft="@dimen/sixteen_dp"
+                android:paddingRight="@dimen/sixteen_dp"
 
                 >
                 <ImageView
                     android:id="@+id/imageForIcon"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
-                    android:layout_marginTop="15dp"
+                    android:layout_width="@dimen/ninetytwo_dp"
+                    android:layout_height="@dimen/ninetytwo_dp"
+                    android:layout_marginTop="@dimen/sixteen_dp"
                     android:background="@drawable/eclicse_button"
-                    android:src="@drawable/commerce"
-                    android:padding="26dp"
-                    android:layout_marginRight="10dp"
+                    android:src="@drawable/icons_4"
+                    android:padding="@dimen/twentysix_dp"
+                    android:layout_marginRight="@dimen/ten_dp"
                     />
 
                 <LinearLayout
@@ -42,17 +42,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Credit name"
-                        android:textSize="20sp"
+                        android:textSize="@dimen/twenty_sp"
                         android:textColor="#212121"
 
-                        android:layout_marginTop="29dp"/>
+                        android:layout_marginTop="@dimen/twentynine_dp"/>
 
                     <EditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/enter_credit_name"
 
-                        android:textSize="16sp"
+                        android:textSize="@dimen/sixteen_sp"
                         android:maxLength="25"
                         android:textColor="@color/black_for_glavniy_text"
                         android:textColorHint="@color/black_for_secondary_text"
@@ -62,7 +62,7 @@
             </LinearLayout>
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="2px"
+                android:layout_height="@dimen/one_dp"
                 android:background="@color/green_light_forline"
 
 
@@ -71,20 +71,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:paddingLeft="16dp"
-                        android:paddingRight="16dp">
+                        android:paddingLeft="@dimen/sixteen_dp"
+                        android:paddingRight="@dimen/sixteen_dp">
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:orientation="horizontal"
-                            android:layout_marginTop="20dp">
+                            android:layout_marginTop="@dimen/twenty_dp">
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="18dp"
+                                android:textSize="@dimen/eighteen_sp"
                                 android:textColor="@color/black_for_glavniy_text"
                                 android:text="@string/credit_amount"
-                                android:layout_marginRight="10dp"
+                                android:layout_marginRight="@dimen/ten_dp"
                                 />
                             <RelativeLayout
                                 android:layout_width="match_parent"
@@ -92,7 +92,7 @@
                                 android:gravity="center">
                                 <ImageView
                                     android:layout_width="match_parent"
-                                    android:layout_height="2px"
+                                    android:layout_height="@dimen/one_dp"
                                     android:background="@color/green_light_forline"/>
                             </RelativeLayout>
                         </LinearLayout>
@@ -104,13 +104,13 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:hint="@string/credit_amount"
-                                android:textSize="14sp"
+                                android:textSize="@dimen/fourteen_dp"
                                 android:maxLength="13"
                                 android:layout_alignParentLeft="true"
                                 android:layout_alignParentStart="true"
                                 android:layout_toLeftOf="@+id/spinner"
                                 android:layout_toStartOf="@+id/spinner"
-                                android:layout_marginRight="6dp"
+                                android:layout_marginRight="@dimen/six_dp"
                                 android:inputType="numberDecimal"/>
 
                             <Spinner
@@ -119,7 +119,7 @@
                                 android:layout_alignParentRight="true"
                                 android:layout_alignParentEnd="true"
                                 android:id="@+id/spinner"
-                                android:layout_marginTop="14dp"
+                                android:layout_marginTop="@dimen/fourteen_dp"
 
                                 ></Spinner>
                         </RelativeLayout>
@@ -127,14 +127,14 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:orientation="horizontal"
-                                android:layout_marginTop="16dp">
+                                android:layout_marginTop="@dimen/sixteen_dp">
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:textSize="18dp"
+                                    android:textSize="@dimen/eighteen_sp"
                                     android:textColor="@color/black_for_glavniy_text"
                                     android:text="@string/percent"
-                                    android:layout_marginRight="10dp"
+                                    android:layout_marginRight="@dimen/ten_dp"
                                     />
                                 <RelativeLayout
                                     android:layout_width="match_parent"
@@ -142,7 +142,7 @@
                                     android:gravity="center">
                                     <ImageView
                                         android:layout_width="match_parent"
-                                        android:layout_height="2px"
+                                        android:layout_height="@dimen/one_dp"
                                         android:background="@color/green_light_forline"/>
                                 </RelativeLayout>
                             </LinearLayout>
@@ -154,12 +154,12 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:hint="@string/credit_percent"
-                                    android:textSize="14sp"
+                                    android:textSize="@dimen/fourteen_sp"
                                     android:layout_alignParentLeft="true"
                                     android:layout_alignParentStart="true"
                                     android:layout_toLeftOf="@+id/spinner_procent"
                                     android:layout_toStartOf="@+id/spinner_procent"
-                                    android:layout_marginRight="6dp"
+                                    android:layout_marginRight="@dimen/six_dp"
                                     android:inputType="numberDecimal"
                                     android:elevation="0dp"
                                     android:maxLength="3"
@@ -170,7 +170,7 @@
                                     android:layout_alignParentRight="true"
                                     android:layout_alignParentEnd="true"
                                     android:id="@+id/spinner_procent"
-                                    android:layout_marginTop="14dp"
+                                    android:layout_marginTop="@dimen/fourteen_dp"
 
                                     ></Spinner>
                             </RelativeLayout>
@@ -178,14 +178,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:orientation="horizontal"
-                            android:layout_marginTop="16dp">
+                            android:layout_marginTop="@dimen/sixteen_dp">
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="18dp"
+                                android:textSize="@dimen/eighteen_sp"
                                 android:textColor="@color/black_for_glavniy_text"
                                 android:text="@string/period_of_credit"
-                                android:layout_marginRight="10dp"
+                                android:layout_marginRight="@dimen/ten_dp"
                                 />
                             <RelativeLayout
                                 android:layout_width="match_parent"
@@ -193,7 +193,7 @@
                                 android:gravity="center">
                                 <ImageView
                                     android:layout_width="match_parent"
-                                    android:layout_height="2px"
+                                    android:layout_height="@dimen/one_dp"
                                     android:background="@color/green_light_forline"/>
                             </RelativeLayout>
                         </LinearLayout>
@@ -205,12 +205,12 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:hint="how long time you should pay?"
-                                android:textSize="14sp"
+                                android:textSize="@dimen/fourteen_sp"
                                 android:layout_alignParentLeft="true"
                                 android:layout_alignParentStart="true"
                                 android:layout_toLeftOf="@+id/spinner_period"
                                 android:layout_toStartOf="@+id/spinner_period"
-                                android:layout_marginRight="6dp"
+                                android:layout_marginRight="@dimen/six_dp"
                                 android:maxLength="3"
                                 android:inputType="number"/>
 
@@ -220,7 +220,7 @@
                                 android:layout_alignParentRight="true"
                                 android:layout_alignParentEnd="true"
                                 android:id="@+id/spinner_period"
-                                android:layout_marginTop="14dp"
+                                android:layout_marginTop="@dimen/fourteen_dp"
 
                                 ></Spinner>
                         </RelativeLayout>
@@ -228,14 +228,14 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:orientation="horizontal"
-                            android:layout_marginTop="16dp">
+                            android:layout_marginTop="@dimen/sixteen_dp">
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="18dp"
+                                android:textSize="@dimen/eighteen_sp"
                                 android:textColor="@color/black_for_glavniy_text"
                                 android:text="@string/interval"
-                                android:layout_marginRight="10dp"
+                                android:layout_marginRight="@dimen/ten_dp"
                                 />
                             <RelativeLayout
                                 android:layout_width="match_parent"
@@ -243,7 +243,7 @@
                                 android:gravity="center">
                                 <ImageView
                                     android:layout_width="match_parent"
-                                    android:layout_height="2px"
+                                    android:layout_height="@dimen/one_dp"
                                     android:background="@color/green_light_forline"/>
                             </RelativeLayout>
                         </LinearLayout>
@@ -256,17 +256,17 @@
                                 android:layout_height="wrap_content"
                                 android:hint="@string/credit_begin_date"
                                 android:focusableInTouchMode="false"
-                                android:textSize="14sp"
-                                android:layout_marginRight="6dp"
+                                android:textSize="@dimen/fourteen_sp"
+                                android:layout_marginRight="@dimen/six_dp"
                                 android:layout_toLeftOf="@+id/imageView2"
                                 android:layout_alignParentLeft="true"
                                 android:layout_alignParentStart="true" />
                            <ImageView
-                               android:layout_width="30dp"
-                               android:layout_height="40dp"
+                               android:layout_width="@dimen/thirty_dp"
+                               android:layout_height="@dimen/fourty_dp"
                                android:layout_centerHorizontal="true"
                                android:src="@drawable/ikitar"
-                               android:padding="5dp"
+                               android:padding="@dimen/five_dp"
                                android:id="@+id/imageView2" />
                             <EditText
                                 android:id="@+id/date_ends_edit"
@@ -274,8 +274,8 @@
                                 android:layout_height="wrap_content"
                                 android:hint="@string/credit_return_date"
                                 android:focusableInTouchMode="false"
-                                android:textSize="14sp"
-                                android:layout_marginLeft="6dp"
+                                android:textSize="@dimen/fourteen_sp"
+                                android:layout_marginLeft="@dimen/six_dp"
                                 android:layout_alignParentRight="true"
                                 android:layout_alignParentEnd="true"
                                 android:layout_toRightOf="@+id/imageView2"
@@ -285,34 +285,34 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:orientation="horizontal"
-                            android:layout_marginTop="16dp">
+                            android:layout_marginTop="@dimen/sixteen_dp">
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="18dp"
+                                android:textSize="@dimen/eighteen_sp"
                                 android:textColor="@color/black_for_glavniy_text"
                                 android:text="@string/transactions"
-                                android:layout_marginRight="10dp"/>
+                                android:layout_marginRight="@dimen/ten_dp"/>
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center">
                                 <ImageView
                                     android:layout_width="match_parent"
-                                    android:layout_height="2px"
+                                    android:layout_height="@dimen/one_dp"
                                     android:background="@color/green_light_forline"/>
                             </RelativeLayout>
                         </LinearLayout>
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp">
+                            android:layout_marginTop="@dimen/five_dp"
+                            android:layout_marginBottom="@dimen/five_dp">
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/include_credit_in_balance"
-                                android:layout_marginTop="5dp"
+                                android:layout_marginTop="@dimen/five_dp"
                                 android:textColor="@color/black_for_glavniy_text"
                                 android:id="@+id/textView4" />
                             <CheckBox
@@ -334,12 +334,12 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:hint="Начальная выплата кредита"
-                                android:textSize="14sp"
+                                android:textSize="@dimen/fourteen_sp"
                                 android:layout_alignParentLeft="true"
                                 android:layout_alignParentStart="true"
                                 android:layout_toLeftOf="@+id/spinner_sceta"
                                 android:layout_toStartOf="@+id/spinner_sceta"
-                                android:layout_marginRight="6dp"
+                                android:layout_marginRight="@dimen/six_dp"
                                 android:inputType="numberDecimal"/>
                                 android:maxLength="13"
                                 />
@@ -350,7 +350,7 @@
                                 android:layout_alignParentRight="true"
                                 android:layout_alignParentEnd="true"
                                 android:id="@+id/spinner_sceta"
-                                android:layout_marginTop="14dp" />
+                                android:layout_marginTop="@dimen/fourteen_dp" />
                         </RelativeLayout>
 
                     </LinearLayout>
@@ -359,12 +359,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp">
+                android:layout_marginTop="@dimen/ten_dp"
+                android:layout_marginRight="@dimen/sixteen_dp"
+                android:layout_marginLeft="@dimen/sixteen_dp">
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="2px"
+                    android:layout_height="@dimen/one_dp"
                     android:background="@color/green_light_forline"/>
             </RelativeLayout>
         </LinearLayout>

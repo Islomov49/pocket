@@ -7,12 +7,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -22,6 +25,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -66,6 +70,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
+
 import static com.jim.pocketaccounter.R.color.toolbar_text_color;
 
 public class PocketAccounter extends AppCompatActivity {
@@ -103,6 +109,12 @@ public class PocketAccounter extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String lang = prefs.getString("language",getResources().getString(R.string.language_default));
+        if (lang.matches(getResources().getString(R.string.language_default)))
+            setLocale(Locale.getDefault().getLanguage());
+        else
+            setLocale(lang);
         setContentView(R.layout.pocket_accounter);
         spref = getSharedPreferences("infoFirst", MODE_PRIVATE);
         ed = spref.edit();
@@ -178,7 +190,14 @@ public class PocketAccounter extends AppCompatActivity {
             }
         })).start();
     }
-
+    public void setLocale(String lang) {
+        Locale myLocale = new Locale(lang);
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf = res.getConfiguration();
+        conf.locale = myLocale;
+        res.updateConfiguration(conf, dm);
+    }
     public Calendar getDate() {
         return date;
     }
@@ -246,14 +265,14 @@ public class PocketAccounter extends AppCompatActivity {
         rlRecordsMain.removeAllViews();
         rlRecordsMain.addView(expanseView);
         incomeView = new RecordIncomesView(this, date);
-        RelativeLayout.LayoutParams lpIncomes = new RelativeLayout.LayoutParams(width, width / 4 + (int) (getResources().getDimension(R.dimen.thirty_dp)));
+        RelativeLayout.LayoutParams lpIncomes = new RelativeLayout.LayoutParams(side, side / 4 + (int) (getResources().getDimension(R.dimen.thirty_dp)));
         lpIncomes.addRule(RelativeLayout.CENTER_HORIZONTAL);
         incomeView.setLayoutParams(lpIncomes);
         rlRecordIncomes.removeAllViews();
         rlRecordIncomes.addView(incomeView);
     }
 
-    private void calclulateBalanse(Calendar date) {
+    public void calclulateBalanse(Calendar date) {
         Calendar begTime = (Calendar) date.clone();
         begTime.set(Calendar.HOUR_OF_DAY, 0);
         begTime.set(Calendar.MINUTE, 0);
