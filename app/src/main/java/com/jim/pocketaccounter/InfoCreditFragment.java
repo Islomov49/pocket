@@ -128,7 +128,7 @@ public class InfoCreditFragment extends Fragment {
         tranact_recyc.setLayoutManager(llm);
 
         ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
-        ivToolbarMostRight.setImageResource(R.drawable.ic_trash);
+        ivToolbarMostRight.setImageResource(R.drawable.ic_delete_black);
         ivToolbarMostRight.setVisibility(View.VISIBLE);
         ivToolbarMostRight.setOnClickListener(new View.OnClickListener() {
             @Override

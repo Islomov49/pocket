@@ -129,7 +129,7 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 		for (int i=0; i<selected.length; i++)
 			selected[i] = false;
 		ivToolbar.setImageDrawable(null);
-		ivToolbar.setImageResource(R.drawable.ic_trash);
+		ivToolbar.setImageResource(R.drawable.ic_delete_black);
 		Animation fabDown = AnimationUtils.loadAnimation(getActivity(), R.anim.fab_down);
 		fabDown.setAnimationListener(new AnimationListener() {
 			@Override

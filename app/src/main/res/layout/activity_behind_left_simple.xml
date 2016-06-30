@@ -19,7 +19,7 @@
 					android:id="@+id/ivDrawerHead"
 					android:layout_width="@dimen/left_drawer_width"
 					android:layout_height="@dimen/drawer_header_height"
-					android:background="@drawable/bav" />
+					android:background="@drawable/bav2" />
 				<LinearLayout
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"

@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/sixteen_dp"
         android:text="TextView"
-        android:textColor="@color/drawer_color"
+        android:textColor="@color/for_darker"
         android:textSize="@dimen/sixteen_sp" />
 
     <LinearLayout
@@ -38,25 +38,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/message_color"
+            android:background="#f2f2f2"
             android:text="@string/yes"
-            android:textColor="@color/currency_chooser"
             android:textSize="@dimen/fourteen_sp" />
 
         <ImageView
             android:id="@+id/ivSubCatSave"
             android:layout_width="@dimen/one_dp"
             android:layout_height="match_parent"
-            android:background="@color/currency_chooser" />
+            />
 
         <Button
             android:id="@+id/btnWarningNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/message_color"
+            android:background="#f2f2f2"
             android:text="@string/no"
-            android:textColor="@color/currency_chooser"
             android:textSize="@dimen/fourteen_sp" />
 
     </LinearLayout>

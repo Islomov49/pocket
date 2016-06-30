@@ -214,7 +214,7 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 		}
 		else {
 			selected = new boolean[PocketAccounter.financeManager.getCategories().size()];
-			ivToolbarMostRight.setImageResource(R.drawable.ic_trash);
+			ivToolbarMostRight.setImageResource(R.drawable.ic_delete_black);
 		}
 		refreshList(mode);
 	}

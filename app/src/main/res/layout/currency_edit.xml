@@ -15,7 +15,7 @@
         android:button="@drawable/checkbox"
         android:paddingLeft="@dimen/ten_dp"
         android:text="@string/main_currency_edit"
-        android:textColor="#308eff"
+        android:textColor="@color/black_for_glavniy_text"
         android:textSize="@dimen/fourteen_sp" />
 
     <TextView

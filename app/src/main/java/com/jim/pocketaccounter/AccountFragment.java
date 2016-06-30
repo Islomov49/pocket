@@ -136,7 +136,7 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 				if (mode == PocketAccounterGeneral.NORMAL_MODE) {
 					mode = PocketAccounterGeneral.EDIT_MODE;
 					ivToolbarMostRight.setImageDrawable(null);
-					ivToolbarMostRight.setImageResource(R.drawable.ic_trash);
+					ivToolbarMostRight.setImageResource(R.drawable.ic_delete_black);
 					selected = new boolean[PocketAccounter.financeManager.getAccounts().size()];
 					refreshList(mode);
 				}

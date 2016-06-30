@@ -1,29 +1,19 @@
 package com.jim.pocketaccounter;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.jim.pocketaccounter.credit.AdapterCridetArchive;
@@ -37,7 +27,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 
 public class InfoCreditFragmentForArchive extends Fragment {
@@ -134,7 +123,7 @@ public class InfoCreditFragmentForArchive extends Fragment {
         adapRecyc.notifyDataSetChanged();
 
         ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
-        ivToolbarMostRight.setImageResource(R.drawable.ic_delete_black_18dp);
+        ivToolbarMostRight.setImageResource(R.drawable.ic_delete_black);
         ivToolbarMostRight.setVisibility(View.VISIBLE);
         ivToolbarMostRight.setOnClickListener(new View.OnClickListener() {
             @Override

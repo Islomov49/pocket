@@ -108,7 +108,7 @@ public class RecordDetailFragment extends Fragment implements OnClickListener {
             ivToolbarMostRight.setImageResource(R.drawable.pencil);
             adapter.removeItems();
         } else {
-            ivToolbarMostRight.setImageResource(R.drawable.ic_trash);
+            ivToolbarMostRight.setImageResource(R.drawable.ic_delete_black);
             adapter.listenChanges();
         }
     }

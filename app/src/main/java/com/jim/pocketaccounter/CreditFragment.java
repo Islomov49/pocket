@@ -4,23 +4,19 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.jim.pocketaccounter.credit.AdapterCridet;
 import com.jim.pocketaccounter.credit.AdapterCridetArchive;
 import com.jim.pocketaccounter.credit.CreditDetials;
 import com.jim.pocketaccounter.credit.LinearManagerWithOutEx;
-import com.jim.pocketaccounter.credit.ReckingCredit;
 import com.jim.pocketaccounter.finance.FinanceManager;
-import com.melnykov.fab.FloatingActionButton;
+
 import java.util.ArrayList;
 
 
@@ -76,7 +72,7 @@ public class CreditFragment extends Fragment {
         // Inflate the layout for this fragment
         toolbarik=PocketAccounter.toolbar;
         ImageView ivToolbarMostRight = (ImageView) toolbarik.findViewById(R.id.ivToolbarMostRight);
-        ivToolbarMostRight.setImageResource(R.drawable.ic_delete_black_18dp);
+        ivToolbarMostRight.setImageResource(R.drawable.ic_delete_black);
         ivToolbarMostRight.setVisibility(View.GONE);
         toolbarik.setTitle(R.string.cred_managment);
         toolbarik.setSubtitle("");
