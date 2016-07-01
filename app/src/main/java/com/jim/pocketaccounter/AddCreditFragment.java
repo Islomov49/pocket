@@ -144,9 +144,17 @@ public class AddCreditFragment extends Fragment {
                     valueCred.setError(getString(R.string.value_shoud_not_empty));
                     isMojno=false;
                 }
-                if (!(Double.parseDouble(valueCred.getText().toString()) >0)){
-                    valueCred.setError(getString(R.string.incorrect_value));
-                    isMojno=false;
+                else{
+                try{
+                    if (!(Double.parseDouble(valueCred.getText().toString()) >0)){
+                        valueCred.setError(getString(R.string.incorrect_value));
+                        isMojno=false;
+                    }
+                }
+                catch (Exception o){
+
+                }
+
                 }
                 if (procentCred.getText().toString().equals("")){
                     procentCred.setError(getString(R.string.procent_should_not_empty));
@@ -157,10 +165,19 @@ public class AddCreditFragment extends Fragment {
                     periodCred.setError(getString(R.string.period_should_not_empty));
                     isMojno=false;
                 }
-                if (!(Integer.parseInt(periodCred.getText().toString()) >0)){
-                    periodCred.setError(getString(R.string.incorrect_value));
-                    isMojno=false;
+                else{
+                    try{
+                        if (!(Integer.parseInt(periodCred.getText().toString()) >0)){
+                            periodCred.setError(getString(R.string.incorrect_value));
+                            isMojno=false;
+                        }
+                    }
+                    catch (Exception o){
+
+                    }
+
                 }
+
                 if (firstCred.getText().toString().equals("")){
                     firstCred.setError(getString(R.string.after_per_choise));
                     isMojno=false;

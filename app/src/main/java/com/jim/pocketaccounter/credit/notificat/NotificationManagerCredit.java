@@ -160,12 +160,17 @@ public class NotificationManagerCredit {
 	public void cancelAllNotifs() {
 		Intent updateServiceIntent = new Intent(context, AlarmReceiver.class);
 		for (int i = 0; i <= AlarmReceiver.req; i++) {
-			PendingIntent pendingUpdateIntent = PendingIntent.getService(context, i, updateServiceIntent, 0);
+
+			PendingIntent pendingUpdateIntent = PendingIntent.getService(context, 0, updateServiceIntent, 0);
+
 			try {
 				alarmManager.cancel(pendingUpdateIntent);
 			} catch (Exception e) {
-				Log.e("AlarmSet", "AlarmManager update was not canceled. " + e.toString());
+				Log.e("AlarmSet", "AlarmManager update was not canceled. " + e.toString());	
 			}
 		}
+
+
 	}
+	
 }

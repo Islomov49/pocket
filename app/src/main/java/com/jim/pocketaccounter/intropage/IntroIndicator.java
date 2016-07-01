@@ -66,15 +66,15 @@ public class IntroIndicator extends AppCompatActivity {
 
         //Sozdaniya i otpravka data v fragmentam
         IntroFrame appInfo=new IntroFrame();
-        appInfo.shareData(new DataIntro(getString(R.string.appInfoTitel),getString(R.string.introAppInfo),R.drawable.photoim));
+        appInfo.shareData(new DataIntro(getString(R.string.appInfoTitel),getString(R.string.introAppInfo),R.drawable.big_icon));
         fragments.add(appInfo);
 
         IntroFrame udobstvaInfo=new IntroFrame();
-        udobstvaInfo.shareData(new DataIntro(getString(R.string.quickInfp),getString(R.string.quickInfo),R.drawable.photoim));
+        udobstvaInfo.shareData(new DataIntro(getString(R.string.quickInfp),getString(R.string.quickInfo),R.drawable.design_info));
         fragments.add(udobstvaInfo);
 
         IntroFrame dizaynInfo=new IntroFrame();
-        dizaynInfo.shareData(new DataIntro(getString(R.string.designInfo),getString(R.string.clear_desgn),R.drawable.design_info));
+        dizaynInfo.shareData(new DataIntro(getString(R.string.designInfo),getString(R.string.clear_desgn),R.drawable.photoim));
         fragments.add(dizaynInfo);
 
         IntroFrame syncInfo=new IntroFrame();

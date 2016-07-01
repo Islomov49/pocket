@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:textSize="@dimen/twentyfour_dp"
+                android:textSize="@dimen/twentyfour_sp"
                 android:paddingRight="@dimen/sixteen_dp"
                 android:paddingLeft="@dimen/sixteen_dp"
                 android:text=""
@@ -52,7 +52,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="5"
-                    android:textSize="@dimen/fourteen_dp"
+                    android:textSize="@dimen/fourteen_sp"
                    android:text=""
                     android:textColor="#414141"
                     android:gravity="center"/>
