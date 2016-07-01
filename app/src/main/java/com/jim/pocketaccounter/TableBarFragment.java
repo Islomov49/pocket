@@ -30,6 +30,14 @@ public class TableBarFragment extends Fragment {
     private ReportByIncomeExpanseBarFragment barFragment;
     private ImageView ivToolbarMostRight, ivToolbarExcel;
     private FilterDialog filterDialog;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        ivToolbarExcel.setVisibility(View.VISIBLE);
+        ivToolbarMostRight.setVisibility(View.VISIBLE);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

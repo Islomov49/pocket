@@ -50,10 +50,9 @@ public class CreditArchiveFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(This);
         crRV.setLayoutManager(llm);
 
-        crAdap=new AdapterCridetArchive( This);
+        crAdap=new AdapterCridetArchive(This);
         crAdap.setSvyazToAdapter(svyazForNotifyFromArchAdap);
         crRV.setAdapter(crAdap);
-
 
         return V;
     }

@@ -25,6 +25,8 @@ public class CreditTabLay extends Fragment  implements View.OnClickListener, Vie
     FloatingActionButton fb;
     SvyazkaFragmentov svyaz;
     private ArrayList<Fragment> list;
+    public static int pos = 0;
+    private ViewPager viewPager;
 
     public CreditTabLay() {
         // Required empty public constructor
@@ -47,8 +49,8 @@ public class CreditTabLay extends Fragment  implements View.OnClickListener, Vie
                 A1.pressedFab();
             }
         });
-        final ViewPager viewPager = (ViewPager) V.findViewById(R.id.viewpager);
-        list = new ArrayList<Fragment>();
+        viewPager = (ViewPager) V.findViewById(R.id.viewpager);
+        list = new ArrayList<>();
         CreditFragment creditFragment = new CreditFragment();
         creditFragment.setCreditTabLay(this);
         CreditArchiveFragment creditArchiveFragment = new CreditArchiveFragment();
@@ -58,10 +60,12 @@ public class CreditTabLay extends Fragment  implements View.OnClickListener, Vie
                 (getActivity().getSupportFragmentManager(), list);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(this);
+        viewPager.setCurrentItem(pos
+        );
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
+//                viewPager.setCurrentItem(tab.getPosition());
             }
 
             @Override
@@ -103,6 +107,7 @@ public class CreditTabLay extends Fragment  implements View.OnClickListener, Vie
         else{
             fb.setVisibility(View.VISIBLE);
         }
+        pos = position;
     }
 
     @Override

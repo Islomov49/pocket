@@ -99,8 +99,10 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
                 if (parent == PocketAccounterGeneral.MAIN) {
                     ((PocketAccounter) getContext()).initialize(date);
                     ((PocketAccounter) getContext()).getSupportFragmentManager().popBackStack();
-                } else
+                } else {
+                    ((PocketAccounter) getContext()).getSupportFragmentManager().popBackStack();
                     ((PocketAccounter) getContext()).replaceFragment(new RecordDetailFragment(date));
+                }
             }
         });
         PocketAccounter.toolbar.setTitle("");

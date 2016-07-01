@@ -56,8 +56,9 @@ public class RecordDetailFragment extends Fragment implements OnClickListener {
         PocketAccounter.toolbar.setNavigationOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((PocketAccounter) getContext()).initialize(date);
                 ((PocketAccounter)getContext()).getSupportFragmentManager().popBackStack();
+                ((PocketAccounter)getContext()).getSupportFragmentManager().popBackStack();
+                ((PocketAccounter) getContext()).initialize(date);
             }
         });
         rvRecordDetail = (RecyclerView) rootView.findViewById(R.id.rvRecordDetail);

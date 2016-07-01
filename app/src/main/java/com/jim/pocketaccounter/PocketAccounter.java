@@ -35,6 +35,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -91,7 +92,6 @@ public class PocketAccounter extends AppCompatActivity {
     private RecordIncomesView incomeView;
     private Calendar date;
     private Spinner spToolbar;
-    private RelativeLayout rlRecordTable;
     public static SignInGoogleMoneyHold reg;
     boolean downloadnycCanRest=true;
     public static SyncBase mySync;
@@ -306,7 +306,6 @@ public class PocketAccounter extends AppCompatActivity {
         tvRecordBalanse.setText(decFormat.format(balance) + mainCurrencyAbbr);
     }
 
-
     @Override
     protected void onStop() {
         super.onStop();
@@ -422,7 +421,6 @@ public class PocketAccounter extends AppCompatActivity {
                         public void onFailed(Exception e) {
                         }
                     });
-
                 }
             }
 
@@ -430,11 +428,8 @@ public class PocketAccounter extends AppCompatActivity {
             public void updateToFailed() {
                 userName.setText(R.string.try_later);
                 userEmail.setText(R.string.err_con);
-
             }
         });
-
-
 
         fabIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -756,7 +751,12 @@ public class PocketAccounter extends AppCompatActivity {
                 if (getSupportFragmentManager().findFragmentById(R.id.flMain) != null) {
                     if (fragmentManager.findFragmentById(R.id.flMain).getTag() == null) {
                         switch (fragmentManager.findFragmentById(R.id.flMain).getClass().getName()) {
-                            case "com.jim.pocketaccounter.RecordEditFragment":
+                            case "com.jim.pocketaccounter.RecordEditFragment": {
+                                if (getSupportFragmentManager().getBackStackEntryCount() == 2) {
+                                    replaceFragment(new RecordDetailFragment(date));
+                                    break;
+                                }
+                            }
                             case "com.jim.pocketaccounter.RecordDetailFragment":
                                 initialize(date);
                                 break;

@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
@@ -563,7 +564,7 @@ public class AddCreditFragment extends Fragment {
     double creditValueWith;
     private void openDialog () {
         final Dialog dialog=new Dialog(getActivity());
-        View dialogView = getActivity().getLayoutInflater().inflate(R.layout.info_about_all, null);
+        final View dialogView = getActivity().getLayoutInflater().inflate(R.layout.info_about_all, null);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(dialogView);
 
@@ -654,6 +655,9 @@ public class AddCreditFragment extends Fragment {
                     tempik.add(0,first_pay);
                     A1.setReckings(tempik);
                 }
+                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(dialogView.getWindowToken(), 0);
+
                 myList.add(0,A1);
                 dialog.dismiss();
                 closeCurrentFragment();

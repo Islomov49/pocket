@@ -133,7 +133,6 @@ public class InfoCreditFragmentForArchive extends Fragment {
             builder.setMessage("Do you realize what you want to delete this post? This post are calculeted in balance! All transaction operations will deleted from aplication! ARE YOU SURE?")
                     .setPositiveButton("DELETE ANYWAY", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialoge, int id) {
-
                             A1.delete_item(POSITIOn);
                             getActivity().getSupportFragmentManager().popBackStack ();
 
@@ -152,7 +151,6 @@ public class InfoCreditFragmentForArchive extends Fragment {
             builder.setMessage("Do you realize what you want to delete this post? Then you can not restore!")
                     .setPositiveButton("DELETE ANYWAY", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialoge, int id) {
-
                             A1.delete_item(POSITIOn);
                             getActivity().getSupportFragmentManager().popBackStack ();
 
@@ -166,9 +164,6 @@ public class InfoCreditFragmentForArchive extends Fragment {
             builder.create().show();
 
         }
-
-
-
             }
         });
 

@@ -102,6 +102,20 @@ public class FilterDialog extends Dialog implements AdapterView.OnItemSelectedLi
             public void onClick(View v) {
                 InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                if (spinner.getSelectedItemPosition() == 0) {
+                    beginDate = (Calendar) Calendar.getInstance().clone();
+                    endDate = (Calendar) Calendar.getInstance().clone();
+                    beginDate.set(Calendar.DAY_OF_MONTH, 1);
+                    beginDate.set(Calendar.HOUR_OF_DAY, 0);
+                    beginDate.set(Calendar.MINUTE, 0);
+                    beginDate.set(Calendar.SECOND, 0);
+                    beginDate.set(Calendar.MILLISECOND, 0);
+                    endDate.set(Calendar.DAY_OF_MONTH, endDate.getActualMaximum(Calendar.DAY_OF_MONTH));
+                    endDate.set(Calendar.HOUR_OF_DAY, 23);
+                    endDate.set(Calendar.MINUTE, 59);
+                    endDate.set(Calendar.SECOND, 59);
+                    endDate.set(Calendar.MILLISECOND, 59);
+                }
                 filterSelectable.onDateSelected(beginDate, endDate);
                 dismiss();
             }
@@ -223,7 +237,6 @@ public class FilterDialog extends Dialog implements AdapterView.OnItemSelectedLi
                 endDate.set(Calendar.MINUTE, 59);
                 endDate.set(Calendar.SECOND, 59);
                 endDate.set(Calendar.MILLISECOND, 59);
-
                 break;
             }
             case START_3_DAY: {
