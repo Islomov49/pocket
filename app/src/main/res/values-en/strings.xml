@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Money Holder</string>
+    <string name="app_name">Мои деньги</string>
     <string-array name="drawer_cats">
         <item>Главная</item>
         <item>Финансы</item>
@@ -8,7 +8,7 @@
         <item>Настройки</item>
         <item>Оценить приложения</item>
         <item>Поделиться</item>
-        <item>Отпарвить письмо</item>
+        <item>Отправить письмо</item>
     </string-array>
     <string-array name="cat_ids">
         <item>0</item>
@@ -70,7 +70,7 @@
         <item>Така</item>
         <item>Марка</item>
         <item>Реал</item>
-        <item>ЮАНЬ</item>
+        <item>Юань</item>
         <item>Чешская крона</item>
         <item>Датская крона</item>
         <item>Египетский фунт</item>
@@ -547,9 +547,9 @@
     <string name="yes">Да</string>
     <string name="no">Нет</string>
     <string name="currency_exchange_warning">Данные по курсам валют и записи будут утеряны, так как вы не выбрали ранее вами выбранную валюту!</string>
-    <string name="currency_delete_warning">Записи по выбранным валютам будут удалены!!!</string>
-    <string name="currency_empty_warning">Список валют не должен быть пустым!!!</string>
-    <string name="warning">Предупреждение!!!</string>
+    <string name="currency_delete_warning">Записи по выбранным валютам будут удалены!</string>
+    <string name="currency_empty_warning">Список валют не должен быть пуст!</string>
+    <string name="warning">Внимание !</string>
     <string name="add">Добавить</string>
     <string name="expanse">Расход</string>
     <string name="income">Доход</string>
@@ -558,27 +558,27 @@
     <string name="sub_cats">Подкатегории</string>
     <string name="both">Оба</string>
     <string name="subcat_name">Название подкатегории</string>
-    <string name="warning_subcat">Существует подкатегория с таким названием.</string>
+    <string name="warning_subcat">Существует подкатегория с таким же названием.</string>
     <string name="select_icon">Выберите иконку</string>
     <string name="cat_type_not_choosen">Выберите тип категории</string>
     <string name="enter_cat_name">Введите название категории</string>
     <string name="initial_amount">Начальная сумма: </string>
     <string name="account_history">История переводов: </string>
     <string name="account">Счет</string>
-    <string name="currency_exchange">Курс валюты</string>
+    <string name="currency_exchange">Курсы валют</string>
     <string name="choose_date">Выберите дату</string>
     <string name="enter_exchange">Введите курс</string>
     <string name="main_currency_edit">Основная валюта</string>
-    <string name="costs_selected_all_warning">В списке должно остаться хотябы один элемент</string>
+    <string name="costs_selected_all_warning">В списке должен остаться один элемент</string>
     <string name="category">Категории</string>
     <string name="divide_null">На ноль делить нельзя!</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="total_paid">Total paid:</string>
-    <string name="in_this_period_paid">In this period paid:</string>
-    <string name="this_period_ends">This period ends:</string>
-    <string name="verall_debt">Оverall amount:</string>
-    <string name="in_this_month_should_pay">In this month should pay:</string>
-    <string name="credit_name">Наименование кредита</string>
+    <string name="total_paid">Общая сумма выплат:</string>
+    <string name="in_this_period_paid">Оплаты в данном периоде:</string>
+    <string name="this_period_ends">Конец периода:</string>
+    <string name="verall_debt">Остаток кредита:</string>
+    <string name="in_this_month_should_pay">Выплаты в данном месяце:</string>
+    <string name="credit_name">Наименование</string>
     <string name="home">Дом</string>
     <string name="network">Связь</string>
     <string name="clothes">Одежда</string>
@@ -599,15 +599,15 @@
     <string name="bonus">Бонус</string>
     <string name="percents">Проценты</string>
     <string name="other_income">Прочие</string>
-    <string name="year">year</string>
-    <string name="moth">month</string>
-    <string name="day">day</string>
-    <string name="moths">months</string>
-    <string name="years">years</string>
-    <string name="days">days</string>
-    <string name="ends">Ends</string>
+    <string name="year">год</string>
+    <string name="moth">месяц</string>
+    <string name="day">день</string>
+    <string name="moths">месяцы</string>
+    <string name="years">годы</string>
+    <string name="days">дни</string>
+    <string name="ends">Конец</string>
     <string name="archive">Архив</string>
-    <string name="toritus">How do you understand the credit system is very flexible . A lot of options . Because of this, we have given the solution but this may not be accurate. Whatever it was all exactly Please enter your version of the course has obshim wallet .</string>
+    <string name="toritus">Данная система учета кредита, весьма гибкая. Условия кредита, могут быть различными, в связи с этим Вы можете настроить приложение под свои требования.</string>
     <string-array name="cat_values">
         <item>home</item>
         <item>network</item>
@@ -873,42 +873,42 @@
     <string name="records">Записи</string>
     <string name="balanse">Баланс</string>
     <!-- for google signing -->
-    <string name="sign_out">Sign Out</string>
-    <string name="disconnect">Disconnect</string>
+    <string name="sign_out">Выход</string>
+    <string name="disconnect">Отключить</string>
     <string name="create">Создать</string>
     <string name="change">Заменить</string>
     <string name="clear">Убрать</string>
-    <string name="share_app">Share app</string>
-    <string name="from">From: </string>
-    <string name="to">To: </string>
+    <string name="share_app">Поделиться</string>
+    <string name="from">С: </string>
+    <string name="to">До: </string>
     <string name="from_email">from_email</string>
     <string name="to_email">basicstepsdevelopment@gmail.com</string>
     <string name="rate_app_web">https://play.google.com/store/apps/details?id=com.jim.pocketaccounter.lite</string>
     <string name="share_app_text">Рекомендую "Мои деньги - учет лайт"
         https://play.google.com/store/apps/details?id=com.jim.pocketaccounter.lite</string>
-    <string name="feedback_hint">Input feedback</string>
-    <string name="feedback_subject">Subject: </string>
-    <string name="feedback_content">Content: </string>
+    <string name="feedback_hint">Обратная связь</string>
+    <string name="feedback_subject">Предмет: </string>
+    <string name="feedback_content">Содержание: </string>
     <string name="per_day">Ежедневно</string>
     <string name="per_week">Еженедельно</string>
     <string name="per_month">Ежемесячно</string>
     <string name="per_year">Ежегодно</string>
-    <string name="mont">Month</string>
-    <string name="yearr">Year</string>
-    <string name="weekk">Week</string>
-    <string name="dayy">Day</string>
-    <string name="this_first_comment">This is piad before adding credit to aplication</string>
-    <string name="always_remember">Always remember to add your payment on the loan, and we will be happy to help you keep a balance!</string>
-    <string name="date_of_pay">Date of pay</string>
-    <string name="via">Via</string>
-    <string name="comment">Комментарие</string>
+    <string name="mont">Месяц</string>
+    <string name="yearr">Год</string>
+    <string name="weekk">Неделя</string>
+    <string name="dayy">День</string>
+    <string name="this_first_comment">Выплаты до начала использования данного приложения</string>
+    <string name="always_remember">Не забывайте вносить Ваши платежи и мы с удовольствием поможем Вам, сохранить Ваш бюджет!</string>
+    <string name="date_of_pay">День оплаты</string>
+    <string name="via">Через</string>
+    <string name="comment">Примечание</string>
     <string name="diagram_no_data_text">Нет данных для отображения!</string>
     <string name="credit">Кредит</string>
     <string name="borrow_statistics">Дал в долг</string>
     <string name="borrow_recking_statistics">Вернул долг</string>
     <string name="debt_statistics">Взял в долг</string>
     <string name="debt_recking_statistics">Вернули долг</string>
-    <string name="pay">PAY</string>
+    <string name="pay">Оплатить</string>
     <string name="cancel">Отмена</string>
     <string name="repaid">Завершено</string>
     <string name="active">Активные</string>
@@ -944,24 +944,24 @@
         <item>icons_29</item>
     </string-array>
     <string-array name="report_by_account_titles">
-        <item>Operation</item>
-        <item>Amount</item>
-        <item>Date</item>
-        <item>Category</item>
+        <item>Операция</item>
+        <item>Сумма</item>
+        <item>Дата</item>
+        <item>Категория</item>
     </string-array>
-    <string name="debt_borrow_taken">Vzyal v dolg</string>
-    <string name="debt_borrow_given">Dal v dolg</string>
-    <string name="debt_borrow_taken_recking">Zakril dolg</string>
-    <string name="debt_borrow_given_recking">Vernuli dolg</string>
+    <string name="debt_borrow_taken">Взял в долг</string>
+    <string name="debt_borrow_given">Дал в долг</string>
+    <string name="debt_borrow_taken_recking">Вернул долг</string>
+    <string name="debt_borrow_given_recking">Вернули долг</string>
     <string name="detail">Подробно</string>
     <string name="profit">Прибыль</string>
-    <string name="loading">Signing in</string>
-    <string name="please_wait">Please wait</string>
+    <string name="loading">Вход в аккаунт</string>
+    <string name="please_wait">Пожалуйста, подождите!</string>
     <string name="total">Общая сумма:</string>
     <string name="average">Средняя сумма:</string>
     //settings
     <string name="language_default">default_lang</string>
-    <string name="language">Language</string>
+    <string name="language">Язык</string>
     <string-array name="language_titles">
         <item>ENGLISH (EN)</item>
         <item>РУССКИЙ (RU)</item>
@@ -970,20 +970,20 @@
         <item>en</item>
         <item>ru</item>
     </string-array>
-    <string name="choose_language">Select language</string>
-    <string name="transfer_data">Transfer balance from last month</string>
-    <string name="notifications">Notice</string>
+    <string name="choose_language">Выберите язык</string>
+    <string name="transfer_data">Перенести баланс с прошлого месяца</string>
+    <string name="notifications">Уведомления</string>
     <bool name="notif_default">true</bool>
-    <string name="notifications_summary">Daily notice ON/OFF</string>
+    <string name="notifications_summary">Ежедневное уведомление ВКЛ/ВЫКЛ</string>
     <string name="planning_before_default">10</string>
     <string name="general_notif">general_notif</string>
     <string-array name="planning_before_entries">
-        <item>10 min.</item>
-        <item>20 min.</item>
-        <item>30 min.</item>
-        <item>40 min.</item>
-        <item>50 min.</item>
-        <item>1 hour</item>
+        <item>10 мин.</item>
+        <item>20 мин.</item>
+        <item>30 мин.</item>
+        <item>40 мин.</item>
+        <item>50 мин.</item>
+        <item>1 час</item>
     </string-array>
     <string-array name="planning_before_values">
         <item>10</item>
@@ -993,22 +993,22 @@
         <item>50</item>
         <item>60</item>
     </string-array>
-    <string name="planning_before_summary">Set value</string>
-    <string name="planning_before_title">Notice of event</string>
-    <string name="filters">Filters</string>
+    <string name="planning_before_summary">Установить значение</string>
+    <string name="planning_before_title">Уведомление событий</string>
+    <string name="filters">Фильтры</string>
     <string name="finance_record_default">3</string>
-    <string name="record_filter_summary">Set value for records in Finance section</string>
-    <string name="finance">Finance</string>
+    <string name="record_filter_summary">Установить значение для записей в финансах</string>
+    <string name="finance">Финансы</string>
     <string name="report_daily_default">2</string>
     <string name="filter_title">Фильтр</string>
-    <string name="filter_subtitle">С помощью данного пункта можно установить значение для фильтра отчета</string>
+    <string name="filter_subtitle">Установить значение для фильтра отчета</string>
     <string-array name="filter_titles_dialog">
         <item>Текущий месяц</item>
         <item>Посл. 3 дня</item>
         <item>Посл. 7 дней</item>
         <item>Месяц, год</item>
         <item>Год</item>
-        <item>Интервал</item>
+        <item>Период</item>
     </string-array>
     <string-array name="filter_titles">
         <item>Текущий месяц</item>
@@ -1020,14 +1020,14 @@
         <item>1</item>
         <item>2</item>
     </string-array>
-    <string name="sync">Synchronization</string>
-    <string name="setting_save">Save database to root folder</string>
-    <string name="save">Save</string>
-    <string name="setting_repair">Restore database from root folder</string>
-    <string name="repair">Restore</string>
-    <string name="planning_notif_entry">hour</string>
-    <string name="planning_notif_summary">Set notice time</string>
-    <string name="planning_notif_title">Notice time</string>
+    <string name="sync">Синхронизация</string>
+    <string name="setting_save">Сохранить данные в корневой папке</string>
+    <string name="save">Сохранить</string>
+    <string name="setting_repair">Восстановить данные из корневой папки</string>
+    <string name="repair">Восстановить</string>
+    <string name="planning_notif_entry">час</string>
+    <string name="planning_notif_summary">Установить время уведомления</string>
+    <string name="planning_notif_title">Время уведомления</string>
     <string-array name="report_by_income_expanse_table_titles">
         <item>Дата</item>
         <item>Расходы</item>
@@ -1040,27 +1040,27 @@
     <string name="report_income_expanse_aver_income">Средний доход:</string>
     <string name="report_income_expanse_aver_expanse">Средний расход:</string>
     <string name="report_income_expanse_aver_profit">Средняя прибыль:</string>
-    <string name="please_sign">Please sign</string>
-    <string name="and_sync_your_data">and sync your data</string>
-    <string name="introAppInfo">The program takes into account the daily income and expenses. For those who like to plan and keep records. We are glad to help you with this!</string>
-    <string name="quickInfo">Shortcut keys to help you save your time. Just click on the desired category, and enter your expenses the rest we will do for you</string>
-    <string name="clear_desgn">Simple but very intuitive interface will be clear to all. Our goal in the design of beauty is not profit or colorful. We tried to make everything convenient and intuitive interface</string>
-    <string name="appInfoTitel">MONEY HOLDER</string>
-    <string name="quickInfp">QUICK ACCESS</string>
-    <string name="designInfo">CLEAR DESIGN</string>
-    <string name="secureInfo">You are using a Google account can synchronize your application and data. In any ustroysva you can recover your data! Your data are stored under very reliable google servers</string>
-    <string name="safeInfo">SAFE SYNC</string>
-    <string name="flexInfo">FLEXIBLE REPORT</string>
-    <string name="flexinfo">The program will show statistics, and remember all of your expenses as. It gives you a report of all the information understandable way and if you can save it as a table</string>
-    <string name="let_s_go">LET’S GO</string>
-    <string name="paythan">" Are you sure of the fact that you have to pay more than "</string>
-    <string name="payza">"Your payment balance is "</string>
-    <string name="imsure">I\'m sure</string>
-    <string name="cancel1">Cancel</string>
-    <string name="try_later">Try later</string>
-    <string name="err_con">Error with connection</string>
-    <string name="first_sync_loging">To synchronize your database you need to log in using a Google account as. You will be able to download your data from any device, anywhere. You can recover any data loss! To restore the data, go to Settings->Backup</string>
-    <string name="sync_message">Whether you want to synchronize your data? This data will be overwritten strangled</string>
+    <string name="please_sign">Пожалуйста, авторизируйтесь</string>
+    <string name="and_sync_your_data">и синхронизируйте ваши данные</string>
+    <string name="introAppInfo">Приложение максимально подробно и удобно контролирует Ваши ежедневные доходы и расходы. Для тех, кто хотел бы бережно сохранять свой бюджет. Мы рады Вам помочь!</string>
+    <string name="quickInfo">Иконки быстрого доступа, помогут Вам сэкономить Ваше время. Просто нажмите на нужную категорию и введите Ваши расходы или доходы, а остальное приложение сделает за Вас!</string>
+    <string name="clear_desgn">Простой, но в тоже время интуитивно понятный интерфейс. Наша цель в дизайне приложения не красочность, а удобство. Мы постарались сделать все, чтобы интерфейс был понятным для всех без исключения. </string>
+    <string name="appInfoTitel">МОИ ДЕНЬГИ</string>
+    <string name="quickInfp">БЫСТРЫЙ ДОСТУП</string>
+    <string name="designInfo">ПРОСТОЙ ДИЗАЙН</string>
+    <string name="secureInfo">С помощью Вашей учетной записи Google вы можете синхронизировать данные. На любых устройствах можно восстановить данные! Данные хранятся в очень надежных серверах Google.</string>
+    <string name="safeInfo">СИНХРОНИЗАЦИЯ</string>
+    <string name="flexInfo">ГИБКИЙ ОТЧЕТ</string>
+    <string name="flexinfo">Приложение покажет статистику Ваших расходов и доходов. Вы сможете прогнозировать расходы. Полный отчет по всей информации, понятным образом, с возможностью сохранить в EXCEL.</string>
+    <string name="let_s_go">ПРИСТУПИМ!</string>
+    <string name="paythan">"Вы переплачиваете на сумму:"</string>
+    <string name="payza">"Неоплаченный остаток"</string>
+    <string name="imsure">Я согласен</string>
+    <string name="cancel1">Отмена</string>
+    <string name="try_later">Попытайтесь позже</string>
+    <string name="err_con">Ошибка соединения</string>
+    <string name="first_sync_loging">Чтобы синхронизировать данные, необходимо войти в систему с помощью учетной записи Google. Вы сможете загрузить с любого устройства, в любом месте. Вы можете восстановить все потерянные данные! Для восстановления данных перейдите в НАСТРОЙКИ->Google синхронизация->Загрузка базы данных.</string>
+    <string name="sync_message">Если Вы синхронизируйтесь, то Ваши данные будут перезаписаны.</string>
     <string name="category_name_error">Назвение категории не введено!</string>
     <string name="sub_cat_name_error">Назвение подкатегории не введено!</string>
     <string name="account_name_error">Название счета не введено!</string>
@@ -1075,10 +1075,10 @@
     <string name="account_delete_warning">Данные, связанные с выделенными счетами будут удалены!</string>
     <string name="subcat_delete_warning">Данные, связанные с выделенными подкатегориями будут удалены!</string>
     <string name="google_sync">Google синхронизация</string>
-    <string name="backup">Загрузка базу данных</string>
+    <string name="backup">Загрузка базы данных</string>
     <string name="backup_summary">Загружает последние данные из Google аккаунта</string>
-    <string name="google_logout">Log out</string>
-    <string name="incorrect_value">Введен неправильное значение!</string>
+    <string name="google_logout">Выйти</string>
+    <string name="incorrect_value">Введено неправильное значение!</string>
     <string name="edit">Добавление/Редактирование</string>
     <string name="accounts">Счета</string>
     <string name="report_by_income_expanse">Доходы и расходы</string>
@@ -1088,10 +1088,10 @@
     <string name="enter_credit_name">Введите название кредита</string>
     <string name="credit_amount">Сумма кредита</string>
     <string name="percent">Процентная ставка</string>
-    <string name="credit_percent">Процент вашего кредита</string>
+    <string name="credit_percent">Процент</string>
     <string name="period_of_credit">Срок кредитования</string>
     <string name="enter_period_of_credit">Введите срок кредита</string>
-    <string name="interval">Интервал</string>
+    <string name="interval">Период</string>
     <string name="credit_begin_date">Начало выплат</string>
     <string name="credit_return_date">Конец выплат</string>
     <string name="transactions">Транзакции</string>
@@ -1104,16 +1104,16 @@
     <string name="from_contact">Из контактов</string>
     <string name="tel_number">номер телефона</string>
     <string name="enter_phone_number">Введите номер телефона</string>
-    <string name="debt_amount">Сумма долга</string>
+    <string name="debt_amount">Сумма</string>
     <string name="enter_debt_amoount">Введите сумму долга</string>
     <string name="enter_borrow_amoount">Введите сумму займа</string>
     <string name="begin_date">Начальная дата</string>
-    <string name="end_time">Крайный срок</string>
+    <string name="end_time">Крайний срок</string>
     <string name="include_in_balance">Включить в баланс</string>
-    <string name="enter_first_transaction">Введите начальную выплату</string>
-    <string name="no_date_selected">Баз даты возврата</string>
+    <string name="enter_first_transaction">Первая выплата</string>
+    <string name="no_date_selected">Без даты возврата</string>
     <string name="incorrect_date">Неправильная дата</string>
-    <string name="incorrect_pay">Вы оплачиваете больше. Согласны?</string>
+    <string name="incorrect_pay">Вы оплачиваете больше, чем необходимо.</string>
     <string name="enter_pay_value">Введите сумму выплаты</string>
     <string name="return_date">Дата возврата</string>
     <string name="left">Остаток</string>
@@ -1124,7 +1124,7 @@
     <string name="no_calc_in_balance">Не учитывать в балансе</string>
     <string name="calc_in_balance">Учитывать в балансе</string>
     <string name="delete_question">Удалить?</string>
-    <string name="by">"По: "</string>
+    <string name="by">"Через:"</string>
     <string name="pay_daet">"Дата выплаты:  "</string>
     <string name="information">Информация</string>
     <string name="phone_number">Телефонный номер</string>
@@ -1137,55 +1137,58 @@
     <string name="enter_comment">Введите комментарие</string>
     <string name="borrows">Мне должны</string>
     <string name="debts">Я должен</string>
-    <string name="connection_faild">Please check your internet connection and try one more time!</string>
-    <string name="download">Downloading</string>
-    <string name="cheking_user">Checking user</string>
-    <string name="sync_last_data_sign_up">Do you want sync the last data from account which uploaded last :</string>
-    <string name="toast_error_connection">Error with connection. Try later</string>
-    <string name="sync_short">Sync</string>
-    <string name="exit">Выйти</string>
-    <string name="dou_you_want_discard">You have not added credit, just want to go out?</string>
-    <string name="discard">Discard</string>
+    <string name="connection_faild">Пожалуйста, проверьте интернет соединение и повторите попытку!</string>
+    <string name="download">Загрузка</string>
+    <string name="cheking_user">Проверка пользователя</string>
+    <string name="sync_last_data_sign_up">Вы хотите синхронизировать данные из учетной записи, загруженные в последний раз?</string>
+    <string name="toast_error_connection">Ошибка соединения. Попытайтесь позже</string>
+    <string name="sync_short">Синхронизация</string>
+    <string name="exit">Да</string>
+    <string name="dou_you_want_discard">Вы не добавили кредит, хотите выйти?</string>
+    <string name="discard">Выйти</string>
     <string name="dou_you_want_quit">Хотите выйти?</string>
-    <string name="are_you_sure_for_log_out">Do you want sing out from your account? Without account you can\'t sync !</string>
-    <string name="sync_want_from_data">Do you want sync data from :</string>
-    <string name="payment_ends_for_notify">The end of the payment period tomorrow!</string>
-    <string name="payment_balans">"Your payment balance is: "</string>
-    <string name="payment_balance2">"\nAre you sure of the fact that you have to pay more than: "</string>
-    <string name="total_credit_value">Total credit value:</string>
-    <string name="left2">Left:</string>
-    <string name="taken_date">Taken date :</string>
-    <string name="adding_to_archive">Adding to Archive:</string>
-    <string name="should_not_empty">Name should not empty!</string>
-    <string name="value_shoud_not_empty">Value should not empty!</string>
-    <string name="procent_should_not_empty">Procent should not empty!</string>
-    <string name="period_should_not_empty">Period should not empty!</string>
-    <string name="after_per_choise">After Period choise geting or last return date!</string>
-    <string name="first_enter_period">First enter period of debt!</string>
-    <string name="it_is_our_solution_but_please_check_it">It is our solution but please check it!</string>
-    <string name="cred_managment">Credit management</string>
-    <string name="not_calc">Not calculeted</string>
-    <string name="calculaed">Calculated</string>
-    <string name="accept_delete_reck">You accept the deletion of records</string>
-    <string name="accept">ACCEPT</string>
-    <string name="delete_credit">Do you realize what you want to delete this post? Then you can not restore!</string>
-    <string name="delete_anyway">DELETE ANYWAY</string>
-    <string name="paid_date">Paid date :</string>
-    <string name="when_you_paid">when you paid?</string>
-    <string name="amount2">Amount :</string>
-    <string name="from_account">From account :</string>
-    <string name="how_much_you_paid">how much you paid?</string>
-    <string name="commentik">Comment :</string>
-    <string name="do_you_want_note">Do you want note?</string>
-    <string name="this_amount_will_absorb_your_credit">This amount will absorb your credit</string>
-    <string name="left_amount">Left amount :</string>
-    <string name="procent_of_credit">Procent of credit:</string>
-    <string name="left_date">Left date :</string>
-    <string name="period_of_credit2">Period of credit :</string>
-    <string name="taked_credit_time">Taked credit time :</string>
-    <string name="in_the_balance">In the balance:</string>
-    <string name="transactions2">Transactions</string>
-    <string name="delete2">DELETE</string>
-    <string name="total_a">Total :</string>
+    <string name="are_you_sure_for_log_out">Вы действительно хотите выйти из учетной записи? Без учетной записи, Вы не сможете синхронизироваться!</string>
+    <string name="sync_want_from_data">Синхронизировать данные с:</string>
+    <string name="payment_ends_for_notify">Завтра, крайний срок платежа!</string>
+    <string name="payment_balans">"Неолаченный остаток:"</string>
+    <string name="payment_balance2">"\nВы переплачивате на сумму:"</string>
+    <string name="total_credit_value">Общая сумма кредита:</string>
+    <string name="left2">Срок кредитования:</string>
+    <string name="taken_date">День выплаты:</string>
+    <string name="adding_to_archive">В архив:</string>
+    <string name="should_not_empty">Введите наименование!</string>
+    <string name="value_shoud_not_empty">Введите сумму!</string>
+    <string name="procent_should_not_empty">Введите процент!</string>
+    <string name="period_should_not_empty">Введите период!</string>
+    <string name="after_per_choise">Введите дату!</string>
+    <string name="first_enter_period">Сначала введите срок кредитования!</string>
+    <string name="it_is_our_solution_but_please_check_it">Настройте под свои требования!</string>
+    <string name="cred_managment">Настройка кредита</string>
+    <string name="not_calc">Не учитано</string>
+    <string name="calculaed">Учитано</string>
+    <string name="accept_delete_reck">Вы действительно хотите удалить запись?</string>
+    <string name="accept">УДАЛИТЬ</string>
+    <string name="delete_credit">Вы действительно хотите удалить запись?</string>
+    <string name="delete_anyway">УДАЛИТЬ</string>
+    <string name="paid_date">Дата оплаты:</string>
+    <string name="when_you_paid">Когда оплатите?</string>
+    <string name="amount2">Сумма:</string>
+    <string name="from_account">Счет:</string>
+    <string name="how_much_you_paid">Сумма выплаты</string>
+    <string name="commentik">Примечание:</string>
+    <string name="do_you_want_note">Введите Ваши примечания</string>
+    <string name="this_amount_will_absorb_your_credit">Частичная либо полная выплата</string>
+    <string name="left_amount">Остаток:</string>
+    <string name="procent_of_credit">Процент кредита:</string>
+    <string name="left_date">Осталось:</string>
+    <string name="period_of_credit2">Период кредита:</string>
+    <string name="taked_credit_time">Дата кредита:</string>
+    <string name="in_the_balance">В балансе:</string>
+    <string name="transactions2">Транзакции</string>
+    <string name="delete2">УДАЛИТЬ</string>
+    <string name="total_a">ВСЕГО:</string>
     <string name="amount_borrow">Сумма займа</string>
+    <string name="between_dates">Выберите период</string>
+    <string name="between">Период</string>
+    <string name="how_long_time_you_should_pay">Период кредита</string>
 </resources>

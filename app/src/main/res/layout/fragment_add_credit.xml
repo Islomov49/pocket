@@ -334,7 +334,7 @@
                                 android:id="@+id/for_trasaction_credit"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:hint="Начальная выплата кредита"
+                                android:hint="@string/enter_first_transaction"
                                 android:textSize="@dimen/fourteen_sp"
                                 android:layout_alignParentLeft="true"
                                 android:layout_alignParentStart="true"

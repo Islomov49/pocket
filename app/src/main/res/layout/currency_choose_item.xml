@@ -5,18 +5,18 @@
     android:background="@color/white"
     android:layout_centerInParent="true">
 
-    <CheckBox
+    <com.jim.pocketaccounter.helper.CurrencyChecbox
         android:id="@+id/chbCurrencyChoose"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/five_dp"
-        android:button="@drawable/currency_choose"
         android:layout_centerInParent="true"/>
 
     <TextView
         android:id="@+id/tvCurrencyChooseSign"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+        android:layout_centerInParent="true"
+        android:textSize="@dimen/sixteen_sp"/>
 
 </RelativeLayout>

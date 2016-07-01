@@ -3,6 +3,7 @@ package com.jim.pocketaccounter;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -267,6 +268,18 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 					category.setType(type);
 					category.setIcon(selectedIcon);
 					category.setSubCategories(subCategories);
+					for (int i=0; i<PocketAccounter.financeManager.getExpanses().size(); i++) {
+						if (PocketAccounter.financeManager.getExpanses().get(i).getId().matches(category.getId())) {
+							PocketAccounter.financeManager.getExpanses().set(i, category);
+							break;
+						}
+					}
+					for (int i=0; i<PocketAccounter.financeManager.getIncomes().size(); i++) {
+						if (PocketAccounter.financeManager.getIncomes().get(i).getId().matches(category.getId())) {
+							PocketAccounter.financeManager.getIncomes().set(i, category);
+							break;
+						}
+					}
 				}
 				else {
 					RootCategory newCategory = new RootCategory();
@@ -406,6 +419,8 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 		ivSubCatClose.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
 				dialog.dismiss();
 			}
 		});

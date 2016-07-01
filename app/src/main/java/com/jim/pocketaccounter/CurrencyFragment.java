@@ -2,9 +2,11 @@ package com.jim.pocketaccounter;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.graphics.PointF;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -144,6 +146,7 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 			}
 		});
 		fabCurrencyAdd.startAnimation(fabDown);
+		fabCurrencyAdd.setClickable(false);
 		refreshList();
 	}
 	private void setCurrencyListMode() {
@@ -160,6 +163,7 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 			public void onAnimationEnd(Animation animation) {}
 		});
 		fabCurrencyAdd.startAnimation(fabUp);
+		fabCurrencyAdd.setClickable(true);
 		refreshList();
 	}
 	@Override
@@ -238,6 +242,7 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 										if (PocketAccounter.financeManager.getRecords().get(j).getCurrency().getId().matches(PocketAccounter.financeManager.getCurrencies().get(i).getId())) {
 											PocketAccounter.financeManager.getRecords().remove(j);
 											j--;
+											Log.d("sss", "entered");
 										}
 									}
 									for (int j=0; j<PocketAccounter.financeManager.getDebtBorrows().size(); j++) {
@@ -277,6 +282,9 @@ public class CurrencyFragment extends Fragment implements OnClickListener, OnIte
 									}
 								}
 							}
+							PocketAccounter.financeManager.saveCurrencies();
+							PocketAccounter.financeManager.saveRecords();
+							PocketAccounter.financeManager.setRecords(PocketAccounter.financeManager.loadRecords());
 							setCurrencyListMode();
 							PocketAccounter.toolbar.setSubtitle(getResources().getString(R.string.main_currency)+" "+ PocketAccounter.financeManager.getMainCurrency().getAbbr());
 							dialog.dismiss();

@@ -249,7 +249,7 @@ public class PocketAccounter extends AppCompatActivity {
                 dialog.show();
             }
         });
-        calclulateBalanse(date);
+        calculateBalance(date);
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd,LLL yyyy");
         toolbar.setSubtitle(dateFormat.format(date.getTime()));
         DisplayMetrics dm = getResources().getDisplayMetrics();
@@ -274,7 +274,7 @@ public class PocketAccounter extends AppCompatActivity {
         rlRecordIncomes.addView(incomeView);
     }
 
-    public void calclulateBalanse(Calendar date) {
+    public void calculateBalance(Calendar date) {
         Calendar begTime = (Calendar) date.clone();
         begTime.set(Calendar.HOUR_OF_DAY, 0);
         begTime.set(Calendar.MINUTE, 0);
@@ -291,19 +291,19 @@ public class PocketAccounter extends AppCompatActivity {
                     PocketAccounter.financeManager.getRecords().get(i).getDate().compareTo(endTime) <= 0)
                 records.add(PocketAccounter.financeManager.getRecords().get(i));
         }
-        double income = 0.0, expanse = 0.0, balanse = 0.0;
+        double income = 0.0, expanse = 0.0, balance = 0.0;
         for (int i = 0; i < records.size(); i++) {
             if (records.get(i).getCategory().getType() == PocketAccounterGeneral.INCOME)
                 income = income + PocketAccounterGeneral.getCost(records.get(i));
             else
                 expanse = expanse + PocketAccounterGeneral.getCost(records.get(i));
         }
-        balanse = income - expanse;
+        balance = income - expanse;
         String mainCurrencyAbbr = PocketAccounter.financeManager.getMainCurrency().getAbbr();
         DecimalFormat decFormat = new DecimalFormat("0.00");
         tvRecordIncome.setText(decFormat.format(income) + mainCurrencyAbbr);
         tvRecordExpanse.setText(decFormat.format(expanse) + mainCurrencyAbbr);
-        tvRecordBalanse.setText(decFormat.format(balanse) + mainCurrencyAbbr);
+        tvRecordBalanse.setText(decFormat.format(balance) + mainCurrencyAbbr);
     }
 
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Currency {
 	private String name, abbr, id;
-	private boolean isMain;
+	private boolean isMain = false;
 	private ArrayList<CurrencyCost> costs;
 	public Currency(String name) {
 		setMain(false);

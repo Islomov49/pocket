@@ -29,6 +29,7 @@ import android.widget.Toast;
 import com.jim.pocketaccounter.finance.Currency;
 import com.jim.pocketaccounter.finance.CurrencyCost;
 import com.jim.pocketaccounter.finance.CurrencyExchangeAdapter;
+import com.jim.pocketaccounter.finance.FinanceManager;
 import com.jim.pocketaccounter.helper.PockerTag;
 import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
@@ -135,10 +136,16 @@ public class CurrencyEditFragment extends Fragment implements OnClickListener, O
 							for (int j = 0; j< PocketAccounter.financeManager.getCurrencies().get(i).getCosts().size(); j++)
 								PocketAccounter.financeManager.getCurrencies().get(i).getCosts().get(j).setCost(PocketAccounter.financeManager.getCurrencies().get(i).getCosts().get(j).getCost()/cost);
 						}
-						for (int i=0; i <currency.getCosts().size(); i++)
-							currency.getCosts().get(i).setCost(1.0);
-						currency.setMain(true);
+						for (int i = 0; i < PocketAccounter.financeManager.getCurrencies().size(); i++) {
+							if (currency.getId().matches(PocketAccounter.financeManager.getCurrencies().get(i).getId())) {
+								PocketAccounter.financeManager.getCurrencies().get(i).setMain(true);
+								break;
+							}
+						}
 					}
+					PocketAccounter.financeManager.saveCurrencies();
+					PocketAccounter.financeManager.saveRecords();
+					PocketAccounter.financeManager.setRecords(PocketAccounter.financeManager.loadRecords());
 				}
 				((PocketAccounter)getActivity()).replaceFragment(new CurrencyFragment(), PockerTag.CURRENCY);
 				break;

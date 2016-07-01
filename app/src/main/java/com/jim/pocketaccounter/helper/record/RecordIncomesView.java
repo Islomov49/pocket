@@ -29,7 +29,6 @@ import android.graphics.RectF;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GestureDetectorCompat;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -344,7 +343,7 @@ public class RecordIncomesView extends View implements 	GestureDetector.OnGestur
 					buttons.get(i).setPressed(false);
 				PocketAccounter.PRESSED = false;
 				invalidate();
-				((PocketAccounter)getContext()).calclulateBalanse(date);
+				((PocketAccounter)getContext()).calculateBalance(date);
 				dialog.dismiss();
 			}
 		});

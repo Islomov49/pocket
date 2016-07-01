@@ -68,7 +68,8 @@ public class FinanceManager {
 	public ArrayList<Account> getAccounts() {return accounts;}
 	private ArrayList<Account> loadAccounts() {return db.loadAccounts();}
 	public ArrayList<FinanceRecord> getRecords() {return records; }
-	private ArrayList<FinanceRecord> loadRecords() {return db.loadDailyRecords();}
+	public ArrayList<FinanceRecord> loadRecords() {return db.loadDailyRecords();}
+	public void setRecords(ArrayList<FinanceRecord> records) {this.records = records;}
 	public void saveCurrencies() {db.saveDatasToCurrencyTable(currencies);}
 	public void saveAccounts() {db.saveDatasToAccountTable(accounts);}
 	public void saveCategories() {db.saveDatasToCategoryTable(categories);}
@@ -77,6 +78,7 @@ public class FinanceManager {
 	public ArrayList<RootCategory> getExpanses() {return expanses;}
 	public ArrayList<RootCategory> getIncomes() {return incomes;}
 	public void saveDebtBorrows () {db.saveDebtBorrowsToTable(debtBorrows);}
+	public void saveRecords () {db.saveDatasToDailyRecordTable(records);}
 	public ArrayList<DebtBorrow> loadDebtBorrows () {return db.loadDebtBorrows();}
 	public void saveAllDatas() {
 		db.saveExpanses(expanses);

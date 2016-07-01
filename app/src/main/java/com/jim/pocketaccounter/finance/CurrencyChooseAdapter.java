@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
+import com.jim.pocketaccounter.helper.CurrencyChecbox;
 
 import java.util.ArrayList;
 
@@ -47,7 +48,7 @@ public class CurrencyChooseAdapter extends BaseAdapter {
 		View view = inflater.inflate(R.layout.currency_choose_item, parent, false);
 		TextView tvChooseAbbr = (TextView) view.findViewById(R.id.tvCurrencyChooseSign);
 		tvChooseAbbr.setText(result.get(position).getAbbr());
-		CheckBox chbChoose = (CheckBox) view.findViewById(R.id.chbCurrencyChoose);
+		CurrencyChecbox chbChoose = (CurrencyChecbox) view.findViewById(R.id.chbCurrencyChoose);
 		for (int i=0; i<manager.getCurrencies().size(); i++) {
 			if (result.get(position).getId().matches(manager.getCurrencies().get(i).getId())) {
 				chbChoose.setChecked(true);
@@ -55,9 +56,10 @@ public class CurrencyChooseAdapter extends BaseAdapter {
 			}
 		}
 		chbChoose.setChecked(chbs[position]);
-		chbChoose.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+		chbChoose.setOnCheckListener(new CurrencyChecbox.OnCheckListener() {
+
 			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+			public void onCheck(boolean isChecked) {
 				chbs[position] = isChecked;
 			}
 		});
