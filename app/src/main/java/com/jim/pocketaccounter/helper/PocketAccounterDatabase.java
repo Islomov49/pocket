@@ -583,13 +583,14 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 			if (expanses.get(i) == null) {
 				values.put("category_name", context.getResources().getString(R.string.no_category));
 				db.insert("expanses_table", null, values);
-				continue;
+//				continue;
+			} else {
+				values.put("category_name", expanses.get(i).getName());
+				values.put("category_id", expanses.get(i).getId());
+				values.put("category_type", expanses.get(i).getType());
+				values.put("icon", expanses.get(i).getIcon());
+				db.insert("expanses_table", null, values);
 			}
-			values.put("category_name", expanses.get(i).getName());
-			values.put("category_id", expanses.get(i).getId());
-			values.put("category_type", expanses.get(i).getType());
-			values.put("icon", expanses.get(i).getIcon());
-			db.insert("expanses_table", null, values);
 		}
 		db.close();
 	}
@@ -626,26 +627,27 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 			RootCategory newCategory = new RootCategory();
 			if (cursor.getString(cursor.getColumnIndex("category_name")).matches(context.getResources().getString(R.string.no_category))) {
 				result.add(null);
-				cursor.moveToNext();
-				continue;
+//				cursor.moveToNext();
+//				continue;
+			} else {
+				newCategory.setName(cursor.getString(cursor.getColumnIndex("category_name")));
+				newCategory.setId(cursor.getString(cursor.getColumnIndex("category_id")));
+				newCategory.setType(cursor.getInt(cursor.getColumnIndex("category_type")));
+				newCategory.setIcon(cursor.getInt(cursor.getColumnIndex("icon")));
+				result.add(newCategory);
 			}
-			newCategory.setName(cursor.getString(cursor.getColumnIndex("category_name")));
-			newCategory.setId(cursor.getString(cursor.getColumnIndex("category_id")));
-			newCategory.setType(cursor.getInt(cursor.getColumnIndex("category_type")));
-			newCategory.setIcon(cursor.getInt(cursor.getColumnIndex("icon")));
-			result.add(newCategory);
 			cursor.moveToNext();
 		}
 		return result;
 	}
 
-	public void saveDatasToDebtBorrowTable(ArrayList<DebtBorrow> debtBorrows) {
-		SQLiteDatabase db = this.getWritableDatabase();
-		db.execSQL("DELETE FROM debt_borrow_table");
-		for (int i=0; i<debtBorrows.size(); i++) {
-			ContentValues values = new ContentValues();
-		}
-	}
+//	public void saveDatasToDebtBorrowTable(ArrayList<DebtBorrow> debtBorrows) {
+//		SQLiteDatabase db = this.getWritableDatabase();
+//		db.execSQL("DELETE FROM debt_borrow_table");
+//		for (int i=0; i<debtBorrows.size(); i++) {
+//			ContentValues values = new ContentValues();
+//		}
+//	}
 
 	public void saveDatasToCurrencyTable(ArrayList<Currency> currencies) {
 		SQLiteDatabase db = this.getWritableDatabase();

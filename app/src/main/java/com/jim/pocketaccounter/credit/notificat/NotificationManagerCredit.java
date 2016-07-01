@@ -30,7 +30,7 @@ public class NotificationManagerCredit {
 	private ArrayList<CreditDetials> myCredits;
 	private ArrayList<DebtBorrow> myDebdbor;
 	private FinanceManager myFinance;
-	int count=0;
+	private int count = 0;
 	final static long forDay=1000L*60L*60L*24L;
 	final static long forMoth=1000L*60L*60L*24L*30L;
 	final static long forYear=1000L*60L*60L*24L*365L;
@@ -43,7 +43,7 @@ public class NotificationManagerCredit {
 		alarmManager = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 	}
 		
-	public void notificSetCredit()  {
+	public void notificSetCredit() throws InterruptedException {
 		cancelAllNotifs();
 		Calendar today = Calendar.getInstance();
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -98,15 +98,17 @@ public class NotificationManagerCredit {
 					intent.putExtra("TIP",AlarmReceiver.TO_CRIDET);
 					intent.putExtra("title",item.getCredit_name());
 					intent.putExtra("icon_number",item.getIcon_ID());
-					PendingIntent pendingIntent = PendingIntent.getBroadcast(context,  ++count,
+					long id = System.currentTimeMillis();
+					PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int) id,
 							intent, 0 );
+					Thread.sleep(5);
 					alarmManager.set(AlarmManager.RTC_WAKEUP, to.getTimeInMillis(), pendingIntent);
 				}
 			}
 		}
 	}
 
-	public void notificSetDebt() {
+	public void notificSetDebt() throws InterruptedException {
 		cancelAllNotifs();
 		Calendar today = Calendar.getInstance();
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -134,7 +136,7 @@ public class NotificationManagerCredit {
 				to.set(Calendar.MINUTE, cal.get(Calendar.MINUTE));
 				to.set(Calendar.SECOND, 0);
 
-				to.add(Calendar.DAY_OF_YEAR, -1);
+				to.add(Calendar.DAY_OF_YEAR, 1);
 
 				String msg = context.getString(R.string.payment_ends_for_notify);
 
@@ -143,9 +145,13 @@ public class NotificationManagerCredit {
 					intent.putExtra("msg", msg);
 					intent.putExtra("title", item.getPerson().getName());
 					intent.putExtra("TIP", AlarmReceiver.TO_DEBT);
-					PendingIntent pendingIntent = PendingIntent.getBroadcast(context, ++count,
+					intent.putExtra("photoPath", (item.getPerson().getPhoto().matches("0") || item.getPerson().getPhoto().matches("")) ?
+					"" : item.getPerson().getPhoto());
+					int id = (int) System.currentTimeMillis();
+					PendingIntent pendingIntent = PendingIntent.getBroadcast(context, id,
 							intent, 0);
 					alarmManager.set(AlarmManager.RTC_WAKEUP, to.getTimeInMillis(), pendingIntent);
+					Thread.sleep(5);
 				}
 			}
 		}
@@ -153,16 +159,13 @@ public class NotificationManagerCredit {
 
 	public void cancelAllNotifs() {
 		Intent updateServiceIntent = new Intent(context, AlarmReceiver.class);
-	  	for (int i = 0; i < 500 ; i++) {
-			PendingIntent pendingUpdateIntent = PendingIntent.getService(context, 0, updateServiceIntent, 0);
-
+		for (int i = 0; i <= AlarmReceiver.req; i++) {
+			PendingIntent pendingUpdateIntent = PendingIntent.getService(context, i, updateServiceIntent, 0);
 			try {
 				alarmManager.cancel(pendingUpdateIntent);
 			} catch (Exception e) {
 				Log.e("AlarmSet", "AlarmManager update was not canceled. " + e.toString());
 			}
 		}
-
 	}
-	
 }

@@ -102,7 +102,7 @@ public class PocketAccounter extends AppCompatActivity {
     StorageReference storageRef = storage.getReferenceFromUrl("gs://pocket-accounter.appspot.com");
     DownloadImageTask imagetask;
     private AnimationDrawable mAnimationDrawable;
-
+    private NotificationManagerCredit notific;
 
     public static boolean PRESSED = false;
 
@@ -169,6 +169,9 @@ public class PocketAccounter extends AppCompatActivity {
         date = Calendar.getInstance();
         initialize(date);
         //Bu notifikatsiyani bosib prilojeniyaga kirganda fragmenti ochvorishga
+
+        Log.d("ishla", ""+getIntent().getIntExtra("TIP", 0));
+
         switch (getIntent().getIntExtra("TIP", 0)){
             case AlarmReceiver.TO_DEBT:
                 replaceFragment(new DebtBorrowFragment(), PockerTag.DEBTS);
@@ -181,9 +184,8 @@ public class PocketAccounter extends AppCompatActivity {
             @Override
             public void run() {
                 try{
-                    NotificationManagerCredit notific=new NotificationManagerCredit(PocketAccounter.this);
-                    notific.notificSetCredit();
-                    notific.notificSetDebt();
+                    notific=new NotificationManagerCredit(PocketAccounter.this);
+                    notific.cancelAllNotifs();
                 }
                 catch (Exception o){
                 }
@@ -302,6 +304,29 @@ public class PocketAccounter extends AppCompatActivity {
         tvRecordIncome.setText(decFormat.format(income) + mainCurrencyAbbr);
         tvRecordExpanse.setText(decFormat.format(expanse) + mainCurrencyAbbr);
         tvRecordBalanse.setText(decFormat.format(balanse) + mainCurrencyAbbr);
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean notif = prefs.getBoolean("general_notif", true);
+        if (notif) {
+            try {
+                notific.notificSetDebt();
+                notific.notificSetCredit();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        financeManager.saveAllDatas();
+        if (imagetask != null)
+            imagetask.cancel(true);
+        if(imagetask!=null) {
+            imagetask.cancel(true);
+            imagetask=null;
+        }
     }
 
     private void fillLeftMenu() {
@@ -620,6 +645,9 @@ public class PocketAccounter extends AppCompatActivity {
                                 break;
                             case 12:
                                 Intent settings = new Intent(PocketAccounter.this, SettingsActivity.class);
+                                for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
+                                    fragmentManager.popBackStack();
+                                }
                                 startActivityForResult(settings,key_for_restat);
                                 break;
                             case 13:
@@ -795,18 +823,6 @@ public class PocketAccounter extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        financeManager.saveAllDatas();
-        if (imagetask != null)
-            imagetask.cancel(true);
-        if(imagetask!=null) {
-            imagetask.cancel(true);
-            imagetask=null;
-        }
-    }
-
-    @Override
     public void onRestart() {
         super.onRestart();
         if(FirebaseAuth.getInstance().getCurrentUser()!=null){
@@ -833,7 +849,7 @@ public class PocketAccounter extends AppCompatActivity {
             reg.regitRequstGet(data);
         }
         if(requestCode==key_for_restat&& resultCode==RESULT_OK){
-            initialize(new GregorianCalendar());
+            initialize(date);
             if(!drawer.isClosed()){
                 drawer.close();
             }
@@ -843,7 +859,6 @@ public class PocketAccounter extends AppCompatActivity {
                 userEmail.setText(R.string.and_sync_your_data);
 
                 fabIconFrame.setBackgroundResource(R.drawable.cloud_sign_in);
-
             }
         }
     }

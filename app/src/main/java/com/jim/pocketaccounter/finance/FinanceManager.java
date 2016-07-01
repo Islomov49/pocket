@@ -38,10 +38,8 @@ public class FinanceManager {
 	public ArrayList<CreditDetials> getCredits() {
 		return credits;}
 	public void saveCredits() {db.saveDatasToCreditTable(credits);}
-	public ArrayList<CreditDetials> loadArchiveCredits() {
-		return db.loadArchiveCredits();}
-	public ArrayList<CreditDetials> getArchiveCredits() {
-		return creditsArchive;}
+	public ArrayList<CreditDetials> loadArchiveCredits() {return db.loadArchiveCredits();}
+	public ArrayList<CreditDetials> getArchiveCredits() {return creditsArchive;}
 	public void saveArchiveCredits() {db.saveDatasToArchiveCreditTable(creditsArchive);}
 	public ArrayList<Currency> getCurrencies() {
 		return currencies;
@@ -78,13 +76,13 @@ public class FinanceManager {
 	private ArrayList<RootCategory> loadIncomes() {return db.loadIncomes();}
 	public ArrayList<RootCategory> getExpanses() {return expanses;}
 	public ArrayList<RootCategory> getIncomes() {return incomes;}
-	public void saveDebtBorrows () {db.saveDatasToDebtBorrowTable(debtBorrows);}
+	public void saveDebtBorrows () {db.saveDebtBorrowsToTable(debtBorrows);}
 	public ArrayList<DebtBorrow> loadDebtBorrows () {return db.loadDebtBorrows();}
 	public void saveAllDatas() {
-		db.saveDatasToCurrencyTable(currencies);
-		db.saveDatasToCategoryTable(categories);
 		db.saveExpanses(expanses);
 		db.saveIncomes(incomes);
+		db.saveDatasToCurrencyTable(currencies);
+		db.saveDatasToCategoryTable(categories);
 		db.saveDatasToAccountTable(accounts);
 		db.saveDatasToDailyRecordTable(records);
 		db.saveDatasToCreditTable(credits);

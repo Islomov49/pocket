@@ -26,6 +26,7 @@ import android.graphics.RectF;
 import android.os.Vibrator;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GestureDetectorCompat;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -55,8 +56,9 @@ public class RecordExpanseView extends View implements 	GestureDetector.OnGestur
 		setClickable(true);
 	}
 	private void initButtons() {
-		buttons = new ArrayList<RecordButtonExpanse>();
-		for (int i=0; i<PocketAccounterGeneral.EXPANCE_BUTTONS_COUNT; i++) {
+		buttons = new ArrayList<>();
+		Log.d("size", ""+PocketAccounter.financeManager.getExpanses().size());
+		for (int i=0; i < PocketAccounterGeneral.EXPANCE_BUTTONS_COUNT; i++) {
 			RecordButtonExpanse button = null;
 			int type = 0;
 			switch(i) {
