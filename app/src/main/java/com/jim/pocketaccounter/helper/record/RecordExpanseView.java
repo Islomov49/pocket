@@ -200,10 +200,10 @@ public class RecordExpanseView extends View implements 	GestureDetector.OnGestur
 				}
 				}, 150);
 				invalidate();
+				PocketAccounter.PRESSED = true;
 				break;
 			}
 		}
-		PocketAccounter.PRESSED = true;
 		return false;
 	}
 
