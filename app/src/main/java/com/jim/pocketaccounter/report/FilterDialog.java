@@ -116,6 +116,7 @@ public class FilterDialog extends Dialog implements AdapterView.OnItemSelectedLi
                     endDate.set(Calendar.SECOND, 59);
                     endDate.set(Calendar.MILLISECOND, 59);
                 }
+                Toast.makeText(getContext(), "" + dateFormat.format(beginDate.getTime()) + "\n" + dateFormat.format(endDate.getTime()), Toast.LENGTH_SHORT).show();
                 filterSelectable.onDateSelected(beginDate, endDate);
                 dismiss();
             }
@@ -261,7 +262,8 @@ public class FilterDialog extends Dialog implements AdapterView.OnItemSelectedLi
                 findViewById(R.id.yi_oy).setVisibility(View.GONE);
                 findViewById(R.id.yil_edit).setVisibility(View.GONE);
                 findViewById(R.id.interval_edit).setVisibility(View.GONE);
-
+                beginDate = (Calendar) Calendar.getInstance().clone();
+                endDate = (Calendar) Calendar.getInstance().clone();
                 beginDate.set(Calendar.DAY_OF_YEAR, endDate.get(Calendar.DAY_OF_YEAR) - 6);
                 beginDate.set(Calendar.HOUR_OF_DAY, 0);
                 beginDate.set(Calendar.MINUTE, 0);

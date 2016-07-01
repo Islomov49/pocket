@@ -107,6 +107,11 @@ public class PocketAccounter extends AppCompatActivity {
     public static boolean PRESSED = false;
 
     @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -205,7 +210,6 @@ public class PocketAccounter extends AppCompatActivity {
     }
     public void initialize(Calendar date) {
         PRESSED = false;
-
         toolbar.setTitle(getResources().getString(R.string.app_name));
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_drawer);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -646,11 +650,13 @@ public class PocketAccounter extends AppCompatActivity {
                                 startActivityForResult(settings,key_for_restat);
                                 break;
                             case 13:
+                                findViewById(R.id.change).setVisibility(View.VISIBLE);
                                 Intent rate_app_web = new Intent(Intent.ACTION_VIEW);
                                 rate_app_web.setData(Uri.parse(getString(R.string.rate_app_web)));
                                 startActivity(rate_app_web);
                                 break;
                             case 14:
+                                findViewById(R.id.change).setVisibility(View.VISIBLE);
                                 Intent Email = new Intent(Intent.ACTION_SEND);
                                 Email.setType("text/email");
                                 Email.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_app));
@@ -658,6 +664,7 @@ public class PocketAccounter extends AppCompatActivity {
                                 startActivity(Intent.createChooser(Email, getString(R.string.share_app)));
                                 break;
                             case 15:
+                                findViewById(R.id.change).setVisibility(View.VISIBLE);
                                 openGmail(PocketAccounter.this, new String[]{getString(R.string.to_email)}, getString(R.string.feedback_subject), getString(R.string.feedback_content));
                                 break;
                         }
@@ -797,6 +804,7 @@ public class PocketAccounter extends AppCompatActivity {
 
     public void replaceFragment(Fragment fragment) {
         if (fragment != null) {
+            PRESSED = true;
             getSupportFragmentManager()
                     .beginTransaction()
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
@@ -857,9 +865,12 @@ public class PocketAccounter extends AppCompatActivity {
                 userAvatar.setImageResource(R.drawable.no_photo);
                 userName.setText(R.string.please_sign);
                 userEmail.setText(R.string.and_sync_your_data);
-
                 fabIconFrame.setBackgroundResource(R.drawable.cloud_sign_in);
             }
+        }
+        initialize(date);
+        for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
+            fragmentManager.popBackStack();
         }
     }
 
