@@ -175,10 +175,10 @@ public class RecordIncomesView extends View implements 	GestureDetector.OnGestur
 					}
 				}, 250);
 				invalidate();
+				PocketAccounter.PRESSED = true;
 				break;
 			}
 		}
-		PocketAccounter.PRESSED = true;
 		return false;
 	}
 

@@ -326,6 +326,7 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 		}
 		else {
 			for (int i=0; i<selected.length; i++) {
+				if (!selected[i]) continue;
 				Account account = PocketAccounter.financeManager.getAccounts().get(i);
 				for (int j=0; j<PocketAccounter.financeManager.getRecords().size(); j++) {
 					if (PocketAccounter.financeManager.getRecords().get(j).getAccount().getId().matches(account.getId())) {
