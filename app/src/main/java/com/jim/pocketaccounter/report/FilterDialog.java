@@ -116,7 +116,6 @@ public class FilterDialog extends Dialog implements AdapterView.OnItemSelectedLi
                     endDate.set(Calendar.SECOND, 59);
                     endDate.set(Calendar.MILLISECOND, 59);
                 }
-                Toast.makeText(getContext(), "" + dateFormat.format(beginDate.getTime()) + "\n" + dateFormat.format(endDate.getTime()), Toast.LENGTH_SHORT).show();
                 filterSelectable.onDateSelected(beginDate, endDate);
                 dismiss();
             }
