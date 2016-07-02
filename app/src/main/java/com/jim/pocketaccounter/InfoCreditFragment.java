@@ -137,14 +137,15 @@ public class InfoCreditFragment extends Fragment {
 
                 final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setMessage(getString(R.string.delete_credit))
-                        .setPositiveButton(getString(R.string.delete_anyway), new DialogInterface.OnClickListener() {
+                        .setPositiveButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialoge, int id) {
-                                A1.delete_item(currentPOS);
-                                getActivity().getSupportFragmentManager().popBackStack();
+                                dialoge.cancel();
                             }
-                        }).setNegativeButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
+                        }).setNegativeButton(getString(R.string.delete_anyway), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
+
+                        A1.delete_item(currentPOS);
+                        getActivity().getSupportFragmentManager().popBackStack();
 
                     }
                 });

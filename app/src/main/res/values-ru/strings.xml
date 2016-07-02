@@ -1191,6 +1191,8 @@
     <string name="between_dates">Выберите период</string>
     <string name="between">Период</string>
     <string name="how_long_time_you_should_pay">Период кредита</string>
+    <string name="dou_delete_arc">Вы действительно хотите удалить запись?</string>
+    <string name="dou_delete">Вы действительно хотите удалить запись? Запись учтена в балансе! Все транзакции будут удалены!</string>
     <string name="debts_title">Учет Долгов</string>
     <string name="left_date_debts">Осталось(год, месяц, день)</string>
 </resources>

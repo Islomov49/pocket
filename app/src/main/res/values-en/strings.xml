@@ -597,7 +597,7 @@
     <string name="other">Other</string>
     <string name="salary">Salary</string>
     <string name="bonus">Bonus</string>
-    <string name="percents">Interest</string>
+    <string name="percents">Percent</string>
     <string name="other_income">Other</string>
     <string name="year">year</string>
     <string name="moth">month</string>
@@ -1193,4 +1193,6 @@
     <string name="debts_title">Debts</string>
     <string name="left_date_debts">Left (year, month, day)</string>
     <string name="how_long_time_you_should_pay">Credit period</string>
+    <string name="dou_delete">"Do you want to delete the record? The record is calculeted in balance ! All transaction operations will deleted from aplication! "</string>
+    <string name="dou_delete_arc">"Do you want to delete the record? "</string>
 </resources>

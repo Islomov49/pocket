@@ -130,16 +130,17 @@ public class InfoCreditFragmentForArchive extends Fragment {
             public void onClick(View v) {
         if(currentCredit.isKey_for_include()){
             final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setMessage("Do you realize what you want to delete this post? This post are calculeted in balance! All transaction operations will deleted from aplication! ARE YOU SURE?")
-                    .setPositiveButton("DELETE ANYWAY", new DialogInterface.OnClickListener() {
+            builder.setMessage(getString(R.string.dou_delete))
+                    .setPositiveButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialoge, int id) {
-                            A1.delete_item(POSITIOn);
-                            getActivity().getSupportFragmentManager().popBackStack ();
+                            dialoge.cancel();
 
                         }
-                    }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    }).setNegativeButton(getString(R.string.delete_anyway), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    dialog.cancel();
+
+                    A1.delete_item(POSITIOn);
+                    getActivity().getSupportFragmentManager().popBackStack ();
 
                 }
             });
@@ -148,16 +149,17 @@ public class InfoCreditFragmentForArchive extends Fragment {
         }
         else{
             final AlertDialog.Builder builder = new AlertDialog.Builder(context);
-            builder.setMessage("Do you realize what you want to delete this post? Then you can not restore!")
-                    .setPositiveButton("DELETE ANYWAY", new DialogInterface.OnClickListener() {
+            builder.setMessage(getString(R.string.dou_delete_arc))
+                    .setPositiveButton(getString(R.string.cancel), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialoge, int id) {
-                            A1.delete_item(POSITIOn);
-                            getActivity().getSupportFragmentManager().popBackStack ();
+                            dialoge.cancel();
 
                         }
-                    }).setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    }).setNegativeButton(getString(R.string.delete_anyway), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    dialog.cancel();
+
+                    A1.delete_item(POSITIOn);
+                    getActivity().getSupportFragmentManager().popBackStack ();
 
                 }
             });

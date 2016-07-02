@@ -1087,7 +1087,7 @@
     <string name="clear_records">Clear</string>
     <string name="enter_credit_name">Enter the name of the credit</string>
     <string name="credit_amount">Credit amount</string>
-    <string name="percent">Interest</string>
+    <string name="percent">Percent</string>
     <string name="credit_percent">Percent</string>
     <string name="period_of_credit">Credit term</string>
     <string name="enter_period_of_credit">Enter credit term</string>
@@ -1193,4 +1193,6 @@
     <string name="debts_title">Debts</string>
     <string name="left_date_debts">Left (year, month, day)</string>
     <string name="how_long_time_you_should_pay">Credit period</string>
+    <string name="dou_delete">"Do you want to delete the record? The record is calculeted in balance ! All transaction operations will deleted from application! \"</string>
+    <string name="dou_delete_arc">"Do you want to delete the record? "</string>
 </resources>
