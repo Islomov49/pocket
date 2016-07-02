@@ -26,9 +26,9 @@
         <item>Отчет по категориям</item>
     </string-array>
     <string-array name="statistics_subitems_icons">
-        <item>drawer_currency</item>
-        <item>drawer_category</item>
-        <item>drawer_account</item>
+        <item>drawer_accountreport</item>
+        <item>drawer_incomeexpensereport</item>
+        <item>drawer_categoryreport</item>
     </string-array>
     <string-array name="finance_subitems">
         <item>Валюты</item>

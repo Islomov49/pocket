@@ -1,7 +1,6 @@
 package com.jim.pocketaccounter.report;
 
 import android.content.Context;
-import android.support.v4.view.ViewPager;
 
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
@@ -114,7 +113,7 @@ public class IncomeExpanseReport {
                     RootCategory category = new RootCategory();
                     if (debtBorrowMain.get(i).getType() == DebtBorrow.BORROW) {
                         category.setName(context.getResources().getString(R.string.borrow_statistics));
-                        category.setType(PocketAccounterGeneral.EXPANCE);
+                        category.setType(PocketAccounterGeneral.EXPENSE);
                     }
                     else {
                         category.setName(context.getResources().getString(R.string.debt_statistics));
@@ -147,7 +146,7 @@ public class IncomeExpanseReport {
                         }
                         else {
                             category.setName(context.getResources().getString(R.string.debt_recking_statistics));
-                            category.setType(PocketAccounterGeneral.EXPANCE);
+                            category.setType(PocketAccounterGeneral.EXPENSE);
                         }
                         detail.setCategory(category);
                         detail.setSubCategory(null);
@@ -167,7 +166,7 @@ public class IncomeExpanseReport {
                         IncomeExpanseDayDetails detail = new IncomeExpanseDayDetails();
                         RootCategory category = new RootCategory();
                         category.setName(credits.get(i).getCredit_name());
-                        category.setType(PocketAccounterGeneral.EXPANCE);
+                        category.setType(PocketAccounterGeneral.EXPENSE);
                         detail.setCategory(category);
                         detail.setSubCategory(null);
                         detail.setAmount(recking.getAmount());

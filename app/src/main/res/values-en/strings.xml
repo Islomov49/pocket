@@ -4,7 +4,7 @@
         <item>Home</item>
         <item>Finance</item>
         <item>Statistics</item>
-        <item>Accounting of debts and credits</item>
+        <item>Debts and credits</item>
         <item>Settings</item>
         <item>Rate app</item>
         <item>Share app</item>
@@ -26,9 +26,9 @@
         <item>Report by categories</item>
     </string-array>
     <string-array name="statistics_subitems_icons">
-        <item>drawer_currency</item>
-        <item>drawer_category</item>
-        <item>drawer_account</item>
+        <item>drawer_accountreport</item>
+        <item>drawer_incomeexpensereport</item>
+        <item>drawer_categoryreport</item>
     </string-array>
     <string-array name="finance_subitems">
         <item>Currencies</item>
@@ -1070,7 +1070,7 @@
     <string name="table">Table</string>
     <string name="bars">Bars</string>
     <string name="save_excel">Save in EXCEL file?</string>
-    <string name="date">Дата</string>
+    <string name="date">Date</string>
     <string name="category_delete_warning">The data associated with the selected category will be deleted!</string>
     <string name="account_delete_warning">The data associated with the selected account will be deleted!</string>
     <string name="subcat_delete_warning">The data associated with the selected subcategories will be deleted!</string>

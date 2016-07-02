@@ -116,7 +116,7 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 					categories.add(PocketAccounter.financeManager.getCategories().get(i));
 			}
 			if(chbCatExpanses.isChecked()) {
-				if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.EXPANCE)
+				if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.EXPENSE)
 					categories.add(PocketAccounter.financeManager.getCategories().get(i));
 			}
 		}
@@ -183,7 +183,7 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 			else if (chbCatExpanses.isChecked() && !chbCatIncomes.isChecked()) {
 				ArrayList<RootCategory> categories = new ArrayList<>();
 				for (int i=0; i < PocketAccounter.financeManager.getCategories().size(); i++) {
-					if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.EXPANCE)
+					if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.EXPENSE)
 						categories.add(PocketAccounter.financeManager.getCategories().get(i));
 				}
 				((PocketAccounter) getActivity()).replaceFragment(new RootCategoryEditFragment(categories.get(position), PocketAccounterGeneral.NO_MODE, 0, null));
@@ -272,7 +272,7 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 		} else if (!chbCatIncomes.isChecked() && chbCatExpanses.isChecked()) {
 			ArrayList<RootCategory> categories = new ArrayList<>();
 			for (int i=0; i < PocketAccounter.financeManager.getCategories().size(); i++) {
-				if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.EXPANCE)
+				if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.EXPENSE)
 					categories.add(PocketAccounter.financeManager.getCategories().get(i));
 			}
 			for (int i=0; i<selected.length; i++) {

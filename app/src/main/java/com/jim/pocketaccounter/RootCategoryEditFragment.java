@@ -3,7 +3,6 @@ package com.jim.pocketaccounter;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -31,7 +30,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.jim.pocketaccounter.finance.Category;
 import com.jim.pocketaccounter.finance.IconAdapter;
 import com.jim.pocketaccounter.finance.RootCategory;
 import com.jim.pocketaccounter.finance.SubCategory;
@@ -39,8 +37,6 @@ import com.jim.pocketaccounter.finance.SubCategoryAdapter;
 import com.jim.pocketaccounter.helper.FABIcon;
 import com.jim.pocketaccounter.helper.PockerTag;
 import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -61,6 +57,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 	private int edit_mode, pos, subcatIcon;
 	private Calendar calendar;
 	private String categoryId;
+	private boolean isChanged;
 	public RootCategoryEditFragment(RootCategory category, int mode, int pos, Calendar date) {
 		this.category = category;
 		if (category == null)
@@ -99,10 +96,12 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 		if (edit_mode == PocketAccounterGeneral.EXPANSE_MODE) {
 			chbCatEditExpanse.setChecked(true);
 			chbCatEditIncome.setChecked(false);
+
 		}
 		if (edit_mode == PocketAccounterGeneral.INCOME_MODE) {
 			chbCatEditExpanse.setChecked(false);
 			chbCatEditIncome.setChecked(true);
+
 		}
 		chbCatEditExpanse.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			@Override
@@ -119,6 +118,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 					chbCatEditExpanse.setChecked(false);
 					chbCatEditIncome.setChecked(true);
 				}
+				isChanged = (category != null && category.getType() == PocketAccounterGeneral.INCOME);
 			}
 		});
 		chbCatEditIncome.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -136,6 +136,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 					chbCatEditExpanse.setChecked(false);
 					chbCatEditIncome.setChecked(true);
 				}
+				isChanged = (category != null && category.getType() == PocketAccounterGeneral.EXPENSE);
 			}
 		});
 		fabCatIcon = (FABIcon) rootView.findViewById(R.id.fabAccountIcon);
@@ -152,7 +153,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 			int resId = getResources().getIdentifier(temps[i], "drawable", getActivity().getPackageName());
 			icons[i] = resId;
 		}
-		type = PocketAccounterGeneral.EXPANCE;
+		type = PocketAccounterGeneral.EXPENSE;
 		selectedIcon = icons[0];
 		subCategories = new ArrayList<SubCategory>();
 		mode = PocketAccounterGeneral.NORMAL_MODE;
@@ -165,7 +166,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 			case PocketAccounterGeneral.INCOME:
 				chbCatEditIncome.setChecked(true);
 				break;
-			case PocketAccounterGeneral.EXPANCE:
+			case PocketAccounterGeneral.EXPENSE:
 				chbCatEditExpanse.setChecked(true);
 				break;
 			}
@@ -261,20 +262,41 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 			if (chbCatEditIncome.isChecked())
 				type = PocketAccounterGeneral.INCOME;
 			if (chbCatEditExpanse.isChecked())
-				type = PocketAccounterGeneral.EXPANCE;
+				type = PocketAccounterGeneral.EXPENSE;
 			if (edit_mode == PocketAccounterGeneral.NO_MODE) {
 				if (category != null) {
 					category.setName(etCatEditName.getText().toString());
+					if (isChanged) {
+						if (category.getType() == PocketAccounterGeneral.EXPENSE) {
+							for (int i=0; i<PocketAccounter.financeManager.getExpanses().size(); i++) {
+								if (PocketAccounter.financeManager.getExpanses().get(i) == null) continue;
+								if (PocketAccounter.financeManager.getExpanses().get(i).getId().matches(category.getId())) {
+									PocketAccounter.financeManager.getExpanses().set(i, null);
+									break;
+								}
+							}
+						} else {
+							for (int i=0; i<PocketAccounter.financeManager.getIncomes().size(); i++) {
+								if (PocketAccounter.financeManager.getIncomes().get(i) == null) continue;
+								if (PocketAccounter.financeManager.getIncomes().get(i).getId().matches(category.getId())) {
+									PocketAccounter.financeManager.getIncomes().set(i, null);
+									break;
+								}
+							}
+						}
+					}
 					category.setType(type);
 					category.setIcon(selectedIcon);
 					category.setSubCategories(subCategories);
 					for (int i=0; i<PocketAccounter.financeManager.getExpanses().size(); i++) {
+						if (PocketAccounter.financeManager.getExpanses().get(i) == null) continue;
 						if (PocketAccounter.financeManager.getExpanses().get(i).getId().matches(category.getId())) {
 							PocketAccounter.financeManager.getExpanses().set(i, category);
 							break;
 						}
 					}
 					for (int i=0; i<PocketAccounter.financeManager.getIncomes().size(); i++) {
+						if (PocketAccounter.financeManager.getIncomes().get(i) == null) continue;
 						if (PocketAccounter.financeManager.getIncomes().get(i).getId().matches(category.getId())) {
 							PocketAccounter.financeManager.getIncomes().set(i, category);
 							break;
@@ -303,7 +325,7 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 				PocketAccounter.financeManager.getCategories().add(newCategory);
 				((PocketAccounter)getContext()).initialize(calendar);
 				((PocketAccounter)getContext()).getSupportFragmentManager().popBackStack();
-			} else if (type==PocketAccounterGeneral.EXPANCE) {
+			} else if (type==PocketAccounterGeneral.EXPENSE) {
 				RootCategory newCategory = new RootCategory();
 				newCategory.setName(etCatEditName.getText().toString());
 				newCategory.setType(type);

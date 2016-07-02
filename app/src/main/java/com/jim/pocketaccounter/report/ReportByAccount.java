@@ -83,7 +83,7 @@ public class ReportByAccount {
                     && currency.getId().matches(debt_borrow.get(i).getCurrency().getId())) {
                 AccountDataRow row = new AccountDataRow();
                 if (debt_borrow.get(i).getType() == DebtBorrow.BORROW)
-                    row.setType(PocketAccounterGeneral.EXPANCE);
+                    row.setType(PocketAccounterGeneral.EXPENSE);
                 else
                     row.setType(PocketAccounterGeneral.INCOME);
                 row.setDate(debt_borrow.get(i).getTakenDate());
@@ -134,7 +134,7 @@ public class ReportByAccount {
                     if (debt_borrow.get(i).getType() == DebtBorrow.BORROW)
                         row.setType(PocketAccounterGeneral.INCOME);
                     else
-                        row.setType(PocketAccounterGeneral.EXPANCE);
+                        row.setType(PocketAccounterGeneral.EXPENSE);
                     row.setDate(cal);
                     RootCategory rootCategory = new RootCategory();
                     if (row.getType() == PocketAccounterGeneral.INCOME)
@@ -173,7 +173,7 @@ public class ReportByAccount {
                 cal.setTimeInMillis(recking.getPayDate());
                 if (cal.compareTo(begin) >= 0 && cal.compareTo(end) <= 0) {
                     AccountDataRow row = new AccountDataRow();
-                    row.setType(PocketAccounterGeneral.EXPANCE);
+                    row.setType(PocketAccounterGeneral.EXPENSE);
                     row.setDate(cal);
                     RootCategory rootCategory = new RootCategory();
                     rootCategory.setName(credit.get(i).getCredit_name());

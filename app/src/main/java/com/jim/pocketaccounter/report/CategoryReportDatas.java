@@ -144,7 +144,7 @@ public class CategoryReportDatas {
             if (creditTotalPaid != 0) {
                 CategoryDataRow creditDataRow = new CategoryDataRow();
                 RootCategory creditCategory = new RootCategory();
-                creditCategory.setType(PocketAccounterGeneral.EXPANCE);
+                creditCategory.setType(PocketAccounterGeneral.EXPENSE);
                 creditCategory.setName(credits.get(i).getCredit_name());
                 creditDataRow.setCategory(creditCategory);
                 creditDataRow.setTotalAmount(creditTotalPaid);
@@ -165,7 +165,7 @@ public class CategoryReportDatas {
         for (int i=0; i<debtBorrows.size(); i++) {
             RootCategory category = new RootCategory();
             if (debtBorrows.get(i).getType() == DebtBorrow.BORROW) {
-                category.setType(PocketAccounterGeneral.EXPANCE);
+                category.setType(PocketAccounterGeneral.EXPENSE);
                 category.setName(context.getResources().getString(R.string.borrow_statistics));
             } else {
                 category.setType(PocketAccounterGeneral.INCOME);
@@ -213,7 +213,7 @@ public class CategoryReportDatas {
             }
             else {
                 category.setName(context.getResources().getString(R.string.debt_recking_statistics));
-                category.setType(PocketAccounterGeneral.EXPANCE);
+                category.setType(PocketAccounterGeneral.EXPENSE);
             }
             CategoryDataRow categoryDataRow = new CategoryDataRow();
             categoryDataRow.setCategory(category);
@@ -228,7 +228,7 @@ public class CategoryReportDatas {
         ArrayList<CategoryDataRow> temp = makeWholeReport();
         for (int i=0; i<temp.size(); i++) {
             Log.d("sss", ""+temp.get(i).getCategory().getName());
-            if (temp.get(i).getCategory().getType() == PocketAccounterGeneral.EXPANCE)
+            if (temp.get(i).getCategory().getType() == PocketAccounterGeneral.EXPENSE)
                 result.add(temp.get(i));
         }
         return result;

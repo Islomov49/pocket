@@ -131,7 +131,7 @@ public class RecordDetailFragment extends Fragment implements OnClickListener {
             holder.tvRecordDetailCategoryName.setText(result.get(position).getCategory().getName());
             DecimalFormat decimalFormat = new DecimalFormat("0.00");
             String sign = "";
-            if (result.get(position).getCategory().getType() == PocketAccounterGeneral.EXPANCE) {
+            if (result.get(position).getCategory().getType() == PocketAccounterGeneral.EXPENSE) {
                 holder.tvRecordDetailCategoryAmount.setTextColor(ContextCompat.getColor(context, R.color.red));
                 sign = "-";
             }

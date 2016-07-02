@@ -32,6 +32,7 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 import com.jim.pocketaccounter.R;
 import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -82,6 +83,7 @@ public class BarReportView extends LinearLayout {
     public BarReportView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public BarReportView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
@@ -116,7 +118,7 @@ public class BarReportView extends LinearLayout {
         dataSets.add(set2);
         dataSets.add(set3);
         BarData data = new BarData(xVals, dataSets);
-        data.setValueFormatter(new LargeValueFormatter());
+        data.setValueFormatter(new DecFormat());
         data.setGroupSpace(80f);
         barChart.setData(data);
         barChart.invalidate();

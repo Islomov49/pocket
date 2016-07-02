@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.ActionBarOverlayLayout;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -41,9 +40,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.UUID;
 
-import static android.view.MotionEvent.*;
-import static android.view.MotionEvent.ACTION_DOWN;
-
 @SuppressLint("ValidFragment")
 public class RecordEditFragment extends Fragment implements OnClickListener {
     private TextView tvRecordEditDisplay;
@@ -69,7 +65,6 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
     @SuppressLint("ValidFragment")
     public RecordEditFragment(RootCategory category, Calendar date, FinanceRecord record, int parent) {
         this.parent = parent;
-
         DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols();
         otherSymbols.setDecimalSeparator('.');
         otherSymbols.setGroupingSeparator('.');
@@ -239,6 +234,7 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
                 }
                 lastNumeric = true;
                 lastOperator = false;
+                lastDot = false;
             }
         };
         for (int id:numericButtons)
@@ -377,7 +373,7 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
                         ArrayList<RootCategory> categories = new ArrayList<RootCategory>();
                         if (position == 0) {
                             for (int i = 0; i < PocketAccounter.financeManager.getCategories().size(); i++) {
-                                if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.EXPANCE)
+                                if (PocketAccounter.financeManager.getCategories().get(i).getType() == PocketAccounterGeneral.EXPENSE)
                                     categories.add(PocketAccounter.financeManager.getCategories().get(i));
                             }
                         } else {
@@ -396,8 +392,9 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
                 openSubCategoryDialog();
                 break;
             case R.id.ivToolbarMostRight:
-                if (lastDot || lastOperator)
+                if (lastDot || lastOperator) {
                     return;
+                }
                 createNewRecord();
                 break;
         }

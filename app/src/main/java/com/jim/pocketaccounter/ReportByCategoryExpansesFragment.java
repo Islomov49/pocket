@@ -10,9 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -24,11 +21,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 import com.jim.pocketaccounter.report.CategoryDataRow;
 import com.jim.pocketaccounter.report.CategoryReportView;
-import com.jim.pocketaccounter.report.FilterDialog;
-import com.jim.pocketaccounter.report.FilterSelectable;
 import com.jim.pocketaccounter.report.ReportByCategoryDialogAdapter;
-
-import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -44,7 +37,7 @@ public class ReportByCategoryExpansesFragment extends Fragment implements OnChar
         View rootView = inflater.inflate(R.layout.report_by_category_expanse, container, false);
         init();
         llReportByCategory = (LinearLayout) rootView.findViewById(R.id.llReportByCategory);
-        categoryReportView = new CategoryReportView(getContext(), PocketAccounterGeneral.EXPANCE, begin, end);
+        categoryReportView = new CategoryReportView(getContext(), PocketAccounterGeneral.EXPENSE, begin, end);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         categoryReportView.setLayoutParams(lp);
         categoryReportView.getPieChart().setOnChartValueSelectedListener(this);

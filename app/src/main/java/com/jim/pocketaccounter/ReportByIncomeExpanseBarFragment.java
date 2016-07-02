@@ -9,9 +9,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -20,26 +18,13 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.github.mikephil.charting.charts.HorizontalBarChart;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.github.mikephil.charting.listener.ChartTouchListener;
-import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 import com.jim.pocketaccounter.report.BarReportView;
-import com.jim.pocketaccounter.report.FilterDialog;
-import com.jim.pocketaccounter.report.FilterSelectable;
 import com.jim.pocketaccounter.report.IncomeExpanseDataRow;
 import com.jim.pocketaccounter.report.IncomeExpanseDayDetails;
-import com.jim.pocketaccounter.report.IncomeExpanseReport;
 import com.jim.pocketaccounter.report.ReportByIncomeExpanseDialogAdapter;
 
 import java.text.DecimalFormat;
@@ -117,7 +102,7 @@ public class ReportByIncomeExpanseBarFragment extends Fragment implements OnChar
                 break;
             case 1:
                 for (int i=0; i<row.getDetails().size(); i++) {
-                    if (row.getDetails().get(i).getCategory().getType() == PocketAccounterGeneral.EXPANCE)
+                    if (row.getDetails().get(i).getCategory().getType() == PocketAccounterGeneral.EXPENSE)
                         result.add(row.getDetails().get(i));
                 }
                 openDialog(row.getDate(), result, row.getTotalExpanse(), dataSetIndex);
