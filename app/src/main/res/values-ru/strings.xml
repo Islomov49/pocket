@@ -1176,7 +1176,7 @@
     <string name="from_account">Счет:</string>
     <string name="how_much_you_paid">Сумма выплаты</string>
     <string name="commentik">Примечание:</string>
-    <string name="do_you_want_note">Введите Ваши примечания</string>
+    <string name="do_you_want_note">Ваши примечания</string>
     <string name="this_amount_will_absorb_your_credit">Частичная либо полная выплата</string>
     <string name="left_amount">Остаток:</string>
     <string name="procent_of_credit">Процент кредита:</string>

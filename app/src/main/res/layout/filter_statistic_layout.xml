@@ -105,7 +105,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Месяц"
+                            android:text="@string/mont"
                             android:layout_alignParentLeft="true"
                             android:textColor="@color/black_for_glavniy_text"
                             android:textSize="@dimen/sixteen_sp" />
@@ -127,7 +127,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Год"
+                            android:text="@string/yearr"
                             android:layout_alignParentLeft="true"
                             android:textColor="@color/black_for_glavniy_text"
                             android:textSize="@dimen/sixteen_sp" />
@@ -227,36 +227,4 @@
         android:layout_height="2px"
         android:layout_marginTop="@dimen/five_dp"
         android:background="@color/green_light_forline" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/grey_light2"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/sixteen_dp"
-            android:layout_marginRight="@dimen/sixteen_dp"
-            android:layout_marginTop="@dimen/ten_dp"
-            android:gravity="center"
-            android:text="@string/this_amount_will_absorb_your_credit"
-            android:textColor="@color/black_for_glavniy_text"
-            android:textSize="@dimen/twelve_sp" />
-
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/sixteen_dp"
-            android:layout_marginRight="@dimen/sixteen_dp"
-            android:layout_marginTop="@dimen/ten_dp"
-            android:gravity="center"
-            android:paddingBottom="@dimen/thirty_dp"
-            android:text="@string/always_remember"
-            android:textColor="@color/black_for_secondary_text"
-            android:textSize="@dimen/ten_sp" />
-    </LinearLayout>
-
 </LinearLayout>

@@ -134,6 +134,7 @@
                     android:text="@string/commentik"
                     android:textSize="@dimen/sixteen_sp"
                     android:textColor="@color/black_for_glavniy_text"/>
+
                 <EditText
                     android:id="@+id/etInfoDebtBorrowPayComment"
                     android:layout_width="match_parent"
@@ -143,7 +144,6 @@
                     android:maxLength="100"
                     android:textSize="@dimen/sixteen_sp"
                     android:textColor="@color/black_for_glavniy_text"
-
                     />
             </LinearLayout>
                    </LinearLayout>
