@@ -210,13 +210,12 @@
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
-                            android:text="Осталось(год, месяц, день)"
+                            android:text="@string/left_date_debts"
                             android:textColor="@color/forlines"
                             android:textSize="@dimen/twelve_sp" />
                     </RelativeLayout>
 
                     <RelativeLayout
-
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/four_dp">

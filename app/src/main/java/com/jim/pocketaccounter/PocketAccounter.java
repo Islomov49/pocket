@@ -670,7 +670,7 @@ public class PocketAccounter extends AppCompatActivity {
                         }
 
                     }
-                }, 180);
+                }, 170);
             }
         });
     }
@@ -901,19 +901,15 @@ public class PocketAccounter extends AppCompatActivity {
                    mIcon11 = BitmapFactory.decodeStream(in);
                     break;
                } catch (Exception e) {
-
                    e.printStackTrace();
                    try {
                        Thread.sleep(10000);
                    } catch (InterruptedException e1) {
                        e1.printStackTrace();
                    }
-
                }
                 if (isCancelled()) break;
-
             }
-
             return mIcon11;
         }
 
