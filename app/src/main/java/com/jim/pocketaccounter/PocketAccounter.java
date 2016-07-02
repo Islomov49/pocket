@@ -449,6 +449,7 @@ public class PocketAccounter extends AppCompatActivity {
                                     .setPositiveButton(R.string.sync_short, new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             mAnimationDrawable.start();
+                                            financeManager.saveAllDatas();
                                             mySync.uploadBASE(userim.getUid(), new SyncBase.ChangeStateLis() {
                                                 @Override
                                                 public void onSuccses() {
