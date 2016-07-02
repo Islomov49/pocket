@@ -224,7 +224,7 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
                 if (PersonName.getText().toString().equals("")) {
                     PersonName.setError(getString(R.string.enter_name_error));
                 } else {
-                    if (PersonSumm.getText().toString().equals("")) {
+                    if (PersonSumm.getText().toString().equals("") || Double.parseDouble(PersonSumm.getText().toString()) == 0) {
                         PersonSumm.setError(getString(R.string.enter_amount_error));
                     } else {
                         if (PersonDataGet.getText().toString().matches("")) {

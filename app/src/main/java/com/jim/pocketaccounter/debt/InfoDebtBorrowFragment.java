@@ -125,8 +125,8 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
             @Override
             public void onClick(View view) {
                 final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setMessage((getArguments().getInt("type", 0) == 2 && debtBorrow.isCalculate()) ?
-                        getString(R.string.debt_delete_meessage) : getString(R.string.delete))
+                builder.setMessage(debtBorrow.isCalculate() ?
+                        getResources().getString(R.string.delete_credit) : getString(R.string.delete))
                         .setPositiveButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                             }
@@ -396,7 +396,7 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
                 @Override
                 public void onClick(View v) {
                     final SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-                    if (!enterPay.getText().toString().isEmpty()) {
+                    if (!enterPay.getText().toString().isEmpty() && Double.parseDouble(enterPay.getText().toString()) != 0) {
                         if (Double.parseDouble(leftAmount.getText().toString().substring(0, leftAmount.getText().toString().length() - 1))
                                 - Double.parseDouble(enterPay.getText().toString()) < 0) {
                             final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
