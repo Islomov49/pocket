@@ -868,9 +868,11 @@ public class PocketAccounter extends AppCompatActivity {
                 fabIconFrame.setBackgroundResource(R.drawable.cloud_sign_in);
             }
         }
-        initialize(date);
-        for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
-            fragmentManager.popBackStack();
+        if (resultCode != RESULT_OK) {
+            initialize(date);
+            for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
+                fragmentManager.popBackStack();
+            }
         }
     }
 
