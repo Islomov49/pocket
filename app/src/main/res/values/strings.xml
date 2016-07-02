@@ -1190,4 +1190,5 @@
     <string name="amount_borrow">Loan amount</string>
     <string name="between_dates">Select a period</string>
     <string name="between">Period</string>
+    <string name="debts_title">Учет Долгов</string>
 </resources>

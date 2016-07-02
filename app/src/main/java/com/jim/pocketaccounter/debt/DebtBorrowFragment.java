@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +33,7 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
         View view = inflater.inflate(R.layout.debt_borrow_fragment_mod, container, false);
         tabLayout = (TabLayout) view.findViewById(R.id.tlDebtBorrowFragment);
         viewPager = (ViewPager) view.findViewById(R.id.vpDebtBorrowFragment);
-        PocketAccounter.toolbar.setTitle("Учет Долгов");
+        PocketAccounter.toolbar.setTitle(R.string.debts_title);
         PocketAccounter.toolbar.setSubtitle("");
         PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel).setVisibility(View.GONE);
         PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight).setVisibility(View.GONE);
