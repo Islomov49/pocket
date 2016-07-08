@@ -188,8 +188,8 @@ public class InfoCreditFragment extends Fragment {
                 else {
                     delete_flag=false;
                     myPay.setText(R.string.pay);
-                    for (boolean isChek : isCheks) {
-                        isChek = false;
+                    for (int i = 0; i < isCheks.length; i ++) {
+                        isCheks[i] = false;
                     }
                     adapRecyc.notifyDataSetChanged();
                 }
@@ -476,7 +476,6 @@ public class InfoCreditFragment extends Fragment {
                                         for (int i = 0; i < isCheks.length; i++) {
                                             isCheks[i] = false;
                                         }
-                                        Toast.makeText(getContext(), "" + isCheks.length, Toast.LENGTH_SHORT).show();
                                         dialog.dismiss();
                                     }
                                 }).setNegativeButton(context.getString(R.string.cancel1), new DialogInterface.OnClickListener() {

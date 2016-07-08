@@ -97,7 +97,7 @@
                     android:background="@color/grey_light2">
                     <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="2dp"
+                        android:layout_height="2px"
                         android:background="@color/green_light_forline"
                         android:layout_marginBottom="@dimen/ten_dp"
                         android:layout_alignParentRight="true"
@@ -116,7 +116,7 @@
 
                     <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="2dp"
+                        android:layout_height="2px"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentLeft="true"
@@ -316,7 +316,7 @@
             <FrameLayout
                 android:id="@+id/with_wlyuzik"
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="2px"
                 android:background="@color/green_light_forline"
                 android:visibility="visible" />
 
@@ -388,7 +388,7 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="2px"
                 android:layout_marginBottom="@dimen/ten_dp"
                 android:layout_marginLeft="@dimen/twelve_sp"
                 android:layout_marginRight="@dimen/twelve_sp"
@@ -453,7 +453,7 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
+                android:layout_height="2px"
                 android:background="@color/green_light_forline"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"

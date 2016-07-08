@@ -337,7 +337,7 @@ public class RecordExpanseView extends View implements 	GestureDetector.OnGestur
 		TextView tv = (TextView) dialogView.findViewById(R.id.tvWarningText);
 		String catName = PocketAccounter.financeManager.getExpanses().get(pos).getName();
 		SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
-		tv.setText("Записи, связанные с категорией "+catName +" будут удалены ("+format.format(date.getTime())+").");
+		tv.setText(getContext().getString(R.string.clear_warning)+format.format(date.getTime())+").");
 		final Calendar beg = (Calendar) date.clone();
 		beg.set(Calendar.HOUR_OF_DAY, 0);
 		beg.set(Calendar.MINUTE, 0);

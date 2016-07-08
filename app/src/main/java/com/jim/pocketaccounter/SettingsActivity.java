@@ -298,8 +298,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         Configuration conf = res.getConfiguration();
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
-        Intent refresh = new Intent(this, PocketAccounter.class);
-        startActivity(refresh);
+        setResult(RESULT_OK);
         finish();
     }
     private ProgressDialog mProgressDialog;

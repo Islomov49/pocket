@@ -85,7 +85,7 @@
         <item> Philippine Peso </item>
         <item> Zloty </item>
         <item> The Qatari Riyal </item>
-        <item> Lei </item>
+        <item> Sum </item>
         <item> The Saudi riyal </item>
         <item> The Swiss franc </item>
         <item> The Serbian Dinar </item>
@@ -129,7 +129,7 @@
         <item>₱</item>
         <item>zł</item>
         <item>﷼</item>
-        <item>L</item>
+        <item>uzs</item>
         <item>﷼</item>
         <item>₣</item>
         <item>din</item>
@@ -883,9 +883,9 @@
     <string name="to">To: </string>
     <string name="from_email">from_email</string>
     <string name="to_email">basicstepsdevelopment@gmail.com</string>
-    <string name="rate_app_web">https://play.google.com/store/apps/details?id=com.jim.pocketaccounter.lite</string>
-    <string name="share_app_text">Рекомендую "Мои деньги - учет лайт"
-        https://play.google.com/store/apps/details?id=com.jim.pocketaccounter.lite</string>
+    <string name="rate_app_web">https://play.google.com/store/apps/details?id=com.jim.pocketaccounter</string>
+    <string name="share_app_text">I recommend "Money Holder"
+        https://play.google.com/store/apps/details?id=com.jim.pocketaccounter</string>
     <string name="feedback_hint">Contact Us</string>
     <string name="feedback_subject">Subject: </string>
     <string name="feedback_content">Content: </string>
@@ -945,8 +945,8 @@
     </string-array>
     <string-array name="report_by_account_titles">
         <item>Operation</item>
-        <item>Amount</item>
         <item>Date</item>
+        <item>Amount</item>
         <item>Category</item>
     </string-array>
     <string name="debt_borrow_taken">Borrowed</string>
@@ -1087,7 +1087,7 @@
     <string name="clear_records">Clear</string>
     <string name="enter_credit_name">Enter the name of the credit</string>
     <string name="credit_amount">Credit amount</string>
-    <string name="percent">Interest</string>
+    <string name="percent">Percent</string>
     <string name="credit_percent">Percent</string>
     <string name="period_of_credit">Credit term</string>
     <string name="enter_period_of_credit">Enter credit term</string>
@@ -1195,4 +1195,5 @@
     <string name="how_long_time_you_should_pay">Credit period</string>
     <string name="dou_delete">"Do you want to delete the record? The record is calculeted in balance ! All transaction operations will deleted from aplication! "</string>
     <string name="dou_delete_arc">"Do you want to delete the record? "</string>
+    <string name="clear_warning">Records with this category will deleted (</string>
 </resources>

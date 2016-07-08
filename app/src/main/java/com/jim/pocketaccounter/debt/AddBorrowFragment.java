@@ -59,6 +59,7 @@ import java.util.UUID;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 /**
@@ -82,7 +83,7 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
     private int TYPE = 0;
     private static final int REQUEST_SELECT_CONTACT = 2;
     private FinanceManager manager;
-    private int RESULT_LOAD_IMAGE = 1;
+    public static int RESULT_LOAD_IMAGE = 1;
     private ImageView ivToolbarMostRight;
     private EditText firstPay;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd.MM.yyyy");
@@ -400,7 +401,6 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
         if (requestCode == RESULT_LOAD_IMAGE && null != data) {
             Uri selectedImage = data.getData();
             String[] filePathColumn = {MediaStore.Images.Media.DATA};
-
             Cursor cursor = getActivity().getContentResolver().query(selectedImage,
                     filePathColumn, null, null, null);
             cursor.moveToFirst();
@@ -411,7 +411,6 @@ public class AddBorrowFragment extends Fragment implements AdapterView.OnItemSel
             photoPath = picturePath;
             imageView.setImageBitmap(decodeFile(new File(photoPath)));
         }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private Bitmap queryContactImage(int imageDataRow) {

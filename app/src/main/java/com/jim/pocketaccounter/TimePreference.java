@@ -10,7 +10,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.TimePicker;
 
-class TimePreference extends DialogPreference {
+public class TimePreference extends DialogPreference {
 
     /** The widget for picking a time */
     private TimePicker timePicker;

@@ -27,15 +27,7 @@
             android:dialogLayout="@layout/time_preference"
             android:title="@string/planning_notif_title"
             android:key="planningNotifTime" />
-        <ListPreference
-            android:defaultValue="@string/planning_before_default"
-            android:dependency="@string/general_notif"
-            android:entries="@array/planning_before_entries"
-            android:entryValues="@array/planning_before_values"
-            android:key="planning_before"
-            android:summary="@string/planning_before_summary"
-            android:title="@string/planning_before_title" />
-    </PreferenceCategory>
+     </PreferenceCategory>
     <PreferenceCategory android:title="@string/filters">
         <ListPreference
             android:defaultValue="2"

@@ -1,4 +1,5 @@
 package com.jim.pocketaccounter;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -43,6 +44,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.jim.pocketaccounter.credit.notificat.AlarmReceiver;
 import com.jim.pocketaccounter.credit.notificat.NotificationManagerCredit;
+import com.jim.pocketaccounter.debt.AddBorrowFragment;
 import com.jim.pocketaccounter.finance.FinanceRecord;
 import com.jim.pocketaccounter.helper.CircleImageView;
 import com.jim.pocketaccounter.helper.FABIcon;
@@ -76,7 +78,7 @@ import java.util.Locale;
 import static com.jim.pocketaccounter.R.color.toolbar_text_color;
 
 public class PocketAccounter extends AppCompatActivity {
-    TextView userName,userEmail;
+    TextView userName, userEmail;
     CircleImageView userAvatar;
     public static Toolbar toolbar;
     public static LeftSideDrawer drawer;
@@ -93,11 +95,11 @@ public class PocketAccounter extends AppCompatActivity {
     private Calendar date;
     private Spinner spToolbar;
     public static SignInGoogleMoneyHold reg;
-    boolean downloadnycCanRest=true;
+    boolean downloadnycCanRest = true;
     public static SyncBase mySync;
     Uri imageUri;
     ImageView fabIconFrame;
-    public static final int key_for_restat=10101;
+    public static final int key_for_restat = 10101;
     FirebaseStorage storage = FirebaseStorage.getInstance();
     StorageReference storageRef = storage.getReferenceFromUrl("gs://pocket-accounter.appspot.com");
     DownloadImageTask imagetask;
@@ -115,7 +117,7 @@ public class PocketAccounter extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String lang = prefs.getString("language",getResources().getString(R.string.language_default));
+        String lang = prefs.getString("language", getResources().getString(R.string.language_default));
         if (lang.matches(getResources().getString(R.string.language_default)))
             setLocale(Locale.getDefault().getLanguage());
         else
@@ -134,7 +136,7 @@ public class PocketAccounter extends AppCompatActivity {
         }
         financeManager = new FinanceManager(this);
         fragmentManager = getSupportFragmentManager();
-        mySync=new SyncBase(storageRef,this,"PocketAccounterDatabase");
+        mySync = new SyncBase(storageRef, this, "PocketAccounterDatabase");
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(ContextCompat.getColor(this, toolbar_text_color));
@@ -144,14 +146,14 @@ public class PocketAccounter extends AppCompatActivity {
         lvLeftMenu = (ListView) findViewById(R.id.lvLeftMenu);
         fillLeftMenu();
 
-        FirebaseUser user= FirebaseAuth.getInstance().getCurrentUser();
-        if(user!=null){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
             userName.setText(user.getDisplayName());
             userEmail.setText(user.getEmail());
-            if(user.getPhotoUrl()!=null){
-                imagetask=new DownloadImageTask(userAvatar);
+            if (user.getPhotoUrl() != null) {
+                imagetask = new DownloadImageTask(userAvatar);
                 imagetask.execute(user.getPhotoUrl().toString());
-                imageUri=user.getPhotoUrl();
+                imageUri = user.getPhotoUrl();
             }
         }
         rlRecordsMain = (RelativeLayout) findViewById(R.id.rlRecordExpanses);
@@ -175,9 +177,9 @@ public class PocketAccounter extends AppCompatActivity {
         initialize(date);
         //Bu notifikatsiyani bosib prilojeniyaga kirganda fragmenti ochvorishga
 
-        Log.d("ishla", ""+getIntent().getIntExtra("TIP", 0));
+        Log.d("ishla", "" + getIntent().getIntExtra("TIP", 0));
 
-        switch (getIntent().getIntExtra("TIP", 0)){
+        switch (getIntent().getIntExtra("TIP", 0)) {
             case AlarmReceiver.TO_DEBT:
                 replaceFragment(new DebtBorrowFragment(), PockerTag.DEBTS);
                 break;
@@ -188,15 +190,15 @@ public class PocketAccounter extends AppCompatActivity {
         (new Thread(new Runnable() {
             @Override
             public void run() {
-                try{
-                    notific=new NotificationManagerCredit(PocketAccounter.this);
+                try {
+                    notific = new NotificationManagerCredit(PocketAccounter.this);
                     notific.cancelAllNotifs();
-                }
-                catch (Exception o){
+                } catch (Exception o) {
                 }
             }
         })).start();
     }
+
     public void setLocale(String lang) {
         Locale myLocale = new Locale(lang);
         Resources res = getResources();
@@ -205,9 +207,11 @@ public class PocketAccounter extends AppCompatActivity {
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
     }
+
     public Calendar getDate() {
         return date;
     }
+
     public void initialize(Calendar date) {
         PRESSED = false;
         toolbar.setTitle(getResources().getString(R.string.app_name));
@@ -326,9 +330,9 @@ public class PocketAccounter extends AppCompatActivity {
         financeManager.saveAllDatas();
         if (imagetask != null)
             imagetask.cancel(true);
-        if(imagetask!=null) {
+        if (imagetask != null) {
             imagetask.cancel(true);
-            imagetask=null;
+            imagetask = null;
         }
     }
 
@@ -342,49 +346,48 @@ public class PocketAccounter extends AppCompatActivity {
         String[] debtSubItemIcons = getResources().getStringArray(R.array.debts_subitem_icons);
         ArrayList<LeftMenuItem> items = new ArrayList<LeftMenuItem>();
 
-        userAvatar=(CircleImageView) findViewById(R.id.userphoto);
-        userName=(TextView) findViewById(R.id.tvToolbarName);
-        userEmail=(TextView) findViewById(R.id.tvGoogleMail);
+        userAvatar = (CircleImageView) findViewById(R.id.userphoto);
+        userName = (TextView) findViewById(R.id.tvToolbarName);
+        userEmail = (TextView) findViewById(R.id.tvGoogleMail);
 
         FABIcon fabIcon = (FABIcon) findViewById(R.id.fabDrawerNavIcon);
         fabIconFrame = (ImageView) findViewById(R.id.iconFrameForAnim);
 
-        if(FirebaseAuth.getInstance().getCurrentUser()!=null){
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             fabIconFrame.setBackgroundResource(R.drawable.cloud_anim);
             mAnimationDrawable = (AnimationDrawable) fabIconFrame.getBackground();
 
-        }
-        else
+        } else
             fabIconFrame.setBackgroundResource(R.drawable.cloud_sign_in);
 
 
-       reg=new SignInGoogleMoneyHold(PocketAccounter.this, new SignInGoogleMoneyHold.UpdateSucsess() {
+        reg = new SignInGoogleMoneyHold(PocketAccounter.this, new SignInGoogleMoneyHold.UpdateSucsess() {
             @Override
             public void updateToSucsess() {
-                final FirebaseUser user=FirebaseAuth.getInstance().getCurrentUser();
-                if(user!=null){
-                    imagetask=new DownloadImageTask(userAvatar);
+                final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                if (user != null) {
+                    imagetask = new DownloadImageTask(userAvatar);
                     userName.setText(user.getDisplayName());
                     userEmail.setText(user.getEmail());
-                    if(user.getPhotoUrl()!=null){
+                    if (user.getPhotoUrl() != null) {
                         imagetask.execute(user.getPhotoUrl().toString());
-                        imageUri=user.getPhotoUrl(); }
+                        imageUri = user.getPhotoUrl();
+                    }
 
                     showProgressDialog(getString(R.string.cheking_user));
                     PocketAccounter.mySync.meta_Message(user.getUid(), new SyncBase.ChangeStateLisMETA() {
                         @Override
                         public void onSuccses(final long inFormat) {
                             hideProgressDialog();
-                            Date datee=new Date();
+                            Date datee = new Date();
                             fabIconFrame.setBackgroundResource(R.drawable.cloud_anim);
                             mAnimationDrawable = (AnimationDrawable) fabIconFrame.getBackground();
-
                             datee.setTime(inFormat);
                             final android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(PocketAccounter.this);
                             builder.setMessage(getString(R.string.sync_last_data_sign_up) + (new SimpleDateFormat("dd.MM.yyyy kk:mm")).format(datee))
                                     .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
-                                               showProgressDialog(getString(R.string.download));
+                                            showProgressDialog(getString(R.string.download));
                                             PocketAccounter.mySync.downloadLast(user.getUid(), new SyncBase.ChangeStateLis() {
                                                 @Override
                                                 public void onSuccses() {
@@ -394,19 +397,20 @@ public class PocketAccounter extends AppCompatActivity {
                                                             hideProgressDialog();
                                                             PocketAccounter.financeManager = new FinanceManager(PocketAccounter.this);
                                                             initialize(new GregorianCalendar());
-                                                            if(!drawer.isClosed()){
+                                                            if (!drawer.isClosed()) {
                                                                 drawer.close();
                                                             }
                                                         }
                                                     });
                                                 }
+
                                                 @Override
                                                 public void onFailed(String e) {
                                                     hideProgressDialog();
                                                 }
                                             });
                                         }
-                                    }) .setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+                                    }).setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     hideProgressDialog();
                                     dialog.cancel();
@@ -421,8 +425,13 @@ public class PocketAccounter extends AppCompatActivity {
                             });
                             builder.create().show();
                         }
+
                         @Override
                         public void onFailed(Exception e) {
+                            hideProgressDialog();
+                            fabIconFrame.setBackgroundResource(R.drawable.cloud_anim);
+                            mAnimationDrawable = (AnimationDrawable) fabIconFrame.getBackground();
+
                         }
                     });
                 }
@@ -438,8 +447,8 @@ public class PocketAccounter extends AppCompatActivity {
         fabIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                 final FirebaseUser userim= FirebaseAuth.getInstance().getCurrentUser();
-                if(userim!=null){
+                final FirebaseUser userim = FirebaseAuth.getInstance().getCurrentUser();
+                if (userim != null) {
 
                     (new Handler()).postDelayed(new Runnable() {
                         @Override
@@ -482,7 +491,7 @@ public class PocketAccounter extends AppCompatActivity {
                                             });
 
                                         }
-                                    }) .setNegativeButton(getString(R.string.cancel1), new DialogInterface.OnClickListener() {
+                                    }).setNegativeButton(getString(R.string.cancel1), new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     dialog.cancel();
                                 }
@@ -574,73 +583,84 @@ public class PocketAccounter extends AppCompatActivity {
                             case 1:
                                 if (getSupportFragmentManager().getBackStackEntryCount() == 1
                                         && getSupportFragmentManager().findFragmentById(R.id.flMain).getTag()
-                                        .matches(com.jim.pocketaccounter.debt.PockerTag.CURRENCY)) return;
+                                        .matches(com.jim.pocketaccounter.debt.PockerTag.CURRENCY))
+                                    return;
                                 replaceFragment(new CurrencyFragment(), PockerTag.CURRENCY);
                                 break;
                             case 2:
                                 if (getSupportFragmentManager().getBackStackEntryCount() == 1
                                         && getSupportFragmentManager().findFragmentById(R.id.flMain).getTag()
-                                        .matches(com.jim.pocketaccounter.debt.PockerTag.CURRENCY)) return;
+                                        .matches(com.jim.pocketaccounter.debt.PockerTag.CURRENCY))
+                                    return;
                                 replaceFragment(new CurrencyFragment(), PockerTag.CURRENCY);
                                 //Currency management
                                 break;
                             case 3:
                                 if (getSupportFragmentManager().getBackStackEntryCount() == 1
                                         && getSupportFragmentManager().findFragmentById(R.id.flMain).getTag()
-                                        .matches(com.jim.pocketaccounter.debt.PockerTag.CATEGORY)) return;
+                                        .matches(com.jim.pocketaccounter.debt.PockerTag.CATEGORY))
+                                    return;
                                 replaceFragment(new CategoryFragment(), PockerTag.CATEGORY);
                                 //Category management
                                 break;
                             case 4:
                                 if (getSupportFragmentManager().getBackStackEntryCount() == 1
                                         && getSupportFragmentManager().findFragmentById(R.id.flMain).getTag()
-                                        .matches(com.jim.pocketaccounter.debt.PockerTag.ACCOUNT)) return;
+                                        .matches(com.jim.pocketaccounter.debt.PockerTag.ACCOUNT))
+                                    return;
                                 replaceFragment(new AccountFragment(), PockerTag.ACCOUNT);
                                 //Accounting management
                                 break;
                             case 5:
                                 if (getSupportFragmentManager().getBackStackEntryCount() == 1
                                         && getSupportFragmentManager().findFragmentById(R.id.flMain).getTag()
-                                        .matches(com.jim.pocketaccounter.debt.PockerTag.CREDITS)) return;
+                                        .matches(com.jim.pocketaccounter.debt.PockerTag.CREDITS))
+                                    return;
                                 replaceFragment(new CreditTabLay(), PockerTag.CREDITS);
                                 break;
                             case 6:
                                 if (getSupportFragmentManager().getBackStackEntryCount() == 1
                                         && getSupportFragmentManager().findFragmentById(R.id.flMain).getTag()
-                                        .matches(com.jim.pocketaccounter.debt.PockerTag.CREDITS)) return;
+                                        .matches(com.jim.pocketaccounter.debt.PockerTag.CREDITS))
+                                    return;
                                 replaceFragment(new CreditTabLay(), PockerTag.CREDITS);
                                 //Statistics by account
                                 break;
                             case 7:
                                 if (getSupportFragmentManager().getBackStackEntryCount() == 1
                                         && getSupportFragmentManager().findFragmentById(R.id.flMain).getTag()
-                                        .matches(com.jim.pocketaccounter.debt.PockerTag.DEBTS)) return;
+                                        .matches(com.jim.pocketaccounter.debt.PockerTag.DEBTS))
+                                    return;
                                 replaceFragment(new DebtBorrowFragment(), PockerTag.DEBTS);
                                 //Statistics by income/expanse
                                 break;
                             case 8:
                                 if (getSupportFragmentManager().getBackStackEntryCount() == 1
                                         && getSupportFragmentManager().findFragmentById(R.id.flMain).getTag()
-                                        .matches(com.jim.pocketaccounter.debt.PockerTag.REPORT_ACCOUNT)) return;
+                                        .matches(com.jim.pocketaccounter.debt.PockerTag.REPORT_ACCOUNT))
+                                    return;
                                 replaceFragment(new ReportByAccountFragment(), PockerTag.REPORT_ACCOUNT);
                                 break;
                             case 9:
                                 if (getSupportFragmentManager().getBackStackEntryCount() == 1
                                         && getSupportFragmentManager().findFragmentById(R.id.flMain).getTag()
-                                        .matches(com.jim.pocketaccounter.debt.PockerTag.REPORT_ACCOUNT)) return;
+                                        .matches(com.jim.pocketaccounter.debt.PockerTag.REPORT_ACCOUNT))
+                                    return;
                                 replaceFragment(new ReportByAccountFragment(), PockerTag.REPORT_ACCOUNT);
                                 // accounting debt
                                 break;
                             case 10:
                                 if (getSupportFragmentManager().getBackStackEntryCount() == 1
                                         && getSupportFragmentManager().findFragmentById(R.id.flMain).getTag()
-                                        .matches(com.jim.pocketaccounter.debt.PockerTag.REPORT_INCOM_EXPENSE)) return;
+                                        .matches(com.jim.pocketaccounter.debt.PockerTag.REPORT_INCOM_EXPENSE))
+                                    return;
                                 replaceFragment(new TableBarFragment(), PockerTag.REPORT_INCOM_EXPENSE);
                                 break;
                             case 11:
                                 if (getSupportFragmentManager().getBackStackEntryCount() == 1
                                         && getSupportFragmentManager().findFragmentById(R.id.flMain).getTag()
-                                        .matches(com.jim.pocketaccounter.debt.PockerTag.REPORT_CATEGORY)) return;
+                                        .matches(com.jim.pocketaccounter.debt.PockerTag.REPORT_CATEGORY))
+                                    return;
                                 replaceFragment(new ReportByCategory(), PockerTag.REPORT_CATEGORY);
                                 break;
                             case 12:
@@ -648,7 +668,7 @@ public class PocketAccounter extends AppCompatActivity {
                                 for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
                                     fragmentManager.popBackStack();
                                 }
-                                startActivityForResult(settings,key_for_restat);
+                                startActivityForResult(settings, key_for_restat);
                                 break;
                             case 13:
                                 findViewById(R.id.change).setVisibility(View.VISIBLE);
@@ -834,15 +854,15 @@ public class PocketAccounter extends AppCompatActivity {
     @Override
     public void onRestart() {
         super.onRestart();
-        if(FirebaseAuth.getInstance().getCurrentUser()!=null){
-        try {
-            if(downloadnycCanRest&&imageUri!=null){
-                imagetask=new DownloadImageTask(userAvatar);
-                imagetask.execute(imageUri.toString());
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            try {
+                if (downloadnycCanRest && imageUri != null) {
+                    imagetask = new DownloadImageTask(userAvatar);
+                    imagetask.execute(imageUri.toString());
+                }
+            } catch (Exception o) {
             }
-        }
-        catch (Exception o){}}
-        else {
+        } else {
             userAvatar.setImageResource(R.drawable.no_photo);
             userName.setText(R.string.please_sign);
             userEmail.setText(R.string.and_sync_your_data);
@@ -857,19 +877,19 @@ public class PocketAccounter extends AppCompatActivity {
         if (requestCode == SignInGoogleMoneyHold.RC_SIGN_IN) {
             reg.regitRequstGet(data);
         }
-        if(requestCode==key_for_restat&& resultCode==RESULT_OK){
+        if (requestCode == key_for_restat && resultCode == RESULT_OK) {
             initialize(date);
-            if(!drawer.isClosed()){
+            if (!drawer.isClosed()) {
                 drawer.close();
             }
-            if(FirebaseAuth.getInstance().getCurrentUser()==null){
+            if (FirebaseAuth.getInstance().getCurrentUser() == null) {
                 userAvatar.setImageResource(R.drawable.no_photo);
                 userName.setText(R.string.please_sign);
                 userEmail.setText(R.string.and_sync_your_data);
                 fabIconFrame.setBackgroundResource(R.drawable.cloud_sign_in);
             }
         }
-        if (resultCode != RESULT_OK) {
+        if (resultCode != RESULT_OK && requestCode == key_for_restat) {
             initialize(date);
             for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
                 fragmentManager.popBackStack();
@@ -882,7 +902,6 @@ public class PocketAccounter extends AppCompatActivity {
 
         public DownloadImageTask(CircleImageView bmImage) {
             this.bmImage = bmImage;
-
         }
 
         @Override
@@ -898,19 +917,19 @@ public class PocketAccounter extends AppCompatActivity {
             String urldisplay = urls[0];
             Bitmap mIcon11 = null;
 
-            for(; true;){
-               try {
-                   InputStream in = new java.net.URL(urldisplay).openStream();
-                   mIcon11 = BitmapFactory.decodeStream(in);
+            for (; true; ) {
+                try {
+                    InputStream in = new java.net.URL(urldisplay).openStream();
+                    mIcon11 = BitmapFactory.decodeStream(in);
                     break;
-               } catch (Exception e) {
-                   e.printStackTrace();
-                   try {
-                       Thread.sleep(10000);
-                   } catch (InterruptedException e1) {
-                       e1.printStackTrace();
-                   }
-               }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    try {
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e1) {
+                        e1.printStackTrace();
+                    }
+                }
                 if (isCancelled()) break;
             }
             return mIcon11;

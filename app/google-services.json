@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "913068431761-0v9gv1lm87vm6fe241ma6jg3veumcaot.apps.googleusercontent.com",
+          "client_id": "913068431761-r3imsj89kits4s86gpoqs9d3ngok8n8m.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.jim.pocketaccounter",
-            "certificate_hash": "3935141BB23416380013E5E87FCDA290F0D34A44"
+            "certificate_hash": "8A621F3ECE8B2A1DBD8EBAB3B10156EB661B1A28"
           }
         },
         {
