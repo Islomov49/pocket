@@ -162,7 +162,7 @@
                                     android:layout_marginRight="@dimen/six_dp"
                                     android:inputType="numberDecimal"
                                     android:elevation="0dp"
-                                    android:maxLength="3"
+                                    android:maxLength="10"
                                     />
                                 <Spinner
                                     android:layout_width="wrap_content"

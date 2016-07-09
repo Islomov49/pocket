@@ -148,10 +148,15 @@ public class PocketAccounter extends AppCompatActivity {
         if (user != null) {
             userName.setText(user.getDisplayName());
             userEmail.setText(user.getEmail());
-            if (user.getPhotoUrl() != null) {
-                imagetask = new DownloadImageTask(userAvatar);
-                imagetask.execute(user.getPhotoUrl().toString());
-                imageUri = user.getPhotoUrl();
+            try{
+                if (user.getPhotoUrl() != null) {
+                    imagetask = new DownloadImageTask(userAvatar);
+                    imagetask.execute(user.getPhotoUrl().toString());
+                    imageUri = user.getPhotoUrl();
+                }
+          }
+            catch (Exception o){
+
             }
         }
         rlRecordsMain = (RelativeLayout) findViewById(R.id.rlRecordExpanses);
@@ -327,11 +332,18 @@ public class PocketAccounter extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        if (imagetask != null)
-            imagetask.cancel(true);
-        if (imagetask != null) {
-            imagetask.cancel(true);
-            imagetask = null;
+
+        try{
+
+            if (imagetask != null)
+                imagetask.cancel(true);
+            if (imagetask != null) {
+                imagetask.cancel(true);
+                imagetask = null;
+            }
+        }
+        catch (Exception o){
+
         }
     }
 
@@ -369,7 +381,10 @@ public class PocketAccounter extends AppCompatActivity {
                     userName.setText(user.getDisplayName());
                     userEmail.setText(user.getEmail());
                     if (user.getPhotoUrl() != null) {
-                        imagetask.execute(user.getPhotoUrl().toString());
+                        try{
+                            imagetask.execute(user.getPhotoUrl().toString());
+
+                        }catch (Exception o){}
                         imageUri = user.getPhotoUrl();
                     }
 
