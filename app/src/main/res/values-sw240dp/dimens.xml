@@ -13,7 +13,7 @@
     <dimen name="fab_shadow_size">9dp</dimen>
     <dimen name="fab_scroll_threshold">3dp</dimen>
     <dimen name="fab_elevation_lollipop">6dp</dimen>
-    <dimen name="fab_press_translation_z">4</dimen>
+    <dimen name="fab_press_translation_z">4dp</dimen>
     <!-- distances begin -->
     <dimen name="one_dp">1dp</dimen>
     <dimen name="two_dp">1dp</dimen>
