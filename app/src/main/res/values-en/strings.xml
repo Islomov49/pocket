@@ -1196,4 +1196,5 @@
     <string name="dou_delete">"Do you want to delete the record? The record is calculeted in balance ! All transaction operations will deleted from aplication! "</string>
     <string name="dou_delete_arc">"Do you want to delete the record? "</string>
     <string name="clear_warning">Records with this category will deleted (</string>
+    <string name="transfer_money">Перевод денег</string>
 </resources>

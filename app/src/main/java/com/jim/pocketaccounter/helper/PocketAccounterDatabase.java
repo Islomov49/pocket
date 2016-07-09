@@ -1,17 +1,10 @@
 package com.jim.pocketaccounter.helper;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.UUID;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import com.jim.pocketaccounter.R;
 import com.jim.pocketaccounter.credit.CreditDetials;
@@ -25,6 +18,11 @@ import com.jim.pocketaccounter.finance.CurrencyCost;
 import com.jim.pocketaccounter.finance.FinanceRecord;
 import com.jim.pocketaccounter.finance.RootCategory;
 import com.jim.pocketaccounter.finance.SubCategory;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 public class PocketAccounterDatabase extends SQLiteOpenHelper {
 	private Context context;
@@ -668,13 +666,6 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 		return result;
 	}
 
-//	public void saveDatasToDebtBorrowTable(ArrayList<DebtBorrow> debtBorrows) {
-//		SQLiteDatabase db = this.getWritableDatabase();
-//		db.execSQL("DELETE FROM debt_borrow_table");
-//		for (int i=0; i<debtBorrows.size(); i++) {
-//			ContentValues values = new ContentValues();
-//		}
-//	}
 
 	public void saveDatasToCurrencyTable(ArrayList<Currency> currencies) {
 		SQLiteDatabase db = this.getWritableDatabase();

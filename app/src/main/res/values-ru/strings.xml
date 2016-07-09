@@ -1196,4 +1196,5 @@
     <string name="debts_title">Учет Долгов</string>
     <string name="left_date_debts">Осталось(год, месяц, день)</string>
     <string name="clear_warning">Записи, связанные с данной категорией будут удалены (</string>
+    <string name="transfer_money">Перевод денег</string>
 </resources>

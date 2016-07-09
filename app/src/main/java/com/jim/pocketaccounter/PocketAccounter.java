@@ -15,6 +15,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -23,7 +24,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -36,7 +36,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -44,20 +43,19 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.jim.pocketaccounter.credit.notificat.AlarmReceiver;
 import com.jim.pocketaccounter.credit.notificat.NotificationManagerCredit;
-import com.jim.pocketaccounter.debt.AddBorrowFragment;
+import com.jim.pocketaccounter.debt.DebtBorrowFragment;
+import com.jim.pocketaccounter.finance.FinanceManager;
 import com.jim.pocketaccounter.finance.FinanceRecord;
 import com.jim.pocketaccounter.helper.CircleImageView;
 import com.jim.pocketaccounter.helper.FABIcon;
+import com.jim.pocketaccounter.helper.LeftMenuAdapter;
+import com.jim.pocketaccounter.helper.LeftMenuItem;
+import com.jim.pocketaccounter.helper.LeftSideDrawer;
 import com.jim.pocketaccounter.helper.PockerTag;
 import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 import com.jim.pocketaccounter.helper.record.RecordExpanseView;
 import com.jim.pocketaccounter.helper.record.RecordIncomesView;
 import com.jim.pocketaccounter.intropage.IntroIndicator;
-import com.jim.pocketaccounter.debt.DebtBorrowFragment;
-import com.jim.pocketaccounter.finance.FinanceManager;
-import com.jim.pocketaccounter.helper.LeftMenuAdapter;
-import com.jim.pocketaccounter.helper.LeftMenuItem;
-import com.jim.pocketaccounter.helper.LeftSideDrawer;
 import com.jim.pocketaccounter.syncbase.SignInGoogleMoneyHold;
 import com.jim.pocketaccounter.syncbase.SyncBase;
 
@@ -162,7 +160,7 @@ public class PocketAccounter extends AppCompatActivity {
         rlRecordIncomes = (RelativeLayout) findViewById(R.id.rlRecordIncomes);
         ivToolbarMostRight = (ImageView) findViewById(R.id.ivToolbarMostRight);
         spToolbar = (Spinner) toolbar.findViewById(R.id.spToolbar);
-        ivToolbarExcel = (ImageView) toolbar.findViewById(R.id.ivToolbarExcel);
+        ivToolbarExcel = (ImageView) findViewById(R.id.ivToolbarExcel);
         rlRecordBalance = (RelativeLayout) findViewById(R.id.rlRecordBalance);
         rlRecordBalance.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -212,7 +210,7 @@ public class PocketAccounter extends AppCompatActivity {
         return date;
     }
 
-    public void initialize(Calendar date) {
+    public void initialize(final Calendar date) {
         PRESSED = false;
         toolbar.setTitle(getResources().getString(R.string.app_name));
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_drawer);
@@ -225,7 +223,14 @@ public class PocketAccounter extends AppCompatActivity {
         spToolbar.setVisibility(View.GONE);
         ivToolbarMostRight.setImageResource(R.drawable.finance_calendar);
         ivToolbarMostRight.setVisibility(View.VISIBLE);
-        ivToolbarExcel.setVisibility(View.GONE);
+        ivToolbarExcel.setImageResource(R.drawable.icons_1);
+        ivToolbarExcel.setVisibility(View.VISIBLE);
+        ivToolbarExcel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                replaceFragment(new AccountManagementFragment(date));
+            }
+        });
         ivToolbarMostRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -283,11 +288,6 @@ public class PocketAccounter extends AppCompatActivity {
     }
 
     public void calculateBalance(Calendar date) {
-        Calendar begTime = (Calendar) date.clone();
-        begTime.set(Calendar.HOUR_OF_DAY, 0);
-        begTime.set(Calendar.MINUTE, 0);
-        begTime.set(Calendar.SECOND, 0);
-        begTime.set(Calendar.MILLISECOND, 0);
         Calendar endTime = (Calendar) date.clone();
         endTime.set(Calendar.HOUR_OF_DAY, 23);
         endTime.set(Calendar.MINUTE, 59);
@@ -295,8 +295,7 @@ public class PocketAccounter extends AppCompatActivity {
         endTime.set(Calendar.MILLISECOND, 59);
         ArrayList<FinanceRecord> records = new ArrayList<FinanceRecord>();
         for (int i = 0; i < PocketAccounter.financeManager.getRecords().size(); i++) {
-            if (PocketAccounter.financeManager.getRecords().get(i).getDate().compareTo(begTime) >= 0 &&
-                    PocketAccounter.financeManager.getRecords().get(i).getDate().compareTo(endTime) <= 0)
+            if (PocketAccounter.financeManager.getRecords().get(i).getDate().compareTo(endTime) <= 0)
                 records.add(PocketAccounter.financeManager.getRecords().get(i));
         }
         double income = 0.0, expanse = 0.0, balance = 0.0;
@@ -317,6 +316,7 @@ public class PocketAccounter extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
+        financeManager.saveRecords();
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean notif = prefs.getBoolean("general_notif", true);
         if (notif) {
@@ -327,7 +327,6 @@ public class PocketAccounter extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        financeManager.saveAllDatas();
         if (imagetask != null)
             imagetask.cancel(true);
         if (imagetask != null) {
@@ -785,6 +784,7 @@ public class PocketAccounter extends AppCompatActivity {
                                     break;
                                 }
                             }
+                            case "com.jim.pocketaccounter.AccountManagementFragment":
                             case "com.jim.pocketaccounter.RecordDetailFragment":
                                 initialize(date);
                                 break;

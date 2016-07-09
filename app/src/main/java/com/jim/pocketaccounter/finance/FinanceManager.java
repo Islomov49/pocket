@@ -18,15 +18,14 @@ public class FinanceManager {
 	private ArrayList<CreditDetials> creditsArchive;
 	private PocketAccounterDatabase db;
 	private ArrayList<DebtBorrow> debtBorrows;
-
 	public FinanceManager(Context context) {
 		this.context = context;
 		db = new PocketAccounterDatabase(context);
 		currencies = loadCurrencies();
 		categories = loadCategories();
+		accounts = loadAccounts();
 		expanses = loadExpanses();
 		incomes = loadIncomes();
-		accounts = loadAccounts();
 		records = loadRecords();
 		credits = loadCredits();
 		creditsArchive=loadArchiveCredits();

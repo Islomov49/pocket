@@ -1,5 +1,7 @@
 package com.jim.pocketaccounter.debt;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -95,6 +97,12 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        PocketAccounter.financeManager.saveDebtBorrows();
+    }
+
+    @Override
     public void onClick(View v) {
         if (v.getId() == R.id.fbDebtBorrowFragment) {
             switch (viewPager.getCurrentItem()) {
@@ -110,6 +118,7 @@ public class DebtBorrowFragment extends Fragment implements View.OnClickListener
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         if (position == DEBT_FRAGMENT) {
