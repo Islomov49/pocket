@@ -16,8 +16,12 @@ public class WidgetKeys {
 
     public static String ACTION_WIDGET_RECEIVER_CHANGE_DIAGRAM="changediagramm";
     public static String ACTION_WIDGET_RECEIVER_CHANGE_DIAGRAM_set="changediagramm";
+    public static String ACTION_WIDGET_RECEIVER_CHANGE_DIAGRAM_set_choose="changedsasiagramm";
     public static String ACTION_WIDGET_RECEIVER_CHANGE_DIAGRAM_ID="changediagrammID";
     public static String ACTION_WIDGET_CHANGE_DIAGRAM_STATUS="changediagrammstatus";
+    public static String KEY_FOR_INTENT="changediasdasdawqgrammstatus";
+    public static String KEY_FOR_INTENT_ID="idididi";
+    public static int REQUET_CODE_INTENT=11;
 
 
     public static String SETTINGS_WIDGET_DIAGRAMMTYPE="diagrammtyoe";

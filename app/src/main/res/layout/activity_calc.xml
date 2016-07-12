@@ -4,19 +4,44 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    android:clickable="true">
+    android:clickable="true"
+    android:id="@+id/llRoot">
+    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/toolbar_color">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="right"
+            android:layout_marginRight="@dimen/sixteen_dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true">
+        </LinearLayout>
+        <Spinner
+            android:id="@+id/spToolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/two_dp"
+            android:background="@drawable/spinner"
+            android:visibility="gone" />
+    </android.support.v7.widget.Toolbar>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1" >
+        android:layout_weight="1"
+        android:paddingLeft="@dimen/sixteen_dp"
+        android:paddingRight="@dimen/sixteen_dp">
+
 
         <ImageView
             android:id="@+id/imageView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-
             android:src="@drawable/record_edit_display_bg" />
 
         <TextView
@@ -88,36 +113,13 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/rlCancelSign"
+                android:id="@+id/rlBackspaceSign"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/ImageView09"
-                    android:layout_width="@dimen/seventy_dp"
-                    android:layout_height="@dimen/seventy_dp"
-                    android:layout_alignParentLeft="false"
-                    android:layout_alignParentTop="false"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/record_edit_button" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:text="C"
-                    android:textSize="@dimen/twentytwo_sp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rlBackspaceSign"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" >
-
-                <ImageView
-                    android:id="@+id/ImageView05"
                     android:layout_width="@dimen/seventy_dp"
                     android:layout_height="@dimen/seventy_dp"
                     android:layout_alignParentLeft="false"
@@ -131,6 +133,30 @@
                     android:layout_alignParentTop="false"
                     android:layout_centerInParent="true"
                     android:src="@drawable/ic_back_button" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rlDivideSign"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
+
+                <ImageView
+                    android:id="@+id/ImageView05"
+                    android:layout_width="@dimen/seventy_dp"
+                    android:layout_height="@dimen/seventy_dp"
+                    android:layout_alignParentLeft="false"
+                    android:layout_alignParentTop="false"
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/record_edit_button" />
+                <TextView
+                    android:id="@+id/tvDivide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="/"
+                    android:textSize="@dimen/twentytwo_sp" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -214,7 +240,7 @@
                     android:textSize="@dimen/twentytwo_sp" />
             </RelativeLayout>
             <RelativeLayout
-                android:id="@+id/rlDivideSign"
+                android:id="@+id/rlMultipleSign"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -228,12 +254,11 @@
                     android:layout_centerInParent="true"
                     android:src="@drawable/record_edit_button" />
                 <TextView
-                    android:id="@+id/tvDivide"
+                    android:id="@+id/tvMultiple"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:text="/"
+                    android:layout_centerInParent="true"
+                    android:text="x"
                     android:textSize="@dimen/twentytwo_sp" />
             </RelativeLayout>
         </LinearLayout>
@@ -302,7 +327,7 @@
                     android:textSize="@dimen/twentytwo_sp" />
             </RelativeLayout>
             <RelativeLayout
-                android:id="@+id/rlMultipleSign"
+                android:id="@+id/rlMinusSign"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
@@ -313,11 +338,11 @@
                     android:layout_centerInParent="true"
                     android:src="@drawable/record_edit_button" />
                 <TextView
-                    android:id="@+id/tvMultiple"
+                    android:id="@+id/tvMinus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="x"
+                    android:text="-"
                     android:textSize="@dimen/twentytwo_sp" />
             </RelativeLayout>
         </LinearLayout>
@@ -385,7 +410,7 @@
                     android:textSize="@dimen/twentytwo_sp" />
             </RelativeLayout>
             <RelativeLayout
-                android:id="@+id/rlMinusSign"
+                android:id="@+id/rlPlusSign"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
@@ -396,11 +421,11 @@
                     android:layout_centerInParent="true"
                     android:src="@drawable/record_edit_button" />
                 <TextView
-                    android:id="@+id/tvMinus"
+                    android:id="@+id/tvPlus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="-"
+                    android:text="+"
                     android:textSize="@dimen/twentytwo_sp" />
             </RelativeLayout>
         </LinearLayout>
@@ -467,7 +492,7 @@
                     android:textSize="@dimen/twentytwo_sp" />
             </RelativeLayout>
             <RelativeLayout
-                android:id="@+id/rlPlusSign"
+                android:id="@+id/imOKBut"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
@@ -478,13 +503,13 @@
                     android:layout_centerInParent="true"
                     android:src="@drawable/record_edit_button" />
 
-                <TextView
-                    android:id="@+id/tvPlus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <ImageView
+                    android:id="@+id/imOK"
+                    android:layout_width="@dimen/thirty_dp"
+                    android:layout_height="@dimen/thirty_dp"
                     android:layout_centerInParent="true"
-                    android:text="+"
-                    android:textSize="@dimen/twentytwo_sp" />
+                    android:scaleType="centerInside"
+                    android:src="@drawable/check_sign"/>
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>

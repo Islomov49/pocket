@@ -42,8 +42,12 @@
         </activity>
         <activity
             android:name=".PocketAccounter"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <receiver android:name=".widget.WidgetProvider">
@@ -56,15 +60,14 @@
                 android:resource="@layout/widget_provider_info" />
         </receiver>
 
-        <activity android:name=".widget.SettingsWidget"
-            android:label="Widget Settings">
+        <activity
+            android:name=".widget.SettingsWidget"
+            android:label="Widget Settings"></activity>
+        <activity android:name=".widget.ChooseWidget">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
+        <activity android:name=".widget.CalcActivity"
+            android:label=""></activity>
     </application>
 
 </manifest>

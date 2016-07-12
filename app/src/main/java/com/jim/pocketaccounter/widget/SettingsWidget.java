@@ -220,25 +220,36 @@ public class SettingsWidget extends AppCompatActivity {
         change_button_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(WidgetKeys.TAG, "onClick: ");
+               Intent chooseint=new Intent(SettingsWidget.this,ChooseWidget.class);
+                chooseint.putExtra(WidgetKeys.KEY_FOR_INTENT,WidgetKeys.BUTTON_1_ID);
+                startActivityForResult(chooseint,WidgetKeys.REQUET_CODE_INTENT);
+
             }
         });
         change_button_2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(WidgetKeys.TAG, "onClick: ");
+
+                Intent chooseint=new Intent(SettingsWidget.this,ChooseWidget.class);
+                chooseint.putExtra(WidgetKeys.KEY_FOR_INTENT,WidgetKeys.BUTTON_2_ID);
+                startActivityForResult(chooseint,WidgetKeys.REQUET_CODE_INTENT);
             }
         });
         change_button_3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(WidgetKeys.TAG, "onClick: ");
+                Intent chooseint=new Intent(SettingsWidget.this,ChooseWidget.class);
+                chooseint.putExtra(WidgetKeys.KEY_FOR_INTENT,WidgetKeys.BUTTON_3_ID);
+                startActivityForResult(chooseint,WidgetKeys.REQUET_CODE_INTENT);;
             }
         });
         change_button_4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(WidgetKeys.TAG, "onClick: ");
+                Intent chooseint=new Intent(SettingsWidget.this,ChooseWidget.class);
+
+                chooseint.putExtra(WidgetKeys.KEY_FOR_INTENT,WidgetKeys.BUTTON_4_ID);
+                startActivityForResult(chooseint,WidgetKeys.REQUET_CODE_INTENT);
             }
         });
 
@@ -262,7 +273,7 @@ public class SettingsWidget extends AppCompatActivity {
                 category_name_1.setText(temp.getName());
                 delete_button_1.setVisibility(View.VISIBLE);
                 change_button_1.setVisibility(View.VISIBLE);
-
+                imageView_button_1.setOnClickListener(null);
             }
 
             if(!butID_2.matches(WidgetKeys.BUTTON_DISABLED)&&temp.getId().matches(butID_2)){
@@ -272,7 +283,7 @@ public class SettingsWidget extends AppCompatActivity {
                 category_name_2.setText(temp.getName());
                 delete_button_2.setVisibility(View.VISIBLE);
                 change_button_2.setVisibility(View.VISIBLE);
-
+                imageView_button_2.setOnClickListener(null);
             }
 
             if(!butID_3.matches(WidgetKeys.BUTTON_DISABLED)&&temp.getId().matches(butID_3)){
@@ -282,7 +293,7 @@ public class SettingsWidget extends AppCompatActivity {
                 category_name_3.setText(temp.getName());
                 delete_button_3.setVisibility(View.VISIBLE);
                 change_button_3.setVisibility(View.VISIBLE);
-
+                imageView_button_3.setOnClickListener(null);
             }
 
             if(!butID_4.matches(WidgetKeys.BUTTON_DISABLED)&&temp.getId().matches(butID_4)){
@@ -292,7 +303,7 @@ public class SettingsWidget extends AppCompatActivity {
                 category_name_4.setText(temp.getName());
                 delete_button_4.setVisibility(View.VISIBLE);
                 change_button_4.setVisibility(View.VISIBLE);
-
+                imageView_button_4.setOnClickListener(null);
             }
         }
 
@@ -304,7 +315,9 @@ public class SettingsWidget extends AppCompatActivity {
             imageView_button_1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d(WidgetKeys.TAG, "onClick: ");
+                    Intent chooseint=new Intent(SettingsWidget.this,ChooseWidget.class);
+                    chooseint.putExtra(WidgetKeys.KEY_FOR_INTENT,WidgetKeys.BUTTON_1_ID);
+                    startActivityForResult(chooseint,WidgetKeys.REQUET_CODE_INTENT);
                 }
             });
         }
@@ -316,7 +329,9 @@ public class SettingsWidget extends AppCompatActivity {
             imageView_button_2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d(WidgetKeys.TAG, "onClick: ");
+                    Intent chooseint=new Intent(SettingsWidget.this,ChooseWidget.class);
+                    chooseint.putExtra(WidgetKeys.KEY_FOR_INTENT,WidgetKeys.BUTTON_2_ID);
+                    startActivityForResult(chooseint,WidgetKeys.REQUET_CODE_INTENT);
                 }
             });
         }
@@ -329,7 +344,9 @@ public class SettingsWidget extends AppCompatActivity {
             imageView_button_3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d(WidgetKeys.TAG, "onClick: ");
+                    Intent chooseint=new Intent(SettingsWidget.this,ChooseWidget.class);
+                    chooseint.putExtra(WidgetKeys.KEY_FOR_INTENT,WidgetKeys.BUTTON_3_ID);
+                    startActivityForResult(chooseint,WidgetKeys.REQUET_CODE_INTENT);
                 }
             });
 
@@ -343,11 +360,23 @@ public class SettingsWidget extends AppCompatActivity {
             imageView_button_4.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d(WidgetKeys.TAG, "onClick: ");
+                    Intent chooseint=new Intent(SettingsWidget.this,ChooseWidget.class);
+                    chooseint.putExtra(WidgetKeys.KEY_FOR_INTENT,WidgetKeys.BUTTON_4_ID);
+                    startActivityForResult(chooseint,WidgetKeys.REQUET_CODE_INTENT);
                 }
             });
         }
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==WidgetKeys.REQUET_CODE_INTENT&& resultCode == RESULT_OK){
+            if(AppWidgetManager.INVALID_APPWIDGET_ID!=mAppWidgetId)
+                WidgetProvider.updateWidget(getApplicationContext(), AppWidgetManager.getInstance(getApplicationContext()),
+                        mAppWidgetId);
+            RefreshList();
+        }
+    }
 }
