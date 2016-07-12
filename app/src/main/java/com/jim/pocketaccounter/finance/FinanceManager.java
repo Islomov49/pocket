@@ -5,6 +5,7 @@ import android.content.Context;
 import com.jim.pocketaccounter.credit.CreditDetials;
 import com.jim.pocketaccounter.debt.DebtBorrow;
 import com.jim.pocketaccounter.helper.PocketAccounterDatabase;
+import com.jim.pocketaccounter.helper.SmsParseObject;
 
 import java.util.ArrayList;
 
@@ -16,6 +17,7 @@ public class FinanceManager {
 	private ArrayList<FinanceRecord> records;
 	private ArrayList<CreditDetials> credits;
 	private ArrayList<CreditDetials> creditsArchive;
+	private ArrayList<SmsParseObject> objects;
 	private PocketAccounterDatabase db;
 	private ArrayList<DebtBorrow> debtBorrows;
 	public FinanceManager(Context context) {
@@ -24,6 +26,7 @@ public class FinanceManager {
 		currencies = loadCurrencies();
 		categories = loadCategories();
 		accounts = loadAccounts();
+		objects = loadSmsObjects();
 		expanses = loadExpanses();
 		incomes = loadIncomes();
 		records = loadRecords();
@@ -62,6 +65,9 @@ public class FinanceManager {
 		}
 		return null;
 	}
+	public void saveSmsObjects() {db.saveSmsObjects(objects);}
+	public ArrayList<SmsParseObject> getSmsObjects() {return objects;}
+	private ArrayList<SmsParseObject> loadSmsObjects() {return db.getSmsParseObjects();}
 	public ArrayList<RootCategory> getCategories() {return categories;}
 	private ArrayList<RootCategory> loadCategories() {return db.loadCategories();}
 	public ArrayList<Account> getAccounts() {return accounts;}
@@ -85,6 +91,7 @@ public class FinanceManager {
 		db.saveDatasToCurrencyTable(currencies);
 		db.saveDatasToCategoryTable(categories);
 		db.saveDatasToAccountTable(accounts);
+		db.saveSmsObjects(objects);
 		db.saveDatasToDailyRecordTable(records);
 		db.saveDatasToCreditTable(credits);
 		db.saveDatasToArchiveCreditTable(creditsArchive);

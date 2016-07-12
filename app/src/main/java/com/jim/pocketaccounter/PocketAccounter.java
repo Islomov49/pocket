@@ -109,6 +109,8 @@ public class PocketAccounter extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+
     }
 
     @Override
@@ -134,6 +136,8 @@ public class PocketAccounter extends AppCompatActivity {
         }
         financeManager = new FinanceManager(this);
         fragmentManager = getSupportFragmentManager();
+        Log.d("test", financeManager.getSmsObjects().size()+"");
+
         mySync = new SyncBase(storageRef, this, "PocketAccounterDatabase");
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -178,9 +182,6 @@ public class PocketAccounter extends AppCompatActivity {
         tvRecordExpanse = (TextView) findViewById(R.id.tvRecordExpanse);
         date = Calendar.getInstance();
         initialize(date);
-        //Bu notifikatsiyani bosib prilojeniyaga kirganda fragmenti ochvorishga
-
-        Log.d("ishla", "" + getIntent().getIntExtra("TIP", 0));
 
         switch (getIntent().getIntExtra("TIP", 0)) {
             case AlarmReceiver.TO_DEBT:
@@ -557,16 +558,19 @@ public class PocketAccounter extends AppCompatActivity {
             subItem.setGroup(false);
             items.add(subItem);
         }
-        LeftMenuItem settings = new LeftMenuItem(cats[4], R.drawable.drawer_settings);
+        LeftMenuItem smsParse = new LeftMenuItem(cats[4], R.drawable.drawer_account);
+        smsParse.setGroup(true);
+        items.add(smsParse);
+        LeftMenuItem settings = new LeftMenuItem(cats[5], R.drawable.drawer_settings);
         settings.setGroup(true);
         items.add(settings);
-        LeftMenuItem rateApp = new LeftMenuItem(cats[5], R.drawable.drawer_rate);
+        LeftMenuItem rateApp = new LeftMenuItem(cats[6], R.drawable.drawer_rate);
         rateApp.setGroup(true);
         items.add(rateApp);
-        LeftMenuItem share = new LeftMenuItem(cats[6], R.drawable.drawer_share);
+        LeftMenuItem share = new LeftMenuItem(cats[7], R.drawable.drawer_share);
         share.setGroup(true);
         items.add(share);
-        LeftMenuItem writeToUs = new LeftMenuItem(cats[7], R.drawable.drawer_letter_us);
+        LeftMenuItem writeToUs = new LeftMenuItem(cats[8], R.drawable.drawer_letter_us);
         writeToUs.setGroup(true);
         items.add(writeToUs);
         LeftMenuAdapter adapter = new LeftMenuAdapter(this, items);
@@ -678,19 +682,22 @@ public class PocketAccounter extends AppCompatActivity {
                                 replaceFragment(new ReportByCategory(), PockerTag.REPORT_CATEGORY);
                                 break;
                             case 12:
+                                replaceFragment(new SMSParseFragment());
+                                break;
+                            case 13:
                                 Intent settings = new Intent(PocketAccounter.this, SettingsActivity.class);
                                 for (int i = 0; i < fragmentManager.getBackStackEntryCount(); i++) {
                                     fragmentManager.popBackStack();
                                 }
                                 startActivityForResult(settings, key_for_restat);
                                 break;
-                            case 13:
+                            case 14:
                                 findViewById(R.id.change).setVisibility(View.VISIBLE);
                                 Intent rate_app_web = new Intent(Intent.ACTION_VIEW);
                                 rate_app_web.setData(Uri.parse(getString(R.string.rate_app_web)));
                                 startActivity(rate_app_web);
                                 break;
-                            case 14:
+                            case 15:
                                 findViewById(R.id.change).setVisibility(View.VISIBLE);
                                 Intent Email = new Intent(Intent.ACTION_SEND);
                                 Email.setType("text/email");
@@ -698,7 +705,7 @@ public class PocketAccounter extends AppCompatActivity {
                                 Email.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_app_text));
                                 startActivity(Intent.createChooser(Email, getString(R.string.share_app)));
                                 break;
-                            case 15:
+                            case 16:
                                 findViewById(R.id.change).setVisibility(View.VISIBLE);
                                 openGmail(PocketAccounter.this, new String[]{getString(R.string.to_email)}, getString(R.string.feedback_subject), getString(R.string.feedback_content));
                                 break;

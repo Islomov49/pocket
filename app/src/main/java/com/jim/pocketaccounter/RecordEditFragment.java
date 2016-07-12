@@ -341,7 +341,6 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
             try {
                 double result = expression.evaluate();
                 tvRecordEditDisplay.setText(decimalFormat.format(result));
-                lastDot = true;
             } catch (ArithmeticException ex) {
                 tvRecordEditDisplay.setText(getResources().getString(R.string.error));
                 stateError = true;

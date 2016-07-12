@@ -296,7 +296,6 @@ public class CalcActivity extends AppCompatActivity implements View.OnClickListe
                 try {
                     double result = expression.evaluate();
                     tvRecordEditDisplay.setText(decimalFormat.format(result));
-                    lastDot = true;
                 } catch (ArithmeticException ex) {
                     tvRecordEditDisplay.setText(getResources().getString(R.string.error));
                     stateError = true;

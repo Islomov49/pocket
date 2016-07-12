@@ -1,13 +1,10 @@
 package com.jim.pocketaccounter.helper;
 
-import android.util.Log;
-
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.finance.Currency;
 import com.jim.pocketaccounter.finance.FinanceRecord;
 import com.jim.pocketaccounter.finance.RootCategory;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 
 public class PocketAccounterGeneral {
@@ -19,6 +16,7 @@ public class PocketAccounterGeneral {
 	public static final int INCOME_BUTTONS_COUNT = 4;
 	public static final int NO_MODE = 0, EXPANSE_MODE = 1, INCOME_MODE = 2;
 	public static final int MAIN = 0, DETAIL = 1;
+	public static final int SMS_ONLY_EXPENSE = 0, SMS_ONLY_INCOME = 1, SMS_BOTH = 2;
 	public static double getCost(FinanceRecord record) {
 		double amount = 0.0;
 		if (record.getCurrency().getMain())

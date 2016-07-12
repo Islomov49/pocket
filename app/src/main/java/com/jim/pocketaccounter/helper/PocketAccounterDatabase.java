@@ -205,12 +205,73 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 				+ "comment TEXT,"
 				+ "credit_id TEXT,"
 				+ "empty TEXT"
-
+				+ ");");
+		db.execSQL("CREATE TABLE sms_parsing_table ("
+				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+				+ "number TEXT,"
+				+ "income_words TEXT,"
+				+ "expense_words TEXT,"
+				+ "amount_words TEXT,"
+				+ "account_id TEXT,"
+				+ "currency_id TEXT,"
+				+ "type INTEGER,"
+				+ "empty TEXT"
 				+ ");");
 		initCurrencies(db);
 		initDefault(db);
 		initIncomesAndExpanses(db);
 		initAccounts(db);
+	}
+
+	public ArrayList<SmsParseObject> getSmsParseObjects() {
+		ArrayList<Currency> currencies = loadCurrencies();
+		ArrayList<Account> accounts = loadAccounts();
+		ArrayList<SmsParseObject> result = new ArrayList<SmsParseObject>();
+		SQLiteDatabase db = getReadableDatabase();
+		Cursor cursor = db.query("sms_parsing_table", null, null, null, null, null, null);
+		cursor.moveToFirst();
+		while (!cursor.isAfterLast()) {
+			SmsParseObject object = new SmsParseObject();
+			object.setNumber(cursor.getString(cursor.getColumnIndex("number")));
+			object.setIncomeWords(cursor.getString(cursor.getColumnIndex("income_words")));
+			object.setExpenseWords(cursor.getString(cursor.getColumnIndex("expense_words")));
+			object.setAmountWords(cursor.getString(cursor.getColumnIndex("amount_words")));
+			String accountId = cursor.getString(cursor.getColumnIndex("account_id"));
+			for (int i=0; i<accounts.size(); i++) {
+				if (accountId.matches(accounts.get(i).getId())) {
+					object.setAccount(accounts.get(i));
+					break;
+				}
+			}
+			String currencyId = cursor.getString(cursor.getColumnIndex("currency_id"));
+			for (int i=0; i<currencies.size(); i++) {
+				if (currencyId.matches(currencies.get(i).getId())) {
+					object.setCurrency(currencies.get(i));
+					break;
+				}
+			}
+			object.setType(cursor.getInt(cursor.getColumnIndex("type")));
+			result.add(object);
+			cursor.moveToNext();
+		}
+		return result;
+	}
+
+	public void saveSmsObjects(ArrayList<SmsParseObject> objects) {
+		SQLiteDatabase db = getWritableDatabase();
+		db.execSQL("DELETE FROM sms_parsing_table");
+		for (int i=0; i<objects.size(); i++) {
+			ContentValues values = new ContentValues();
+			values.put("number", objects.get(i).getNumber());
+			values.put("income_words", objects.get(i).getIncomeWords());
+			values.put("expense_words", objects.get(i).getExpenseWords());
+			values.put("amount_words", objects.get(i).getAmountWords());
+			values.put("account_id", objects.get(i).getAccount().getId());
+			values.put("currency_id", objects.get(i).getCurrency().getId());
+			values.put("type", objects.get(i).getType());
+			db.insert("sms_parsing_table", null, values);
+		}
+		db.close();
 	}
 
 	private void initCurrencies(SQLiteDatabase db) {

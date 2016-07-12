@@ -16,7 +16,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-
+            android:layout_marginBottom="@dimen/ten_dp"
+            android:layout_marginLeft="@dimen/sixteen_dp"
+            android:layout_marginRight="@dimen/sixteen_dp"
+            android:layout_marginTop="@dimen/ten_dp"
             android:src="@drawable/record_edit_display_bg" />
 
         <TextView
@@ -444,7 +447,6 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="0"
-                    android:gravity="center"
                     android:textSize="@dimen/twentytwo_sp" />
             </RelativeLayout>
             <RelativeLayout

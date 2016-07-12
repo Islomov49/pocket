@@ -5,6 +5,7 @@
         <item>Finance</item>
         <item>Statistics</item>
         <item>Debts and credits</item>
+        <item>SMS Parsing</item>
         <item>Settings</item>
         <item>Rate app</item>
         <item>Share app</item>
@@ -15,6 +16,7 @@
         <item>100</item>
         <item>5</item>
         <item>100</item>
+        <item>7</item>
         <item>8</item>
         <item>10</item>
         <item>9</item>
@@ -1197,4 +1199,26 @@
     <string name="dou_delete_arc">"Do you want to delete the record? "</string>
     <string name="clear_warning">Records with this category will deleted (</string>
     <string name="transfer_money">Перевод денег</string>
+    <string name="amount_keywords">Определение суммы \n(ключевые слова):</string>
+    <string name="from_transfer">Перевод со счета</string>
+    <string name="from_transfer_id">from_transfer</string>
+    <string name="income_keywords">Доход \n (ключевые слова):</string>
+    <string name="expense_keywords">Расход \n (ключевые слова):</string>
+    <string name="to_transfer">Перевод на счет</string>
+    <string name="to_transfer_id">to_transfer</string>
+    <string name="transfer_icon">icons_25</string>
+    <string name="only_income">Только доход</string>
+    <string name="only_expense">Только расход</string>
+    <string name="parse_both">Расход и доход</string>
+    <string name="currency">Валюта</string>
+    <string name="phone_number_warning">Введите номер телефона!</string>
+    <string name="keyword_warning">Введите ключевые слова</string>
+    <string name="sms_parse_income">СМС приход</string>
+    <string name="sms_parse_income_id">sms_income</string>
+    <string name="sms_parse_income_icon">icons_20</string>
+    <string name="sms_parse_expense">СМС расход</string>
+    <string name="sms_parse_expense_id">sms_expense</string>
+    <string name="sms_parse_expense_icon">icons_21</string>
+    <string name="ch_cat">Choose category</string>
+
 </resources>

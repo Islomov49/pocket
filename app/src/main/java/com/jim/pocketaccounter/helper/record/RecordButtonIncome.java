@@ -1,10 +1,5 @@
 package com.jim.pocketaccounter.helper.record;
 
-import com.jim.pocketaccounter.R;
-import com.jim.pocketaccounter.finance.Category;
-import com.jim.pocketaccounter.finance.RootCategory;
-import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -12,10 +7,13 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.support.v4.content.ContextCompat;
+
+import com.jim.pocketaccounter.R;
+import com.jim.pocketaccounter.finance.RootCategory;
+import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
@@ -163,8 +161,18 @@ public class RecordButtonIncome {
 			textPaint.setColor(ContextCompat.getColor(context, R.color.toolbar_text_color));
 			textPaint.setTextSize(context.getResources().getDimension(R.dimen.ten_sp));
 			Rect bounds = new Rect();
-			textPaint.getTextBounds(category.getName(), 0, category.getName().length(), bounds);
-			canvas.drawText(category.getName(), container.centerX()-bounds.width()/2, container.centerY()+2*aLetterHeight, textPaint);
+			String catText = category.getName();
+			for (int i=0; i < category.getName().length(); i++) {
+				textPaint.getTextBounds(category.getName(), 0, i, bounds);
+				if (bounds.width() >= container.width()) {
+					catText = category.getName().substring(0, i-5);
+					catText = catText + "...";
+					break;
+				}
+
+			}
+			textPaint.getTextBounds(catText, 0, catText.length(), bounds);
+			canvas.drawText(catText, container.centerX()-bounds.width()/2, container.centerY()+2*aLetterHeight, textPaint);
 			double amount = PocketAccounterGeneral.calculateAction(category, date);
 			if (amount != 0) {
 				DecimalFormat format = new DecimalFormat("0.00");
