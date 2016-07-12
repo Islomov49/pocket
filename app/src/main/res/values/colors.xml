@@ -30,6 +30,7 @@
     <color name="grey_light_red" type="color">#fdfbf9</color>
     <color name="green_light" type="color">#1c835d</color>
     <color name="green_light_darker" type="color">#166c4c</color>
+    <color name="green_light_darker_transparent" type="color">#AA166c4c</color>
     <color name="green_light_monoxrom" type="color">#4E987C</color>
     <color name="green_light_forline" type="color">#efefef</color>
     <color name="grey_light_backgr" type="color">#fefefe</color>
@@ -51,6 +52,7 @@
     <color name="new_for_line" type="color">#dfdfdf</color>
     <color name="balanse_expanse" type="color">#832e1c</color>
     <color name="red_green_darker_monoxrom" type="color">#b82101</color>
+    <color name="red_green_darker_monoxrom_transparent" type="color">#aab82101</color>
     <color name="belt_balanse" type="color">#dfdfdf</color>
     <color name="drawer_bg" type="color">#f8f8f8</color>
     <color name="info_bg_header" type="color">#fafffd</color>

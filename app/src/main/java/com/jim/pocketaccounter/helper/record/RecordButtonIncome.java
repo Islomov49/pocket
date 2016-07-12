@@ -155,7 +155,7 @@ public class RecordButtonIncome {
 		bitmapPaint.setAlpha(0xFF);
 		if (category != null) {
 			temp = BitmapFactory.decodeResource(context.getResources(), category.getIcon());
-			scaled = Bitmap.createScaledBitmap(temp, (int)context.getResources().getDimension(R.dimen.thirty_dp), (int)context.getResources().getDimension(R.dimen.thirty_dp), false);
+			scaled = Bitmap.createScaledBitmap(temp, (int)context.getResources().getDimension(R.dimen.thirty_dp), (int)context.getResources().getDimension(R.dimen.thirty_dp), true);
 			canvas.drawBitmap(scaled, container.centerX()-scaled.getWidth()/2, container.centerY()-scaled.getHeight(), bitmapPaint);
 			Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 			textPaint.setColor(ContextCompat.getColor(context, R.color.toolbar_text_color));
@@ -184,7 +184,7 @@ public class RecordButtonIncome {
 			}
 		} else {
 			temp = BitmapFactory.decodeResource(context.getResources(), R.drawable.no_category);
-			scaled = Bitmap.createScaledBitmap(temp, (int)context.getResources().getDimension(R.dimen.thirty_dp), (int)context.getResources().getDimension(R.dimen.thirty_dp), false);
+			scaled = Bitmap.createScaledBitmap(temp, (int)context.getResources().getDimension(R.dimen.thirty_dp), (int)context.getResources().getDimension(R.dimen.thirty_dp), true);
 			canvas.drawBitmap(scaled, container.centerX()-scaled.getWidth()/2, container.centerY()-scaled.getHeight(), bitmapPaint);
 			Paint textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 			textPaint.setColor(ContextCompat.getColor(context, R.color.toolbar_text_color));

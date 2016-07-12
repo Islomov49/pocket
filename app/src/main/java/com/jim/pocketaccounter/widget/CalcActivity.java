@@ -1,18 +1,13 @@
 package com.jim.pocketaccounter.widget;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.appwidget.AppWidgetManager;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ActionBarOverlayLayout;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -25,9 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
-import com.jim.pocketaccounter.RecordDetailFragment;
 import com.jim.pocketaccounter.finance.Account;
 import com.jim.pocketaccounter.finance.Currency;
 import com.jim.pocketaccounter.finance.FinanceManager;
@@ -433,7 +426,8 @@ public class CalcActivity extends AppCompatActivity implements View.OnClickListe
             dialog.getWindow().setLayout(8 * width / 9, ActionBarOverlayLayout.LayoutParams.MATCH_PARENT);
             dialog.show();
         }
-    
+
+
 
   
 }
