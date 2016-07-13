@@ -73,6 +73,8 @@ public class RootCategoryEditFragment extends Fragment implements OnClickListene
 		View rootView = inflater.inflate(R.layout.cat_edit_layout, container, false);
 		((PocketAccounter)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		((PocketAccounter)getContext()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_back_button);
+		((ImageView)PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel)).setVisibility(View.GONE);
+
 		PocketAccounter.toolbar.setTitle(R.string.category);
 		PocketAccounter.toolbar.setSubtitle(R.string.edit);
 		PocketAccounter.toolbar.setNavigationOnClickListener(new OnClickListener() {

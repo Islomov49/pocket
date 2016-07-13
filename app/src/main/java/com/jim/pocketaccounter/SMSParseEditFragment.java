@@ -63,8 +63,15 @@ public class SMSParseEditFragment extends Fragment {
 			@Override
 			public void onClick(View view) {
 				((PocketAccounter)getContext()).getSupportFragmentManager().popBackStack();
+				((PocketAccounter)getContext()).replaceFragment(new SMSParseFragment(), com.jim.pocketaccounter.debt.PockerTag.ACCOUNT_MANAGEMENT);
+
 			}
+
 		});
+		((ImageView)PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel)).setVisibility(View.GONE);
+		PocketAccounter.toolbar.findViewById(R.id.spToolbar).setVisibility(View.GONE);
+		PocketAccounter.toolbar.setTitle(R.string.addedit);
+		PocketAccounter.toolbar.setSubtitle("");
 		spSmsParseEditAccount = (Spinner) rootView.findViewById(R.id.spSmsParseEditAccount);
 		spSmsParseEditCurrency = (Spinner) rootView.findViewById(R.id.spSmsParseEditCurrency);
 		etSmsParseEditIncome = (EditText) rootView.findViewById(R.id.etSmsParseEditIncome);
@@ -202,6 +209,7 @@ public class SMSParseEditFragment extends Fragment {
 				}
 				PocketAccounter.financeManager.saveSmsObjects();
 				((PocketAccounter)getContext()).getSupportFragmentManager().popBackStack();
+				((PocketAccounter)getContext()).replaceFragment(new SMSParseFragment(), com.jim.pocketaccounter.debt.PockerTag.ACCOUNT_MANAGEMENT);
 			}
 		});
 		return rootView;

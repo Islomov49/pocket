@@ -3,8 +3,8 @@ package com.jim.pocketaccounter.helper;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.telephony.SmsMessage;
-import android.util.Log;
 
 import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
@@ -23,6 +23,7 @@ public class SMSMonitor extends BroadcastReceiver {
     private static final String ACTION = "android.provider.Telephony.SMS_RECEIVED";
     @Override
     public void onReceive(Context context, Intent intent) {
+        if (intent.getExtras() == null) return;
         FinanceManager manager = new FinanceManager(context);
         ArrayList<SmsParseObject> objects = manager.getSmsObjects();
         if (intent != null && intent.getAction() != null &&
@@ -30,7 +31,13 @@ public class SMSMonitor extends BroadcastReceiver {
             Object[] pduArray = (Object[]) intent.getExtras().get("pdus");
             SmsMessage[] messages = new SmsMessage[pduArray.length];
             for (int i = 0; i < pduArray.length; i++) {
-                messages[i] = SmsMessage.createFromPdu((byte[]) pduArray[i]);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    String format = intent.getExtras().getString("format");
+                    messages[i] = SmsMessage.createFromPdu((byte[]) pduArray[i], format);
+                }
+                else {
+                    messages[i] = SmsMessage.createFromPdu((byte[]) pduArray[i]);
+                }
                 for (int j=0; j<objects.size(); j++) {
                     if (messages[i].getDisplayOriginatingAddress().contains(objects.get(j).getNumber())) {
                         String messageBody = messages[i].getMessageBody();

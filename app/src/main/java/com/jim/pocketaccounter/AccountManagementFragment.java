@@ -75,6 +75,10 @@ public class AccountManagementFragment extends Fragment {
                 ((PocketAccounter) getContext()).getSupportFragmentManager().popBackStack();
             }
         });
+        PocketAccounter.toolbar.findViewById(R.id.spToolbar).setVisibility(View.GONE);
+        PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight).setVisibility(View.GONE);
+        PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel).setVisibility(View.GONE);
+        PocketAccounter.toolbar.setTitle(getResources().getString(R.string.accounts));
         refreshList(date);
         return rootView;
     }

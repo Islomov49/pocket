@@ -1,10 +1,18 @@
 package com.jim.pocketaccounter;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,8 +35,10 @@ public class SMSParseFragment extends Fragment {
 	private boolean[] selected;
 	private int mode = PocketAccounterGeneral.NORMAL_MODE;
 	private ImageView ivToolbarMostRight;
+	private final int PERMISSION_REQUEST_CONTACT = 5;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.sms_parse_layout, container, false);
+		((ImageView)PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel)).setVisibility(View.GONE);
 		ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
 		ivToolbarMostRight.setImageResource(R.drawable.pencil);
 		ivToolbarMostRight.setOnClickListener(new View.OnClickListener() {
@@ -40,6 +50,16 @@ public class SMSParseFragment extends Fragment {
 		rvSmsParseList = (RecyclerView) rootView.findViewById(R.id.rvSmsParseList);
 		rvSmsParseList.setLayoutManager(new LinearLayoutManager(getContext()));
 		fabSmsParse = (FloatingActionButton)  rootView.findViewById(R.id.fabSmsParse);
+		PocketAccounter.toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				PocketAccounter.drawer.openLeftSide();
+			}
+		});
+		((PocketAccounter)getContext()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_drawer);
+		PocketAccounter.toolbar.setTitle(R.string.sms_parse);
+		PocketAccounter.toolbar.setSubtitle("");
+		PocketAccounter.toolbar.findViewById(R.id.spToolbar).setVisibility(View.GONE);
 		Bitmap temp = BitmapFactory.decodeResource(getResources(), R.drawable.add_green);
 		int size = (int) getResources().getDimension(R.dimen.thirty_dp);
 		Bitmap add = Bitmap.createScaledBitmap(temp, size, size, false);
@@ -51,6 +71,33 @@ public class SMSParseFragment extends Fragment {
 			}
 		});
 		refreshList();
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+			if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.RECEIVE_SMS) != PackageManager.PERMISSION_GRANTED) {
+				if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+						android.Manifest.permission.RECEIVE_SMS)) {
+					AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+					builder.setTitle("Contacts access needed");
+					builder.setPositiveButton(android.R.string.ok, null);
+					builder.setMessage("please confirm Contacts access");//TODO put real question
+					builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+						@TargetApi(Build.VERSION_CODES.M)
+						@Override
+						public void onDismiss(DialogInterface dialog) {
+							requestPermissions(
+									new String[]
+											{android.Manifest.permission.RECEIVE_SMS}
+									, PERMISSION_REQUEST_CONTACT);
+						}
+					});
+					builder.show();
+				} else {
+					ActivityCompat.requestPermissions(getActivity(),
+							new String[]{android.Manifest.permission.RECEIVE_SMS},
+							PERMISSION_REQUEST_CONTACT);
+				}
+			}
+		}
+
 		return rootView;
 	}
 	private void refreshList() {
@@ -150,6 +197,19 @@ public class SMSParseFragment extends Fragment {
 			tvSmsParseItemNumber = (TextView) view.findViewById(R.id.tvSmsParseItemNumber);
 			tvSmsParsingItemInfo = (TextView) view.findViewById(R.id.tvSmsParsingItemInfo);
 			rootView = view;
+		}
+	}
+	@Override
+	public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+		switch (requestCode) {
+			case PERMISSION_REQUEST_CONTACT: {
+				if (grantResults.length > 0
+						&& grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+				} else {
+
+				}
+				return;
+			}
 		}
 	}
 }

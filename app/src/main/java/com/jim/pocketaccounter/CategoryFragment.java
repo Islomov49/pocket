@@ -39,6 +39,7 @@ public class CategoryFragment extends Fragment implements OnClickListener, OnIte
 		View rootView = inflater.inflate(R.layout.category_layout, container, false);
 		PocketAccounter.toolbar.setTitle(getResources().getString(R.string.category));
 		PocketAccounter.toolbar.setSubtitle("");
+		((ImageView)PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel)).setVisibility(View.GONE);
 		((PocketAccounter)getContext()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		((PocketAccounter)getContext()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_drawer);
 		PocketAccounter.toolbar.setNavigationOnClickListener(new OnClickListener() {

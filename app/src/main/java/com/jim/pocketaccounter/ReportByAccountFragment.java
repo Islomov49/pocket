@@ -6,13 +6,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,6 +78,8 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
         tvReportbyAccountTotalProfit = (TextView) rootView.findViewById(R.id.tvReportbyAccountTotalProfit);
         tvReportbyAccountAverageProfit = (TextView) rootView.findViewById(R.id.tvReportbyAccountAverageProfit);
         ivToolbarExcel = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel);
+        ivToolbarExcel.setImageDrawable(null);
+        ivToolbarExcel.setImageResource(R.drawable.ic_excel);
         ivToolbarExcel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -321,7 +321,5 @@ public class ReportByAccountFragment extends Fragment implements View.OnClickLis
     @Override
     public void onStop() {
         super.onStop();
-        spToolbar.setVisibility(View.GONE);
-        ivToolbarExcel.setVisibility(View.GONE);
     }
 }

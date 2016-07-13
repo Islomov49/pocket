@@ -48,7 +48,7 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 	private boolean[] selected;
 	private int mode = PocketAccounterGeneral.NORMAL_MODE, selectedIcon;
 	private ListView lvAccounts;
-	private ImageView ivToolbarMostRight;
+	private ImageView ivToolbarMostRight, ivToolbarExcell;
 	private Spinner spToolbar;
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.account_layout, container, false);
@@ -59,6 +59,8 @@ public class AccountFragment extends Fragment implements OnClickListener, OnItem
 		lvAccounts.setOnItemClickListener(this);
 		PocketAccounter.toolbar.setTitle(R.string.accounts);
 		PocketAccounter.toolbar.setSubtitle("");
+		ivToolbarExcell = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel);
+		ivToolbarExcell.setVisibility(View.GONE);
 		fabAccountAdd.attachToListView(lvAccounts, new ScrollDirectionListener() {
 			@Override
 			public void onScrollUp() {

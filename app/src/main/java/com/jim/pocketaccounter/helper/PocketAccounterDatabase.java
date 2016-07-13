@@ -28,7 +28,7 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 	private Context context;
 	private SimpleDateFormat dateFormat = null;
 	public PocketAccounterDatabase(Context context) {
-		super(context, "PocketAccounterDatabase", null, 2);
+		super(context, "PocketAccounterDatabase", null, 3);
 		this.context = context;
 		dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 	}
@@ -1019,188 +1019,202 @@ public class PocketAccounterDatabase extends SQLiteOpenHelper {
 	}
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int arg1, int arg2) {
-		db.execSQL("DROP TABLE planning_table");
-		db.execSQL("DROP TABLE debt_table");
-		db.execSQL("DROP TABLE borrow_table");
-		db.execSQL("DROP TABLE debt_archive_table");
-		db.execSQL("DROP TABLE currency_table");
-		db.execSQL("DROP TABLE category_table");
-		db.execSQL("DROP TABLE purse_table");
-		db.execSQL("DROP TABLE daily_record_table");
-		db.execSQL("DROP TABLE currency_exchange_table");
-		//currency_table
-		db.execSQL("create table currency_table ("
-				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-				+ "currency_name TEXT,"
-				+ "currency_sign TEXT,"
-				+ "currency_id TEXT,"
-				+ "currency_main INTEGER,"
-				+ "empty TEXT"
-				+ ");");
+		if (arg1 == 1 && arg2 == 3) {
+			db.execSQL("DROP TABLE planning_table");
+			db.execSQL("DROP TABLE debt_table");
+			db.execSQL("DROP TABLE borrow_table");
+			db.execSQL("DROP TABLE debt_archive_table");
+			db.execSQL("DROP TABLE currency_table");
+			db.execSQL("DROP TABLE category_table");
+			db.execSQL("DROP TABLE purse_table");
+			db.execSQL("DROP TABLE daily_record_table");
+			db.execSQL("DROP TABLE currency_exchange_table");
+			//currency_table
+			db.execSQL("create table currency_table ("
+					+ "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+					+ "currency_name TEXT,"
+					+ "currency_sign TEXT,"
+					+ "currency_id TEXT,"
+					+ "currency_main INTEGER,"
+					+ "empty TEXT"
+					+ ");");
 
-		//currency costs
-		db.execSQL("create table currency_costs_table ("
-				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-				+ "currency_id TEXT,"
-				+ "date TEXT,"
-				+ "cost REAL,"
-				+ "empty TEXT"
-				+ ");");
+			//currency costs
+			db.execSQL("create table currency_costs_table ("
+					+ "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+					+ "currency_id TEXT,"
+					+ "date TEXT,"
+					+ "cost REAL,"
+					+ "empty TEXT"
+					+ ");");
 
-		//category_table
-		db.execSQL("create table category_table ("
-				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-				+ "category_name TEXT,"
-				+ "category_id TEXT,"
-				+ "category_type INTEGER,"
-				+ "icon INTEGER,"
-				+ "empty TEXT"
+			//category_table
+			db.execSQL("create table category_table ("
+					+ "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+					+ "category_name TEXT,"
+					+ "category_id TEXT,"
+					+ "category_type INTEGER,"
+					+ "icon INTEGER,"
+					+ "empty TEXT"
+					+ ");");
 
-				+ ");");
+			db.execSQL("create table incomes_table ("
+					+ "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+					+ "category_name TEXT,"
+					+ "category_id TEXT,"
+					+ "category_type INTEGER,"
+					+ "icon INTEGER,"
+					+ "empty TEXT"
+					+ ");");
 
-		db.execSQL("create table incomes_table ("
-				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-				+ "category_name TEXT,"
-				+ "category_id TEXT,"
-				+ "category_type INTEGER,"
-				+ "icon INTEGER,"
-				+ "empty TEXT"
+			db.execSQL("create table expanses_table ("
+					+ "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+					+ "category_name TEXT,"
+					+ "category_id TEXT,"
+					+ "category_type INTEGER,"
+					+ "icon INTEGER,"
+					+ "empty TEXT"
+					+ ");");
 
-				+ ");");
+			//subcategries table
+			db.execSQL("create table subcategory_table ("
+					+ "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+					+ "subcategory_name TEXT,"
+					+ "subcategory_id TEXT,"
+					+ "category_id TEXT,"
+					+ "icon INTEGER,"
+					+ "empty TEXT"
+					+ ");");
 
-		db.execSQL("create table expanses_table ("
-				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-				+ "category_name TEXT,"
-				+ "category_id TEXT,"
-				+ "category_type INTEGER,"
-				+ "icon INTEGER,"
-				+ "empty TEXT"
-
-				+ ");");
-
-		//subcategries table
-		db.execSQL("create table subcategory_table ("
-				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-				+ "subcategory_name TEXT,"
-				+ "subcategory_id TEXT,"
-				+ "category_id TEXT,"
-				+ "icon INTEGER,"
-				+ "empty TEXT"
-
-				+ ");");
-
-		//account table
-		db.execSQL("CREATE TABLE account_table ("
-				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-				+ "account_name TEXT,"
-				+ "account_id TEXT,"
-				+ "icon INTEGER,"
-				+ "empty TEXT"
-
-				+ ");");
-		//daily_record_table
-		db.execSQL("CREATE TABLE daily_record_table ("
-				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
-				+ "date TEXT,"
-				+ "category_id TEXT,"
-				+ "subcategory_id TEXT,"
-				+ "account_id TEXT,"
-				+ "currency_id TEXT,"
-				+ "record_id TEXT, "
-				+ "amount REAL, "
-				+ "empty TEXT"
-
-				+ ");");
-		//debt_borrow_table
-		db.execSQL("CREATE TABLE debt_borrow_table ("
-				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
-				+ "person_name TEXT,"
-				+ "person_number TEXT,"
-				+ "taken_date TEXT,"
-				+ "return_date TEXT,"
-				+ "calculate INTEGER,"
-				+ "to_archive INTEGER,"
-				+ "type INTEGER,"
-				+ "account_id TEXT,"
-				+ "currency_id TEXT,"
-				+ "amount REAL,"
-				+ "id TEXT,"
-				+ "photo_id TEXT,"
-				+ "empty TEXT"
-
-				+ ");");
-		//debtborrow recking table
-		db.execSQL("CREATE TABLE debtborrow_recking_table ("
-				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
-				+ "pay_date TEXT,"
-				+ "amount REAL,"
-				+ "id TEXT,"
-				+ "account_id TEXT,"
-				+ "comment TEXT,"
-				+ "empty TEXT"
-
-				+ ");");
-		//credit
-		db.execSQL("CREATE TABLE credit_table ("
-				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
-				+ "credit_name TEXT,"
-				+ "icon_id INTEGER,"
-				+ "key_for_include INTEGER,"
-				+ "key_for_archive INTEGER,"
-				+ "taken_date TEXT,"
-				+ "percent REAL,"
-				+ "percent_interval TEXT,"
-				+ "period_time TEXT,"
-				+ "period_time_tip TEXT," //man qoshdim p.s. sardor
-				+ "credit_id TEXT,"
-				+ "credit_value REAL,"
-				+ "credit_value_with_percent REAL,"
-				+ "currency_id TEXT,"
-				+ "empty TEXT"
-
-				+ ");");
-		db.execSQL("CREATE TABLE credit_archive_table ("
-				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
-				+ "credit_name TEXT,"
-				+ "icon_id INTEGER,"
-				+ "key_for_include INTEGER,"
-				+ "key_for_archive INTEGER,"
-				+ "taken_date TEXT,"
-				+ "percent REAL,"
-				+ "percent_interval TEXT,"
-				+ "period_time TEXT,"
-				+ "period_time_tip TEXT," //man qoshdim p.s. sardor
-				+ "credit_id TEXT,"
-				+ "credit_value REAL,"
-				+ "credit_value_with_percent REAL,"
-				+ "currency_id TEXT, "
-				+ "empty TEXT"
-
-				+ ");");
-		//recking_of_credit
-		db.execSQL("CREATE TABLE credit_recking_table ("
-				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
-				+ "pay_date TEXT,"
-				+ "amount REAL,"
-				+ "account_id TEXT,"
-				+ "comment TEXT,"
-				+ "credit_id TEXT, "
-				+ "empty TEXT"
-
-				+ ");");
-		db.execSQL("CREATE TABLE credit_recking_table_arch ("
-				+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
-				+ "pay_date TEXT,"
-				+ "amount REAL,"
-				+ "account_id TEXT,"
-				+ "comment TEXT,"
-				+ "credit_id TEXT,"
-				+ "empty TEXT"
-
-				+ ");");
-		initCurrencies(db);
-		initDefault(db);
-		initIncomesAndExpanses(db);
-		initAccounts(db);
+			//account table
+			db.execSQL("CREATE TABLE account_table ("
+					+ "_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+					+ "account_name TEXT,"
+					+ "account_id TEXT,"
+					+ "icon INTEGER,"
+					+ "empty TEXT"
+					+ ");");
+			//daily_record_table
+			db.execSQL("CREATE TABLE daily_record_table ("
+					+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "date TEXT,"
+					+ "category_id TEXT,"
+					+ "subcategory_id TEXT,"
+					+ "account_id TEXT,"
+					+ "currency_id TEXT,"
+					+ "record_id TEXT, "
+					+ "amount REAL, "
+					+ "empty TEXT"
+					+ ");");
+			//debt_borrow_table
+			db.execSQL("CREATE TABLE debt_borrow_table ("
+					+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "person_name TEXT,"
+					+ "person_number TEXT,"
+					+ "taken_date TEXT,"
+					+ "return_date TEXT,"
+					+ "calculate INTEGER,"
+					+ "to_archive INTEGER,"
+					+ "type INTEGER,"
+					+ "account_id TEXT,"
+					+ "currency_id TEXT,"
+					+ "amount REAL,"
+					+ "id TEXT,"
+					+ "photo_id TEXT,"
+					+ "empty TEXT"
+					+ ");");
+			//debtborrow recking table
+			db.execSQL("CREATE TABLE debtborrow_recking_table ("
+					+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "pay_date TEXT,"
+					+ "amount REAL,"
+					+ "id TEXT,"
+					+ "account_id TEXT,"
+					+ "comment TEXT,"
+					+ "empty TEXT"
+					+ ");");
+			//credit
+			db.execSQL("CREATE TABLE credit_table ("
+							+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+							+ "credit_name TEXT,"
+							+ "icon_id INTEGER,"
+							+ "key_for_include INTEGER,"
+							+ "key_for_archive INTEGER,"
+							+ "taken_date TEXT,"
+							+ "percent REAL,"
+							+ "percent_interval TEXT,"
+							+ "period_time TEXT,"
+							+ "period_time_tip TEXT," //man qoshdim p.s. sardor
+							+ "credit_id TEXT,"
+							+ "credit_value REAL,"
+							+ "credit_value_with_percent REAL,"
+							+ "currency_id TEXT,"
+							+ "empty TEXT"
+							+ ");");
+			db.execSQL("CREATE TABLE credit_archive_table ("
+					+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "credit_name TEXT,"
+					+ "icon_id INTEGER,"
+					+ "key_for_include INTEGER,"
+					+ "key_for_archive INTEGER,"
+					+ "taken_date TEXT,"
+					+ "percent REAL,"
+					+ "percent_interval TEXT,"
+					+ "period_time TEXT,"
+					+ "period_time_tip TEXT," //man qoshdim p.s. sardor
+					+ "credit_id TEXT,"
+					+ "credit_value REAL,"
+					+ "credit_value_with_percent REAL,"
+					+ "currency_id TEXT, "
+					+ "empty TEXT"
+					+ ");");
+			//recking_of_credit
+			db.execSQL("CREATE TABLE credit_recking_table ("
+					+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "pay_date TEXT,"
+					+ "amount REAL,"
+					+ "account_id TEXT,"
+					+ "comment TEXT,"
+					+ "credit_id TEXT, "
+					+ "empty TEXT"
+					+ ");");
+			db.execSQL("CREATE TABLE credit_recking_table_arch ("
+					+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "pay_date TEXT,"
+					+ "amount REAL,"
+					+ "account_id TEXT,"
+					+ "comment TEXT,"
+					+ "credit_id TEXT,"
+					+ "empty TEXT"
+					+ ");");
+			db.execSQL("CREATE TABLE sms_parsing_table ("
+					+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "number TEXT,"
+					+ "income_words TEXT,"
+					+ "expense_words TEXT,"
+					+ "amount_words TEXT,"
+					+ "account_id TEXT,"
+					+ "currency_id TEXT,"
+					+ "type INTEGER,"
+					+ "empty TEXT"
+					+ ");");
+			initCurrencies(db);
+			initDefault(db);
+			initIncomesAndExpanses(db);
+			initAccounts(db);
+		}
+		if (arg1 == 2 && arg2 == 3) {
+			db.execSQL("CREATE TABLE sms_parsing_table ("
+					+ "_id INTEGER PRIMARY KEY AUTOINCREMENT,"
+					+ "number TEXT,"
+					+ "income_words TEXT,"
+					+ "expense_words TEXT,"
+					+ "amount_words TEXT,"
+					+ "account_id TEXT,"
+					+ "currency_id TEXT,"
+					+ "type INTEGER,"
+					+ "empty TEXT"
+					+ ");");
+		}
 	}
 }

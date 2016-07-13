@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import com.jim.pocketaccounter.credit.AdapterCridetArchive;
 import com.jim.pocketaccounter.helper.FloatingActionButton;
@@ -44,11 +45,13 @@ public class CreditTabLay extends Fragment  implements View.OnClickListener, Vie
         TabLayout tabLayout = (TabLayout) V.findViewById(R.id.sliding_tabs);
         fb=(FloatingActionButton) V.findViewById(R.id.fbDebtBorrowFragment);
         fb.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 A1.pressedFab();
             }
         });
+        ((ImageView)PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel)).setVisibility(View.GONE);
         viewPager = (ViewPager) V.findViewById(R.id.viewpager);
         list = new ArrayList<>();
         CreditFragment creditFragment = new CreditFragment();

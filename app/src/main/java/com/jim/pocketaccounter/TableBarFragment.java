@@ -7,18 +7,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.jim.pocketaccounter.PocketAccounter;
-import com.jim.pocketaccounter.R;
-import com.jim.pocketaccounter.ReportByIncomeExpanseBarFragment;
-import com.jim.pocketaccounter.ReportByIncomeExpanseTableFragment;
-import com.jim.pocketaccounter.finance.FinanceRecord;
-import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 import com.jim.pocketaccounter.report.FilterDialog;
 import com.jim.pocketaccounter.report.FilterSelectable;
 
@@ -59,6 +52,8 @@ public class TableBarFragment extends Fragment {
         PocketAccounter.toolbar.setSubtitle("");
         tableFragment = new ReportByIncomeExpanseTableFragment();
         ivToolbarExcel = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel);
+        ivToolbarExcel.setImageDrawable(null);
+        ivToolbarExcel.setImageResource(R.drawable.ic_excel);
         ivToolbarExcel.setVisibility(View.VISIBLE);
         barFragment = new ReportByIncomeExpanseBarFragment();
         list.add(tableFragment);
@@ -118,7 +113,5 @@ public class TableBarFragment extends Fragment {
     @Override
     public void onStop() {
         super.onStop();
-        ivToolbarExcel.setVisibility(View.GONE);
-        ivToolbarMostRight.setVisibility(View.GONE);
     }
 }

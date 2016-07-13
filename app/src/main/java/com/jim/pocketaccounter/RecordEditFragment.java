@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.ActionBarOverlayLayout;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -425,7 +426,12 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
             }
         }
         if (parent != PocketAccounterGeneral.MAIN)
-            ((PocketAccounter) getContext()).replaceFragment(new RecordDetailFragment(date));
+            if (((PocketAccounter)getContext()).getSupportFragmentManager().getBackStackEntryCount() != 0) {
+                FragmentManager fm = ((PocketAccounter) getContext()).getSupportFragmentManager();
+                for (int i = 0; i < fm.getBackStackEntryCount(); i++)
+                    fm.popBackStack();
+                ((PocketAccounter) getContext()).replaceFragment(new RecordDetailFragment(date));
+            }
         else {
             ((PocketAccounter) getContext()).initialize(date);
             ((PocketAccounter) getContext()).getSupportFragmentManager().popBackStack();

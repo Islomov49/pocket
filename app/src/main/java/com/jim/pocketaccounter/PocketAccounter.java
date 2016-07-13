@@ -682,7 +682,11 @@ public class PocketAccounter extends AppCompatActivity {
                                 replaceFragment(new ReportByCategory(), PockerTag.REPORT_CATEGORY);
                                 break;
                             case 12:
-                                replaceFragment(new SMSParseFragment());
+                                if (getSupportFragmentManager().getBackStackEntryCount() == 1
+                                        && getSupportFragmentManager().findFragmentById(R.id.flMain).getTag()
+                                        .matches(com.jim.pocketaccounter.debt.PockerTag.ACCOUNT_MANAGEMENT))
+                                    return;
+                                replaceFragment(new SMSParseFragment(), com.jim.pocketaccounter.debt.PockerTag.ACCOUNT_MANAGEMENT);
                                 break;
                             case 13:
                                 Intent settings = new Intent(PocketAccounter.this, SettingsActivity.class);
@@ -781,6 +785,7 @@ public class PocketAccounter extends AppCompatActivity {
                         replaceFragment(new CreditTabLay(), com.jim.pocketaccounter.debt.PockerTag.CREDITS);
                     }
                     switch (tag) {
+                        case com.jim.pocketaccounter.debt.PockerTag.ACCOUNT_MANAGEMENT:
                         case PockerTag.ACCOUNT:
                         case PockerTag.CATEGORY:
                         case PockerTag.CURRENCY:
@@ -825,6 +830,9 @@ public class PocketAccounter extends AppCompatActivity {
                                 fragment.setArguments(fragmentManager.findFragmentById(R.id.flMain).getArguments());
                                 replaceFragment(fragment, PockerTag.DEBTS);
                                 break;
+                            }
+                            case "com.jim.pocketaccounter.SMSParseEditFragment": {
+                                replaceFragment(new SMSParseFragment(), PockerTag.DEBTS);
                             }
                         }
                         return;

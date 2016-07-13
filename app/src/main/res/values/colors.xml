@@ -65,6 +65,6 @@
     <color name="table_double" type="color">#dedfe5</color>
     <color name="table_selected" type="color">#4437b89e</color>
     <item name="bar_income" type="color">#8bc34a</item>
-    <item name="bar_expanse" type="color">#f7c95c</item>
-    <item name="bar_profit" type="color">#ee746d</item>
+    <item name="bar_expanse" type="color">#ee746d</item>
+    <item name="bar_profit" type="color">#f7c95c</item>
 </resources>

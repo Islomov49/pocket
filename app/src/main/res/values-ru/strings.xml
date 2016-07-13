@@ -1032,8 +1032,8 @@
     <string name="planning_notif_title">Время уведомления</string>
     <string-array name="report_by_income_expanse_table_titles">
         <item>Дата</item>
-        <item>Расходы</item>
         <item>Доходы</item>
+        <item>Расходы</item>
         <item>Прибыль</item>
     </string-array>
     <string name="report_income_expanse_total_income">Общий доход:</string>
@@ -1220,5 +1220,7 @@
     <string name="sms_parse_expense_id">sms_expense</string>
     <string name="sms_parse_expense_icon">icons_21</string>
     <string name="ch_cat">Choose category</string>
+    <string name="addedit">Добавить/Редактировать</string>
+    <string name="sms_parse">СМС Парсинг</string>
 
 </resources>

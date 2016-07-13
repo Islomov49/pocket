@@ -21,6 +21,6 @@ public interface PockerTag {
     String RATE_APP = "RATE_APP";
     String SHARE_APP = "SHARE_APP";
     String WRITE_TO_US = "WRITE_TO_US";
-
+    String ACCOUNT_MANAGEMENT = "ACCOUNT_MANAGEMENT";
     String FIRST = "FIRST";
 }
