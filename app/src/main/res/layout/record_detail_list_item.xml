@@ -10,10 +10,10 @@
         android:background="#000"
         android:layout_marginLeft="@dimen/ten_dp"
         android:layout_marginRight="@dimen/ten_dp"
-        android:layout_marginBottom="@dimen/eight_dp"
-        android:layout_marginTop="@dimen/five_dp"
+        android:layout_marginBottom="@dimen/five_dp"
+        android:layout_marginTop="@dimen/three_dp"
         card:cardMaxElevation="@dimen/five_dp"
-        card:cardElevation="@dimen/five_dp"
+        card:cardElevation="@dimen/three_dp"
         card:cardCornerRadius="@dimen/eight_dp"
         android:layout_gravity="center_horizontal">
         <LinearLayout

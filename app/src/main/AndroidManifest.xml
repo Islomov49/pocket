@@ -38,6 +38,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".PocketAccounter"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -56,13 +57,22 @@
                 <action android:name="android.provider.Telephony.SMS_RECEIVED"/>
             </intent-filter>
         </receiver>
-        <receiver android:name=".widget.WidgetProvider">
+        <receiver android:name=".widget.WidgetProvider"
+            >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter><meta-data android:name="android.appwidget.provider" android:resource="@layout/widget_provider_info"/>
         </receiver>
-        <activity android:name=".widget.SettingsWidget" android:label="Widget Settings"/>
-        <activity android:name=".widget.ChooseWidget" />
-        <activity android:name=".widget.CalcActivity" android:label=""/>
+        <activity android:name=".widget.SettingsWidget"
+            android:noHistory="true"
+            android:launchMode="singleInstance"
+            android:label="Widget Settings"/>
+        <activity android:name=".widget.ChooseWidget"
+            android:launchMode="singleInstance"
+            android:noHistory="true"/>
+        <activity android:name=".widget.CalcActivity"
+            android:noHistory="true"
+            android:launchMode="singleInstance"
+            android:label=""/>
     </application>
 </manifest>

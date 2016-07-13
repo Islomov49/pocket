@@ -17,6 +17,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
 
+import com.jim.pocketaccounter.PocketAccounter;
 import com.jim.pocketaccounter.R;
 import com.jim.pocketaccounter.finance.FinanceManager;
 import com.jim.pocketaccounter.finance.FinanceRecord;
@@ -152,7 +153,6 @@ public class WidgetProvider extends AppWidgetProvider {
             Intent button4 = new Intent(context, ChooseWidget.class);
             button4.putExtra(WidgetKeys.KEY_FOR_INTENT, WidgetKeys.BUTTON_1_ID);
             button4.putExtra(WidgetKeys.ACTION_WIDGET_RECEIVER_CHANGE_DIAGRAM_ID, widgetID);
-
             PendingIntent.getActivity(context, 1, button4, 0).cancel();
             PendingIntent pendingIntent_button4 = PendingIntent.getActivity(context, 1, button4, 0);
             views.setOnClickPendingIntent(R.id.button_1, pendingIntent_button4);
@@ -380,22 +380,12 @@ public class WidgetProvider extends AppWidgetProvider {
             }
             Log.d(WidgetKeys.TAG, mAppWidgetId + "");
 
-            if (mAppWidgetId != AppWidgetManager.INVALID_APPWIDGET_ID) {
-                sPref = context.getSharedPreferences("infoFirst", MODE_PRIVATE);
-                if (sPref.getBoolean(WidgetKeys.ACTION_WIDGET_CHANGE_DIAGRAM_STATUS, true)) {
-                    //INCOME DIAGRAMMA YASASH
-
-
-                    sPref.edit().putBoolean(WidgetKeys.ACTION_WIDGET_CHANGE_DIAGRAM_STATUS, false).apply();
-                } else {
-                    //EXPENCE DIAGRAMMA YASASH
-
-                    sPref.edit().putBoolean(WidgetKeys.ACTION_WIDGET_CHANGE_DIAGRAM_STATUS, true).apply();
-                }
-
-                updateWidget(context, AppWidgetManager.getInstance(context),
+           Intent Intik=new Intent(context, PocketAccounter.class);
+            Intik.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(Intik);
+            if(AppWidgetManager.INVALID_APPWIDGET_ID!=mAppWidgetId)
+                WidgetProvider.updateWidget(context, AppWidgetManager.getInstance(context),
                         mAppWidgetId);
-            }
         }
         super.onReceive(context, intent);
     }

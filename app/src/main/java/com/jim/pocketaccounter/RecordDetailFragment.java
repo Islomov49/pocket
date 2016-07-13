@@ -225,7 +225,7 @@ public class RecordDetailFragment extends Fragment implements OnClickListener {
                     PocketAccounter.financeManager.getRecords().remove(result.get(i));
                     result.remove(i);
                 }
-            }
+             }
             notifyDataSetChanged();
             selections = new boolean[result.size()];
             for (int i = 0; i < selections.length; i++) {

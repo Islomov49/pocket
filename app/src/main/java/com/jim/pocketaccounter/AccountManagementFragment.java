@@ -104,6 +104,7 @@ public class AccountManagementFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long pos) {
                 first = PocketAccounter.financeManager.getAccounts().get(i);
+                temp.clear();
                 for (int j=0; j<PocketAccounter.financeManager.getAccounts().size(); j++) {
                     if (!PocketAccounter.financeManager.getAccounts().get(j).getId().matches(first.getId()))
                         temp.add(PocketAccounter.financeManager.getAccounts().get(j));
@@ -130,6 +131,10 @@ public class AccountManagementFragment extends Fragment {
         ivYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (etAccountEditName.getText().toString().matches("")) {
+                    etAccountEditName.setError(getResources().getString(R.string.enter_amount));
+                    return;
+                }
                 boolean toCategoryFound = false;
                 boolean fromCategoryFound = false;
                 String toTransferId = getResources().getString(R.string.to_transfer_id);

@@ -37,7 +37,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/eighteen_sp"
                         android:textColor="@color/black_for_glavniy_text"
-                        android:text="Diagramm"
+                        android:text="@string/main_diagramm"
                         android:textStyle="bold"
                         android:layout_marginRight="@dimen/ten_dp"
                         />
@@ -87,7 +87,7 @@
 
                         android:textSize="@dimen/eighteen_sp"
                         android:textColor="@color/black_for_glavniy_text"
-                        android:text="Shurt cuts"
+                        android:text="@string/category"
                         android:layout_marginRight="@dimen/ten_dp"
                         />
                     <RelativeLayout

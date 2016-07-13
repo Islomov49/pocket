@@ -98,14 +98,14 @@
 
                             <TextView
                                 android:id="@+id/tvRecordIncome"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginLeft="@dimen/sixteen_dp"
                                 android:layout_marginRight="@dimen/ten_dp"
                                 android:layout_weight="1"
                                 android:gravity="center_horizontal"
-                                android:text="TextView"
+                                android:text=""
                                 android:textColor="@color/green_just"
                                 android:textSize="@dimen/twelve_sp" />
                         </LinearLayout>
@@ -134,14 +134,14 @@
 
                             <TextView
                                 android:id="@+id/tvRecordBalanse"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginLeft="@dimen/sixteen_dp"
                                 android:layout_marginRight="@dimen/ten_dp"
                                 android:layout_weight="1"
                                 android:gravity="center_horizontal"
-                                android:text="TextView"
+                                android:text=""
                                 android:textColor="@color/toolbar_text_color"
                                 android:textSize="@dimen/twelve_sp" />
                         </LinearLayout>
@@ -170,14 +170,14 @@
 
                             <TextView
                                 android:id="@+id/tvRecordExpanse"
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginLeft="@dimen/sixteen_dp"
                                 android:layout_marginRight="@dimen/sixteen_dp"
                                 android:layout_weight="1"
                                 android:gravity="center_horizontal"
-                                android:text="TextView"
+                                android:text=""
                                 android:textColor="@color/red"
                                 android:textSize="@dimen/twelve_sp" />
                         </LinearLayout>
@@ -186,7 +186,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/eighteen_sp"
 
-                        android:textColor="#414141"
+                        android:textColor="#c4c4c4"
                         android:text=". . ."
                         android:textSize="12dp"
 

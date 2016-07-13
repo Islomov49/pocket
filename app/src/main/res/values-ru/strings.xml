@@ -1104,7 +1104,7 @@
     <string name="ok">ОК</string>
     <string name="name">Имя</string>
     <string name="from_contact">Из контактов</string>
-    <string name="tel_number">номер телефона</string>
+    <string name="tel_number">Номер телефона</string>
     <string name="enter_phone_number">Введите номер телефона</string>
     <string name="debt_amount">Сумма</string>
     <string name="enter_debt_amoount">Введите сумму долга</string>
@@ -1199,11 +1199,11 @@
     <string name="left_date_debts">Осталось(год, месяц, день)</string>
     <string name="clear_warning">Записи, связанные с данной категорией будут удалены (</string>
     <string name="transfer_money">Перевод денег</string>
-    <string name="amount_keywords"><b>Определение суммы</b> \nКлючевые слова:</string>
+    <string name="amount_keywords">Определение суммы \nКлючевые слова:</string>
     <string name="from_transfer">Перевод со счета</string>
     <string name="from_transfer_id">from_transfer</string>
-    <string name="income_keywords"><b>Доход</b> \nКлючевые слова:</string>
-    <string name="expense_keywords"><b>Расход</b> \nКлючевые слова:</string>
+    <string name="income_keywords">Доход \nКлючевые слова:</string>
+    <string name="expense_keywords">Расход \nКлючевые слова:</string>
     <string name="to_transfer">Перевод на счет</string>
     <string name="to_transfer_id">to_transfer</string>
     <string name="transfer_icon">icons_25</string>
@@ -1219,8 +1219,25 @@
     <string name="sms_parse_expense">СМС расход</string>
     <string name="sms_parse_expense_id">sms_expense</string>
     <string name="sms_parse_expense_icon">icons_21</string>
-    <string name="ch_cat">Choose category</string>
+    <string name="ch_cat">Выберите категорию</string>
     <string name="addedit">Добавить/Редактировать</string>
     <string name="sms_parse">СМС Парсинг</string>
+    <string name="widget_settings">Настройки виджета</string>
+    <string name="all_transfer_operitions_you_can_see_bla_bla_bla_hullas_transactisiya_haqida">Все переводы денег фиксируются в балансе</string>
+    <string name="choose_type_sms">Выберите тип СМС</string>
+    <string name="curenncy_of_sms">Выберите валюта</string>
+    <string name="from_f">С</string>
+    <string name="key_for_parsing">Ключевые слова для парсинга</string>
+    <string name="main_diagramm">Диаграмма</string>
+    <string name="operaitons_with">Операция с</string>
+    <string name="period_of_diagramm">Период</string>
+    <string name="this_is_money_transfer_form_from_nsome_to_some_accaunt">Перевод денег с одного счета на другой</string>
+    <string name="to_t">На</string>
+    <string name="word_do_sifri">Введите слово, предшествующее цифре (сумме платежа)</string>
+    <string name="word_for_decide_expence">Слово, определяющее \"расход\"</string>
+    <string name="word_for_decide_income">Слово, определяющее \"доход\"</string>
+    <string name="zdes_idot_dlinnaya_obyasneniya_pro_to_shto_kak_rabotaet_klyuchi_i">Укажите ключевые слова, через запятую, после которых следует цифра (сумма платежа). Ключевые слова найдете в Вашем СМС, полученным от банка. Знаки препинания не учитываются.</string>
+    <string name="ti_type_parsinga_sms_sobsheni_eti_type_parsinga_sms_sobshenieti_type_parsinga_sms_sobsheni">Здесь Вы можете выбрать тип СМС, которое получаете от Вашего банка</string>
+    <string name="monthly_diagram">Расход и доход</string>
 
 </resources>

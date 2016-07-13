@@ -3,6 +3,7 @@ package com.jim.pocketaccounter;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -17,6 +18,7 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -214,6 +216,8 @@ public class SMSParseEditFragment extends Fragment {
 					PocketAccounter.financeManager.getSmsObjects().add(object);
 				}
 				PocketAccounter.financeManager.saveSmsObjects();
+				InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
 				((PocketAccounter)getContext()).getSupportFragmentManager().popBackStack();
 				((PocketAccounter)getContext()).replaceFragment(new SMSParseFragment(), com.jim.pocketaccounter.debt.PockerTag.ACCOUNT_MANAGEMENT);
 			}

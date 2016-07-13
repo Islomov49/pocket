@@ -751,6 +751,7 @@ public class PocketAccounter extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        Log.d("eewrwe", "onBackPressed: ");
         PRESSED = false;
         android.support.v4.app.Fragment temp00 = getSupportFragmentManager().
                 findFragmentById(R.id.flMain);
@@ -760,7 +761,7 @@ public class PocketAccounter extends AppCompatActivity {
             final AlertDialog.Builder builder = new AlertDialog.Builder(PocketAccounter.this);
             builder.setMessage(getString(R.string.dou_you_want_quit))
                     .setPositiveButton(getString(R.string.no), new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
+                        public void onClick(DialogInterface dialog,  int id) {
                         }
                     }).setNegativeButton(getString(R.string.exit), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
