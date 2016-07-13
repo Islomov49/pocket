@@ -1,8 +1,6 @@
 package com.jim.pocketaccounter;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -14,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.jim.pocketaccounter.helper.PocketAccounterGeneral;
 import com.jim.pocketaccounter.report.FilterDialog;
 import com.jim.pocketaccounter.report.FilterSelectable;
 
@@ -33,6 +30,8 @@ public class ReportByCategory extends Fragment {
         TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.tlReportByCategoryTab);
         final ReportByCategoryIncomesFragment incomesFragment = new ReportByCategoryIncomesFragment();
         final ReportByCategoryExpansesFragment expansesFragment = new ReportByCategoryExpansesFragment();
+        PocketAccounter.toolbar.findViewById(R.id.ivToolbarExcel).setVisibility(View.GONE);
+        PocketAccounter.toolbar.findViewById(R.id.spToolbar).setVisibility(View.GONE);
         ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
         ivToolbarMostRight.setImageResource(R.drawable.ic_filter);
         ivToolbarMostRight.setVisibility(View.VISIBLE);
@@ -104,17 +103,5 @@ public class ReportByCategory extends Fragment {
                 return getResources().getString(R.string.income);
             return getResources().getString(R.string.expanse);
         }
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight).setVisibility(View.GONE);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight).setVisibility(View.VISIBLE);
     }
 }

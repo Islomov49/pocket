@@ -155,6 +155,7 @@ public class SMSParseEditFragment extends Fragment {
 			etSmsParseAmountKeywords.setText(object.getAmountWords());
 		}
 		ivToolbarMostRight = (ImageView) PocketAccounter.toolbar.findViewById(R.id.ivToolbarMostRight);
+		ivToolbarMostRight.setVisibility(View.VISIBLE);
 		ivToolbarMostRight.setImageResource(R.drawable.check_sign);
 		ivToolbarMostRight.setOnClickListener(new View.OnClickListener() {
 			@Override
