@@ -3,6 +3,7 @@ package com.jim.pocketaccounter;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.appwidget.AppWidgetManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -58,6 +59,8 @@ import com.jim.pocketaccounter.helper.record.RecordIncomesView;
 import com.jim.pocketaccounter.intropage.IntroIndicator;
 import com.jim.pocketaccounter.syncbase.SignInGoogleMoneyHold;
 import com.jim.pocketaccounter.syncbase.SyncBase;
+import com.jim.pocketaccounter.widget.WidgetKeys;
+import com.jim.pocketaccounter.widget.WidgetProvider;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -229,7 +232,7 @@ public class PocketAccounter extends AppCompatActivity {
         spToolbar.setVisibility(View.GONE);
         ivToolbarMostRight.setImageResource(R.drawable.finance_calendar);
         ivToolbarMostRight.setVisibility(View.VISIBLE);
-        ivToolbarExcel.setImageResource(R.drawable.icons_1);
+        ivToolbarExcel.setImageResource(R.drawable.finance_trans);
         ivToolbarExcel.setVisibility(View.VISIBLE);
         ivToolbarExcel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -323,6 +326,14 @@ public class PocketAccounter extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         financeManager.saveRecords();
+        SharedPreferences sPref;
+        sPref = getSharedPreferences("infoFirst", MODE_PRIVATE);
+        int t=sPref.getInt(WidgetKeys.SPREF_WIDGET_ID,-1);
+        if(t>=0){
+            if(AppWidgetManager.INVALID_APPWIDGET_ID!=t)
+                WidgetProvider.updateWidget(this, AppWidgetManager.getInstance(this),
+                        t);
+        }
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean notif = prefs.getBoolean("general_notif", true);
         if (notif) {
@@ -558,7 +569,7 @@ public class PocketAccounter extends AppCompatActivity {
             subItem.setGroup(false);
             items.add(subItem);
         }
-        LeftMenuItem smsParse = new LeftMenuItem(cats[4], R.drawable.drawer_account);
+        LeftMenuItem smsParse = new LeftMenuItem(cats[4], R.drawable.drawer_sms);
         smsParse.setGroup(true);
         items.add(smsParse);
         LeftMenuItem settings = new LeftMenuItem(cats[5], R.drawable.drawer_settings);

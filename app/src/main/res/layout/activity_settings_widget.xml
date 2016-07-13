@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.jim.pocketaccounter.widget.SettingsWidget"
-    android:padding="16dp">
+    android:padding="@dimen/sixteen_dp">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -16,7 +16,7 @@
                 android:id="@+id/setsetste"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Widget Settings"
+                android:text="@string/widget_settings"
                 android:textSize="@dimen/twentysix_sp"
                 android:textColor="@color/black_for_glavniy_text"/>
 
@@ -61,7 +61,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black_for_glavniy_text"
-                        android:text="Period of diagramm"
+                        android:text="@string/period_of_diagramm"
                         android:textSize="@dimen/eighteen_sp"/>
                     <Spinner
                         android:id="@+id/perid_diagram"
@@ -70,30 +70,9 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentTop="true"
-                        android:layout_marginTop="2dp"></Spinner>
+                        android:layout_marginTop="@dimen/two_dp"></Spinner>
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/five_dp"
-                    >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black_for_glavniy_text"
-                        android:text="Main diagramm"
-                        android:textSize="@dimen/eighteen_sp"
-                        />
-                    <Spinner
-                        android:id="@+id/type_diagram"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginTop="2dp"></Spinner>
-                </RelativeLayout>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -148,11 +127,11 @@
                         <TextView
                             android:id="@+id/category_name_1"
                             android:layout_width="wrap_content"
-                            android:layout_height="70dp"
-                            android:text="Category1"
+                            android:layout_height="@dimen/seventy_dp"
+                            android:text=""
                             android:textSize="@dimen/eighteen_sp"
                             android:gravity="center"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="@dimen/ten_dp"
                             android:textColor="@color/black_for_glavniy_text" />
                     </LinearLayout>
 
@@ -170,7 +149,7 @@
 
                             android:layout_width="@dimen/thirty_dp"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginRight="@dimen/five_dp"
                             android:src="@drawable/ic_delete_black_24dp"
                             android:scaleType="centerInside"
                             android:id="@+id/delete_but1" />
@@ -179,7 +158,7 @@
                             android:layout_width="@dimen/thirty_dp"
                             android:layout_height="match_parent"
                             android:src="@drawable/ic_settings_black_24dp"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginRight="@dimen/five_dp"
                             android:scaleType="centerInside"
                             />
 
@@ -214,11 +193,11 @@
                         <TextView
                             android:id="@+id/category_name_2"
                             android:layout_width="wrap_content"
-                            android:layout_height="70dp"
+                            android:layout_height="@dimen/seventy_dp"
                             android:text="Category1"
                             android:textSize="@dimen/eighteen_sp"
                             android:gravity="center"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="@dimen/ten_dp"
                             android:textColor="@color/black_for_glavniy_text" />
                     </LinearLayout>
 
@@ -236,7 +215,7 @@
 
                             android:layout_width="@dimen/thirty_dp"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginRight="@dimen/five_dp"
                             android:src="@drawable/ic_delete_black_24dp"
                             android:scaleType="centerInside"
                             android:id="@+id/delete_but2" />
@@ -245,7 +224,7 @@
                             android:layout_width="@dimen/thirty_dp"
                             android:layout_height="match_parent"
                             android:src="@drawable/ic_settings_black_24dp"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginRight="@dimen/five_dp"
                             android:scaleType="centerInside"
                             />
 
@@ -280,11 +259,11 @@
                         <TextView
                             android:id="@+id/category_name_3"
                             android:layout_width="wrap_content"
-                            android:layout_height="70dp"
+                            android:layout_height="@dimen/seventy_dp"
                             android:text="Category1"
                             android:textSize="@dimen/eighteen_sp"
                             android:gravity="center"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="@dimen/ten_dp"
                             android:textColor="@color/black_for_glavniy_text" />
                     </LinearLayout>
 
@@ -302,7 +281,7 @@
 
                             android:layout_width="@dimen/thirty_dp"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginRight="@dimen/five_dp"
                             android:src="@drawable/ic_delete_black_24dp"
                             android:scaleType="centerInside"
                             android:id="@+id/delete_but3" />
@@ -311,7 +290,7 @@
                             android:layout_width="@dimen/thirty_dp"
                             android:layout_height="match_parent"
                             android:src="@drawable/ic_settings_black_24dp"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginRight="@dimen/five_dp"
                             android:scaleType="centerInside"
                             />
 
@@ -345,11 +324,11 @@
                         <TextView
                             android:id="@+id/category_name_4"
                             android:layout_width="wrap_content"
-                            android:layout_height="70dp"
+                            android:layout_height="@dimen/seventy_dp"
                             android:text="Category1"
                             android:textSize="@dimen/eighteen_sp"
                             android:gravity="center"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="@dimen/ten_dp"
                             android:textColor="@color/black_for_glavniy_text" />
                     </LinearLayout>
 
@@ -367,7 +346,7 @@
 
                             android:layout_width="@dimen/thirty_dp"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginRight="@dimen/five_dp"
                             android:src="@drawable/ic_delete_black_24dp"
                             android:scaleType="centerInside"
                             android:id="@+id/delete_but4" />
@@ -376,7 +355,7 @@
                             android:layout_width="@dimen/thirty_dp"
                             android:layout_height="match_parent"
                             android:src="@drawable/ic_settings_black_24dp"
-                            android:layout_marginRight="5dp"
+                            android:layout_marginRight="@dimen/five_dp"
                             android:scaleType="centerInside"
                             />
 

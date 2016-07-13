@@ -1,8 +1,10 @@
 package com.jim.pocketaccounter.helper;
 
+import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.telephony.SmsMessage;
 
@@ -14,10 +16,14 @@ import com.jim.pocketaccounter.finance.FinanceManager;
 import com.jim.pocketaccounter.finance.FinanceRecord;
 import com.jim.pocketaccounter.finance.RootCategory;
 import com.jim.pocketaccounter.finance.SubCategory;
+import com.jim.pocketaccounter.widget.WidgetKeys;
+import com.jim.pocketaccounter.widget.WidgetProvider;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.UUID;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class SMSMonitor extends BroadcastReceiver {
     private static final String ACTION = "android.provider.Telephony.SMS_RECEIVED";
@@ -184,6 +190,15 @@ public class SMSMonitor extends BroadcastReceiver {
                         {
                             manager.getRecords().add(record);
                             manager.saveRecords();
+                        }
+                        //TODO
+                        SharedPreferences sPref;
+                        sPref = context.getSharedPreferences("infoFirst", MODE_PRIVATE);
+                        int t=sPref.getInt(WidgetKeys.SPREF_WIDGET_ID,-1);
+                        if(t>=0){
+                            if(AppWidgetManager.INVALID_APPWIDGET_ID!=t)
+                                WidgetProvider.updateWidget(context, AppWidgetManager.getInstance(context),
+                                        t);
                         }
                     }
                 }

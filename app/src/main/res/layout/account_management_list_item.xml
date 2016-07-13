@@ -26,8 +26,8 @@
                     android:layout_marginLeft="@dimen/sixteen_dp"
                     android:layout_marginRight="@dimen/sixteen_dp">
                     <ImageView
-                        android:layout_width="@dimen/thirtyfive_dp"
-                        android:layout_height="@dimen/thirtyfive_dp"
+                        android:layout_width="@dimen/thirty_dp"
+                        android:layout_height="@dimen/thirty_dp"
                         android:layout_marginRight="@dimen/ten_dp"
                         android:layout_marginTop="@dimen/ten_dp"
                         android:layout_marginBottom="@dimen/ten_dp"
@@ -56,9 +56,9 @@
                     android:id="@+id/llAccManContainer"
                     android:orientation="vertical"
                     android:layout_marginTop="@dimen/ten_dp"
-                    android:layout_marginLeft="@dimen/thirty_dp"
+                    android:layout_marginLeft="@dimen/twenty_dp"
                     android:layout_marginRight="@dimen/thirty_dp"
-                    android:layout_marginBottom="@dimen/ten_dp" />
+                    />
             </LinearLayout>
 
         </LinearLayout>

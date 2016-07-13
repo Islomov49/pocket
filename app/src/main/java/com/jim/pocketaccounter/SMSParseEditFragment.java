@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -35,7 +36,7 @@ import static android.app.Activity.RESULT_OK;
 public class SMSParseEditFragment extends Fragment {
 	private EditText etSmsParseEditPhoneNumber, etSmsParseEditIncome,
 					 etSmsParseEditExpense, etSmsParseAmountKeywords;
-	private TextView tvSmsParseEditFromContact;
+	private FrameLayout tvSmsParseEditFromContact;
 	private final int PERMISSION_REQUEST_CONTACT = 5;
 	private int PICK_CONTACT = 10;
 	private ImageView ivToolbarMostRight;
@@ -50,8 +51,8 @@ public class SMSParseEditFragment extends Fragment {
 	}
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.sms_parse_edit, container, false);
-		tvSmsParseEditFromContact = (TextView) rootView.findViewById(R.id.tvSmsParseEditFromContact);
+		View rootView = inflater.inflate(R.layout.sms_parse_edit_moder, container, false);
+		tvSmsParseEditFromContact = (FrameLayout) rootView.findViewById(R.id.tvSmsParseEditFromContact);
 		tvSmsParseEditFromContact.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
@@ -82,15 +83,17 @@ public class SMSParseEditFragment extends Fragment {
 		rbOnlyExpense = (RadioButton) rgSmsParseEdit.findViewById(R.id.rbOnlyExpense);
 		rbOnlyIncome = (RadioButton) rgSmsParseEdit.findViewById(R.id.rbOnlyIncome);
 		rbBoth = (RadioButton) rgSmsParseEdit.findViewById(R.id.rbBoth);
+		etSmsParseEditIncome.setVisibility(View.GONE);
+		etSmsParseEditExpense.setVisibility(View.GONE);
 		rbOnlyExpense.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 				if (b) {
 					etSmsParseEditIncome.setText("");
-					etSmsParseEditIncome.setEnabled(false);
 					etSmsParseEditExpense.setText("");
-					etSmsParseEditExpense.setEnabled(false);
-				}
+					etSmsParseEditIncome.setVisibility(View.GONE);
+					etSmsParseEditExpense.setVisibility(View.GONE);
+					}
 			}
 		});
 		rbOnlyIncome.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -98,9 +101,10 @@ public class SMSParseEditFragment extends Fragment {
 			public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 				if (b) {
 					etSmsParseEditIncome.setText("");
-					etSmsParseEditIncome.setEnabled(false);
+
 					etSmsParseEditExpense.setText("");
-					etSmsParseEditExpense.setEnabled(false);
+					etSmsParseEditIncome.setVisibility(View.GONE);
+					etSmsParseEditExpense.setVisibility(View.GONE);
 				}
 			}
 		});
@@ -109,21 +113,22 @@ public class SMSParseEditFragment extends Fragment {
 			public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
 				if (b) {
 					etSmsParseEditIncome.setText("");
-					etSmsParseEditIncome.setEnabled(true);
+
 					etSmsParseEditExpense.setText("");
-					etSmsParseEditExpense.setEnabled(true);
+					etSmsParseEditIncome.setVisibility(View.VISIBLE);
+					etSmsParseEditExpense.setVisibility(View.VISIBLE);
 				}
 			}
 		});
 		String[] accounts = new String[PocketAccounter.financeManager.getAccounts().size()];
 		for (int i=0; i<PocketAccounter.financeManager.getAccounts().size(); i++)
 			accounts[i] = PocketAccounter.financeManager.getAccounts().get(i).getName();
-		ArrayAdapter accAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, accounts);
+		ArrayAdapter accAdapter = new ArrayAdapter(getContext(), R.layout.spiner_gravity_right3, accounts);
 		spSmsParseEditAccount.setAdapter(accAdapter);
 		String[] currencies = new String[PocketAccounter.financeManager.getCurrencies().size()];
 		for (int i=0; i<PocketAccounter.financeManager.getCurrencies().size(); i++)
 			currencies[i] = PocketAccounter.financeManager.getCurrencies().get(i).getAbbr();
-		ArrayAdapter currAdapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, currencies);
+		ArrayAdapter currAdapter = new ArrayAdapter(getContext(), R.layout.spiner_gravity_right3, currencies);
 		spSmsParseEditCurrency.setAdapter(currAdapter);
 		if (object != null) {
 			etSmsParseEditPhoneNumber.setText(object.getNumber());

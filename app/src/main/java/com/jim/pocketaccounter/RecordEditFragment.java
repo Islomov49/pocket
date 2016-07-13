@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.ActionBarOverlayLayout;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -396,6 +397,7 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
                     return;
                 }
                 createNewRecord();
+
                 break;
         }
     }
@@ -425,13 +427,14 @@ public class RecordEditFragment extends Fragment implements OnClickListener {
                 PocketAccounter.financeManager.getRecords().add(newRecord);
             }
         }
-        if (parent != PocketAccounterGeneral.MAIN)
-            if (((PocketAccounter)getContext()).getSupportFragmentManager().getBackStackEntryCount() != 0) {
+        if (parent != PocketAccounterGeneral.MAIN) {
+            if (((PocketAccounter) getContext()).getSupportFragmentManager().getBackStackEntryCount() != 0) {
                 FragmentManager fm = ((PocketAccounter) getContext()).getSupportFragmentManager();
                 for (int i = 0; i < fm.getBackStackEntryCount(); i++)
                     fm.popBackStack();
                 ((PocketAccounter) getContext()).replaceFragment(new RecordDetailFragment(date));
             }
+        }
         else {
             ((PocketAccounter) getContext()).initialize(date);
             ((PocketAccounter) getContext()).getSupportFragmentManager().popBackStack();

@@ -17,38 +17,92 @@
         card:cardCornerRadius="@dimen/eight_dp"
         android:layout_gravity="center_horizontal">
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <CheckBox
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/chbSmsObjectItem"
-                android:button="@drawable/blue_bg_checkbox"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="@dimen/sixteen_dp"
-                android:visibility="gone"/>
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:id="@+id/for_gone"
+                android:orientation="horizontal">
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/chbSmsObjectItem"
+                    android:button="@drawable/blue_bg_checkbox"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/ten_dp"
+                    android:layout_marginRight="@dimen/ten_dp"
+                    android:visibility="visible"/>
+                <FrameLayout
+                    android:layout_width="2px"
+                    android:layout_height="match_parent"
+                    android:background="@color/green_light_forline"
+                    />
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/sixteen_dp">
+               >
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tvSmsParseItemNumber"
-                        android:textColor="@color/toolbar_text_color"
-                        android:textSize="@dimen/sixteen_dp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_marginTop="@dimen/ten_dp"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tvaccount"
+                            android:textSize="@dimen/sixteen_dp"
+                            android:layout_marginLeft="@dimen/ten_dp"
+                            android:textColor="@color/black_for_glavniy_text"
+                            android:layout_toLeftOf="@+id/tvSmsParseItemNumber"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tvSmsParseItemNumber"
+                            android:textSize="@dimen/sixteen_dp"
+                            android:layout_marginLeft="@dimen/ten_dp"
+                            android:layout_marginRight="@dimen/sixteen_dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true" />
+                    </RelativeLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="2px"
+                        android:background="@color/green_light_forline"
+
+
+                        android:layout_marginTop="@dimen/four_dp"/>
+                    <FrameLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/tvSmsParsingItemInfo"
-                        android:textColor="@color/toolbar_text_color"
-                        android:textSize="@dimen/twelve_sp"
-                        android:layout_marginTop="@dimen/twelve_sp"/>
+                        android:background="@color/grey_light2"
+                        >
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/tvSmsParsingItemInfo"
+                            android:textColor="@color/black_for_glavniy_text"
+                            android:textSize="@dimen/twelve_sp"
+                            android:layout_marginTop="@dimen/ten_dp"
+                            android:layout_marginRight="@dimen/ten_dp"
+                            android:layout_marginLeft="@dimen/ten_dp"
+                            android:layout_marginBottom="@dimen/sixteen_sp"
+
+                            />
+                    </FrameLayout>
+
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

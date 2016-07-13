@@ -54,8 +54,8 @@ public class AccountManagementFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.account_management_layout, container, false);
         fabAccManAdd = (FloatingActionButton) rootView.findViewById(R.id.fabAccManAdd);
-        Bitmap temp = BitmapFactory.decodeResource(getResources(), R.drawable.currency_add);
-        Bitmap add = Bitmap.createScaledBitmap(temp, (int)getResources().getDimension(R.dimen.twentyfour_dp), (int)getResources().getDimension(R.dimen.twentyfour_dp), false);
+              Bitmap temp = BitmapFactory.decodeResource(getResources(), R.drawable.ic_compare_arrows_white_24dp);
+        Bitmap add = Bitmap.createScaledBitmap(temp, (int)getResources().getDimension(R.dimen.twentyfour_dp), (int)getResources().getDimension(R.dimen.twentyfour_dp), true);
         fabAccManAdd.setImageBitmap(add);
         fabAccManAdd.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -495,8 +495,8 @@ public class AccountManagementFragment extends Fragment {
             view.tvAccManAccName.setText(accountManagementObjects.get(position).getAccount().getName());
             TextView tv = new TextView(getContext());
             RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            lp.setMargins(0, (int)getContext().getResources().getDimension(R.dimen.ten_dp), 0, 0);
-            tv.setTextSize(getResources().getDimension(R.dimen.five_dp));
+            lp.setMargins(0, (int)getContext().getResources().getDimension(R.dimen.ten_dp), 0, (int)getContext().getResources().getDimension(R.dimen.ten_dp));
+            tv.setTextSize(getResources().getDimension(R.dimen.six_dp));
             tv.setTextColor(ContextCompat.getColor(getContext(), R.color.toolbar_text_color));
             tv.setGravity(Gravity.RIGHT);
             tv.setLayoutParams(lp);

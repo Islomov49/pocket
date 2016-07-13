@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jim.pocketaccounter.helper.FloatingActionButton;
@@ -60,7 +62,7 @@ public class SMSParseFragment extends Fragment {
 		PocketAccounter.toolbar.setTitle(R.string.sms_parse);
 		PocketAccounter.toolbar.setSubtitle("");
 		PocketAccounter.toolbar.findViewById(R.id.spToolbar).setVisibility(View.GONE);
-		Bitmap temp = BitmapFactory.decodeResource(getResources(), R.drawable.add_green);
+		Bitmap temp = BitmapFactory.decodeResource(getResources(), R.drawable.ic_add_white_24dp);
 		int size = (int) getResources().getDimension(R.dimen.thirty_dp);
 		Bitmap add = Bitmap.createScaledBitmap(temp, size, size, false);
 		fabSmsParse.setImageBitmap(add);
@@ -150,20 +152,27 @@ public class SMSParseFragment extends Fragment {
 		}
 		public void onBindViewHolder(final ViewHolder view, final int position) {
 			view.tvSmsParseItemNumber.setText(objects.get(position).getNumber());
+			view.AccoountName.setText(objects.get(position).getAccount().getName());
+
 			String text = "";
 			if (objects.get(position).getType() == PocketAccounterGeneral.SMS_ONLY_EXPENSE)
-				text = text + getResources().getString(R.string.only_expense);
+				text = getResources().getString(R.string.only_expense)+"\n\n";
 			else if (objects.get(position).getType() == PocketAccounterGeneral.SMS_ONLY_EXPENSE)
-				text = text + getResources().getString(R.string.only_income);
+				text = getResources().getString(R.string.only_income)+"\n\n";
 			else {
-				text = text + getResources().getString(R.string.income_keywords)+objects.get(position).getIncomeWords()+"\n"+
-						getResources().getString(R.string.expense_keywords)+objects.get(position).getExpenseWords()+"\n";
+				text = getResources().getString(R.string.income_keywords)+" "+objects.get(position).getIncomeWords()+"\n\n"+
+						getResources().getString(R.string.expense_keywords)+" "+objects.get(position).getExpenseWords()+"\n\n";
 			}
-			text = text + getResources().getString(R.string.amount_keywords)+objects.get(position).getAmountWords();
+			text = text + getResources().getString(R.string.amount_keywords)+" "+objects.get(position).getAmountWords()+"\n\n";
+			text+= getResources().getString(R.string.currency)+": "+objects.get(position).getCurrency().getAbbr();
 			view.tvSmsParsingItemInfo.setText(text);
-			if (mode == PocketAccounterGeneral.NORMAL_MODE)
+			if (mode == PocketAccounterGeneral.NORMAL_MODE){
+
+				view.forGONE.setVisibility(View.GONE);
 				view.chbSmsObjectItem.setVisibility(View.GONE);
+			}
 			else {
+				view.forGONE.setVisibility(View.VISIBLE);
 				view.chbSmsObjectItem.setVisibility(View.VISIBLE);
 				view.chbSmsObjectItem.setChecked(selected[position]);
 			}
@@ -190,12 +199,16 @@ public class SMSParseFragment extends Fragment {
 		public CheckBox chbSmsObjectItem;
 		public TextView tvSmsParseItemNumber;
 		public TextView tvSmsParsingItemInfo;
+		public TextView AccoountName;
 		public View rootView;
+		public LinearLayout forGONE;
 		public ViewHolder(View view) {
 			super(view);
 			chbSmsObjectItem = (CheckBox) view.findViewById(R.id.chbSmsObjectItem);
 			tvSmsParseItemNumber = (TextView) view.findViewById(R.id.tvSmsParseItemNumber);
 			tvSmsParsingItemInfo = (TextView) view.findViewById(R.id.tvSmsParsingItemInfo);
+			AccoountName = (TextView) view.findViewById(R.id.tvaccount);
+			forGONE = (LinearLayout) view.findViewById(R.id.for_gone);
 			rootView = view;
 		}
 	}

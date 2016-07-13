@@ -38,21 +38,22 @@ public class WidgetProvider extends AppWidgetProvider {
     @Override
     public void onEnabled(Context context) {
         super.onEnabled(context);
+        SharedPreferences sPref;
+        sPref = context.getSharedPreferences("infoFirst", MODE_PRIVATE);
 
     }
 
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+    @Override
+    public void onDeleted(Context context, int[] appWidgetIds) {
+        super.onDeleted(context, appWidgetIds);
         SharedPreferences sPref;
         sPref = context.getSharedPreferences("infoFirst", MODE_PRIVATE);
-        ArrayList<RootCategory> listCategory;
-        FinanceManager financeManager = new FinanceManager(context);
-        listCategory = financeManager.getCategories();
-     /* Activatsiya buttonov buni settingsi ichiga*/
-        sPref.edit().putString(WidgetKeys.BUTTON_3_ID, listCategory.get(3).getId()).apply();
-        sPref.edit().putString(WidgetKeys.BUTTON_1_ID, listCategory.get(0).getId()).apply();
-        sPref.edit().putString(WidgetKeys.BUTTON_2_ID, listCategory.get(1).getId()).apply();
-        sPref.edit().putString(WidgetKeys.BUTTON_4_ID, listCategory.get(2).getId()).apply();
-        /* */
+        sPref.edit().putInt(WidgetKeys.SPREF_WIDGET_ID,-1).apply();
+    }
+
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+
+
         super.onUpdate(context, appWidgetManager, appWidgetIds);
         for (int i : appWidgetIds) {
             updateWidget(context, appWidgetManager, i);
@@ -62,7 +63,7 @@ public class WidgetProvider extends AppWidgetProvider {
     }
 
 
-    static void updateWidget(Context context, AppWidgetManager appWidgetManager,
+    static public void updateWidget(Context context, AppWidgetManager appWidgetManager,
                              int widgetID) {
         SharedPreferences sPref;
         ArrayList<RootCategory> listCategory;
@@ -70,7 +71,7 @@ public class WidgetProvider extends AppWidgetProvider {
         sPref = context.getSharedPreferences("infoFirst", MODE_PRIVATE);
         FinanceManager financeManager = new FinanceManager(context);
         listCategory = financeManager.getCategories();
-
+        sPref.edit().putInt(WidgetKeys.SPREF_WIDGET_ID,widgetID).apply();
 
         butID_1 = sPref.getString(WidgetKeys.BUTTON_1_ID, WidgetKeys.BUTTON_DISABLED);
         butID_2 = sPref.getString(WidgetKeys.BUTTON_2_ID, WidgetKeys.BUTTON_DISABLED);
@@ -313,7 +314,8 @@ public class WidgetProvider extends AppWidgetProvider {
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(Color.WHITE);
         canvas.drawRect(new RectF(0, 0, w, h), paint);
-        paint.setColor(ContextCompat.getColor(context, R.color.info_header_text));
+        //TODO
+        paint.setColor(ContextCompat.getColor(context, R.color.info_header_lines));
         float one_dp = context.getResources().getDimension(R.dimen.one_dp);
         RectF container = new RectF(3*one_dp, 3*one_dp, w-3*one_dp, h-3*one_dp);
         float margin = container.height()/5;
@@ -332,14 +334,14 @@ public class WidgetProvider extends AppWidgetProvider {
         }
         paint.setAlpha(0xAA);
         paint.setStrokeWidth(1.2f*one_dp);
-        paint.setColor(ContextCompat.getColor(context, R.color.red_green_darker_monoxrom_transparent));
+        paint.setColor(ContextCompat.getColor(context,R.color.green_light_darker_transparent));
         for (int i=0; i<incPoints.length; i++) {
             if (i == 0) continue;
             canvas.drawCircle(incPoints[i-1].x, incPoints[i-1].y, one_dp*1.6f, paint);
             canvas.drawLine(incPoints[i-1].x, incPoints[i-1].y, incPoints[i].x, incPoints[i].y, paint);
             canvas.drawCircle(incPoints[i].x, incPoints[i].y, one_dp*1.6f, paint);
         }
-        paint.setColor(ContextCompat.getColor(context, R.color.green_light_darker_transparent));
+        paint.setColor(ContextCompat.getColor(context, R.color.red_green_darker_monoxrom_transparent ));
         for (int i=0; i<expPoints.length; i++) {
             if (i == 0) continue;
             canvas.drawCircle(expPoints[i-1].x, expPoints[i-1].y, one_dp*1.6f, paint);

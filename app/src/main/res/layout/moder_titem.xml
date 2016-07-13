@@ -148,7 +148,8 @@
             android:paddingRight="@dimen/sixteen_dp"
             android:paddingBottom="@dimen/ten_dp"
             android:paddingTop="@dimen/six_dp"
-            android:background="@color/grey_light2">
+            android:background="@color/grey_light2"
+            >
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

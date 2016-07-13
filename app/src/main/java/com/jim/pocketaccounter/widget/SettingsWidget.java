@@ -46,7 +46,7 @@ public class SettingsWidget extends AppCompatActivity {
     TextView category_name_3;
     TextView category_name_4;
     boolean is_from_widget=false;
-    Spinner diagram_type,diagram_period;
+    Spinner diagram_period;
     SharedPreferences sPref;
     SharedPreferences.Editor edit;
     ArrayList<RootCategory> listCategory;
@@ -96,46 +96,12 @@ public class SettingsWidget extends AppCompatActivity {
         category_name_3=(TextView) findViewById(R.id.category_name_3);
         category_name_4=(TextView) findViewById(R.id.category_name_4);
 
-        diagram_type=(Spinner) findViewById(R.id.type_diagram);
         diagram_period=(Spinner) findViewById(R.id.perid_diagram);
 
-        ArrayAdapter<String> type_adap = new ArrayAdapter<String>(this,
-                R.layout.adapter_spiner, new String[] {
-                getString(R.string.income), getString(R.string.expanse)
-        });
-        diagram_type.setAdapter(type_adap);
-        int t=sPref.getInt(WidgetKeys.SETTINGS_WIDGET_DIAGRAMMTYPE,0);
-        switch (t){
-            case 101 :
-                diagram_type.setSelection(0);
-                break;
-            case 100 :
-                diagram_type.setSelection(1);
-                break;
 
-        }
-        diagram_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("etttet", position+"");
-                if(position==0)
-                edit.putInt(WidgetKeys.SETTINGS_WIDGET_DIAGRAMMTYPE,WidgetKeys.SETTINGS_WIDGET_DIAGRAMMTYPE_INCOME).commit();
-                else
-                    edit.putInt(WidgetKeys.SETTINGS_WIDGET_DIAGRAMMTYPE,WidgetKeys.SETTINGS_WIDGET_DIAGRAMMTYPE_EXPENCE).commit();
-                if(AppWidgetManager.INVALID_APPWIDGET_ID!=mAppWidgetId)
-                    WidgetProvider.updateWidget(getApplicationContext(), AppWidgetManager.getInstance(getApplicationContext()),
-                            mAppWidgetId);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
         ArrayAdapter<String> period_adap = new ArrayAdapter<String>(this,
                 R.layout.adapter_spiner, new String[] {
-                getString(R.string.mont),getString(R.string.weekk), getString(R.string.dayy),
+                getString(R.string.mont),getString(R.string.weekk)
         });
         diagram_period.setAdapter(period_adap);
         int a=sPref.getInt(WidgetKeys.SETTINGS_WIDGET_PERIOD_TYPE,0);
@@ -146,9 +112,6 @@ public class SettingsWidget extends AppCompatActivity {
             case 100 :
                 diagram_period.setSelection(1);
                 break;
-            case 110:
-                diagram_period.setSelection(2);
-                break;
 
         }
         diagram_period.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -158,8 +121,7 @@ public class SettingsWidget extends AppCompatActivity {
                     edit.putInt(WidgetKeys.SETTINGS_WIDGET_PERIOD_TYPE,WidgetKeys.SETTINGS_WIDGET_PERIOD_TYPE_MONTH).commit();
                 else if(position==1)
                     edit.putInt(WidgetKeys.SETTINGS_WIDGET_PERIOD_TYPE,WidgetKeys.SETTINGS_WIDGET_PERIOD_TYPE_WEEK).commit();
-                else
-                    edit.putInt(WidgetKeys.SETTINGS_WIDGET_PERIOD_TYPE,WidgetKeys.SETTINGS_WIDGET_PERIOD_TYPE_DAY).commit();
+
                if(AppWidgetManager.INVALID_APPWIDGET_ID!=mAppWidgetId)
                 WidgetProvider.updateWidget(getApplicationContext(), AppWidgetManager.getInstance(getApplicationContext()),
                         mAppWidgetId);

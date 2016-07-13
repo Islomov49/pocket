@@ -1199,11 +1199,11 @@
     <string name="dou_delete_arc">"Do you want to delete the record? "</string>
     <string name="clear_warning">Records with this category will deleted (</string>
     <string name="transfer_money">Перевод денег</string>
-    <string name="amount_keywords">Определение суммы \n(ключевые слова):</string>
+    <string name="amount_keywords"><b>Определение суммы</b> \nКлючевые слова:</string>
     <string name="from_transfer">Перевод со счета</string>
     <string name="from_transfer_id">from_transfer</string>
-    <string name="income_keywords">Доход \n (ключевые слова):</string>
-    <string name="expense_keywords">Расход \n (ключевые слова):</string>
+    <string name="income_keywords"><b>Доход</b> \nКлючевые слова:</string>
+    <string name="expense_keywords"><b>Расход</b> \nКлючевые слова:</string>
     <string name="to_transfer">Перевод на счет</string>
     <string name="to_transfer_id">to_transfer</string>
     <string name="transfer_icon">icons_25</string>

@@ -8,6 +8,8 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvSmsParseList"
         android:layout_width="match_parent"
+        android:paddingTop="@dimen/sevent_dp"
+
         android:layout_height="match_parent"/>
     <com.jim.pocketaccounter.helper.FloatingActionButton
         android:layout_width="@dimen/fiftysix_dp"
