@@ -2,6 +2,7 @@ package com.jim.pocketaccounter.widget;
 
 import android.app.Dialog;
 import android.appwidget.AppWidgetManager;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,6 +43,7 @@ public class ChooseWidget extends AppCompatActivity implements View.OnClickListe
     private FinanceManager financeManager;
     private String BUTTON_ID;
     int mAppWidgetId;
+    String GOBACK="s";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +60,13 @@ public class ChooseWidget extends AppCompatActivity implements View.OnClickListe
                         AppWidgetManager.INVALID_APPWIDGET_ID);
                 BUTTON_ID=getIntent().getStringExtra(WidgetKeys.KEY_FOR_INTENT);
             }
+        try {
+        GOBACK=getIntent().getStringExtra(WidgetKeys.INTENT_FOR_BACK_SETTINGS);
+        }
+        catch (Exception o){
+
+        }
+
 
 
 
@@ -150,6 +159,13 @@ public class ChooseWidget extends AppCompatActivity implements View.OnClickListe
                 if(AppWidgetManager.INVALID_APPWIDGET_ID!=mAppWidgetId)
                     WidgetProvider.updateWidget(getApplicationContext(), AppWidgetManager.getInstance(getApplicationContext()),
                             mAppWidgetId);
+                if(GOBACK!=null){
+                    Intent aint=new Intent(ChooseWidget.this,SettingsWidget.class);
+                    aint.setAction(WidgetKeys.ACTION_WIDGET_RECEIVER_CHANGE_DIAGRAM_set);
+                    aint.putExtra(WidgetKeys.ACTION_WIDGET_RECEIVER_CHANGE_DIAGRAM_ID,
+                            mAppWidgetId);
+                    startActivity(aint);
+                }
                 finish();
             }
 
@@ -164,6 +180,13 @@ public class ChooseWidget extends AppCompatActivity implements View.OnClickListe
                 if(AppWidgetManager.INVALID_APPWIDGET_ID!=mAppWidgetId)
                     WidgetProvider.updateWidget(getApplicationContext(), AppWidgetManager.getInstance(getApplicationContext()),
                             mAppWidgetId);
+                if(GOBACK!=null){
+                    Intent aint=new Intent(ChooseWidget.this,SettingsWidget.class);
+                    aint.setAction(WidgetKeys.ACTION_WIDGET_RECEIVER_CHANGE_DIAGRAM_set);
+                    aint.putExtra(WidgetKeys.ACTION_WIDGET_RECEIVER_CHANGE_DIAGRAM_ID,
+                            mAppWidgetId);
+                    startActivity(aint);
+                }
                 finish();
 
             }
@@ -178,6 +201,13 @@ public class ChooseWidget extends AppCompatActivity implements View.OnClickListe
                 if(AppWidgetManager.INVALID_APPWIDGET_ID!=mAppWidgetId)
                     WidgetProvider.updateWidget(getApplicationContext(), AppWidgetManager.getInstance(getApplicationContext()),
                             mAppWidgetId);
+                if(GOBACK!=null){
+                    Intent aint=new Intent(ChooseWidget.this,SettingsWidget.class);
+                    aint.setAction(WidgetKeys.ACTION_WIDGET_RECEIVER_CHANGE_DIAGRAM_set);
+                    aint.putExtra(WidgetKeys.ACTION_WIDGET_RECEIVER_CHANGE_DIAGRAM_ID,
+                            mAppWidgetId);
+                    startActivity(aint);
+                }
                 finish();
 
             }
@@ -291,7 +321,7 @@ public class ChooseWidget extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onStop() {
         super.onStop();
-        financeManager.saveCategories();
+
     }
 
 

@@ -21,7 +21,9 @@ public class WidgetKeys {
     public static String ACTION_WIDGET_CHANGE_DIAGRAM_STATUS="changediagrammstatus";
     public static String KEY_FOR_INTENT="changediasdasdawqgrammstatus";
     public static String KEY_FOR_INTENT_ID="idididi";
-    public static String SPREF_WIDGET_ID="idididi";
+    public static String SPREF_WIDGET_ID="idiasdidi";
+    public static String INTENT_FOR_BACK_SETTINGS="idiasdasdasddidi";
+    public static String INTENT_GO_BACK="gobackasdasd";
     public static int REQUET_CODE_INTENT=11;
 
 

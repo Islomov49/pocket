@@ -396,8 +396,9 @@ public class InfoDebtBorrowFragment extends Fragment implements View.OnClickList
                 @Override
                 public void onClick(View v) {
                     final SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy");
+                    int len = debtBorrow.getCurrency().getAbbr().length();
                     if (!enterPay.getText().toString().isEmpty() && Double.parseDouble(enterPay.getText().toString()) != 0) {
-                        if (Double.parseDouble(leftAmount.getText().toString().substring(0, leftAmount.getText().toString().length() - 1))
+                        if (Double.parseDouble(leftAmount.getText().toString().substring(0, leftAmount.getText().toString().length() - len))
                                 - Double.parseDouble(enterPay.getText().toString()) < 0) {
                             final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                             builder.setMessage(getResources().getString(R.string.incorrect_pay))

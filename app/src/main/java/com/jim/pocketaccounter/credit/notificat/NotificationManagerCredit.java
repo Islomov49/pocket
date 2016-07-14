@@ -136,7 +136,7 @@ public class NotificationManagerCredit {
 				to.set(Calendar.MINUTE, cal.get(Calendar.MINUTE));
 				to.set(Calendar.SECOND, 0);
 
-				to.add(Calendar.DAY_OF_YEAR, 1);
+				to.add(Calendar.DAY_OF_YEAR, -1);
 
 				String msg = context.getString(R.string.payment_ends_for_notify);
 

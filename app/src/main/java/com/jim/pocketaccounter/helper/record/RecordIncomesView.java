@@ -292,6 +292,7 @@ public class RecordIncomesView extends View implements 	GestureDetector.OnGestur
 						break;
 				}
 				PocketAccounter.PRESSED = false;
+				PocketAccounter.financeManager.saveExpenses();
 				dialog.dismiss();
 			}
 		});

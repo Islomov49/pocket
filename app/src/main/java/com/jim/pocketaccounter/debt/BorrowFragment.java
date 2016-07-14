@@ -284,7 +284,8 @@ public class BorrowFragment extends Fragment {
                                     }
                                 }
                                 if (!enterPay.getText().toString().isEmpty()) {
-                                    if (Double.parseDouble(view.BorrowPersonSumm.getText().toString().substring(0, view.BorrowPersonSumm.getText().toString().length() - 1))
+                                    int len = person.getCurrency().getAbbr().length();
+                                    if (Double.parseDouble(view.BorrowPersonSumm.getText().toString().substring(0, view.BorrowPersonSumm.getText().toString().length() - len))
                                             - Double.parseDouble(enterPay.getText().toString()) < 0) {
                                         final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                                         final String finalAc = ac;

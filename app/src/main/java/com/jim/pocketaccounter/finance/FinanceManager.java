@@ -84,6 +84,8 @@ public class FinanceManager {
 	public ArrayList<RootCategory> getIncomes() {return incomes;}
 	public void saveDebtBorrows () {db.saveDebtBorrowsToTable(debtBorrows);}
 	public void saveRecords () {db.saveDatasToDailyRecordTable(records);}
+	public void saveIncomes() {db.saveIncomes(incomes);}
+	public void saveExpenses() {db.saveExpanses(expanses);}
 	public ArrayList<DebtBorrow> loadDebtBorrows () {return db.loadDebtBorrows();}
 	public void saveAllDatas() {
 		db.saveExpanses(expanses);

@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -175,6 +176,12 @@ public class SMSParseFragment extends Fragment {
 				view.forGONE.setVisibility(View.VISIBLE);
 				view.chbSmsObjectItem.setVisibility(View.VISIBLE);
 				view.chbSmsObjectItem.setChecked(selected[position]);
+				view.chbSmsObjectItem.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+					@Override
+					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+						selected[position] = isChecked;
+					}
+				});
 			}
 			view.rootView.setOnClickListener(new View.OnClickListener() {
 				@Override
@@ -184,7 +191,6 @@ public class SMSParseFragment extends Fragment {
 					}
 					else {
 						view.chbSmsObjectItem.setChecked(!view.chbSmsObjectItem.isChecked());
-						selected[position] = view.chbSmsObjectItem.isChecked();
 					}
 				}
 			});

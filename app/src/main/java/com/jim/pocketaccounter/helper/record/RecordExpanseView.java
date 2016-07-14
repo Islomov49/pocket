@@ -315,6 +315,7 @@ public class RecordExpanseView extends View implements 	GestureDetector.OnGestur
 						break;
 				}
 				PocketAccounter.PRESSED = false;
+				PocketAccounter.financeManager.saveExpenses();
 				dialog.dismiss();
 			}
 		});

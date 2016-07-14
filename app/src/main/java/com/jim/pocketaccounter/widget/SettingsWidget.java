@@ -279,6 +279,8 @@ public class SettingsWidget extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent chooseint=new Intent(SettingsWidget.this,ChooseWidget.class);
                     chooseint.putExtra(WidgetKeys.KEY_FOR_INTENT,WidgetKeys.BUTTON_1_ID);
+                    chooseint.putExtra(WidgetKeys.INTENT_FOR_BACK_SETTINGS,WidgetKeys.INTENT_GO_BACK);
+                    chooseint.putExtra(WidgetKeys.ACTION_WIDGET_RECEIVER_CHANGE_DIAGRAM_ID, mAppWidgetId);
                     startActivityForResult(chooseint,WidgetKeys.REQUET_CODE_INTENT);
                 }
             });
@@ -293,6 +295,8 @@ public class SettingsWidget extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent chooseint=new Intent(SettingsWidget.this,ChooseWidget.class);
                     chooseint.putExtra(WidgetKeys.KEY_FOR_INTENT,WidgetKeys.BUTTON_2_ID);
+                    chooseint.putExtra(WidgetKeys.INTENT_FOR_BACK_SETTINGS,WidgetKeys.INTENT_GO_BACK);
+                    chooseint.putExtra(WidgetKeys.ACTION_WIDGET_RECEIVER_CHANGE_DIAGRAM_ID, mAppWidgetId);
                     startActivityForResult(chooseint,WidgetKeys.REQUET_CODE_INTENT);
                 }
             });
@@ -308,6 +312,8 @@ public class SettingsWidget extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent chooseint=new Intent(SettingsWidget.this,ChooseWidget.class);
                     chooseint.putExtra(WidgetKeys.KEY_FOR_INTENT,WidgetKeys.BUTTON_3_ID);
+                    chooseint.putExtra(WidgetKeys.INTENT_FOR_BACK_SETTINGS,WidgetKeys.INTENT_GO_BACK);
+                    chooseint.putExtra(WidgetKeys.ACTION_WIDGET_RECEIVER_CHANGE_DIAGRAM_ID, mAppWidgetId);
                     startActivityForResult(chooseint,WidgetKeys.REQUET_CODE_INTENT);
                 }
             });
@@ -324,6 +330,8 @@ public class SettingsWidget extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent chooseint=new Intent(SettingsWidget.this,ChooseWidget.class);
                     chooseint.putExtra(WidgetKeys.KEY_FOR_INTENT,WidgetKeys.BUTTON_4_ID);
+                    chooseint.putExtra(WidgetKeys.INTENT_FOR_BACK_SETTINGS,WidgetKeys.INTENT_GO_BACK);
+                    chooseint.putExtra(WidgetKeys.ACTION_WIDGET_RECEIVER_CHANGE_DIAGRAM_ID, mAppWidgetId);
                     startActivityForResult(chooseint,WidgetKeys.REQUET_CODE_INTENT);
                 }
             });
